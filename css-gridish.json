@@ -1,0 +1,39 @@
+{
+	"prefix": "bx",
+	"breakpoints": {
+		"xs": {
+			"breakpoint": 36,
+			"columns": 12,
+			"gutter": "10px",
+			"margin": "3vw"
+		},
+		"s": {
+			"breakpoint": 48,
+			"columns": 12,
+			"gutter": "20px",
+			"margin": "5vw"
+		},
+		"m": {
+			"breakpoint": 62,
+			"columns": 12,
+			"gutter": "20px",
+			"margin": "5vw"
+		},
+		"l": {
+			"breakpoint": 75,
+			"columns": 12,
+			"gutter": "20px",
+			"margin": "5vw"
+		},
+		"xl": {
+			"breakpoint": 100,
+			"columns": 12,
+			"gutter": "20px",
+			"margin": "5vw"
+		}
+	},
+	"extraArtboards": {},
+	"rem": 16,
+	"rowHeight": 0.5,
+	"rows": 60
+}
