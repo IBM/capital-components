@@ -1,3 +1,4 @@
-import DataTable from './components/DataTable'
+import DataTable from "./components/DataTable";
+import Grid, { Col } from "./components/Grid";
 
-export { DataTable }
+export { DataTable, Grid, Col };

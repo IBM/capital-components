@@ -16,7 +16,7 @@ const Flex = styled<{ direction?: "column" | "row"; padding?: string }, "div">("
   ${({ padding }) => buildSpacingFromString(padding)};
 `;
 
-export const Col = ({
+export default ({
   size,
   height,
   padding = "horizontal",

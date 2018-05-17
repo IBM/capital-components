@@ -12,7 +12,7 @@ const preventShrinkStyle = css`
   flex-shrink: 0;
 `;
 
-const Grid = (
+export default (
   {
     isContainer,
     isFixedColumns,
