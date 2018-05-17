@@ -28,7 +28,8 @@
     "deploy-docs": "ts-node tools/gh-pages-publish",
     "commit": "git-cz",
     "precommit": "lint-staged",
-    "gen:docs": "typedoc --out docs --target es6 --theme minimal --mode file src"
+    "gen:docs": "typedoc --out docs --target es6 --theme minimal --mode file src",
+    "prepublish": "yarn build"
   },
   "lint-staged": {
     "{src,test}/**/*.ts": ["prettier --write", "git add"]
