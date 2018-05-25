@@ -2,8 +2,13 @@
 import cx from "classnames";
 
 // For now, always assume 12 columns but this could change with media queries.
-
-const breakpointIdentifiers = ["xs", "s", "m", "l", "xl"];
+export interface BreakPointDescriptor<A> {
+  xs?: A;
+  s?: A;
+  m?: A;
+  lg?: A;
+  xl?: A;
+}
 
 export const createGridClass = (args?: {
   isContainer?: boolean;
@@ -30,7 +35,9 @@ export type SupportedSizesAsFractions =
 export type SupportedSizes =
   | number
   | SupportedSizesAsFractions
-  | (number | SupportedSizesAsFractions)[];
+  | BreakPointDescriptor<number | SupportedSizesAsFractions>;
+
+export type SupportedHeights = number | BreakPointDescriptor<number>;
 
 const fractionToWhole = {
   "1/6": 2,
@@ -44,9 +51,6 @@ const fractionToWhole = {
 };
 
 const determineSize = (size?: number | SupportedSizesAsFractions) => {
-  if (size === undefined) {
-    return 1;
-  }
   if (typeof size === "number") {
     return size;
   }
@@ -61,14 +65,19 @@ export const createColClass = ({
   height
 }: {
   size?: SupportedSizes;
-  height?: number | number[];
+  height?: SupportedHeights;
 }) => {
-  const sizes = Array.isArray(size) ? size.map(determineSize) : [determineSize(size)];
-  const heights = Array.isArray(height) ? height : height ? [height] : [];
+  const sizes =
+    typeof size === "string" || typeof size === "number" ? { xs: size } : size || { xs: 1 };
+  const heights = typeof height === "number" ? { xs: height } : height || {};
 
   return cx(
-    ...sizes.map((s, index) => `bx-grid__col--${breakpointIdentifiers[index]}--${s}`),
-    ...heights.map((s, index) => `bx-grid__height--${breakpointIdentifiers[index]}--${s}`)
+    ...Object.keys(sizes).map(
+      breakpoint => `bx-grid__col--${breakpoint}--${determineSize(sizes[breakpoint])}`
+    ),
+    ...Object.keys(heights).map(
+      breakpoint => `bx-grid__height--${breakpoint}--${heights[breakpoint]}`
+    )
   );
 };
 

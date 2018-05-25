@@ -4,7 +4,8 @@ import {
   createColClass as col,
   SupportedSizes,
   Padding as GridPadding,
-  buildPaddingClasses as buildGridPaddingClasses
+  buildPaddingClasses as buildGridPaddingClasses,
+  SupportedHeights
 } from "../../layout/grid";
 import { buildSpacingFromString } from "../../layout/spacing";
 import { cx } from "emotion";
@@ -25,7 +26,7 @@ export default ({
   ...props
 }: {
   size?: SupportedSizes;
-  height?: number | number[]; // Row height of column entry, is multiplied by our row height preset (according to css-gridish.json - 0.5rem == 8px)
+  height?: SupportedHeights; // Row height of column entry, is multiplied by our row height preset (according to css-gridish.json - 0.5rem == 8px)
   padding?: GridPadding;
   flexDirection?: "column" | "row";
 } & React.HTMLAttributes<HTMLDivElement>) => (
