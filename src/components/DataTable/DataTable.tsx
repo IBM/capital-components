@@ -1,5 +1,5 @@
 import DataTable from "carbon-components-react/lib/components/DataTable";
-import React, { ReactElement, PureComponent } from "react";
+import React, { ReactElement } from "react";
 import {
   getNextSortDirection,
   sortStates
@@ -13,7 +13,7 @@ export interface ColumnDescriptor {
   content?: (props: { row: any[]; colKey: string }) => ReactElement<any>;
 }
 
-class HeaderComp extends PureComponent<{
+class HeaderComp extends React.PureComponent<{
   colDesc: ColumnDescriptor;
   sortDirection: SortDirection;
   onHeaderClick: (key: string) => void;
@@ -45,7 +45,7 @@ class HeaderComp extends PureComponent<{
 
 const defaultGetRowIdentifier = row => row.id;
 
-export default class TableComponent extends PureComponent<{
+export default class TableComponent extends React.PureComponent<{
   title: string;
   columns: ColumnDescriptor[];
   sortKey?: string;

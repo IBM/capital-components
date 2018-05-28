@@ -10,6 +10,11 @@ it("converts singlar directioned padding to valid direction css", () => {
   expect(result).toEqual("padding-bottom: 1rem");
 });
 
+it("converts multiple directioned paddings to valid direction css", () => {
+  const result = buildSpacingFromString("bottom md top md");
+  expect(result).toEqual("padding-bottom: 1rem; padding-top: 1rem");
+});
+
 it("converts padding to valid css", () => {
   const result = buildSpacingFromString("md");
   expect(result).toEqual("padding: 1rem");
