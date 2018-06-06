@@ -21,7 +21,8 @@
   "scripts": {
     "lint": "tslint -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
     "prebuild": "rimraf dist",
-    "build": "tsc --module commonjs && rollup -c rollup.config.ts && cp -rf css-gridish/css dist/css",
+    "build:js": "tsc --module commonjs && rollup -c rollup.config.ts",
+    "build": "yarn build:js && yarn build:styles",
     "start": "rollup -c rollup.config.ts -w",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -30,7 +31,8 @@
     "commit": "git-cz",
     "precommit": "lint-staged",
     "gen:docs": "typedoc --out docs --target es6 --theme minimal --mode file src",
-    "prepublish": "yarn build"
+    "prepublish": "yarn build",
+    "build:styles": "node-sass --output dist/css ./scss/styles.scss && cp -rf css-gridish/css/* dist/css && cp -rf scss dist/scss"
   },
   "lint-staged": {
     "{src,test}/**/*.ts": [
@@ -125,6 +127,7 @@
     "registry": "https://na.artifactory.swg-devops.com:443/artifactory/api/npm/ip-wfss-npm-local"
   },
   "dependencies": {
-    "classnames": "^2.2.5"
+    "classnames": "^2.2.5",
+    "node-sass": "^4.9.0"
   }
 }

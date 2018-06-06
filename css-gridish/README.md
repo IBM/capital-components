@@ -6,7 +6,7 @@ This grid was bootstrapped using [CSS Gridish](https://github.com/ibm/css-gridis
 
 ## Sketch Artboards and Chrome Extension
 
-The Sketch file can be found above in the list of files titled `bx-grid.sketch`. It includes both grid (CTRL+G) and layout (CTRL+L) settings.
+The Sketch file can be found above in the list of files titled `cap-grid.sketch`. It includes both grid (CTRL+G) and layout (CTRL+L) settings.
 
 The Chrome extension uses the same shortcuts. To set the extension up:
 
@@ -16,13 +16,13 @@ The Chrome extension uses the same shortcuts. To set the extension up:
 
 ## Legacy Support
 
-If you have no need to support browsers like IE 11 and Edge <15, please use `css/bx-grid.min.css`. This will omit the CSS Flexbox fallback from your code.
+If you have no need to support browsers like IE 11 and Edge <15, please use `css/cap-grid.min.css`. This will omit the CSS Flexbox fallback from your code.
 
-If you are supporting browsers that lack [CSS Grid Layout support](https://developer.mozilla.org/en-US/docs/Web/CSS/grid#Browser_compatibility), you can use `css/bx-grid-legacy.min.css` and the legacy classes below. With the legacy file, the browsers that do not support the final CSS Grid Legacy spec will fallback to a flexbox alternative. The flexbox alternative supports embedded subgrids that still reflect the overall grid system’s column structure.
+If you are supporting browsers that lack [CSS Grid Layout support](https://developer.mozilla.org/en-US/docs/Web/CSS/grid#Browser_compatibility), you can use `css/cap-grid-legacy.min.css` and the legacy classes below. With the legacy file, the browsers that do not support the final CSS Grid Legacy spec will fallback to a flexbox alternative. The flexbox alternative supports embedded subgrids that still reflect the overall grid system’s column structure.
 
 ### Transitioning from Legacy
 
-Once your experience can drop support for IE 11 and Edge <15, you can simply remove all legacy classes and switch over to `css/bx-grid.min.css`.
+Once your experience can drop support for IE 11 and Edge <15, you can simply remove all legacy classes and switch over to `css/cap-grid.min.css`.
 
 ## Breakpoints
 
@@ -51,10 +51,10 @@ $extraBreakpoints: (
   superxlarge: 1000,
   ...
 );
-@import '/scss/bx-grid-legacy.scss;
+@import '/scss/cap-grid-legacy.scss;
 ```
 
-The example above will create all legacy classes for your custom breakpoints like `.bx-grid__col--10-2`. This means that when the screen width is at 10rems (160px), the element would be two columns wide. All custom breakpoints’ dimensions are copied from the previously sized breakpoint.
+The example above will create all legacy classes for your custom breakpoints like `.cap-grid__col--10-2`. This means that when the screen width is at 10rems (160px), the element would be two columns wide. All custom breakpoints’ dimensions are copied from the previously sized breakpoint.
 
 ## Classes
 
@@ -62,30 +62,30 @@ If you are new to CSS Grid, please try [learning the basics](https://www.google.
 
 | Class Name                                | Purpose                                                                                    |
 | ----------------------------------------- | ------------------------------------------------------------------------------------------ |
-| `.bx-container`                          | Container element of whole page for proper margin and max-width (can be used on body tag ) |
-| `.bx-container--[left, right]`            | Align the container element to the left or right side                                      |
-| `.bx-container__bleed--[xs, s, m, l]`                         | Extend the background color of a container child into the container margin on both sides starting at a specific breakpoint (CSS Grid browsers only)        |
-| `.bx-container__bleed--[xs, s, m, l]--[left, right]`           | Extend the background color of a grid into the container margin on one side at a specific breakpoint (CSS Grid browsers only)           |
-| `.bx-container__break--[xs, s, m, l]`                         | Child of container element should ignore grid’s margin at a specific breakpoint (CSS Grid browsers only)       |
-| `.bx-container__break--[xs, s, m, l]--[left, right]`           | Child of container element should ignore grid’s margin on one side at a specific breakpoint (CSS Grid browsers only)                             |
-| `.bx-grid`                               | Use anytime you want to apply CSS Grid Layout, including as embedded subgrids              |
-| `.bx-grid--fixed-columns`                         | Switch grid’s column widths to fixed instead of fluid                                       |
-| `.bx-grid--fluid-rows`                         | Switch grid’s row height to match the width of a column                                        |
-| `.bx-padding`                            | Add one unit of padding to element on all sides                                            |
-| `.bx-padding--[bottom, left, right, top]` | Add one unit of padding to element on one side                                             |
-| `.bx-padding--[horizontal, vertical]`     | Add one unit of padding to element on two sides                                            |
-| `.bx-grid__col--xs--[1-12]`                          | Set the width out of 12 columns for an item in the grid starting at the xs breakpoint |
-| `.bx-grid__col--s--[1-12]`                          | Set the width out of 12 columns for an item in the grid starting at the s breakpoint |
-| `.bx-grid__col--m--[1-12]`                          | Set the width out of 12 columns for an item in the grid starting at the m breakpoint |
-| `.bx-grid__col--l--[1-12]`                          | Set the width out of 12 columns for an item in the grid starting at the l breakpoint |
-| `.bx-grid__col--[xs, s, m, l]--0`                          | Do not display item at a specific breakpoint, but display at the next breakpoint with columns specified |
-| `.bx-grid__col--[xs, s, m, l]--0--only`                          | Do not display item only at specific breakpoint |
-| `.bx-grid__height--[xs, s, m, l]--[1-60]`                          | Set the min-height based on an interval of 8px for an item starting at the breakpoint specified |
-| `.bx-grid__height--[xs, s, m, l]--0`                          | Reset the min-height for an item starting at the specified breakpoint |
+| `.cap-container`                          | Container element of whole page for proper margin and max-width (can be used on body tag ) |
+| `.cap-container--[left, right]`            | Align the container element to the left or right side                                      |
+| `.cap-container__bleed--[xs, s, m, l]`                         | Extend the background color of a container child into the container margin on both sides starting at a specific breakpoint (CSS Grid browsers only)        |
+| `.cap-container__bleed--[xs, s, m, l]--[left, right]`           | Extend the background color of a grid into the container margin on one side at a specific breakpoint (CSS Grid browsers only)           |
+| `.cap-container__break--[xs, s, m, l]`                         | Child of container element should ignore grid’s margin at a specific breakpoint (CSS Grid browsers only)       |
+| `.cap-container__break--[xs, s, m, l]--[left, right]`           | Child of container element should ignore grid’s margin on one side at a specific breakpoint (CSS Grid browsers only)                             |
+| `.cap-grid`                               | Use anytime you want to apply CSS Grid Layout, including as embedded subgrids              |
+| `.cap-grid--fixed-columns`                         | Switch grid’s column widths to fixed instead of fluid                                       |
+| `.cap-grid--fluid-rows`                         | Switch grid’s row height to match the width of a column                                        |
+| `.cap-padding`                            | Add one unit of padding to element on all sides                                            |
+| `.cap-padding--[bottom, left, right, top]` | Add one unit of padding to element on one side                                             |
+| `.cap-padding--[horizontal, vertical]`     | Add one unit of padding to element on two sides                                            |
+| `.cap-grid__col--xs--[1-12]`                          | Set the width out of 12 columns for an item in the grid starting at the xs breakpoint |
+| `.cap-grid__col--s--[1-12]`                          | Set the width out of 12 columns for an item in the grid starting at the s breakpoint |
+| `.cap-grid__col--m--[1-12]`                          | Set the width out of 12 columns for an item in the grid starting at the m breakpoint |
+| `.cap-grid__col--l--[1-12]`                          | Set the width out of 12 columns for an item in the grid starting at the l breakpoint |
+| `.cap-grid__col--[xs, s, m, l]--0`                          | Do not display item at a specific breakpoint, but display at the next breakpoint with columns specified |
+| `.cap-grid__col--[xs, s, m, l]--0--only`                          | Do not display item only at specific breakpoint |
+| `.cap-grid__height--[xs, s, m, l]--[1-60]`                          | Set the min-height based on an interval of 8px for an item starting at the breakpoint specified |
+| `.cap-grid__height--[xs, s, m, l]--0`                          | Reset the min-height for an item starting at the specified breakpoint |
 
-By default, the grid code uses fluid columns and fixed rows. You can switch both aspects with `.bx-grid--fixed-columns` and `.bx-grid--fluid-rows`. When switching to fluid rows, the rows will scale across breakpoints just like `col` classes and only supports quantities up to the amount of columns in that breakpoint.
+By default, the grid code uses fluid columns and fixed rows. You can switch both aspects with `.cap-grid--fixed-columns` and `.cap-grid--fluid-rows`. When switching to fluid rows, the rows will scale across breakpoints just like `col` classes and only supports quantities up to the amount of columns in that breakpoint.
 
-If you follow the instructions above for custom breakpoints, all of the `col` and `height` classes will generate with a version for each custom breakpoint too. For example, adding the custom breakpoint of `whateversize` will create `.bx-grid__col--whateversize--1`. Since that custom breakpoint is right after the previous breakpoint, it will have the same amount of columns and min-height.
+If you follow the instructions above for custom breakpoints, all of the `col` and `height` classes will generate with a version for each custom breakpoint too. For example, adding the custom breakpoint of `whateversize` will create `.cap-grid__col--whateversize--1`. Since that custom breakpoint is right after the previous breakpoint, it will have the same amount of columns and min-height.
 
 ## Variables
 
@@ -100,15 +100,15 @@ We provide the fixed height variables for items that are not direct children of 
 
 | Variable               | Value                      |
 | ---------------------- | -------------------------- |
-| `--bx-height-[1-60]`  | Intervals of `0.5rem` (8px) |
+| `--cap-height-[1-60]`  | Intervals of `0.5rem` (8px) |
 
 #### Example
 
 ```
 // Set card to span height of 10 rows (80px)
 .banner {
-  height: var(--bx-height-10);
-  grid-row: span var(--bx-row-10);
+  height: var(--cap-height-10);
+  grid-row: span var(--cap-row-10);
 }
 ```
 
@@ -187,7 +187,7 @@ button {
 
 ### Why does none of the CSS Grid code use `grid-gap` for gutters?
 
-A lot of times, you will want an item to break out of the gutters for background color, to extend media, or for another reason. Until the CSS Grid spec has a way to ignore that gutter, we use the padding classes (`.bx-padding`) to opt-in to respecting the gutter. The padding classes are always half the size of a gutter for alignment.
+A lot of times, you will want an item to break out of the gutters for background color, to extend media, or for another reason. Until the CSS Grid spec has a way to ignore that gutter, we use the padding classes (`.cap-padding`) to opt-in to respecting the gutter. The padding classes are always half the size of a gutter for alignment.
 
 ### Why is the fallback using flexbox instead of the `-ms` prefix use of CSS Grid?
 
@@ -199,12 +199,12 @@ Until Edge and Safari support
 [`display: subgrid`](https://developer.mozilla.org/en-US/docs/Web/CSS/display#Browser_compatibility),
 it is difficult for you to write semantic HTML with CSS Grid Layout. We are
 able to take advantage of vw units and the calc function so you can embed 
-`.bx-grid` elements inside of each other and still respect the overall grid design.
+`.cap-grid` elements inside of each other and still respect the overall grid design.
 
 ### Why are there no grouping row classes needed?
 
-Thanks to flexbox’s wrapping functionality, nodes that specify rows are not necessary. Only create a node for a row if it has semantic or accessibility significance. You can keep embedding `.bx-grid` as necessary to accomplish this.
+Thanks to flexbox’s wrapping functionality, nodes that specify rows are not necessary. Only create a node for a row if it has semantic or accessibility significance. You can keep embedding `.cap-grid` as necessary to accomplish this.
 
 ### What happens in the legacy implementation if I specify the column width for one breakpoint, but not the next larger breakpoint?
 
-To maintain a mobile-first opinion, column widths will scale to the next breakpoint if not specified. This means that a `.bx-grid__col--xs--1` be the size of `.bx-grid__col--s--2` if no `s` class was declared.
+To maintain a mobile-first opinion, column widths will scale to the next breakpoint if not specified. This means that a `.cap-grid__col--xs--1` be the size of `.cap-grid__col--s--2` if no `s` class was declared.

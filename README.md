@@ -10,16 +10,49 @@ Configure your npmrc file by following [these](https://github.ibm.com/watson-fin
 yarn add @fss/components
 ```
 
-To use the included grid, you need to import some custom CSS generated via [css-gridish](https://github.com/IBM/css-gridish):
+## General Styling
+
+This repo provides a small set of SASS files that can be used for styling components.
+
+```scss
+@import "~@fss/components/dist/scss/styles.scss";
+```
+
+### Some Classes
+
+| Class             | Use                |
+| ----------------- | ------------------ |
+| cap--type-alpha   | header 1 type face |
+| cap--type-beta    | header 2 type face |
+| cap--type-gamma   | header 3 type face |
+| cap--type-delta   | header 4 type face |
+| cap--type-epsilon | header 5 type face |
+
+See the styles.scss files for other useful styles. Note that we did not make this apply to all `h1` (`h2`, etc) elements intentionally, as it conflicts with carbon's styling.
+
+## Theming
+
+Our themes are based on carbon themes, so you can import your custom theme file prior to our styles file:
+
+```scss
+@import "~@fss/components/dist/scss/exampleTheme.scss";
+@import "~@fss/components/dist/scss/styles.scss";
+```
+
+## Grid
+
+We provide some utility components that are built upon [css-gridish](https://github.com/IBM/css-gridish)
+
+To use the included grid, you need to import some custom CSS:
 
 ```js
-import "@fss/components/dist/css/bx-grid.css";
+import "@fss/components/dist/css/cap-grid.css";
 ```
 
 or, if you need to support legacy browsers (IE11 and below):
 
 ```js
-import "@fss/components/dist/css/bx-grid-legacy.css";
+import "@fss/components/dist/css/cap-grid-legacy.css";
 ```
 
 ### Importing library
@@ -28,12 +61,6 @@ You can import the generated bundle to use the whole library:
 
 ```javascript
 import { Grid } from "@fss/components";
-```
-
-or
-
-```javascript
-import Grid from "@fss/components/dist/lib/components/Grid";
 ```
 
 ### NPM scripts

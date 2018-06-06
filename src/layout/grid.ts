@@ -15,10 +15,10 @@ export const createGridClass = (args?: {
   isFixedColumns?: boolean;
   isFluidRows?: boolean;
 }) => {
-  return cx("bx-grid", {
-    "bx-container": args && args.isContainer,
-    "bx-grid--fixed-columns": args && args.isFixedColumns,
-    "bx-grid--fluid-rows": args && args.isFluidRows
+  return cx("cap-grid", {
+    "cap-container": args && args.isContainer,
+    "cap-grid--fixed-columns": args && args.isFixedColumns,
+    "cap-grid--fluid-rows": args && args.isFluidRows
   });
 };
 
@@ -73,10 +73,10 @@ export const createColClass = ({
 
   return cx(
     ...Object.keys(sizes).map(
-      breakpoint => `bx-grid__col--${breakpoint}--${determineSize(sizes[breakpoint])}`
+      breakpoint => `cap-grid__col--${breakpoint}--${determineSize(sizes[breakpoint])}`
     ),
     ...Object.keys(heights).map(
-      breakpoint => `bx-grid__height--${breakpoint}--${heights[breakpoint]}`
+      breakpoint => `cap-grid__height--${breakpoint}--${heights[breakpoint]}`
     )
   );
 };
@@ -92,9 +92,9 @@ export const buildPaddingClasses = (padding?: Padding) => {
     return undefined;
   }
   const paddings = Array.isArray(padding)
-    ? padding.map(p => `bx-padding--${p}`)
+    ? padding.map(p => `cap-padding--${p}`)
     : padding === "all"
-      ? ["bx-padding"]
-      : [`bx-padding--${padding}`];
+      ? ["cap-padding"]
+      : [`cap-padding--${padding}`];
   return cx(paddings);
 };
