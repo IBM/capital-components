@@ -1,12 +1,14 @@
 {
   "name": "@fss/components",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "",
   "keywords": [],
   "main": "dist/wfss-components.umd.js",
   "module": "dist/wfss-components.es5.js",
   "typings": "dist/types/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "author": "Paul Sachs <paul.sachs@ibm.com>",
   "repository": {
     "type": "git",
@@ -30,11 +32,13 @@
     "precommit": "lint-staged",
     "gen:docs": "typedoc --out docs --target es6 --theme minimal --mode file src",
     "prepublish": "yarn build",
-    "build:styles":
-      "node-sass --output dist/css ./scss/styles.scss && cp -rf css-gridish/css/* dist/css && cp -rf scss dist/scss"
+    "build:styles": "node-sass --output dist/css ./scss/styles.scss && cp -rf css-gridish/css/* dist/css && cp -rf scss dist/scss"
   },
   "lint-staged": {
-    "{src,test}/**/*.ts": ["prettier --write", "git add"]
+    "{src,test}/**/*.ts": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "config": {
     "commitizen": {
@@ -42,8 +46,7 @@
     },
     "validate-commit-msg": {
       "types": "conventional-commit-types",
-      "helpMessage":
-        "Use \"npm run commit\" instead, we use conventional-changelog format :) (https://github.com/commitizen/cz-cli)"
+      "helpMessage": "Use \"npm run commit\" instead, we use conventional-changelog format :) (https://github.com/commitizen/cz-cli)"
     }
   },
   "jest": {
@@ -51,8 +54,15 @@
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": ["ts", "tsx", "js"],
-    "coveragePathIgnorePatterns": ["/node_modules/", "/test/"],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test/"
+    ],
     "coverageThreshold": {
       "global": {
         "branches": 90,
