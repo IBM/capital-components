@@ -32,10 +32,10 @@ See the styles.scss files for other useful styles. Note that we did not make thi
 
 ## Theming
 
-Our themes are based on carbon themes, so you can import your custom theme file prior to our styles file:
+Our themes are based on carbon themes, so you can import your custom theme file prior to our styles file. We've provided some example theme files.
 
 ```scss
-@import "~@fss/components/dist/scss/exampleTheme.scss";
+@import "~@fss/components/dist/scss/themes/regulatory-compliance.scss";
 @import "~@fss/components/dist/scss/styles.scss";
 ```
 
