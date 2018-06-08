@@ -1,72 +1,78 @@
-import { createGridClass, createColClass, buildPaddingClasses } from "./grid";
+import { createGridClass, createColClass, buildVirticalPaddingFromString } from "./grid";
 
 describe("grid classnames", () => {
   it("base grid definition", () => {
     const result = createGridClass();
-    expect(result).toBe("bx-grid");
+    expect(result).toBe("cap-grid");
   });
 
   it("all the options for grid", () => {
     const result = createGridClass({ isContainer: true, isFixedColumns: true, isFluidRows: true });
-    expect(result).toBe("bx-grid bx-container bx-grid--fixed-columns bx-grid--fluid-rows");
+    expect(result).toBe("cap-grid cap-container cap-grid--fixed-columns cap-grid--fluid-rows");
   });
 });
 
 describe("column classnames", () => {
   it("size defaults to 1", () => {
     const result = createColClass({});
-    expect(result).toBe("bx-grid__col--xs--1");
+    expect(result).toBe("cap-padding--horizontal cap-grid__col--xs--1");
   });
 
   it("basic size applies to xs and above (all breakpoints)", () => {
     const result = createColClass({ size: 1 });
-    expect(result).toBe("bx-grid__col--xs--1");
+    expect(result).toBe("cap-padding--horizontal cap-grid__col--xs--1");
   });
 
   it("object sizes applies classes for keyed sizes", () => {
     const result = createColClass({ size: { xs: 1, s: 2 } });
-    expect(result).toBe("bx-grid__col--xs--1 bx-grid__col--s--2");
+    expect(result).toBe("cap-padding--horizontal cap-grid__col--xs--1 cap-grid__col--s--2");
   });
 
   it("support for fraction syntax", () => {
     const result = createColClass({ size: "1/2" });
-    expect(result).toBe("bx-grid__col--xs--6");
+    expect(result).toBe("cap-padding--horizontal cap-grid__col--xs--6");
   });
 
   it("support for fraction syntax in object notation", () => {
     const result = createColClass({ size: { lg: "1/2", s: "1/6" } });
-    expect(result).toBe("bx-grid__col--lg--6 bx-grid__col--s--2");
+    expect(result).toBe("cap-padding--horizontal cap-grid__col--lg--6 cap-grid__col--s--2");
   });
 
   it("height object set classes for fixed height accross breakpoints", () => {
     const result = createColClass({ height: { xs: 1, s: 3 } });
-    expect(result).toBe("bx-grid__col--xs--1 bx-grid__height--xs--1 bx-grid__height--s--3");
+    expect(result).toBe(
+      "cap-padding--horizontal cap-grid__col--xs--1 cap-grid__height--xs--1 cap-grid__height--s--3"
+    );
   });
 
   it("heights set classes for fixed height for all breakpoints", () => {
     const result = createColClass({ height: 1 });
-    expect(result).toBe("bx-grid__col--xs--1 bx-grid__height--xs--1");
+    expect(result).toBe("cap-padding--horizontal cap-grid__col--xs--1 cap-grid__height--xs--1");
   });
 });
 
-describe("custom padding classes", () => {
-  it("returns undefined if none provided", () => {
-    const result = buildPaddingClasses("none");
-    expect(result).toBeUndefined();
+describe("custom vertical padding classes", () => {
+  it("returns undefined if empty provided", () => {
+    const result = buildVirticalPaddingFromString();
+    expect(result).toBeNull();
   });
 
-  it("horizontal basic class", () => {
-    const result = buildPaddingClasses("horizontal");
-    expect(result).toBe("bx-padding--horizontal");
+  it("singular specified direction", () => {
+    const result = buildVirticalPaddingFromString("top md");
+    expect(result).toBe("padding-top: 1rem;");
   });
 
-  it("all padding", () => {
-    const result = buildPaddingClasses("all");
-    expect(result).toBe("bx-padding");
+  it("all vertical padding", () => {
+    const result = buildVirticalPaddingFromString("md");
+    expect(result).toBe("padding-top: 1rem; padding-bottom: 1rem;");
   });
 
   it("specified direction", () => {
-    const result = buildPaddingClasses(["top", "left"]);
-    expect(result).toBe("bx-padding--top bx-padding--left");
+    const result = buildVirticalPaddingFromString("md xl");
+    expect(result).toBe("padding-top: 1rem; padding-bottom: 2rem;");
+  });
+
+  it("throws if invalid string provided", () => {
+    expect(() => buildVirticalPaddingFromString("something md xl")).toThrow();
   });
 });

@@ -1,5 +1,6 @@
 // Based on grid breakpoints http://carbondesignsystem.com/style/grid/design
 import cx from "classnames";
+import { spacing } from "./spacing";
 
 // For now, always assume 12 columns but this could change with media queries.
 export interface BreakPointDescriptor<A> {
@@ -50,7 +51,7 @@ const fractionToWhole = {
   all: 12
 };
 
-const determineSize = (size?: number | SupportedSizesAsFractions) => {
+const determineSize = (size: number | SupportedSizesAsFractions) => {
   if (typeof size === "number") {
     return size;
   }
@@ -72,6 +73,7 @@ export const createColClass = ({
   const heights = typeof height === "number" ? { xs: height } : height || {};
 
   return cx(
+    "cap-padding--horizontal",
     ...Object.keys(sizes).map(
       breakpoint => `cap-grid__col--${breakpoint}--${determineSize(sizes[breakpoint])}`
     ),
@@ -81,20 +83,16 @@ export const createColClass = ({
   );
 };
 
-// These paddings are specific to grid elements.
-export type PaddingSingle = "top" | "right" | "bottom" | "left";
+export const buildVirticalPaddingFromString = (padding?: string) => {
+  if (!padding) return null;
 
-export type Padding = "none" | "all" | "horizontal" | "vertical" | PaddingSingle | PaddingSingle[];
-
-// Based on css-gridish, build some standard spacing className
-export const buildPaddingClasses = (padding?: Padding) => {
-  if (!padding || padding === "none") {
-    return undefined;
+  const values = padding.trim().split(" ");
+  if (values.length === 1) {
+    return `padding-top: ${spacing[values[0]]}; padding-bottom: ${spacing[values[0]]};`;
+  } else if (values.length === 2 && ["top", "bottom"].includes(values[0])) {
+    return `padding-${values[0]}: ${spacing[values[1]]};`;
+  } else if (values.length === 2) {
+    return `padding-top: ${spacing[values[0]]}; padding-bottom: ${spacing[values[1]]};`;
   }
-  const paddings = Array.isArray(padding)
-    ? padding.map(p => `cap-padding--${p}`)
-    : padding === "all"
-      ? ["cap-padding"]
-      : [`cap-padding--${padding}`];
-  return cx(paddings);
+  throw new Error(`Invalid padding string provided: ${padding};`);
 };

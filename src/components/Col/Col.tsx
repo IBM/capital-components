@@ -1,34 +1,43 @@
 import React from "react";
 import {
-  createGridClass as grid,
   createColClass as col,
   SupportedSizes,
-  Padding as GridPadding,
-  buildPaddingClasses as buildGridPaddingClasses,
+  buildVirticalPaddingFromString,
   SupportedHeights
 } from "../../layout/grid";
-import { buildSpacingFromString } from "../../layout/spacing";
-import { cx } from "emotion";
+import { cx, css } from "emotion";
 import styled from "react-emotion";
 
-const Flex = styled<{ direction?: "column" | "row" }, "div">("div")`
-  display: flex;
-  flex-direction: ${({ direction }) => direction || "row"};
-`;
+interface FlexProps {
+  direction?: "column" | "row";
+}
 
-export default ({
+const Flex = styled("div")<FlexProps>(`
+  display: flex;
+  flex-direction: ${({ direction }: FlexProps) => direction || "row"};
+`);
+
+export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** A fraction (1/12, 1/3, etc) to fit the column into the grid. Also can specify
+   * it for specific breakpoint: { sm: "1/2", md: "1/3" }
+   */
+  size?: SupportedSizes;
+  /** Row height of column entry, is multiplied by our row height preset (according to css-gridish.json - 0.5rem == 8px) */
+  height?: SupportedHeights;
+  /** Additional vertical padding. Format string to match spacing format. See README for details */
+  verticalPadding?: string;
+  /** Useful setting to make the contents row/column aligned (flex-direction) */
+  flexDirection?: "column" | "row";
+}
+
+export const Col: React.SFC<IProps> = ({
   size,
   height,
-  padding = "horizontal",
+  verticalPadding,
   className,
   flexDirection,
   ...props
-}: {
-  size?: SupportedSizes;
-  height?: SupportedHeights; // Row height of column entry, is multiplied by our row height preset (according to css-gridish.json - 0.5rem == 8px)
-  padding?: GridPadding;
-  flexDirection?: "column" | "row";
-} & React.HTMLAttributes<HTMLDivElement>) => (
+}) => (
   <Flex
     direction={flexDirection || "column"}
     className={cx(
@@ -37,8 +46,10 @@ export default ({
         size,
         height
       }),
-      buildGridPaddingClasses(padding)
+      css(buildVirticalPaddingFromString(verticalPadding))
     )}
     {...props}
   />
 );
+
+export default Col;
