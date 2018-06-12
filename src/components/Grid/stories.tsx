@@ -4,7 +4,7 @@ import { storiesOf } from "@storybook/react";
 import { withInfo } from "@storybook/addon-info";
 import { css } from "emotion";
 
-const stories = storiesOf("Grid", module);
+const stories = storiesOf("Components|Grid", module);
 
 const redBackground = css(`background-color: red;`);
 const blueBackground = css(`background-color: blue;`);

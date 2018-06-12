@@ -1,0 +1,3669 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Grid Basic Grid 1`] = `
+.emotion-3 {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background-color: red;
+}
+
+.emotion-1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background-color: blue;
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background-color: yellow;
+}
+
+<div>
+  <div
+    style={undefined}
+  >
+    <div
+      style={
+        Object {
+          "WebkitFontSmoothing": "antialiased",
+          "backgroundColor": "#fff",
+          "border": "1px solid #eee",
+          "borderRadius": "2px",
+          "boxShadow": "0px 2px 3px rgba(0, 0, 0, 0.05)",
+          "color": "#444",
+          "fontFamily": "-apple-system, \\".SFNSText-Regular\\", \\"San Francisco\\", BlinkMacSystemFont, \\"Segoe UI\\", \\"Roboto\\", \\"Oxygen\\", \\"Ubuntu\\", \\"Cantarell\\", \\"Fira Sans\\", \\"Droid Sans\\", \\"Helvetica Neue\\", \\"Lucida Grande\\", \\"Arial\\", sans-serif",
+          "fontSize": "15px",
+          "fontWeight": 300,
+          "lineHeight": 1.45,
+          "marginBottom": "20px",
+          "marginTop": "20px",
+          "padding": "20px 40px 40px",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "borderBottom": "1px solid #eee",
+            "marginBottom": 10,
+            "paddingTop": 10,
+          }
+        }
+      >
+        <h1
+          style={
+            Object {
+              "fontSize": "35px",
+              "margin": 0,
+              "padding": 0,
+            }
+          }
+        >
+          Grid
+        </h1>
+        <h2
+          style={
+            Object {
+              "fontSize": "22px",
+              "fontWeight": 400,
+              "margin": "0 0 10px 0",
+              "padding": 0,
+            }
+          }
+        >
+          Basic Grid
+        </h2>
+      </div>
+    </div>
+  </div>
+  <div
+    style={Object {}}
+  >
+    <div
+      className="cap-grid cap-container emotion-3"
+    >
+      <div
+        className="cap-padding--horizontal cap-grid__col--xs--12 emotion-0"
+        direction="column"
+      >
+        This is one column crossing all
+      </div>
+      <div
+        className="cap-padding--horizontal cap-grid__col--xs--2 emotion-1"
+        direction="column"
+      >
+        With a smaller column
+      </div>
+      <div
+        className="cap-padding--horizontal cap-grid__col--xs--10 emotion-2"
+        direction="column"
+      >
+        Another column filling up the rest
+      </div>
+    </div>
+  </div>
+  <div
+    style={undefined}
+  >
+    <div
+      style={
+        Object {
+          "WebkitFontSmoothing": "antialiased",
+          "backgroundColor": "#fff",
+          "border": "1px solid #eee",
+          "borderRadius": "2px",
+          "boxShadow": "0px 2px 3px rgba(0, 0, 0, 0.05)",
+          "color": "#444",
+          "fontFamily": "-apple-system, \\".SFNSText-Regular\\", \\"San Francisco\\", BlinkMacSystemFont, \\"Segoe UI\\", \\"Roboto\\", \\"Oxygen\\", \\"Ubuntu\\", \\"Cantarell\\", \\"Fira Sans\\", \\"Droid Sans\\", \\"Helvetica Neue\\", \\"Lucida Grande\\", \\"Arial\\", sans-serif",
+          "fontSize": "15px",
+          "fontWeight": 300,
+          "lineHeight": 1.45,
+          "marginBottom": "20px",
+          "marginTop": "20px",
+          "padding": "20px 40px 40px",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "marginBottom": 0,
+          }
+        }
+      >
+        <h4
+          id="grids"
+          style={
+            Object {
+              "WebkitFontSmoothing": "antialiased",
+              "color": "#444",
+              "fontFamily": "-apple-system, \\".SFNSText-Regular\\", \\"San Francisco\\", BlinkMacSystemFont, \\"Segoe UI\\", \\"Roboto\\", \\"Oxygen\\", \\"Ubuntu\\", \\"Cantarell\\", \\"Fira Sans\\", \\"Droid Sans\\", \\"Helvetica Neue\\", \\"Lucida Grande\\", \\"Arial\\", sans-serif",
+              "fontSize": "20px",
+              "fontWeight": 600,
+              "margin": 0,
+              "padding": 0,
+            }
+          }
+        >
+          Grids
+        </h4>
+        <div
+          style={
+            Object {
+              "WebkitFontSmoothing": "antialiased",
+              "color": "#444",
+              "fontFamily": "-apple-system, \\".SFNSText-Regular\\", \\"San Francisco\\", BlinkMacSystemFont, \\"Segoe UI\\", \\"Roboto\\", \\"Oxygen\\", \\"Ubuntu\\", \\"Cantarell\\", \\"Fira Sans\\", \\"Droid Sans\\", \\"Helvetica Neue\\", \\"Lucida Grande\\", \\"Arial\\", sans-serif",
+              "fontSize": "15px",
+            }
+          }
+        >
+          Grids allow you to be able to horizontally align your contents. Note
+that you cannot have a grid within a grid and expect it to follow the 
+exact same lanes (due to a lack of support for subgrids).
+        </div>
+        <h4
+          id="grids-cols"
+          style={
+            Object {
+              "WebkitFontSmoothing": "antialiased",
+              "color": "#444",
+              "fontFamily": "-apple-system, \\".SFNSText-Regular\\", \\"San Francisco\\", BlinkMacSystemFont, \\"Segoe UI\\", \\"Roboto\\", \\"Oxygen\\", \\"Ubuntu\\", \\"Cantarell\\", \\"Fira Sans\\", \\"Droid Sans\\", \\"Helvetica Neue\\", \\"Lucida Grande\\", \\"Arial\\", sans-serif",
+              "fontSize": "20px",
+              "fontWeight": 600,
+              "margin": 0,
+              "padding": 0,
+            }
+          }
+        >
+          Cols
+        </h4>
+        <div
+          style={
+            Object {
+              "WebkitFontSmoothing": "antialiased",
+              "color": "#444",
+              "fontFamily": "-apple-system, \\".SFNSText-Regular\\", \\"San Francisco\\", BlinkMacSystemFont, \\"Segoe UI\\", \\"Roboto\\", \\"Oxygen\\", \\"Ubuntu\\", \\"Cantarell\\", \\"Fira Sans\\", \\"Droid Sans\\", \\"Helvetica Neue\\", \\"Lucida Grande\\", \\"Arial\\", sans-serif",
+              "fontSize": "15px",
+            }
+          }
+        >
+          Cols are not quite table columns but are items within the grid. They 
+must take up at least size 1 (default). You can specify size as any 
+fraction of 12 (reduced) or an integer (&lt;= 12).
+        </div>
+      </div>
+      <div>
+        <h1
+          style={
+            Object {
+              "borderBottom": "1px solid #EEE",
+              "fontSize": "25px",
+              "margin": "20px 0 0 0",
+              "padding": "0 0 5px 0",
+            }
+          }
+        >
+          Story Source
+        </h1>
+        <pre
+          className="emotion-6"
+        >
+          <div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "paddingLeft": 18,
+                    "paddingRight": 3,
+                  }
+                }
+              >
+                <span
+                  style={
+                    Object {
+                      "color": "#777",
+                    }
+                  }
+                >
+                  &lt;
+                  Unknown
+                </span>
+                <span>
+                  <span>
+                     
+                    <span
+                      style={Object {}}
+                    >
+                      isContainer
+                    </span>
+                    
+                  </span>
+                </span>
+                <span
+                  style={
+                    Object {
+                      "color": "#777",
+                    }
+                  }
+                >
+                  &gt;
+                </span>
+              </div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;
+                    Unknown
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        size
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            all
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        className
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            css-xm7cbz
+                          </span>
+                          "
+                        </span>
+                      </span>
+                      
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 48,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    This is one column crossing all
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Unknown
+                    &gt;
+                  </span>
+                </div>
+              </div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;
+                    Unknown
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        size
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            1/6
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        className
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            css-pebpla
+                          </span>
+                          "
+                        </span>
+                      </span>
+                      
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 48,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    With a smaller column
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Unknown
+                    &gt;
+                  </span>
+                </div>
+              </div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;
+                    Unknown
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        size
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            5/6
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        className
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            css-jy53yf
+                          </span>
+                          "
+                        </span>
+                      </span>
+                      
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 48,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    Another column filling up the rest
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Unknown
+                    &gt;
+                  </span>
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "paddingLeft": 18,
+                    "paddingRight": 3,
+                  }
+                }
+              >
+                <span
+                  style={
+                    Object {
+                      "color": "#777",
+                    }
+                  }
+                >
+                  &lt;/
+                  Unknown
+                  &gt;
+                </span>
+              </div>
+            </div>
+          </div>
+          <button
+            className="emotion-5"
+            onClick={[Function]}
+          >
+            <div
+              className="emotion-4"
+            >
+              <div
+                style={
+                  Object {
+                    "marginBottom": 6,
+                  }
+                }
+              >
+                Copied!
+              </div>
+              <div>
+                Copy
+              </div>
+            </div>
+          </button>
+        </pre>
+      </div>
+      <div>
+        <h1
+          style={
+            Object {
+              "borderBottom": "1px solid #EEE",
+              "fontSize": "25px",
+              "margin": "20px 0 0 0",
+              "padding": "0 0 5px 0",
+            }
+          }
+        >
+          Prop Types
+        </h1>
+        <div>
+          <h2
+            style={
+              Object {
+                "margin": "20px 0 0 0",
+              }
+            }
+          >
+            "
+            
+            " Component
+          </h2>
+          <small>
+            No propTypes defined!
+          </small>
+        </div>
+        <div>
+          <h2
+            style={
+              Object {
+                "margin": "20px 0 0 0",
+              }
+            }
+          >
+            "
+            
+            " Component
+          </h2>
+          <small>
+            No propTypes defined!
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Grid Breakpoint Columns 1`] = `
+.emotion-3 {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background-color: red;
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background-color: yellow;
+}
+
+.emotion-1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background-color: blue;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+<div>
+  <div
+    style={undefined}
+  >
+    <div
+      style={
+        Object {
+          "WebkitFontSmoothing": "antialiased",
+          "backgroundColor": "#fff",
+          "border": "1px solid #eee",
+          "borderRadius": "2px",
+          "boxShadow": "0px 2px 3px rgba(0, 0, 0, 0.05)",
+          "color": "#444",
+          "fontFamily": "-apple-system, \\".SFNSText-Regular\\", \\"San Francisco\\", BlinkMacSystemFont, \\"Segoe UI\\", \\"Roboto\\", \\"Oxygen\\", \\"Ubuntu\\", \\"Cantarell\\", \\"Fira Sans\\", \\"Droid Sans\\", \\"Helvetica Neue\\", \\"Lucida Grande\\", \\"Arial\\", sans-serif",
+          "fontSize": "15px",
+          "fontWeight": 300,
+          "lineHeight": 1.45,
+          "marginBottom": "20px",
+          "marginTop": "20px",
+          "padding": "20px 40px 40px",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "borderBottom": "1px solid #eee",
+            "marginBottom": 10,
+            "paddingTop": 10,
+          }
+        }
+      >
+        <h1
+          style={
+            Object {
+              "fontSize": "35px",
+              "margin": 0,
+              "padding": 0,
+            }
+          }
+        >
+          Grid
+        </h1>
+        <h2
+          style={
+            Object {
+              "fontSize": "22px",
+              "fontWeight": 400,
+              "margin": "0 0 10px 0",
+              "padding": 0,
+            }
+          }
+        >
+          Breakpoint Columns
+        </h2>
+      </div>
+    </div>
+  </div>
+  <div
+    style={Object {}}
+  >
+    <div
+      className="cap-grid cap-container emotion-3"
+    >
+      <div
+        className="cap-padding--horizontal cap-grid__col--xs--12 cap-grid__col--m--6 emotion-0"
+        direction="column"
+      >
+        When the screen gets small, I take up all the room.
+      </div>
+      <div
+        className="cap-padding--horizontal cap-grid__col--xs--2 emotion-1"
+        direction="column"
+      >
+        With a smaller column
+      </div>
+      <div
+        className="cap-padding--horizontal cap-grid__col--xs--10 emotion-2"
+        direction="column"
+      >
+        Another column filling up the rest
+      </div>
+    </div>
+  </div>
+  <div
+    style={undefined}
+  >
+    <div
+      style={
+        Object {
+          "WebkitFontSmoothing": "antialiased",
+          "backgroundColor": "#fff",
+          "border": "1px solid #eee",
+          "borderRadius": "2px",
+          "boxShadow": "0px 2px 3px rgba(0, 0, 0, 0.05)",
+          "color": "#444",
+          "fontFamily": "-apple-system, \\".SFNSText-Regular\\", \\"San Francisco\\", BlinkMacSystemFont, \\"Segoe UI\\", \\"Roboto\\", \\"Oxygen\\", \\"Ubuntu\\", \\"Cantarell\\", \\"Fira Sans\\", \\"Droid Sans\\", \\"Helvetica Neue\\", \\"Lucida Grande\\", \\"Arial\\", sans-serif",
+          "fontSize": "15px",
+          "fontWeight": 300,
+          "lineHeight": 1.45,
+          "marginBottom": "20px",
+          "marginTop": "20px",
+          "padding": "20px 40px 40px",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "marginBottom": 0,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "WebkitFontSmoothing": "antialiased",
+              "color": "#444",
+              "fontFamily": "-apple-system, \\".SFNSText-Regular\\", \\"San Francisco\\", BlinkMacSystemFont, \\"Segoe UI\\", \\"Roboto\\", \\"Oxygen\\", \\"Ubuntu\\", \\"Cantarell\\", \\"Fira Sans\\", \\"Droid Sans\\", \\"Helvetica Neue\\", \\"Lucida Grande\\", \\"Arial\\", sans-serif",
+              "fontSize": "15px",
+            }
+          }
+        >
+          Sometimes you want columns to take up differing amounts of space
+depending on the screen size.
+        </div>
+      </div>
+      <div>
+        <h1
+          style={
+            Object {
+              "borderBottom": "1px solid #EEE",
+              "fontSize": "25px",
+              "margin": "20px 0 0 0",
+              "padding": "0 0 5px 0",
+            }
+          }
+        >
+          Story Source
+        </h1>
+        <pre
+          className="emotion-6"
+        >
+          <div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "paddingLeft": 18,
+                    "paddingRight": 3,
+                  }
+                }
+              >
+                <span
+                  style={
+                    Object {
+                      "color": "#777",
+                    }
+                  }
+                >
+                  &lt;
+                  Unknown
+                </span>
+                <span>
+                  <span>
+                     
+                    <span
+                      style={Object {}}
+                    >
+                      isContainer
+                    </span>
+                    
+                  </span>
+                </span>
+                <span
+                  style={
+                    Object {
+                      "color": "#777",
+                    }
+                  }
+                >
+                  &gt;
+                </span>
+              </div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;
+                    Unknown
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        size
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          {
+                          <span
+                            style={
+                              Object {
+                                "color": "#666",
+                              }
+                            }
+                          >
+                            {
+                            <span>
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                xs
+                              </span>
+                            </span>
+                            : 
+                            <span
+                              style={
+                                Object {
+                                  "color": "#22a",
+                                  "wordBreak": "break-word",
+                                }
+                              }
+                            >
+                              'all'
+                            </span>
+                            ,
+                            <span>
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                m
+                              </span>
+                            </span>
+                            : 
+                            <span
+                              style={
+                                Object {
+                                  "color": "#22a",
+                                  "wordBreak": "break-word",
+                                }
+                              }
+                            >
+                              '1/2'
+                            </span>
+                            }
+                          </span>
+                          }
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        className
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            css-xm7cbz
+                          </span>
+                          "
+                        </span>
+                      </span>
+                      
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 48,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    When the screen gets small, I take up all the room.
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Unknown
+                    &gt;
+                  </span>
+                </div>
+              </div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;
+                    Unknown
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        size
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            1/6
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        className
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            css-pebpla
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        verticalPadding
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            xl
+                          </span>
+                          "
+                        </span>
+                      </span>
+                      
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 48,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    With a smaller column
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Unknown
+                    &gt;
+                  </span>
+                </div>
+              </div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;
+                    Unknown
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        size
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            5/6
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        className
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            css-jy53yf
+                          </span>
+                          "
+                        </span>
+                      </span>
+                      
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 48,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    Another column filling up the rest
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Unknown
+                    &gt;
+                  </span>
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "paddingLeft": 18,
+                    "paddingRight": 3,
+                  }
+                }
+              >
+                <span
+                  style={
+                    Object {
+                      "color": "#777",
+                    }
+                  }
+                >
+                  &lt;/
+                  Unknown
+                  &gt;
+                </span>
+              </div>
+            </div>
+          </div>
+          <button
+            className="emotion-5"
+            onClick={[Function]}
+          >
+            <div
+              className="emotion-4"
+            >
+              <div
+                style={
+                  Object {
+                    "marginBottom": 6,
+                  }
+                }
+              >
+                Copied!
+              </div>
+              <div>
+                Copy
+              </div>
+            </div>
+          </button>
+        </pre>
+      </div>
+      <div>
+        <h1
+          style={
+            Object {
+              "borderBottom": "1px solid #EEE",
+              "fontSize": "25px",
+              "margin": "20px 0 0 0",
+              "padding": "0 0 5px 0",
+            }
+          }
+        >
+          Prop Types
+        </h1>
+        <div>
+          <h2
+            style={
+              Object {
+                "margin": "20px 0 0 0",
+              }
+            }
+          >
+            "
+            
+            " Component
+          </h2>
+          <small>
+            No propTypes defined!
+          </small>
+        </div>
+        <div>
+          <h2
+            style={
+              Object {
+                "margin": "20px 0 0 0",
+              }
+            }
+          >
+            "
+            
+            " Component
+          </h2>
+          <small>
+            No propTypes defined!
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Grid Fixed Columns 1`] = `
+.emotion-3 {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background-color: red;
+}
+
+.emotion-1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background-color: blue;
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background-color: yellow;
+}
+
+<div>
+  <div
+    style={undefined}
+  >
+    <div
+      style={
+        Object {
+          "WebkitFontSmoothing": "antialiased",
+          "backgroundColor": "#fff",
+          "border": "1px solid #eee",
+          "borderRadius": "2px",
+          "boxShadow": "0px 2px 3px rgba(0, 0, 0, 0.05)",
+          "color": "#444",
+          "fontFamily": "-apple-system, \\".SFNSText-Regular\\", \\"San Francisco\\", BlinkMacSystemFont, \\"Segoe UI\\", \\"Roboto\\", \\"Oxygen\\", \\"Ubuntu\\", \\"Cantarell\\", \\"Fira Sans\\", \\"Droid Sans\\", \\"Helvetica Neue\\", \\"Lucida Grande\\", \\"Arial\\", sans-serif",
+          "fontSize": "15px",
+          "fontWeight": 300,
+          "lineHeight": 1.45,
+          "marginBottom": "20px",
+          "marginTop": "20px",
+          "padding": "20px 40px 40px",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "borderBottom": "1px solid #eee",
+            "marginBottom": 10,
+            "paddingTop": 10,
+          }
+        }
+      >
+        <h1
+          style={
+            Object {
+              "fontSize": "35px",
+              "margin": 0,
+              "padding": 0,
+            }
+          }
+        >
+          Grid
+        </h1>
+        <h2
+          style={
+            Object {
+              "fontSize": "22px",
+              "fontWeight": 400,
+              "margin": "0 0 10px 0",
+              "padding": 0,
+            }
+          }
+        >
+          Fixed Columns
+        </h2>
+      </div>
+    </div>
+  </div>
+  <div
+    style={Object {}}
+  >
+    <div
+      className="cap-grid cap-container cap-grid--fixed-columns emotion-3"
+    >
+      <div
+        className="cap-padding--horizontal cap-grid__col--xs--12 emotion-0"
+        direction="column"
+      >
+        This is one column crossing all
+      </div>
+      <div
+        className="cap-padding--horizontal cap-grid__col--xs--2 emotion-1"
+        direction="column"
+      >
+        With a smaller column
+      </div>
+      <div
+        className="cap-padding--horizontal cap-grid__col--xs--10 emotion-2"
+        direction="column"
+      >
+        Another column filling up the rest
+      </div>
+    </div>
+  </div>
+  <div
+    style={undefined}
+  >
+    <div
+      style={
+        Object {
+          "WebkitFontSmoothing": "antialiased",
+          "backgroundColor": "#fff",
+          "border": "1px solid #eee",
+          "borderRadius": "2px",
+          "boxShadow": "0px 2px 3px rgba(0, 0, 0, 0.05)",
+          "color": "#444",
+          "fontFamily": "-apple-system, \\".SFNSText-Regular\\", \\"San Francisco\\", BlinkMacSystemFont, \\"Segoe UI\\", \\"Roboto\\", \\"Oxygen\\", \\"Ubuntu\\", \\"Cantarell\\", \\"Fira Sans\\", \\"Droid Sans\\", \\"Helvetica Neue\\", \\"Lucida Grande\\", \\"Arial\\", sans-serif",
+          "fontSize": "15px",
+          "fontWeight": 300,
+          "lineHeight": 1.45,
+          "marginBottom": "20px",
+          "marginTop": "20px",
+          "padding": "20px 40px 40px",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "marginBottom": 0,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "WebkitFontSmoothing": "antialiased",
+              "color": "#444",
+              "fontFamily": "-apple-system, \\".SFNSText-Regular\\", \\"San Francisco\\", BlinkMacSystemFont, \\"Segoe UI\\", \\"Roboto\\", \\"Oxygen\\", \\"Ubuntu\\", \\"Cantarell\\", \\"Fira Sans\\", \\"Droid Sans\\", \\"Helvetica Neue\\", \\"Lucida Grande\\", \\"Arial\\", sans-serif",
+              "fontSize": "15px",
+            }
+          }
+        >
+          Fixed columns means that the width of the column never changes. It
+is always 1/12 of our optimal screen width.
+        </div>
+      </div>
+      <div>
+        <h1
+          style={
+            Object {
+              "borderBottom": "1px solid #EEE",
+              "fontSize": "25px",
+              "margin": "20px 0 0 0",
+              "padding": "0 0 5px 0",
+            }
+          }
+        >
+          Story Source
+        </h1>
+        <pre
+          className="emotion-6"
+        >
+          <div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "paddingLeft": 18,
+                    "paddingRight": 3,
+                  }
+                }
+              >
+                <span
+                  style={
+                    Object {
+                      "color": "#777",
+                    }
+                  }
+                >
+                  &lt;
+                  Unknown
+                </span>
+                <span>
+                  <span>
+                     
+                    <span
+                      style={Object {}}
+                    >
+                      isContainer
+                    </span>
+                  </span>
+                  <span>
+                     
+                    <span
+                      style={Object {}}
+                    >
+                      isFixedColumns
+                    </span>
+                    
+                  </span>
+                </span>
+                <span
+                  style={
+                    Object {
+                      "color": "#777",
+                    }
+                  }
+                >
+                  &gt;
+                </span>
+              </div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;
+                    Unknown
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        size
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            all
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        className
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            css-xm7cbz
+                          </span>
+                          "
+                        </span>
+                      </span>
+                      
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 48,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    This is one column crossing all
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Unknown
+                    &gt;
+                  </span>
+                </div>
+              </div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;
+                    Unknown
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        size
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            1/6
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        className
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            css-pebpla
+                          </span>
+                          "
+                        </span>
+                      </span>
+                      
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 48,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    With a smaller column
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Unknown
+                    &gt;
+                  </span>
+                </div>
+              </div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;
+                    Unknown
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        size
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            5/6
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        className
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            css-jy53yf
+                          </span>
+                          "
+                        </span>
+                      </span>
+                      
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 48,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    Another column filling up the rest
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Unknown
+                    &gt;
+                  </span>
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "paddingLeft": 18,
+                    "paddingRight": 3,
+                  }
+                }
+              >
+                <span
+                  style={
+                    Object {
+                      "color": "#777",
+                    }
+                  }
+                >
+                  &lt;/
+                  Unknown
+                  &gt;
+                </span>
+              </div>
+            </div>
+          </div>
+          <button
+            className="emotion-5"
+            onClick={[Function]}
+          >
+            <div
+              className="emotion-4"
+            >
+              <div
+                style={
+                  Object {
+                    "marginBottom": 6,
+                  }
+                }
+              >
+                Copied!
+              </div>
+              <div>
+                Copy
+              </div>
+            </div>
+          </button>
+        </pre>
+      </div>
+      <div>
+        <h1
+          style={
+            Object {
+              "borderBottom": "1px solid #EEE",
+              "fontSize": "25px",
+              "margin": "20px 0 0 0",
+              "padding": "0 0 5px 0",
+            }
+          }
+        >
+          Prop Types
+        </h1>
+        <div>
+          <h2
+            style={
+              Object {
+                "margin": "20px 0 0 0",
+              }
+            }
+          >
+            "
+            
+            " Component
+          </h2>
+          <small>
+            No propTypes defined!
+          </small>
+        </div>
+        <div>
+          <h2
+            style={
+              Object {
+                "margin": "20px 0 0 0",
+              }
+            }
+          >
+            "
+            
+            " Component
+          </h2>
+          <small>
+            No propTypes defined!
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Grid Fluid Rows 1`] = `
+.emotion-3 {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background-color: red;
+}
+
+.emotion-1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background-color: blue;
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background-color: yellow;
+}
+
+<div>
+  <div
+    style={undefined}
+  >
+    <div
+      style={
+        Object {
+          "WebkitFontSmoothing": "antialiased",
+          "backgroundColor": "#fff",
+          "border": "1px solid #eee",
+          "borderRadius": "2px",
+          "boxShadow": "0px 2px 3px rgba(0, 0, 0, 0.05)",
+          "color": "#444",
+          "fontFamily": "-apple-system, \\".SFNSText-Regular\\", \\"San Francisco\\", BlinkMacSystemFont, \\"Segoe UI\\", \\"Roboto\\", \\"Oxygen\\", \\"Ubuntu\\", \\"Cantarell\\", \\"Fira Sans\\", \\"Droid Sans\\", \\"Helvetica Neue\\", \\"Lucida Grande\\", \\"Arial\\", sans-serif",
+          "fontSize": "15px",
+          "fontWeight": 300,
+          "lineHeight": 1.45,
+          "marginBottom": "20px",
+          "marginTop": "20px",
+          "padding": "20px 40px 40px",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "borderBottom": "1px solid #eee",
+            "marginBottom": 10,
+            "paddingTop": 10,
+          }
+        }
+      >
+        <h1
+          style={
+            Object {
+              "fontSize": "35px",
+              "margin": 0,
+              "padding": 0,
+            }
+          }
+        >
+          Grid
+        </h1>
+        <h2
+          style={
+            Object {
+              "fontSize": "22px",
+              "fontWeight": 400,
+              "margin": "0 0 10px 0",
+              "padding": 0,
+            }
+          }
+        >
+          Fluid Rows
+        </h2>
+      </div>
+    </div>
+  </div>
+  <div
+    style={Object {}}
+  >
+    <div
+      className="cap-grid cap-container cap-grid--fluid-rows emotion-3"
+    >
+      <div
+        className="cap-padding--horizontal cap-grid__col--xs--12 emotion-0"
+        direction="column"
+      >
+        This is one column crossing all
+      </div>
+      <div
+        className="cap-padding--horizontal cap-grid__col--xs--2 emotion-1"
+        direction="column"
+      >
+        With a smaller column
+      </div>
+      <div
+        className="cap-padding--horizontal cap-grid__col--xs--10 emotion-2"
+        direction="column"
+      >
+        Another column filling up the rest
+      </div>
+    </div>
+  </div>
+  <div
+    style={undefined}
+  >
+    <div
+      style={
+        Object {
+          "WebkitFontSmoothing": "antialiased",
+          "backgroundColor": "#fff",
+          "border": "1px solid #eee",
+          "borderRadius": "2px",
+          "boxShadow": "0px 2px 3px rgba(0, 0, 0, 0.05)",
+          "color": "#444",
+          "fontFamily": "-apple-system, \\".SFNSText-Regular\\", \\"San Francisco\\", BlinkMacSystemFont, \\"Segoe UI\\", \\"Roboto\\", \\"Oxygen\\", \\"Ubuntu\\", \\"Cantarell\\", \\"Fira Sans\\", \\"Droid Sans\\", \\"Helvetica Neue\\", \\"Lucida Grande\\", \\"Arial\\", sans-serif",
+          "fontSize": "15px",
+          "fontWeight": 300,
+          "lineHeight": 1.45,
+          "marginBottom": "20px",
+          "marginTop": "20px",
+          "padding": "20px 40px 40px",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "marginBottom": 0,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "WebkitFontSmoothing": "antialiased",
+              "color": "#444",
+              "fontFamily": "-apple-system, \\".SFNSText-Regular\\", \\"San Francisco\\", BlinkMacSystemFont, \\"Segoe UI\\", \\"Roboto\\", \\"Oxygen\\", \\"Ubuntu\\", \\"Cantarell\\", \\"Fira Sans\\", \\"Droid Sans\\", \\"Helvetica Neue\\", \\"Lucida Grande\\", \\"Arial\\", sans-serif",
+              "fontSize": "15px",
+            }
+          }
+        >
+          Fluid rows means that row height will be determined similar to column
+width (in chunks). This means that 12 rows make up 100vh.
+        </div>
+      </div>
+      <div>
+        <h1
+          style={
+            Object {
+              "borderBottom": "1px solid #EEE",
+              "fontSize": "25px",
+              "margin": "20px 0 0 0",
+              "padding": "0 0 5px 0",
+            }
+          }
+        >
+          Story Source
+        </h1>
+        <pre
+          className="emotion-6"
+        >
+          <div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "paddingLeft": 18,
+                    "paddingRight": 3,
+                  }
+                }
+              >
+                <span
+                  style={
+                    Object {
+                      "color": "#777",
+                    }
+                  }
+                >
+                  &lt;
+                  Unknown
+                </span>
+                <span>
+                  <span>
+                     
+                    <span
+                      style={Object {}}
+                    >
+                      isContainer
+                    </span>
+                  </span>
+                  <span>
+                     
+                    <span
+                      style={Object {}}
+                    >
+                      isFluidRows
+                    </span>
+                    
+                  </span>
+                </span>
+                <span
+                  style={
+                    Object {
+                      "color": "#777",
+                    }
+                  }
+                >
+                  &gt;
+                </span>
+              </div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;
+                    Unknown
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        size
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            all
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        className
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            css-xm7cbz
+                          </span>
+                          "
+                        </span>
+                      </span>
+                      
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 48,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    This is one column crossing all
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Unknown
+                    &gt;
+                  </span>
+                </div>
+              </div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;
+                    Unknown
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        size
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            1/6
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        className
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            css-pebpla
+                          </span>
+                          "
+                        </span>
+                      </span>
+                      
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 48,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    With a smaller column
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Unknown
+                    &gt;
+                  </span>
+                </div>
+              </div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;
+                    Unknown
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        size
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            5/6
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        className
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            css-jy53yf
+                          </span>
+                          "
+                        </span>
+                      </span>
+                      
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 48,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    Another column filling up the rest
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Unknown
+                    &gt;
+                  </span>
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "paddingLeft": 18,
+                    "paddingRight": 3,
+                  }
+                }
+              >
+                <span
+                  style={
+                    Object {
+                      "color": "#777",
+                    }
+                  }
+                >
+                  &lt;/
+                  Unknown
+                  &gt;
+                </span>
+              </div>
+            </div>
+          </div>
+          <button
+            className="emotion-5"
+            onClick={[Function]}
+          >
+            <div
+              className="emotion-4"
+            >
+              <div
+                style={
+                  Object {
+                    "marginBottom": 6,
+                  }
+                }
+              >
+                Copied!
+              </div>
+              <div>
+                Copy
+              </div>
+            </div>
+          </button>
+        </pre>
+      </div>
+      <div>
+        <h1
+          style={
+            Object {
+              "borderBottom": "1px solid #EEE",
+              "fontSize": "25px",
+              "margin": "20px 0 0 0",
+              "padding": "0 0 5px 0",
+            }
+          }
+        >
+          Prop Types
+        </h1>
+        <div>
+          <h2
+            style={
+              Object {
+                "margin": "20px 0 0 0",
+              }
+            }
+          >
+            "
+            
+            " Component
+          </h2>
+          <small>
+            No propTypes defined!
+          </small>
+        </div>
+        <div>
+          <h2
+            style={
+              Object {
+                "margin": "20px 0 0 0",
+              }
+            }
+          >
+            "
+            
+            " Component
+          </h2>
+          <small>
+            No propTypes defined!
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Grid Vertical Padding 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background-color: red;
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background-color: yellow;
+}
+
+.emotion-3 {
+  padding-top: 2rem;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.emotion-1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background-color: blue;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+<div>
+  <div
+    style={undefined}
+  >
+    <div
+      style={
+        Object {
+          "WebkitFontSmoothing": "antialiased",
+          "backgroundColor": "#fff",
+          "border": "1px solid #eee",
+          "borderRadius": "2px",
+          "boxShadow": "0px 2px 3px rgba(0, 0, 0, 0.05)",
+          "color": "#444",
+          "fontFamily": "-apple-system, \\".SFNSText-Regular\\", \\"San Francisco\\", BlinkMacSystemFont, \\"Segoe UI\\", \\"Roboto\\", \\"Oxygen\\", \\"Ubuntu\\", \\"Cantarell\\", \\"Fira Sans\\", \\"Droid Sans\\", \\"Helvetica Neue\\", \\"Lucida Grande\\", \\"Arial\\", sans-serif",
+          "fontSize": "15px",
+          "fontWeight": 300,
+          "lineHeight": 1.45,
+          "marginBottom": "20px",
+          "marginTop": "20px",
+          "padding": "20px 40px 40px",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "borderBottom": "1px solid #eee",
+            "marginBottom": 10,
+            "paddingTop": 10,
+          }
+        }
+      >
+        <h1
+          style={
+            Object {
+              "fontSize": "35px",
+              "margin": 0,
+              "padding": 0,
+            }
+          }
+        >
+          Grid
+        </h1>
+        <h2
+          style={
+            Object {
+              "fontSize": "22px",
+              "fontWeight": 400,
+              "margin": "0 0 10px 0",
+              "padding": 0,
+            }
+          }
+        >
+          Vertical Padding
+        </h2>
+      </div>
+    </div>
+  </div>
+  <div
+    style={Object {}}
+  >
+    <div
+      className="cap-grid cap-container emotion-3"
+    >
+      <div
+        className="cap-padding--horizontal cap-grid__col--xs--12 emotion-0"
+        direction="column"
+      >
+        This is one column crossing all
+      </div>
+      <div
+        className="cap-padding--horizontal cap-grid__col--xs--2 emotion-1"
+        direction="column"
+      >
+        With a smaller column
+      </div>
+      <div
+        className="cap-padding--horizontal cap-grid__col--xs--10 emotion-2"
+        direction="column"
+      >
+        Another column filling up the rest
+      </div>
+    </div>
+  </div>
+  <div
+    style={undefined}
+  >
+    <div
+      style={
+        Object {
+          "WebkitFontSmoothing": "antialiased",
+          "backgroundColor": "#fff",
+          "border": "1px solid #eee",
+          "borderRadius": "2px",
+          "boxShadow": "0px 2px 3px rgba(0, 0, 0, 0.05)",
+          "color": "#444",
+          "fontFamily": "-apple-system, \\".SFNSText-Regular\\", \\"San Francisco\\", BlinkMacSystemFont, \\"Segoe UI\\", \\"Roboto\\", \\"Oxygen\\", \\"Ubuntu\\", \\"Cantarell\\", \\"Fira Sans\\", \\"Droid Sans\\", \\"Helvetica Neue\\", \\"Lucida Grande\\", \\"Arial\\", sans-serif",
+          "fontSize": "15px",
+          "fontWeight": 300,
+          "lineHeight": 1.45,
+          "marginBottom": "20px",
+          "marginTop": "20px",
+          "padding": "20px 40px 40px",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "marginBottom": 0,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "WebkitFontSmoothing": "antialiased",
+              "color": "#444",
+              "fontFamily": "-apple-system, \\".SFNSText-Regular\\", \\"San Francisco\\", BlinkMacSystemFont, \\"Segoe UI\\", \\"Roboto\\", \\"Oxygen\\", \\"Ubuntu\\", \\"Cantarell\\", \\"Fira Sans\\", \\"Droid Sans\\", \\"Helvetica Neue\\", \\"Lucida Grande\\", \\"Arial\\", sans-serif",
+              "fontSize": "15px",
+            }
+          }
+        >
+          Padding can be added for vertical alignment
+        </div>
+      </div>
+      <div>
+        <h1
+          style={
+            Object {
+              "borderBottom": "1px solid #EEE",
+              "fontSize": "25px",
+              "margin": "20px 0 0 0",
+              "padding": "0 0 5px 0",
+            }
+          }
+        >
+          Story Source
+        </h1>
+        <pre
+          className="emotion-6"
+        >
+          <div>
+            <div>
+              <div
+                style={
+                  Object {
+                    "paddingLeft": 18,
+                    "paddingRight": 3,
+                  }
+                }
+              >
+                <span
+                  style={
+                    Object {
+                      "color": "#777",
+                    }
+                  }
+                >
+                  &lt;
+                  Unknown
+                </span>
+                <span>
+                  <span>
+                     
+                    <span
+                      style={Object {}}
+                    >
+                      isContainer
+                    </span>
+                  </span>
+                  <span>
+                     
+                    <span
+                      style={Object {}}
+                    >
+                      verticalPadding
+                    </span>
+                    <span>
+                      =
+                      <span
+                        style={Object {}}
+                      >
+                        "
+                        <span
+                          style={
+                            Object {
+                              "color": "#22a",
+                              "wordBreak": "break-word",
+                            }
+                          }
+                        >
+                          top xl
+                        </span>
+                        "
+                      </span>
+                    </span>
+                    
+                  </span>
+                </span>
+                <span
+                  style={
+                    Object {
+                      "color": "#777",
+                    }
+                  }
+                >
+                  &gt;
+                </span>
+              </div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;
+                    Unknown
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        size
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            all
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        className
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            css-xm7cbz
+                          </span>
+                          "
+                        </span>
+                      </span>
+                      
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 48,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    This is one column crossing all
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Unknown
+                    &gt;
+                  </span>
+                </div>
+              </div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;
+                    Unknown
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        size
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            1/6
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        className
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            css-pebpla
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        verticalPadding
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            xl
+                          </span>
+                          "
+                        </span>
+                      </span>
+                      
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 48,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    With a smaller column
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Unknown
+                    &gt;
+                  </span>
+                </div>
+              </div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;
+                    Unknown
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        size
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            5/6
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        className
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            css-jy53yf
+                          </span>
+                          "
+                        </span>
+                      </span>
+                      
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 48,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    Another column filling up the rest
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#777",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Unknown
+                    &gt;
+                  </span>
+                </div>
+              </div>
+              <div
+                style={
+                  Object {
+                    "paddingLeft": 18,
+                    "paddingRight": 3,
+                  }
+                }
+              >
+                <span
+                  style={
+                    Object {
+                      "color": "#777",
+                    }
+                  }
+                >
+                  &lt;/
+                  Unknown
+                  &gt;
+                </span>
+              </div>
+            </div>
+          </div>
+          <button
+            className="emotion-5"
+            onClick={[Function]}
+          >
+            <div
+              className="emotion-4"
+            >
+              <div
+                style={
+                  Object {
+                    "marginBottom": 6,
+                  }
+                }
+              >
+                Copied!
+              </div>
+              <div>
+                Copy
+              </div>
+            </div>
+          </button>
+        </pre>
+      </div>
+      <div>
+        <h1
+          style={
+            Object {
+              "borderBottom": "1px solid #EEE",
+              "fontSize": "25px",
+              "margin": "20px 0 0 0",
+              "padding": "0 0 5px 0",
+            }
+          }
+        >
+          Prop Types
+        </h1>
+        <div>
+          <h2
+            style={
+              Object {
+                "margin": "20px 0 0 0",
+              }
+            }
+          >
+            "
+            
+            " Component
+          </h2>
+          <small>
+            No propTypes defined!
+          </small>
+        </div>
+        <div>
+          <h2
+            style={
+              Object {
+                "margin": "20px 0 0 0",
+              }
+            }
+          >
+            "
+            
+            " Component
+          </h2>
+          <small>
+            No propTypes defined!
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

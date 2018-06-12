@@ -18,6 +18,20 @@ This repo provides a small set of SASS files that can be used for styling compon
 @import "~@fss/components/dist/scss/styles.scss";
 ```
 
+We use CSS styling for a few elements (grid, font sizing, base carbon styles) for the sake of a shared reference point with
+other projects.
+
+## Emotion Styling
+
+We use the emotion library to provide dynamic styling combined with low configuration support. Using emotion allows anyone using
+this library to only have the emotion dependency but not worry about webpack config or loader specifics. It also allows our
+package to be relatively small and prevent including a lot of unused CSS.
+
+Using emotion also allows developers to control scope like no other CSS framework.
+
+Learn more [here](https://emotion.sh)
+
+
 ### Some Classes
 
 | Class             | Use                |
@@ -39,6 +53,15 @@ Our themes are based on carbon themes, so you can import your custom theme file 
 @import "~@fss/components/dist/scss/styles.scss";
 ```
 
+## Spacing
+
+We use a standardized spacing scheme built (details in [src/layout/spacing](https://github.ibm.com/watson-finance/wfss-components/blob/master/src/layout/spacing.ts))
+
+The suggestion is to use the `buildSpacingFromString` method to determine how much padding an element should have. This method works on a string
+like "top md bottom md" which replaces the `md`s with the appropriate spacing size and applies that to the associated direction.
+
+Please see the [test](https://github.ibm.com/watson-finance/wfss-components/blob/master/src/layout/spacing.test.ts) file for more detailed use cases.
+
 ## Grid
 
 We provide some utility components that are built upon [css-gridish](https://github.com/IBM/css-gridish)
@@ -54,6 +77,19 @@ or, if you need to support legacy browsers (IE11 and below):
 ```js
 import "@fss/components/dist/css/cap-grid-legacy.css";
 ```
+
+### React Component Usage
+
+```js
+import { Grid, Col } from "@fss/components";
+```
+
+### Vertical Spacing
+
+Grid (and Col) elements control their horizontal spacing because they are grid elements. Sometimes you do want to specify padding on the vertical axis.
+Like spacing, we provide a prop on Grid/Col elements called `verticalPadding` which takes a string and translates that to standard padding.
+
+Unlike the spacing function, this prop can only apply padding to top or bottom. Please see the [test](https://github.ibm.com/watson-finance/wfss-components/blob/master/src/layout/grid.test.ts) file for more detailed use cases.
 
 ### Importing library
 

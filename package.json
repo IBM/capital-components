@@ -59,11 +59,12 @@
       "node_modules",
       "src"
     ],
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "testRegex": "(test-setup/storyshot.js)|(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
     "moduleFileExtensions": [
       "ts",
       "tsx",
-      "js"
+      "js",
+      "json"
     ],
     "coveragePathIgnorePatterns": [
       "/node_modules/",
@@ -80,13 +81,15 @@
     "collectCoverage": true,
     "setupTestFrameworkScriptFile": "./test-setup/setup.ts",
     "moduleNameMapper": {
-      "@fss/components": "<rootDir>/src"
+      "@fss/components": "<rootDir>/src",
+      "\\.(css|jpg|png)$": "<rootDir>/test-setup/empty-module.js"
     }
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.4.6",
     "@storybook/addon-info": "^3.4.6",
     "@storybook/addon-links": "^3.4.6",
+    "@storybook/addon-options": "^3.4.7",
     "@storybook/addon-storyshots": "^3.4.6",
     "@storybook/addon-storysource": "^3.4.6",
     "@storybook/addons": "^3.4.6",
@@ -115,7 +118,7 @@
     "lint-staged": "^7.0.0",
     "lodash.camelcase": "^4.3.0",
     "node-sass": "^4.9.0",
-    "prettier": "^1.4.4",
+    "prettier": "^1.13.5",
     "prompt": "^1.0.0",
     "react": "^16.3.2",
     "react-docgen-typescript-loader": "^2.1.0",
@@ -131,6 +134,7 @@
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-sourcemaps": "^0.4.2",
     "rollup-plugin-typescript2": "^0.11.1",
+    "storybook-readme": "^3.3.0",
     "ts-jest": "^22.0.0",
     "ts-loader": "3.x",
     "ts-node": "^5.0.1",

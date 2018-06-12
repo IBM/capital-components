@@ -8,15 +8,6 @@ import {
 import { cx, css } from "emotion";
 import styled from "react-emotion";
 
-interface FlexProps {
-  direction?: "column" | "row";
-}
-
-const Flex = styled("div")<FlexProps>(`
-  display: flex;
-  flex-direction: ${({ direction }: FlexProps) => direction || "row"};
-`);
-
 export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   /** A fraction (1/12, 1/3, etc) to fit the column into the grid. Also can specify
    * it for specific breakpoint: { sm: "1/2", md: "1/3" }
@@ -51,5 +42,15 @@ export const Col: React.SFC<IProps> = ({
     {...props}
   />
 );
+
+interface FlexProps {
+  direction?: "column" | "row";
+}
+// prettier-ignore
+const Flex =
+  styled("div")<FlexProps>`
+    display: flex;
+    flex-direction: ${({ direction }: FlexProps) => direction || "row"};
+  `;
 
 export default Col;

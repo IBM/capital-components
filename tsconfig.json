@@ -21,7 +21,8 @@
     "esModuleInterop": true,
     "paths": {
       "@fss/components": ["./index.ts"]
-    }
+    },
+    "noImplicitAny": false
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "build", "scripts", "**/*.test.ts"]

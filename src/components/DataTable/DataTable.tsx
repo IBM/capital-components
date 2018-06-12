@@ -1,4 +1,4 @@
-import DataTable from "carbon-components-react/lib/components/DataTable";
+import CarbonDataTable from "carbon-components-react/lib/components/DataTable";
 import React, { ReactElement } from "react";
 import {
   getNextSortDirection,
@@ -31,30 +31,39 @@ class HeaderComp extends React.PureComponent<{
     } = this.props;
 
     return (
-      <DataTable.TableHeader
+      <CarbonDataTable.TableHeader
         isSortable={isSortable !== false}
         isSortHeader={isSortable !== false}
         onClick={this.onClick}
         sortDirection={sortDirection}
       >
         {header}
-      </DataTable.TableHeader>
+      </CarbonDataTable.TableHeader>
     );
   }
 }
 
 const defaultGetRowIdentifier = row => row.id;
 
-export default class TableComponent extends React.PureComponent<{
-  title: string;
+class DataTable extends React.PureComponent<{
+  /** Title of the table */
+  title?: string;
+  /** How your columns will be rendered. See examples for details. */
   columns: ColumnDescriptor[];
+  /** The currently sorted column key. */
   sortKey?: string;
+  /** The currently sort direction. */
   sortDirection?: SortDirection;
+  /** Rows to display. All provided rows will be shown. */
   rows: any[];
+  /** Callback to handle when sort is clicked on some header. */
   onSort?: (arg: { colKey: string; sortDirection: SortDirection }) => void;
+  /** CSS classname */
   className?: string;
-  getRowIdentifier?: (row: any[]) => string;
-  getAdditionalRowProps?: (row: any[]) => { [key: string]: any };
+  /** How individual rows are identified. It must return something unique for that row. */
+  getRowIdentifier?: (row: any) => string;
+  /** Gives you a chance to add props to each individual row. Eg, click handler. */
+  getAdditionalRowProps?: (row: any) => { [key: string]: any };
 }> {
   onHeaderClick = (colKey: string) => {
     this.props.onSort &&
@@ -77,10 +86,10 @@ export default class TableComponent extends React.PureComponent<{
     } = this.props;
 
     return (
-      <DataTable.TableContainer title={title} className={className}>
-        <DataTable.Table>
-          <DataTable.TableHead>
-            <DataTable.TableRow>
+      <CarbonDataTable.TableContainer title={title} className={className}>
+        <CarbonDataTable.Table>
+          <CarbonDataTable.TableHead>
+            <CarbonDataTable.TableRow>
               {columns.map(col => (
                 <HeaderComp
                   sortDirection={col.key === sortKey ? sortDirection : sortStates.NONE}
@@ -89,34 +98,36 @@ export default class TableComponent extends React.PureComponent<{
                   onHeaderClick={this.onHeaderClick}
                 />
               ))}
-            </DataTable.TableRow>
-          </DataTable.TableHead>
-          <DataTable.TableBody>
+            </CarbonDataTable.TableRow>
+          </CarbonDataTable.TableHead>
+          <CarbonDataTable.TableBody>
             {rows.map(row => {
               const rowId = getRowIdentifier(row);
               const additionalProps = getAdditionalRowProps ? getAdditionalRowProps(row) : {};
               return (
-                <DataTable.TableRow key={rowId} {...additionalProps}>
+                <CarbonDataTable.TableRow key={rowId} {...additionalProps}>
                   {columns.map(col => {
                     const renderer =
                       col.content === undefined || col.content === null
                         ? StringCellContent
                         : col.content;
                     return (
-                      <DataTable.TableCell key={`${rowId}:${col.key}`}>
+                      <CarbonDataTable.TableCell key={`${rowId}:${col.key}`}>
                         {renderer({
                           row,
                           colKey: col.key
                         })}
-                      </DataTable.TableCell>
+                      </CarbonDataTable.TableCell>
                     );
                   })}
-                </DataTable.TableRow>
+                </CarbonDataTable.TableRow>
               );
             })}
-          </DataTable.TableBody>
-        </DataTable.Table>
-      </DataTable.TableContainer>
+          </CarbonDataTable.TableBody>
+        </CarbonDataTable.Table>
+      </CarbonDataTable.TableContainer>
     );
   }
 }
+
+export default DataTable;
