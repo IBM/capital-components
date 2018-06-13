@@ -1,90 +1,88 @@
 @import "./colors";
 
+@function calculateRem($size) {
+  $remSize: $size / 16px;
+  @return #{$remSize}rem;
+}
+
 .cap--type-alpha {
   // Heading 1
-  font-size: 2rem; // 32px
-  line-height: 2.5rem; // 40px
+  font-size: calculateRem(32px);
+  line-height: calculateRem(40px);
   font-weight: 600;
   color: $text-03;
 }
 
 .cap--type-beta {
   // Heading 2
-  font-size: 1.5rem; // 24px
-  line-height: 2rem; // 32px
+  font-size: calculateRem(24px);
+  line-height: calculateRem(32px);
   font-weight: 600;
   color: $text-03;
 }
 
 .cap--type-gamma {
   // Heading 3
-  font-size: 1.25rem; // 20px
-  line-height: 1.5rem; // 24px
+  font-size: calculateRem(20px);
+  line-height: calculateRem(24px);
   font-weight: 600;
   color: $text-03;
 }
 
 .cap--type-delta {
   // Heading 4
-  font-size: 1rem; /// 16px
-  line-height: 1.25rem; // 20px
+  font-size: calculateRem(16px);
+  line-height: calculateRem(20px);
   font-weight: 600;
   color: $text-03;
 }
 
 .cap--type-epsilon {
   // Heading 5
-  font-size: 0.875rem; /// 14px
-  line-height: 1.25rem; // 20px
+  font-size: calculateRem(14px);
+  line-height: calculateRem(20px);
   font-weight: 600;
   color: $text-03;
 }
 
 .cap--type-body {
-  font-size: 0.875rem; /// 14px
-  line-height: 0.875rem; /// 14px
+  font-size: calculateRem(14px);
+  line-height: calculateRem(20px);
   font-weight: 400;
   color: $text-02;
 }
 
 .cap--type-specialty-body {
-  font-size: 1rem; /// 16px
-  line-height: 1.25rem; // 20px
+  font-size: calculateRem(16px);
+  line-height: calculateRem(20px);
   font-weight: 400;
   color: $text-03;
 }
 
 .cap--type-label {
-  font-size: 0.875rem; /// 14px
-  line-height: 0.875rem; /// 14px
+  font-size: calculateRem(12px);
+  line-height: calculateRem(16px);
   font-weight: 600;
   color: $text-02;
 }
 
-.cap--type-inputs {
-  font-size: 0.875rem; /// 14px
-  line-height: 0.875rem; /// 14px
+.cap--type-input {
+  font-size: calculateRem(14px);
+  line-height: calculateRem(16px);
   font-weight: 400;
   color: $text-02;
-}
-
-.cap--type-table-heading {
-  font-size: 0.875rem; /// 14px
-  line-height: 0.875rem; /// 14px
-  font-weight: 600;
-  color: $text-03;
-}
-
-.cap--type-table-content {
-  font-size: 0.875rem; /// 14px
-  line-height: 2.473rem; /// 39px
-  font-weight: 400;
-  color: $text-03;
 }
 
 .cap--type-large {
-  font-size: 0.875rem; /// 14px
-  line-height: 2.473rem; /// 39px
+  font-size: calculateRem(54px);
+  line-height: calculateRem(68px);
+  font-weight: 400;
+  color: $text-03;
+}
+
+.cap--type-data-viz--label {
+  font-size: calculateRem(12px);
+  line-height: calculateRem(14px);
   font-weight: 400;
   color: $text-03;
 }

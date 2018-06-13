@@ -1,6 +1,6 @@
 {
   "name": "@fss/components",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "",
   "keywords": [],
   "main": "dist/wfss-components.umd.js",
@@ -34,7 +34,7 @@
     "prepublish": "yarn build",
     "build:styles": "node-sass --output dist/css ./scss/styles.scss && cp -rf css-gridish/css/* dist/css && cp -rf scss dist/scss",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "publish:storybook": "build-storybook && gh-pages -d storybook-static"
   },
   "lint-staged": {
     "{src,test}/**/*.ts": [
@@ -112,6 +112,7 @@
     "css-gridish": "^2.0.0",
     "cz-conventional-changelog": "^2.0.0",
     "emotion": "^9.1.3",
+    "gh-pages": "^1.2.0",
     "husky": "^0.14.0",
     "jest": "^22.0.2",
     "jest-emotion": "^9.2.2",
