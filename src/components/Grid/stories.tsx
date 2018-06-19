@@ -13,7 +13,6 @@ const yellowBackground = css(`background-color: yellow;`);
 stories.add(
   "Basic Grid",
   withInfo({
-    inline: true,
     text: `
     #### Grids
     Grids allow you to be able to horizontally align your contents. Note
@@ -43,7 +42,6 @@ stories.add(
 stories.add(
   "Fluid Rows",
   withInfo({
-    inline: true,
     text: `
       Fluid rows means that row height will be determined similar to column
       width (in chunks). This means that 12 rows make up 100vh.
@@ -66,7 +64,6 @@ stories.add(
 stories.add(
   "Fixed Columns",
   withInfo({
-    inline: true,
     text: `
         Fixed columns means that the width of the column never changes. It
         is always 1/12 of our optimal screen width.
@@ -89,7 +86,6 @@ stories.add(
 stories.add(
   "Vertical Padding",
   withInfo({
-    inline: true,
     text: `
           Padding can be added for vertical alignment
         `
@@ -111,7 +107,6 @@ stories.add(
 stories.add(
   "Breakpoint Columns",
   withInfo({
-    inline: true,
     text: `
             Sometimes you want columns to take up differing amounts of space
             depending on the screen size.

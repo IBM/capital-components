@@ -45,7 +45,6 @@ const rows = [
 stories.add(
   "Basic",
   withInfo({
-    inline: true,
     text: `
     DataTable provides a standardized way of dealing with datatables.
     It takes the column based data approach to reduce duplicated information.
@@ -63,7 +62,6 @@ stories.add(
 stories.add(
   "Sorting",
   withInfo({
-    inline: true,
     text: `
       DataTable does not handle sorting data for you because most non-trivial
       uses should be doing the sorting on the backend. The callback is triggered
@@ -84,7 +82,6 @@ stories.add(
 stories.add(
   "Row Click",
   withInfo({
-    inline: true,
     text: `
         Sometimes you want to add some additional properties to a speific row. Note that 
         these are just props assigned to row element
