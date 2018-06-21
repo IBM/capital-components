@@ -4,7 +4,8 @@ import {
   SupportedSizes,
   buildVirticalPaddingFromString,
   SupportedHeights
-} from "../../layout/grid";
+} from "layout/grid";
+import { Flex } from "primitives/elements";
 import { cx, css } from "emotion";
 import styled from "react-emotion";
 
@@ -42,15 +43,5 @@ export const Col: React.SFC<IProps> = ({
     {...props}
   />
 );
-
-interface FlexProps {
-  direction?: "column" | "row";
-}
-// prettier-ignore
-const Flex =
-  styled("div")<FlexProps>`
-    display: flex;
-    flex-direction: ${({ direction }: FlexProps) => direction || "row"};
-  `;
 
 export default Col;

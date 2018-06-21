@@ -10,7 +10,8 @@ setOptions({
   name: "Capital Components",
   url: "https://github.ibm.com/watson-finance/wfss-components",
   hierarchySeparator: /\/|\./,
-  hierarchyRootSeparator: /\|/
+  hierarchyRootSeparator: /\|/,
+  sortStoriesByKind: true
 });
 
 setDefaults({

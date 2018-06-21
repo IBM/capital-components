@@ -41,5 +41,6 @@ module.exports = (baseConfig, env, config) => {
   );
   config.resolve.extensions.push(".ts", ".tsx");
   config.resolve.alias["@fss/components"] = path.resolve(__dirname, "../src/");
+  config.resolve.modules.push(path.join(__dirname, "../src/"));
   return config;
 };
