@@ -8,7 +8,7 @@
     "jsx": "react",
     "moduleResolution": "node",
     "rootDirs": ["src"],
-    "baseUrl": "src",
+    "baseUrl": ".",
     "forceConsistentCasingInFileNames": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": false,
@@ -16,14 +16,14 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "declarationDir": "dist/types",
-    "outDir": "dist/lib",
+    "declarationDir": "types",
+    "outDir": "lib",
     "esModuleInterop": true,
     "paths": {
-      "@fss/components": ["./index.ts"]
+      "@fss/components": ["./src/index.ts"]
     },
     "noImplicitAny": false
   },
   "include": ["src/**/*", "stories/**/*", "storybook-addons/**/*"],
-  "exclude": ["node_modules", "build", "scripts", "**/*.test.ts"]
+  "exclude": ["node_modules", "build", "scripts"]
 }

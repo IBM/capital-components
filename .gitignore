@@ -11,3 +11,8 @@ compiled
 .rpt2_cache
 docs
 storybook-static
+styles
+lib
+types
+wfss-components.umd.js
+wfss-components.es5.js

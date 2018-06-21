@@ -15,7 +15,7 @@ yarn add @fss/components
 This repo provides a small set of SASS files that can be used for styling components.
 
 ```scss
-@import "~@fss/components/dist/scss/styles.scss";
+@import "~@fss/components/styles/scss/styles.scss";
 ```
 
 We use CSS styling for a few elements (grid, font sizing, base carbon styles) for the sake of a shared reference point with
@@ -30,7 +30,6 @@ package to be relatively small and prevent including a lot of unused CSS.
 Using emotion also allows developers to control scope like no other CSS framework.
 
 Learn more [here](https://emotion.sh)
-
 
 ### Some Classes
 
@@ -49,8 +48,8 @@ See the styles.scss files for other useful styles. Note that we did not make thi
 Our themes are based on carbon themes, so you can import your custom theme file prior to our styles file. We've provided some example theme files.
 
 ```scss
-@import "~@fss/components/dist/scss/themes/regulatory-compliance.scss";
-@import "~@fss/components/dist/scss/styles.scss";
+@import "~@fss/components/styles/scss/themes/regulatory-compliance.scss";
+@import "~@fss/components/styles/scss/styles.scss";
 ```
 
 ## Spacing
@@ -69,13 +68,13 @@ We provide some utility components that are built upon [css-gridish](https://git
 To use the included grid, you need to import some custom CSS:
 
 ```js
-import "@fss/components/dist/css/cap-grid.css";
+import "@fss/components/styles/css/cap-grid.css";
 ```
 
 or, if you need to support legacy browsers (IE11 and below):
 
 ```js
-import "@fss/components/dist/css/cap-grid-legacy.css";
+import "@fss/components/styles/css/cap-grid-legacy.css";
 ```
 
 ### React Component Usage
@@ -101,13 +100,13 @@ import { Grid } from "@fss/components";
 
 ### NPM scripts
 
-* `npm t`: Run test suite
-* `npm start`: Run `npm run build` in watch mode
-* `npm run test:watch`: Run test suite in [interactive watch mode](http://facebook.github.io/jest/docs/cli.html#watch)
-* `npm run test:prod`: Run linting and generate coverage
-* `npm run build`: Generate bundles and typings, create docs
-* `npm run lint`: Lints code
-* `npm run commit`: Commit using conventional commit style ([husky](https://github.com/typicode/husky) will tell you to use it if you haven't :wink:)
+- `npm t`: Run test suite
+- `npm start`: Run `npm run build` in watch mode
+- `npm run test:watch`: Run test suite in [interactive watch mode](http://facebook.github.io/jest/docs/cli.html#watch)
+- `npm run test:prod`: Run linting and generate coverage
+- `npm run build`: Generate bundles and typings, create docs
+- `npm run lint`: Lints code
+- `npm run commit`: Commit using conventional commit style ([husky](https://github.com/typicode/husky) will tell you to use it if you haven't :wink:)
 
 ### Git Hooks
 
@@ -132,7 +131,7 @@ import "core-js/fn/promise"
 
 Then you may want to:
 
-* Remove `commitmsg`, `postinstall` scripts from `package.json`. That will not use those git hooks to make sure you make a conventional commit
+- Remove `commitmsg`, `postinstall` scripts from `package.json`. That will not use those git hooks to make sure you make a conventional commit
 
 ## Credits
 

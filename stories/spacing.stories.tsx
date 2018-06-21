@@ -8,11 +8,11 @@ import {
   TableData,
   TableBody
 } from "carbon-components-react";
-import { InlineBlock } from "primitives/elements";
+import { InlineBlock } from "../src/primitives/elements";
 import { withInfo } from "@storybook/addon-info";
 import * as R from "ramda";
 import { css } from "emotion";
-import { spacing } from "layout/spacing";
+import { spacing } from "../src/layout/spacing";
 import { setOptions } from "@storybook/addon-options";
 
 const spacingList = R.toPairs(spacing);

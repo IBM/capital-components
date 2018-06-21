@@ -4,10 +4,9 @@ import {
   SupportedSizes,
   buildVirticalPaddingFromString,
   SupportedHeights
-} from "layout/grid";
-import { Flex } from "primitives/elements";
+} from "../../layout/grid";
+import { Flex } from "../../primitives/elements";
 import { cx, css } from "emotion";
-import styled from "react-emotion";
 
 export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   /** A fraction (1/12, 1/3, etc) to fit the column into the grid. Also can specify

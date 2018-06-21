@@ -3,8 +3,8 @@ import { setOptions } from "@storybook/addon-options";
 import { setDefaults } from "@storybook/addon-info";
 import { addDecorator } from "@storybook/react";
 import "carbon-components/css/carbon-components.css";
-import "../dist/css/styles.css";
-import "../dist/css/cap-grid.css";
+import "../styles/css/styles.css";
+import "../styles/css/cap-grid.css";
 
 setOptions({
   name: "Capital Components",
