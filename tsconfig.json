@@ -12,12 +12,9 @@
     "forceConsistentCasingInFileNames": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": false,
-    "declaration": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "declarationDir": "types",
-    "outDir": "lib",
     "esModuleInterop": true,
     "paths": {
       "@fss/components": ["./src/index.ts"]
