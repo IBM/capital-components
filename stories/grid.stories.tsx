@@ -1,6 +1,6 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { Grid, Col } from "@fss/components";
+import { Grid, Col, FlyOver } from "@fss/components";
 import styled from "react-emotion";
 import { withInfo } from "@storybook/addon-info";
 import * as R from "ramda";
@@ -43,12 +43,8 @@ const PushNav = styled("div")`
   background-color: #fd77fc;
 `;
 
-const Flyover = styled("div")`
-  min-width: 360px;
-  height: 100%;
+const flyOverStyle = css`
   background-color: #b17ffa;
-  position: absolute;
-  z-index: 10;
 `;
 
 storiesOf("Layout|Grids", module)
@@ -95,7 +91,7 @@ storiesOf("Layout|Grids", module)
   ))
   .add('Left "Flyover"', () => (
     <Wrapper>
-      <Flyover />
+      <FlyOver position="left" width="md" className={flyOverStyle} />
       <Grid isContainer preventShrink={false}>
         {R.range(0, 12).map(index => (
           <Col size={1} key={index}>
@@ -114,10 +110,6 @@ storiesOf("Layout|Grids", module)
           </Col>
         ))}
       </Grid>
-      <Flyover
-        className={css`
-          right: 0;
-        `}
-      />
+      <FlyOver position="right" width="md" className={flyOverStyle} />
     </Wrapper>
   ));

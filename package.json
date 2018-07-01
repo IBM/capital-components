@@ -3,15 +3,12 @@
   "version": "0.4.1",
   "description": "",
   "keywords": [],
-  "main": "wfss-components.umd.js",
-  "module": "wfss-components.es5.js",
+  "main": "lib/index.js",
   "typings": "types/index.d.ts",
   "files": [
     "lib",
     "styles",
-    "types",
-    "wfss-components.umd.js",
-    "wfss-components.es5.js"
+    "types"
   ],
   "author": "Paul Sachs <paul.sachs@ibm.com>",
   "repository": {
@@ -24,7 +21,7 @@
   },
   "scripts": {
     "lint": "tslint -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
-    "build": "gulp build && rollup -c rollup.config.ts",
+    "build": "gulp build",
     "start": "start-storybook -p 6006",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -118,6 +115,7 @@
     "gulp-sass": "^4.0.1",
     "gulp-typescript": "^5.0.0-alpha.2",
     "husky": "^0.14.0",
+    "ibm-design-icons": "^2.1.4",
     "jest": "^22.0.2",
     "jest-emotion": "^9.2.2",
     "lint-staged": "^7.0.0",
@@ -134,12 +132,6 @@
     "react-test-renderer": "^16.4.0",
     "replace-in-file": "^3.0.0-beta.2",
     "rimraf": "^2.6.1",
-    "rollup": "^0.57.0",
-    "rollup-plugin-commonjs": "^9.0.0",
-    "rollup-plugin-json": "^2.3.0",
-    "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-plugin-sourcemaps": "^0.4.2",
-    "rollup-plugin-typescript2": "^0.11.1",
     "storybook-readme": "^3.3.0",
     "ts-jest": "^22.0.0",
     "ts-loader": "3.x",

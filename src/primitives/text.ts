@@ -31,7 +31,8 @@ const headerToClassName = {
   "2": "beta",
   "3": "gamma",
   "4": "delta",
-  "5": "epsilon"
+  "5": "epsilon",
+  "6": "zeta"
 };
 
 export const Heading = ({
@@ -40,7 +41,7 @@ export const Heading = ({
   className,
   ...otherProps
 }: {
-  level: "1" | "2" | "3" | "4" | "5";
+  level: "1" | "2" | "3" | "4" | "5" | "6";
   padding?: string;
 } & React.HTMLAttributes<HTMLHeadingElement>) => {
   const cls = cx(

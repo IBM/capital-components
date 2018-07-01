@@ -47,7 +47,7 @@ const defaultGetRowIdentifier = row => row.id;
 
 class DataTable extends React.PureComponent<{
   /** Title of the table */
-  title?: string;
+  title?: React.ReactNode;
   /** How your columns will be rendered. See examples for details. */
   columns: ColumnDescriptor[];
   /** The currently sorted column key. */
