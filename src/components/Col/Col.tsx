@@ -19,6 +19,8 @@ export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   verticalPadding?: string;
   /** Useful setting to make the contents row/column aligned (flex-direction) */
   flexDirection?: "column" | "row";
+  /** Useful setting alignment */
+  flexAlignment?: string;
 }
 
 export const Col: React.SFC<IProps> = ({
@@ -27,10 +29,12 @@ export const Col: React.SFC<IProps> = ({
   verticalPadding,
   className,
   flexDirection,
+  flexAlignment,
   ...props
 }) => (
   <Flex
     direction={flexDirection || "column"}
+    alignment={flexAlignment}
     className={cx(
       className,
       col({
