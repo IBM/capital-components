@@ -3,6 +3,7 @@ import { DataTable } from "@fss/components";
 import { storiesOf } from "@storybook/react";
 import { withInfo } from "@storybook/addon-info";
 import { action } from "@storybook/addon-actions";
+import { PaginationV2 } from "carbon-components-react";
 
 const stories = storiesOf("Components|DataTable", module);
 
@@ -96,5 +97,34 @@ stories.add(
       getRowIdentifier={row => row.name}
       getAdditionalRowProps={() => ({ onClick: action("row click") })}
     />
+  ))
+);
+
+stories.add(
+  "Pagination",
+  withInfo({
+    text: `
+        You will often want a paginator. Use PaginationV2 to support any kind of
+        external paging system.
+      `
+  })(() => (
+    <React.Fragment>
+      <DataTable
+        columns={columns}
+        rows={rows}
+        sortKey="date"
+        sortDirection="DESC"
+        onSort={action("sort")}
+        getRowIdentifier={row => row.name}
+        getAdditionalRowProps={() => ({ onClick: action("row click") })}
+      />
+      <PaginationV2
+        page={1}
+        totalItems={50}
+        pageSize={10}
+        pageSizes={[10, 50, 100]}
+        onChange={action("pagination change")}
+      />
+    </React.Fragment>
   ))
 );
