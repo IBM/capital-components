@@ -21,6 +21,6 @@
     },
     "noImplicitAny": false
   },
-  "include": ["src/**/*", "stories/**/*", "storybook-addons/**/*"],
+  "include": ["src/**/*", "stories/**/*", "storybook-addons/**/*", "./types.d.ts"],
   "exclude": ["node_modules", "build", "scripts"]
 }

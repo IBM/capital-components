@@ -81,6 +81,7 @@
     }
   },
   "devDependencies": {
+    "@fss/icons": "^1.2.10",
     "@storybook/addon-actions": "^3.4.6",
     "@storybook/addon-info": "^3.4.6",
     "@storybook/addon-links": "^3.4.6",
@@ -133,6 +134,7 @@
     "replace-in-file": "^3.0.0-beta.2",
     "rimraf": "^2.6.1",
     "storybook-readme": "^3.3.0",
+    "svg-sprite-loader": "^3.8.0",
     "ts-jest": "^22.0.0",
     "ts-loader": "3.x",
     "ts-node": "^5.0.1",
