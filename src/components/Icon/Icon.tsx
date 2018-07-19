@@ -23,39 +23,45 @@ export const sizeToREM = {
   xxxlarge: 10
 };
 
+type ContainerProps = Pick<IProps, "size" | "className" | "onClick" | "children">;
+
 // any => Escape typing until emotion updates to using new context api that supports typing.
-const SVGContainer = ({ className, onClick, size, children }: any) => {
-  const iconSize = sizeToREM[size];
-  const iconHeight = css`
-    height: ${iconSize}rem;
-    min-height: ${iconSize}rem;
-    width: ${iconSize}rem;
-    min-width: ${iconSize}rem;
-  `; // Use min-height/max-height for IE issue with svg sizing.
+const SVGContainer = React.forwardRef<any, ContainerProps>(
+  ({ className, onClick, size, children }, ref) => {
+    const iconSize = sizeToREM[size];
+    const iconHeight = css`
+      height: ${iconSize}rem;
+      min-height: ${iconSize}rem;
+      width: ${iconSize}rem;
+      min-width: ${iconSize}rem;
+      position: relative;
+    `; // Use min-height/max-height for IE issue with svg sizing.
 
-  const fill = css`
-    ${iconHeight} > * {
-      flex: 1 1 auto;
-    }
-  `;
-
-  return (
-    <CenteredBlock className={cx(className, fill)} onClick={onClick}>
-      {children}
-    </CenteredBlock>
-  );
-};
-
-export const Icon: React.SFC<IProps> = ({ size, title, className, glyph, children, onClick }) => (
-  <SVGContainer size={size} className={className} onClick={onClick}>
-    {glyph && (
-      <svg aria-label={title} viewBox={glyph.viewBox}>
-        <title>{title}</title>
-        <use xlinkHref={`#${glyph.id}`} />
-      </svg>
-    )}
-    {children}
-  </SVGContainer>
+    const fill = css`
+      ${iconHeight} > * {
+        flex: 1 1 auto;
+      }
+    `;
+    return (
+      <CenteredBlock className={cx(className, fill)} onClick={onClick} innerRef={ref}>
+        {children}
+      </CenteredBlock>
+    );
+  }
 );
+
+export const Icon: React.SFC<IProps & { ref?: React.Ref<any> }> = React.forwardRef<any, IProps>(
+  ({ size, title, glyph, children, onClick, ...props }, ref) => (
+    <SVGContainer size={size} {...props} onClick={onClick} ref={ref}>
+      {glyph && (
+        <svg aria-label={title} viewBox={glyph.viewBox}>
+          <title>{title}</title>
+          <use xlinkHref={`#${glyph.id}`} />
+        </svg>
+      )}
+      {children}
+    </SVGContainer>
+  )
+) as any;
 
 export default Icon;

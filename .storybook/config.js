@@ -5,6 +5,9 @@ import { addDecorator } from "@storybook/react";
 import "carbon-components/css/carbon-components.css";
 import "../styles/css/styles.css";
 import "../styles/css/cap-grid.css";
+import React from "react";
+import { ThemeProvider } from "../src/support/theme";
+import DefaultTheme from "../src/support/themes/other-products";
 
 setOptions({
   name: "Capital Components",
@@ -18,6 +21,8 @@ setDefaults({
   source: false,
   inline: false
 });
+
+addDecorator(story => <ThemeProvider theme={DefaultTheme}>{story()}</ThemeProvider>);
 
 // automatically import all files ending in *.stories.js
 const req = require.context("../stories", true, /.stories.(js|ts)x?$/);

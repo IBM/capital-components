@@ -52,6 +52,20 @@ Our themes are based on carbon themes, so you can import your custom theme file 
 @import "~@fss/components/styles/scss/styles.scss";
 ```
 
+However, we also use emotion theming to get dynamic theme colors (or other theme properties). To take advantage of many of our components,
+you need to wrap your app with the Theme Provider:
+
+```js
+import { ThemeProvider, Theme } from '@fss/components/dist/support/theme';
+import theme from '@fss/components/dist/support/themes/other-products';
+
+...
+
+<ThemeProvider theme={theme}>
+    <App />
+</ThemeProvider>
+```
+
 ## Spacing
 
 We use a standardized spacing scheme built (details in [src/layout/spacing](https://github.ibm.com/watson-finance/wfss-components/blob/master/src/layout/spacing.ts))

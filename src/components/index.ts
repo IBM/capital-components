@@ -4,3 +4,6 @@ export { default as DataTable } from "./DataTable";
 export { default as FlyOver } from "./FlyOver";
 export { default as Icon } from "./Icon";
 export { default as Table } from "./Table";
+export { default as Popover } from "./Popover";
+export { default as DropMenu } from "./DropMenu";
+export { default as DropMenuItem } from "./DropMenuItem";
