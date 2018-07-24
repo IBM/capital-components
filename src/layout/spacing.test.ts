@@ -30,7 +30,12 @@ it("converts full padding description valid rem", () => {
   expect(result).toEqual("padding: 1rem 1rem 0.75rem 0.75rem;");
 });
 
-it("converts padding descriptiong with 0s to appropriate", () => {
+it("converts padding description with 0s to appropriate", () => {
   const result = buildSpacingFromString("md 0");
   expect(result).toEqual("padding: 1rem 0;");
+});
+
+it("converts padding description with margin instead", () => {
+  const result = buildSpacingFromString("md 0", "margin");
+  expect(result).toEqual("margin: 1rem 0;");
 });

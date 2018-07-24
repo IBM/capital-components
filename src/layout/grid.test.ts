@@ -1,4 +1,4 @@
-import { createGridClass, createColClass, buildVirticalPaddingFromString } from "./grid";
+import { createGridClass, createColClass, buildVirticalSpacingFromString } from "./grid";
 
 describe("grid classnames", () => {
   it("base grid definition", () => {
@@ -53,26 +53,26 @@ describe("column classnames", () => {
 
 describe("custom vertical padding classes", () => {
   it("returns undefined if empty provided", () => {
-    const result = buildVirticalPaddingFromString();
+    const result = buildVirticalSpacingFromString();
     expect(result).toBeNull();
   });
 
   it("singular specified direction", () => {
-    const result = buildVirticalPaddingFromString("top md");
+    const result = buildVirticalSpacingFromString("top md");
     expect(result).toBe("padding-top: 1rem;");
   });
 
   it("all vertical padding", () => {
-    const result = buildVirticalPaddingFromString("md");
+    const result = buildVirticalSpacingFromString("md");
     expect(result).toBe("padding-top: 1rem; padding-bottom: 1rem;");
   });
 
   it("specified direction", () => {
-    const result = buildVirticalPaddingFromString("md xl");
+    const result = buildVirticalSpacingFromString("md xl");
     expect(result).toBe("padding-top: 1rem; padding-bottom: 2rem;");
   });
 
   it("throws if invalid string provided", () => {
-    expect(() => buildVirticalPaddingFromString("something md xl")).toThrow();
+    expect(() => buildVirticalSpacingFromString("something md xl")).toThrow();
   });
 });

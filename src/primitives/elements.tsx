@@ -21,36 +21,51 @@ export const buildAlignment = (direction, alignment) => {
   throw new Error("Invalid alignment provided.");
 };
 
+export type SharedElementProps = {
+  padding?: string;
+  margin?: string;
+};
+
+const buildSpacingStyles = ({ padding, margin }: SharedElementProps) => {
+  const paddingStr = buildSpacingFromString(padding);
+  const marginStr = buildSpacingFromString(margin, "margin");
+  if (paddingStr && marginStr) {
+    return `${paddingStr}; ${marginStr}`;
+  }
+  return paddingStr || marginStr;
+};
+
 // Basic flex dentered box.
-export const CenteredBlock = styled("div")<{ padding?: string }>`
+export const CenteredBlock = styled("div")<SharedElementProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  ${({ padding }) => buildSpacingFromString(padding)};
+  ${buildSpacingStyles};
 `;
 
-export const Block = styled("div")<{ padding?: string }>`
-  ${({ padding }) => buildSpacingFromString(padding)};
+export const Block = styled("div")<SharedElementProps>`
+  ${buildSpacingStyles};
 `;
 
-export const Inline = styled("span")<{ padding?: string }>`
-  ${({ padding }) => buildSpacingFromString(padding)};
+export const Inline = styled("span")<SharedElementProps>`
+  ${buildSpacingStyles};
 `;
 
-export const InlineBlock = styled("span")<{ padding?: string }>`
+export const InlineBlock = styled("span")<SharedElementProps>`
   display: inline-block;
-  ${({ padding }) => buildSpacingFromString(padding)};
+  ${buildSpacingStyles};
 `;
 
-export const Flex = styled("div")<{
-  direction?: "column" | "row";
-  padding?: string;
-  alignment?: string;
-}>`
+export const Flex = styled("div")<
+  {
+    direction?: "column" | "row";
+    alignment?: string;
+  } & SharedElementProps
+>`
   display: flex;
   flex-direction: ${({ direction }) => direction || "row"};
-  ${({ padding }) => buildSpacingFromString(padding)} ${({ direction, alignment }) =>
-    alignment && buildAlignment(direction || "row", alignment)};
+  ${buildSpacingStyles};
+  ${({ direction, alignment }) => alignment && buildAlignment(direction || "row", alignment)};
 `;
 
 const SeperatorWrapper = styled("div")`

@@ -1,6 +1,6 @@
 import React from "react";
 import { cx, css } from "emotion";
-import { createGridClass as grid, buildVirticalPaddingFromString } from "../../layout/grid";
+import { createGridClass as grid, buildVirticalSpacingFromString } from "../../layout/grid";
 
 const preventShrinkStyle = css`
   flex-shrink: 0;
@@ -15,6 +15,8 @@ export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   isFluidRows?: boolean;
   /** Additional vertical padding. Format string to match spacing format. See README for details */
   verticalPadding?: string;
+  /** Additional vertical margin. Format string to match spacing format. See README for details */
+  verticalMargin?: string;
   /** If true, the grid will only expand and can't shrink (sets flex-shrink: 0) */
   preventShrink?: boolean;
 }
@@ -25,6 +27,7 @@ export const Grid: React.SFC<IProps> = ({
   isFluidRows = false,
   className,
   verticalPadding,
+  verticalMargin,
   preventShrink = true,
   ...props
 }) => (
@@ -36,7 +39,8 @@ export const Grid: React.SFC<IProps> = ({
         isFixedColumns,
         isFluidRows
       }),
-      css(buildVirticalPaddingFromString(verticalPadding)),
+      css(buildVirticalSpacingFromString(verticalPadding)),
+      css(buildVirticalSpacingFromString(verticalMargin, "margin")),
       {
         [preventShrinkStyle]: preventShrink
       }

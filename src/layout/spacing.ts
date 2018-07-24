@@ -24,19 +24,22 @@ export const layout = {
   "2xl": "10rem"
 };
 
-export const buildSpacingFromString = (padding?: string) => {
+export const buildSpacingFromString = (
+  padding?: string,
+  type: "padding" | "margin" = "padding"
+) => {
   if (!padding) return null;
 
   const values = padding.trim().split(" ");
   if (values.length === 1) {
-    return `padding: ${spacing[values[0]]};`;
+    return `${type}: ${spacing[values[0]]};`;
   } else if (values.length % 2 === 0 && ["top", "right", "bottom", "left"].includes(values[0])) {
     const resultArr: string[] = [];
     for (let i = 0; i < values.length; i += 2) {
-      resultArr.push(`padding-${values[i]}: ${spacing[values[i + 1]]};`);
+      resultArr.push(`${type}-${values[i]}: ${spacing[values[i + 1]]};`);
     }
     return resultArr.join(" ");
   } else {
-    return `padding: ${values.map(s => spacing[s] || s).join(" ")};`;
+    return `${type}: ${values.map(s => spacing[s] || s).join(" ")};`;
   }
 };

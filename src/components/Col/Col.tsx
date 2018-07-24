@@ -2,7 +2,7 @@ import React from "react";
 import {
   createColClass as col,
   SupportedSizes,
-  buildVirticalPaddingFromString,
+  buildVirticalSpacingFromString,
   SupportedHeights
 } from "../../layout/grid";
 import { Flex } from "../../primitives/elements";
@@ -17,6 +17,8 @@ export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   height?: SupportedHeights;
   /** Additional vertical padding. Format string to match spacing format. See README for details */
   verticalPadding?: string;
+  /** Additional vertical margin. Format string to match spacing format. See README for details */
+  verticalMargin?: string;
   /** Useful setting to make the contents row/column aligned (flex-direction) */
   flexDirection?: "column" | "row";
   /** Useful setting alignment */
@@ -27,6 +29,7 @@ export const Col: React.SFC<IProps> = ({
   size,
   height,
   verticalPadding,
+  verticalMargin,
   className,
   flexDirection,
   flexAlignment,
@@ -41,7 +44,8 @@ export const Col: React.SFC<IProps> = ({
         size,
         height
       }),
-      css(buildVirticalPaddingFromString(verticalPadding))
+      css(buildVirticalSpacingFromString(verticalPadding)),
+      css(buildVirticalSpacingFromString(verticalMargin, "margin"))
     )}
     {...props}
   />

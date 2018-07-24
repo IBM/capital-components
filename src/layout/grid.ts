@@ -83,16 +83,19 @@ export const createColClass = ({
   );
 };
 
-export const buildVirticalPaddingFromString = (padding?: string) => {
-  if (!padding) return null;
+export const buildVirticalSpacingFromString = (
+  desc?: string,
+  type: "padding" | "margin" = "padding"
+) => {
+  if (!desc) return null;
 
-  const values = padding.trim().split(" ");
+  const values = desc.trim().split(" ");
   if (values.length === 1) {
-    return `padding-top: ${spacing[values[0]]}; padding-bottom: ${spacing[values[0]]};`;
+    return `${type}-top: ${spacing[values[0]]}; ${type}-bottom: ${spacing[values[0]]};`;
   } else if (values.length === 2 && ["top", "bottom"].includes(values[0])) {
-    return `padding-${values[0]}: ${spacing[values[1]]};`;
+    return `${type}-${values[0]}: ${spacing[values[1]]};`;
   } else if (values.length === 2) {
-    return `padding-top: ${spacing[values[0]]}; padding-bottom: ${spacing[values[1]]};`;
+    return `${type}-top: ${spacing[values[0]]}; ${type}-bottom: ${spacing[values[1]]};`;
   }
-  throw new Error(`Invalid padding string provided: ${padding};`);
+  throw new Error(`Invalid padding string provided: ${desc};`);
 };
