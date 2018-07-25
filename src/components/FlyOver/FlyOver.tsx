@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "react-emotion";
-import Icon from "carbon-components-react/es/components/Icon";
+import Icon from "carbon-components-react/lib/components/Icon";
 import { css } from "emotion";
 
 const sizeMapping = {

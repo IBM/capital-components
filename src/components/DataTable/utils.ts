@@ -3,7 +3,7 @@ export { sortStates } from "carbon-components-react/lib/components/DataTable/sta
 
 export const StringCellContent = (props: { row: any[]; colKey: string }) => props.row[props.colKey];
 
-export type SortDirection = "NONE" | "DESC" | "ASC"; // from 'carbon-components-react/es/components/DataTable/state/sorting'
+export type SortDirection = "NONE" | "DESC" | "ASC"; // from 'carbon-components-react/lib/components/DataTable/state/sorting'
 
 export const buildDateCompare = ({
   accessor,

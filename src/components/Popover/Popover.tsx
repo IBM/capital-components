@@ -1,7 +1,7 @@
 import React, { Ref } from "react";
 import { Manager, Popper, Reference } from "react-popper";
 import PopperJS from "popper.js";
-import ClickListener from "carbon-components-react/es/internal/InnerClickListener";
+import ClickListener from "carbon-components-react/lib/internal/InnerClickListener";
 import styled from "react-emotion";
 import ReactDOM from "react-dom";
 import empty from "empty";
