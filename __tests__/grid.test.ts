@@ -1,4 +1,4 @@
-import { createGridClass, createColClass, buildVirticalSpacingFromString } from "./grid";
+import { createGridClass, createColClass, buildVirticalSpacing } from "../src/layout/grid";
 
 describe("grid classnames", () => {
   it("base grid definition", () => {
@@ -34,8 +34,8 @@ describe("column classnames", () => {
   });
 
   it("support for fraction syntax in object notation", () => {
-    const result = createColClass({ size: { lg: "1/2", s: "1/6" } });
-    expect(result).toBe("cap-padding--horizontal cap-grid__col--lg--6 cap-grid__col--s--2");
+    const result = createColClass({ size: { l: "1/2", s: "1/6" } });
+    expect(result).toBe("cap-padding--horizontal cap-grid__col--l--6 cap-grid__col--s--2");
   });
 
   it("height object set classes for fixed height accross breakpoints", () => {
@@ -53,26 +53,30 @@ describe("column classnames", () => {
 
 describe("custom vertical padding classes", () => {
   it("returns undefined if empty provided", () => {
-    const result = buildVirticalSpacingFromString();
+    const result = buildVirticalSpacing();
     expect(result).toBeNull();
   });
 
   it("singular specified direction", () => {
-    const result = buildVirticalSpacingFromString("top md");
+    const result = buildVirticalSpacing("top md");
     expect(result).toBe("padding-top: 1rem;");
   });
 
   it("all vertical padding", () => {
-    const result = buildVirticalSpacingFromString("md");
+    const result = buildVirticalSpacing("md");
     expect(result).toBe("padding-top: 1rem; padding-bottom: 1rem;");
   });
 
   it("specified direction", () => {
-    const result = buildVirticalSpacingFromString("md xl");
+    const result = buildVirticalSpacing("md xl");
     expect(result).toBe("padding-top: 1rem; padding-bottom: 2rem;");
   });
 
   it("throws if invalid string provided", () => {
-    expect(() => buildVirticalSpacingFromString("something md xl")).toThrow();
+    expect(() => buildVirticalSpacing("something md xl")).toThrow();
   });
+});
+
+it("replace padding with margin", () => {
+  expect(buildVirticalSpacing("md xl", "margin")).toBe("margin-top: 1rem; margin-bottom: 2rem;");
 });

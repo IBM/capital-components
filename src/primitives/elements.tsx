@@ -1,34 +1,18 @@
 import React from "react";
 import styled from "react-emotion";
 import { css, cx } from "emotion";
-import { buildSpacingFromString } from "../layout/spacing";
-
-export const buildAlignment = (direction, alignment) => {
-  const values = alignment.split(" ");
-  if (values.length === 1) {
-    return `justify-content: ${values[0]}; align-items: ${values[0]}`;
-  } else if (values.length === 2) {
-    const alignmentProperty = direction === "row" ? "align-items" : "justify-content";
-    const inverseAlignmentProperty =
-      alignmentProperty === "align-items" ? "justify-content" : "align-items";
-    if (values[0] === "horizontal") {
-      return `${inverseAlignmentProperty}: ${values[1]}`;
-    } else if (values[0] === "vertical") {
-      return `${alignmentProperty}: ${values[1]}`;
-    }
-    return `${alignmentProperty}: ${values[0]}; ${inverseAlignmentProperty}: ${values[1]}`;
-  }
-  throw new Error("Invalid alignment provided.");
-};
+import { buildSpacing } from "../layout/spacing";
+import { BreakPointDescriptor, buildStringForMediaQueries } from "../layout/mediaQueries";
+import { buildAlignment } from "../layout/alignment";
 
 export type SharedElementProps = {
-  padding?: string;
-  margin?: string;
+  padding?: string | BreakPointDescriptor<string>;
+  margin?: string | BreakPointDescriptor<string>;
 };
 
 const buildSpacingStyles = ({ padding, margin }: SharedElementProps) => {
-  const paddingStr = buildSpacingFromString(padding);
-  const marginStr = buildSpacingFromString(margin, "margin");
+  const paddingStr = buildSpacing(padding);
+  const marginStr = buildSpacing(margin, "margin");
   if (paddingStr && marginStr) {
     return `${paddingStr}; ${marginStr}`;
   }
@@ -90,13 +74,13 @@ export const Seperator = ({
 }: {
   inverse?: boolean;
   fullWidth?: boolean;
-  padding?: string;
+  padding?: string | BreakPointDescriptor<string>;
   className?: string;
   hideBar?: boolean;
   withinGrid?: boolean;
 }) => (
   <SeperatorWrapper
-    className={cx(className, css(buildSpacingFromString(padding)), {
+    className={cx(className, css(buildSpacing(padding)), {
       "cap-padding--horizontal": withinGrid
     })}
   >
@@ -121,10 +105,10 @@ export const VerticalSeperator = ({
   className
 }: {
   inverse?: boolean;
-  padding?: string;
+  padding?: string | BreakPointDescriptor<string>;
   className?: string;
 }) => (
-  <div className={cx(className, css(buildSpacingFromString(padding), css("position: relative;")))}>
+  <div className={cx(className, css(buildSpacing(padding), css("position: relative;")))}>
     <VerticalSeperatorInternal inverse={inverse} />
   </div>
 );

@@ -1,15 +1,9 @@
 // Based on grid breakpoints http://carbondesignsystem.com/style/grid/design
 import cx from "classnames";
 import { spacing } from "./spacing";
+import { BreakPointDescriptor, buildStringForMediaQueries } from "./mediaQueries";
 
 // For now, always assume 12 columns but this could change with media queries.
-export interface BreakPointDescriptor<A> {
-  xs?: A;
-  s?: A;
-  m?: A;
-  lg?: A;
-  xl?: A;
-}
 
 export const createGridClass = (args?: {
   isContainer?: boolean;
@@ -81,6 +75,13 @@ export const createColClass = ({
       breakpoint => `cap-grid__height--${breakpoint}--${heights[breakpoint]}`
     )
   );
+};
+
+export const buildVirticalSpacing = (
+  desc?: string | BreakPointDescriptor<string>,
+  type: "padding" | "margin" = "padding"
+) => {
+  return buildStringForMediaQueries(desc, d => buildVirticalSpacingFromString(d, type));
 };
 
 export const buildVirticalSpacingFromString = (

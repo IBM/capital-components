@@ -1,4 +1,4 @@
-import { buildAlignment } from "./elements";
+import { buildAlignment } from "../src/layout/alignment";
 
 describe("flex alignment", () => {
   test("will align on all axii", () => {
@@ -46,5 +46,21 @@ describe("flex alignment", () => {
   test("with vertical specification and direction column", () => {
     const result = buildAlignment("column", "vertical center");
     expect(result).toBe("justify-content: center");
+  });
+
+  test("supports media queries", () => {
+    const result = buildAlignment("column", { m: "vertical center", l: "horizontal center" });
+    expect(result).toEqual(
+      expect.stringMatching(/@media \(min-width:992px\) {\s+justify-content: center;\s+/)
+    );
+    expect(result).toEqual(
+      expect.stringMatching(/@media \(min-width:1200px\) {\s+align-items: center;\s+/)
+    );
+  });
+
+  test("throws with invalid description", () => {
+    expect(() => {
+      buildAlignment("row", "center center center");
+    }).toThrowError("Invalid alignment provided.");
   });
 });
