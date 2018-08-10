@@ -45,13 +45,13 @@ class HeaderComp extends React.PureComponent<{
 
 const defaultGetRowIdentifier = row => row.id;
 
-interface IContainerProps
+interface ITableProps
   extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableElement>, HTMLTableElement> {
   zebra?: boolean;
 }
 
 // Not using carbon table because zebra is not optional there.
-const Table = ({ zebra, className, ...rest }: IContainerProps) => (
+const Table = ({ zebra, className, ...rest }: ITableProps) => (
   <table
     {...rest}
     className={cx(className, "bx--data-table-v2", { "bx--data-table-v2--zebra": zebra })}
