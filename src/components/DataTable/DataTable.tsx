@@ -5,7 +5,7 @@ import {
   sortStates
 } from "carbon-components-react/lib/components/DataTable/state/sorting";
 import { SortDirection, StringCellContent } from "./utils";
-
+import { cx } from "react-emotion";
 export interface ColumnDescriptor {
   key: string;
   header: string | ReactElement<any>;
@@ -45,6 +45,19 @@ class HeaderComp extends React.PureComponent<{
 
 const defaultGetRowIdentifier = row => row.id;
 
+interface IContainerProps
+  extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableElement>, HTMLTableElement> {
+  zebra?: boolean;
+}
+
+// Not using carbon table because zebra is not optional there.
+const Table = ({ zebra, className, ...rest }: IContainerProps) => (
+  <table
+    {...rest}
+    className={cx(className, "bx--data-table-v2", { "bx--data-table-v2--zebra": zebra })}
+  />
+);
+
 class DataTable extends React.PureComponent<{
   /** Title of the table */
   title?: React.ReactNode;
@@ -64,6 +77,8 @@ class DataTable extends React.PureComponent<{
   getRowIdentifier?: (row: any) => string;
   /** Gives you a chance to add props to each individual row. Eg, click handler. */
   getAdditionalRowProps?: (row: any) => { [key: string]: any };
+  /** Show alternating colors on rows. Does not effect header. */
+  zebra?: boolean;
 }> {
   onHeaderClick = (colKey: string) => {
     this.props.onSort &&
@@ -82,12 +97,13 @@ class DataTable extends React.PureComponent<{
       sortDirection,
       className,
       getRowIdentifier = defaultGetRowIdentifier,
-      getAdditionalRowProps
+      getAdditionalRowProps,
+      zebra
     } = this.props;
 
     return (
       <CarbonDataTable.TableContainer title={title} className={className}>
-        <CarbonDataTable.Table>
+        <Table zebra={zebra}>
           <CarbonDataTable.TableHead>
             <CarbonDataTable.TableRow>
               {columns.map(col => (
@@ -124,7 +140,7 @@ class DataTable extends React.PureComponent<{
               );
             })}
           </CarbonDataTable.TableBody>
-        </CarbonDataTable.Table>
+        </Table>
       </CarbonDataTable.TableContainer>
     );
   }

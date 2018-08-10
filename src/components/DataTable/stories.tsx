@@ -128,3 +128,23 @@ stories.add(
     </React.Fragment>
   ))
 );
+
+stories.add(
+  "Zebra",
+  withInfo({
+    text: `
+        Sometimes you just want to show your stripes
+      `
+  })(() => (
+    <DataTable
+      columns={columns}
+      rows={rows}
+      sortKey="date"
+      sortDirection="DESC"
+      onSort={action("sort")}
+      getRowIdentifier={row => row.name}
+      getAdditionalRowProps={() => ({ onClick: action("row click") })}
+      zebra
+    />
+  ))
+);
