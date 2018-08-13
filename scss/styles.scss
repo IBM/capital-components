@@ -90,3 +90,18 @@
 body {
   background-color: $ui-01;
 }
+
+// IE10-11 only
+// Overrides to support some grid padding on IE
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+  .cap-container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 3vw;
+    padding-right: 3vw;
+    @media (min-width: 62rem) {
+      padding-left: 5vw;
+      padding-right: 5vw;
+    }
+  }
+}
