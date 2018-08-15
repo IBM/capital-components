@@ -2,6 +2,12 @@
 
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
+## Storybook
+
+See our component docs [here](https://pages.github.ibm.com/watson-finance/wfss-components/)
+
+See our icon docs [here](https://pages.github.ibm.com/watson-finance/wfss-icons/)
+
 ## Setup
 
 Configure your npmrc file by following [these](https://github.ibm.com/watson-finance/wfss-icons) intructions.

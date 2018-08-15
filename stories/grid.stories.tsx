@@ -91,7 +91,7 @@ storiesOf("Layout|Grids", module)
   ))
   .add('Left "Flyover"', () => (
     <Wrapper>
-      <FlyOver position="left" width="md" className={flyOverStyle} />
+      <FlyOver position="left" width="md" className={flyOverStyle} show />
       <Grid isContainer preventShrink={false}>
         {R.range(0, 12).map(index => (
           <Col size={1} key={index}>
@@ -110,6 +110,6 @@ storiesOf("Layout|Grids", module)
           </Col>
         ))}
       </Grid>
-      <FlyOver position="right" width="md" className={flyOverStyle} />
+      <FlyOver position="right" width="md" className={flyOverStyle} show />
     </Wrapper>
   ));
