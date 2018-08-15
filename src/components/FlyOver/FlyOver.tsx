@@ -35,7 +35,7 @@ export interface IProps extends IInternalProps {
   show?: boolean;
 }
 
-export class FlyOver extends React.PureComponent<IProps, { destroyed: boolean }> {
+export class FlyOver extends React.PureComponent<IProps, { resting: boolean }> {
   static defaultProps = {
     position: "left",
     width: "md",
@@ -44,18 +44,24 @@ export class FlyOver extends React.PureComponent<IProps, { destroyed: boolean }>
   };
 
   state = {
-    destroyed: false
+    // Some internal state used to track when to totally hide the flyover element
+    resting: false
   };
 
-  resetAnimating = () => !this.props.show && this.setState({ destroyed: true });
+  static getDerivedStateFromProps() {
+    // reset resting on new props
+    return { resting: false };
+  }
 
-  onStart = () => this.setState({ destroyed: false });
+  onRest = () => this.setState({ resting: true });
+
+  onStart = () => this.setState({ resting: false });
 
   render() {
     const { position, width, show, closable, onCloseClick, children, ...otherProps } = this.props;
     const offScreenPosition = position === "left" ? { x: -100 } : { x: 100 };
     const onScreenPosition = { x: 0 };
-    if (this.state.destroyed) {
+    if (this.state.resting && !show) {
       return null;
     }
     return (
@@ -63,7 +69,7 @@ export class FlyOver extends React.PureComponent<IProps, { destroyed: boolean }>
         native
         from={show ? offScreenPosition : onScreenPosition}
         to={show ? onScreenPosition : offScreenPosition}
-        onRest={this.resetAnimating}
+        onRest={this.onRest}
         onStart={this.onStart}
       >
         {({ x }) => {
@@ -80,13 +86,13 @@ export class FlyOver extends React.PureComponent<IProps, { destroyed: boolean }>
                   name="icon--close"
                   className={css`
                     top: 0.5rem;
-                    ${position === "left" ? "right: 0.5rem" : "left: 0.5rem"};
+                    right: 0.5rem;
                     position: absolute;
                     padding: 0.5rem;
                     cursor: pointer;
                   `}
-                  height="32"
-                  width="32"
+                  height="24"
+                  width="24"
                   onClick={onCloseClick}
                 />
               )}
