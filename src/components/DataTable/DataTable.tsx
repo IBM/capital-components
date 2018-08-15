@@ -5,7 +5,8 @@ import {
   sortStates
 } from "carbon-components-react/lib/components/DataTable/state/sorting";
 import { SortDirection, StringCellContent } from "./utils";
-import { cx } from "react-emotion";
+import cx from "classnames";
+
 export interface ColumnDescriptor {
   key: string;
   header: string | ReactElement<any>;

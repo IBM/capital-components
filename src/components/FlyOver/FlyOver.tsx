@@ -1,7 +1,8 @@
 import React from "react";
 import Icon from "carbon-components-react/lib/components/Icon";
 import { css, cx } from "emotion";
-import { Transition, animated, interpolate, Spring } from "react-spring";
+import { animated, interpolate, Spring } from "react-spring";
+import { buildSpacing } from "../../layout/spacing";
 
 const sizeMapping = {
   xl: "560px",
@@ -24,7 +25,7 @@ const FlyOverInternal = ({ position, width, className, ...otherProps }: IInterna
     top: 0;
     z-index: 70;
     ${position === "right" ? "right: 0;" : null};
-    padding: 2.25rem 1rem 1rem 1rem;
+    ${buildSpacing("xl md lg 2xl", "padding")};
   `;
   return <animated.div {...otherProps} className={cx(className, cl)} />;
 };
@@ -85,14 +86,13 @@ export class FlyOver extends React.PureComponent<IProps, { resting: boolean }> {
                 <Icon
                   name="icon--close"
                   className={css`
-                    top: 0.5rem;
-                    right: 0.5rem;
+                    top: 1rem;
+                    right: 1rem;
                     position: absolute;
-                    padding: 0.5rem;
                     cursor: pointer;
                   `}
-                  height="24"
-                  width="24"
+                  height="12"
+                  width="12"
                   onClick={onCloseClick}
                 />
               )}
