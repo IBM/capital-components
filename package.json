@@ -1,6 +1,6 @@
 {
   "name": "@fss/components",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "",
   "keywords": [],
   "main": "lib/index.js",
@@ -161,7 +161,8 @@
     "empty": "^0.10.1",
     "popper.js": "^1.14.3",
     "react-popper": "^1.0.0",
-    "react-spring": "^5.6.6"
+    "react-spring": "^5.6.6",
+    "recompose": "^0.28.2"
   },
   "side-effects": false
 }

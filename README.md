@@ -10,7 +10,13 @@ See our icon docs [here](https://pages.github.ibm.com/watson-finance/wfss-icons/
 
 ## Setup
 
-Configure your npmrc file by following [these](https://github.ibm.com/watson-finance/wfss-icons) intructions.
+Configure your npmrc file be running this:
+
+```sh
+node scripts/setup-npmrc.js
+```
+
+And then add this dependency:
 
 ```sh
 yarn add @fss/components

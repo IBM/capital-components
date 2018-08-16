@@ -1,7 +1,12 @@
 import React from "react";
 import Icon from "carbon-components-react/lib/components/Icon";
 import { css, cx } from "emotion";
-import { Transition, animated, interpolate, Spring } from "react-spring";
+import { animated, interpolate, Spring, config } from "react-spring";
+import { buildSpacing } from "../../layout/spacing";
+import { context } from "../FlyOverProvider/FlyOverProvider";
+
+import pure from "recompose/pure";
+import ReactDOM from "react-dom";
 
 const sizeMapping = {
   xl: "560px",
@@ -15,16 +20,13 @@ interface IInternalProps extends React.HTMLAttributes<HTMLDivElement> {
   width?: "xl" | "l" | "md" | "sm" | string;
 }
 
-const FlyOverInternal = ({ position, width, className, ...otherProps }: IInternalProps) => {
+const FlyOverContainer = ({ position, width, className, ...otherProps }: IInternalProps) => {
   const cl = css`
     min-width: ${sizeMapping[width] || width};
     max-width: ${sizeMapping[width] || width};
     height: 100%;
-    position: absolute;
-    top: 0;
     z-index: 70;
-    ${position === "right" ? "right: 0;" : null};
-    padding: 2.25rem 1rem 1rem 1rem;
+    ${buildSpacing("xl md lg 2xl", "padding")};
   `;
   return <animated.div {...otherProps} className={cx(className, cl)} />;
 };
@@ -35,7 +37,12 @@ export interface IProps extends IInternalProps {
   show?: boolean;
 }
 
-export class FlyOver extends React.PureComponent<IProps, { resting: boolean }> {
+interface IState {
+  resting: boolean;
+  prevProps: IProps;
+}
+
+export class FlyOver extends React.PureComponent<IProps, IState> {
   static defaultProps = {
     position: "left",
     width: "md",
@@ -45,25 +52,28 @@ export class FlyOver extends React.PureComponent<IProps, { resting: boolean }> {
 
   state = {
     // Some internal state used to track when to totally hide the flyover element
-    resting: false
+    resting: false,
+    prevProps: this.props // a slight hack to track prevProps in state.
   };
 
-  static getDerivedStateFromProps() {
-    // reset resting on new props
-    return { resting: false };
+  static getDerivedStateFromProps(nextProps: IProps, prevState: IState) {
+    const { prevProps } = prevState;
+    const nextResting = prevProps.show === nextProps.show;
+    return { resting: nextResting, prevProps: nextProps };
   }
 
   onRest = () => this.setState({ resting: true });
 
   onStart = () => this.setState({ resting: false });
 
-  render() {
+  renderContent() {
     const { position, width, show, closable, onCloseClick, children, ...otherProps } = this.props;
     const offScreenPosition = position === "left" ? { x: -100 } : { x: 100 };
     const onScreenPosition = { x: 0 };
     if (this.state.resting && !show) {
       return null;
     }
+
     return (
       <Spring
         native
@@ -71,11 +81,15 @@ export class FlyOver extends React.PureComponent<IProps, { resting: boolean }> {
         to={show ? onScreenPosition : offScreenPosition}
         onRest={this.onRest}
         onStart={this.onStart}
+        config={{
+          ...config,
+          restSpeedThreshold: 0.001,
+          overshootClamping: true
+        }}
       >
         {({ x }) => {
           return (
-            <FlyOverInternal
-              key="flyover"
+            <FlyOverContainer
               position={position}
               width={width}
               {...otherProps}
@@ -85,22 +99,34 @@ export class FlyOver extends React.PureComponent<IProps, { resting: boolean }> {
                 <Icon
                   name="icon--close"
                   className={css`
-                    top: 0.5rem;
-                    right: 0.5rem;
+                    top: 1rem;
+                    right: 1rem;
                     position: absolute;
-                    padding: 0.5rem;
                     cursor: pointer;
                   `}
-                  height="24"
-                  width="24"
+                  height="12"
+                  width="12"
                   onClick={onCloseClick}
                 />
               )}
               {children}
-            </FlyOverInternal>
+            </FlyOverContainer>
           );
         }}
       </Spring>
+    );
+  }
+
+  render() {
+    return (
+      <context.Consumer>
+        {args => {
+          const containerRef =
+            this.props.position === "left" ? args.getLeftRef() : args.getRightRef();
+          if (containerRef === null) return null;
+          return ReactDOM.createPortal(this.renderContent(), containerRef);
+        }}
+      </context.Consumer>
     );
   }
 }
