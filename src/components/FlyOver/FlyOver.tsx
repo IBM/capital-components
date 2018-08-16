@@ -1,11 +1,12 @@
 import React from "react";
 import Icon from "carbon-components-react/lib/components/Icon";
 import { css, cx } from "emotion";
-import { animated, interpolate, Spring } from "react-spring";
+import { animated, interpolate, Spring, config } from "react-spring";
 import { buildSpacing } from "../../layout/spacing";
 import { context } from "../FlyOverProvider/FlyOverProvider";
 
 import pure from "recompose/pure";
+import ReactDOM from "react-dom";
 
 const sizeMapping = {
   xl: "560px",
@@ -24,10 +25,7 @@ const FlyOverContainer = ({ position, width, className, ...otherProps }: IIntern
     min-width: ${sizeMapping[width] || width};
     max-width: ${sizeMapping[width] || width};
     height: 100%;
-    position: absolute;
-    top: 0;
     z-index: 70;
-    ${position === "right" ? "right: 0;" : null};
     ${buildSpacing("xl md lg 2xl", "padding")};
   `;
   return <animated.div {...otherProps} className={cx(className, cl)} />;
@@ -39,10 +37,12 @@ export interface IProps extends IInternalProps {
   show?: boolean;
 }
 
-class FlyOverInternal extends React.Component<
-  IProps & { renderFlyOver: any },
-  { resting: boolean }
-> {
+interface IState {
+  resting: boolean;
+  prevProps: IProps;
+}
+
+export class FlyOver extends React.PureComponent<IProps, IState> {
   static defaultProps = {
     position: "left",
     width: "md",
@@ -52,29 +52,22 @@ class FlyOverInternal extends React.Component<
 
   state = {
     // Some internal state used to track when to totally hide the flyover element
-    resting: false
+    resting: false,
+    prevProps: this.props // a slight hack to track prevProps in state.
   };
 
-  static getDerivedStateFromProps() {
-    // reset resting on new props
-    return { resting: false };
+  static getDerivedStateFromProps(nextProps: IProps, prevState: IState) {
+    const { prevProps } = prevState;
+    const nextResting = prevProps.show === nextProps.show;
+    return { resting: nextResting, prevProps: nextProps };
   }
 
   onRest = () => this.setState({ resting: true });
 
   onStart = () => this.setState({ resting: false });
 
-  renderContent = () => {
-    const {
-      position,
-      width,
-      show,
-      closable,
-      onCloseClick,
-      children,
-      renderFlyOver,
-      ...otherProps
-    } = this.props;
+  renderContent() {
+    const { position, width, show, closable, onCloseClick, children, ...otherProps } = this.props;
     const offScreenPosition = position === "left" ? { x: -100 } : { x: 100 };
     const onScreenPosition = { x: 0 };
     if (this.state.resting && !show) {
@@ -88,11 +81,15 @@ class FlyOverInternal extends React.Component<
         to={show ? onScreenPosition : offScreenPosition}
         onRest={this.onRest}
         onStart={this.onStart}
+        config={{
+          ...config,
+          restSpeedThreshold: 0.001,
+          overshootClamping: true
+        }}
       >
         {({ x }) => {
           return (
             <FlyOverContainer
-              key="flyover"
               position={position}
               width={width}
               {...otherProps}
@@ -118,36 +115,20 @@ class FlyOverInternal extends React.Component<
         }}
       </Spring>
     );
-  };
-
-  addFlyOver = () => {
-    const { renderFlyOver } = this.props;
-    if (renderFlyOver) {
-      renderFlyOver(this.renderContent());
-    }
-  };
-
-  componentDidUpdate() {
-    this.addFlyOver();
-  }
-
-  componentDidMount() {
-    this.addFlyOver();
   }
 
   render() {
-    return null;
+    return (
+      <context.Consumer>
+        {args => {
+          const containerRef =
+            this.props.position === "left" ? args.getLeftRef() : args.getRightRef();
+          if (containerRef === null) return null;
+          return ReactDOM.createPortal(this.renderContent(), containerRef);
+        }}
+      </context.Consumer>
+    );
   }
 }
-
-const PureFlyOverInternal = pure(FlyOverInternal);
-
-// We need another wrapping component so renderFlyOver can
-// be passed in as a prop from the render prop
-export const FlyOver: React.SFC<IProps> = pure((props: IProps) => (
-  <context.Consumer>
-    {args => <PureFlyOverInternal {...props} renderFlyOver={args.renderFlyOver} />}
-  </context.Consumer>
-));
 
 export default FlyOver;
