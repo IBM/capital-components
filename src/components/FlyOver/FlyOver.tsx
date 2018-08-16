@@ -3,6 +3,9 @@ import Icon from "carbon-components-react/lib/components/Icon";
 import { css, cx } from "emotion";
 import { animated, interpolate, Spring } from "react-spring";
 import { buildSpacing } from "../../layout/spacing";
+import { context } from "../FlyOverProvider/FlyOverProvider";
+
+import pure from "recompose/pure";
 
 const sizeMapping = {
   xl: "560px",
@@ -16,7 +19,7 @@ interface IInternalProps extends React.HTMLAttributes<HTMLDivElement> {
   width?: "xl" | "l" | "md" | "sm" | string;
 }
 
-const FlyOverInternal = ({ position, width, className, ...otherProps }: IInternalProps) => {
+const FlyOverContainer = ({ position, width, className, ...otherProps }: IInternalProps) => {
   const cl = css`
     min-width: ${sizeMapping[width] || width};
     max-width: ${sizeMapping[width] || width};
@@ -36,7 +39,10 @@ export interface IProps extends IInternalProps {
   show?: boolean;
 }
 
-export class FlyOver extends React.PureComponent<IProps, { resting: boolean }> {
+class FlyOverInternal extends React.Component<
+  IProps & { renderFlyOver: any },
+  { resting: boolean }
+> {
   static defaultProps = {
     position: "left",
     width: "md",
@@ -58,13 +64,23 @@ export class FlyOver extends React.PureComponent<IProps, { resting: boolean }> {
 
   onStart = () => this.setState({ resting: false });
 
-  render() {
-    const { position, width, show, closable, onCloseClick, children, ...otherProps } = this.props;
+  renderContent = () => {
+    const {
+      position,
+      width,
+      show,
+      closable,
+      onCloseClick,
+      children,
+      renderFlyOver,
+      ...otherProps
+    } = this.props;
     const offScreenPosition = position === "left" ? { x: -100 } : { x: 100 };
     const onScreenPosition = { x: 0 };
     if (this.state.resting && !show) {
       return null;
     }
+
     return (
       <Spring
         native
@@ -75,7 +91,7 @@ export class FlyOver extends React.PureComponent<IProps, { resting: boolean }> {
       >
         {({ x }) => {
           return (
-            <FlyOverInternal
+            <FlyOverContainer
               key="flyover"
               position={position}
               width={width}
@@ -97,12 +113,41 @@ export class FlyOver extends React.PureComponent<IProps, { resting: boolean }> {
                 />
               )}
               {children}
-            </FlyOverInternal>
+            </FlyOverContainer>
           );
         }}
       </Spring>
     );
+  };
+
+  addFlyOver = () => {
+    const { renderFlyOver } = this.props;
+    if (renderFlyOver) {
+      renderFlyOver(this.renderContent());
+    }
+  };
+
+  componentDidUpdate() {
+    this.addFlyOver();
+  }
+
+  componentDidMount() {
+    this.addFlyOver();
+  }
+
+  render() {
+    return null;
   }
 }
+
+const PureFlyOverInternal = pure(FlyOverInternal);
+
+// We need another wrapping component so renderFlyOver can
+// be passed in as a prop from the render prop
+export const FlyOver: React.SFC<IProps> = pure((props: IProps) => (
+  <context.Consumer>
+    {args => <PureFlyOverInternal {...props} renderFlyOver={args.renderFlyOver} />}
+  </context.Consumer>
+));
 
 export default FlyOver;
