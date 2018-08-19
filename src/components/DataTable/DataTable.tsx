@@ -7,15 +7,15 @@ import {
 import { SortDirection, StringCellContent } from "./utils";
 import cx from "classnames";
 
-export interface ColumnDescriptor {
+export interface ColumnDescriptor<T> {
   key: string;
-  header: string | ReactElement<any>;
+  header: string | ReactElement<any> | null;
   isSortable?: boolean;
-  content?: (props: { row: any[]; colKey: string }) => ReactElement<any>;
+  content?: (props: { row: T; colKey: string; rowIndex: number }) => ReactElement<any> | null;
 }
 
-class HeaderComp extends React.PureComponent<{
-  colDesc: ColumnDescriptor;
+class HeaderComp<T> extends React.PureComponent<{
+  colDesc: ColumnDescriptor<T>;
   sortDirection: SortDirection;
   onHeaderClick: (key: string) => void;
 }> {
@@ -44,7 +44,9 @@ class HeaderComp extends React.PureComponent<{
   }
 }
 
-const defaultGetRowIdentifier = row => row.id;
+function defaultGetRowIdentifier(row: any, _rowIndex: number) {
+  return row.id;
+}
 
 interface ITableProps
   extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableElement>, HTMLTableElement> {
@@ -59,25 +61,25 @@ const Table = ({ zebra, className, ...rest }: ITableProps) => (
   />
 );
 
-class DataTable extends React.PureComponent<{
+class DataTable<T> extends React.PureComponent<{
   /** Title of the table */
   title?: React.ReactNode;
   /** How your columns will be rendered. See examples for details. */
-  columns: ColumnDescriptor[];
+  columns: ColumnDescriptor<T>[];
   /** The currently sorted column key. */
   sortKey?: string;
   /** The currently sort direction. */
   sortDirection?: SortDirection;
   /** Rows to display. All provided rows will be shown. */
-  rows: any[];
+  rows: T[];
   /** Callback to handle when sort is clicked on some header. */
   onSort?: (arg: { colKey: string; sortDirection: SortDirection }) => void;
   /** CSS classname */
   className?: string;
   /** How individual rows are identified. It must return something unique for that row. */
-  getRowIdentifier?: (row: any) => string;
+  getRowIdentifier?: (row: T, rowIndex: number) => string;
   /** Gives you a chance to add props to each individual row. Eg, click handler. */
-  getAdditionalRowProps?: (row: any) => { [key: string]: any };
+  getAdditionalRowProps?: (row: T) => { [key: string]: any };
   /** Show alternating colors on rows. Does not effect header. */
   zebra?: boolean;
 }> {
@@ -118,8 +120,8 @@ class DataTable extends React.PureComponent<{
             </CarbonDataTable.TableRow>
           </CarbonDataTable.TableHead>
           <CarbonDataTable.TableBody>
-            {rows.map(row => {
-              const rowId = getRowIdentifier(row);
+            {rows.map((row, rowIndex) => {
+              const rowId = getRowIdentifier(row, rowIndex);
               const additionalProps = getAdditionalRowProps ? getAdditionalRowProps(row) : {};
               return (
                 <CarbonDataTable.TableRow key={rowId} {...additionalProps}>
@@ -132,7 +134,8 @@ class DataTable extends React.PureComponent<{
                       <CarbonDataTable.TableCell key={`${rowId}:${col.key}`}>
                         {renderer({
                           row,
-                          colKey: col.key
+                          colKey: col.key,
+                          rowIndex
                         })}
                       </CarbonDataTable.TableCell>
                     );

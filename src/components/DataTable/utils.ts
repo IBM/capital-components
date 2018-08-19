@@ -1,7 +1,9 @@
 import { sortStates } from "carbon-components-react/lib/components/DataTable/state/sorting";
 export { sortStates } from "carbon-components-react/lib/components/DataTable/state/sorting";
 
-export const StringCellContent = (props: { row: any[]; colKey: string }) => props.row[props.colKey];
+export function StringCellContent<T>(props: { row: T; colKey: string; rowIndex: number }) {
+  return props.row[props.colKey] as React.ReactElement<any>;
+}
 
 export type SortDirection = "NONE" | "DESC" | "ASC"; // from 'carbon-components-react/lib/components/DataTable/state/sorting'
 
