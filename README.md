@@ -2,11 +2,13 @@
 
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-## Storybook
+## Storybooks
 
-See our component docs [here](https://pages.github.ibm.com/watson-finance/wfss-components/)
+#### 🛠 Component Library
+See our components [here](https://pages.github.ibm.com/watson-finance/wfss-components/)
 
-See our icon docs [here](https://pages.github.ibm.com/watson-finance/wfss-icons/)
+#### 😬 Icon Library
+See our icons [here](https://pages.github.ibm.com/watson-finance/wfss-icons/)
 
 ## Setup
 
