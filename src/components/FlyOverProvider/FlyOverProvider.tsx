@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "react-emotion";
+import { layers } from "../../layout/layers";
 
 const defaultContextValue: {
   getLeftRef: () => HTMLElement;
@@ -12,6 +13,7 @@ const defaultContextValue: {
 export const context = React.createContext(defaultContextValue);
 
 const RelativeDiv = styled("div")<{ position: "left" | "right" }>`
+  z-index: ${layers.FlyOver};
   height: 100%;
   position: absolute;
   top: 0;

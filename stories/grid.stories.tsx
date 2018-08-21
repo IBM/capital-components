@@ -1,6 +1,6 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { Grid, Col, FlyOver } from "@fss/components";
+import { Grid, Col, FlyOver, FlyOverProvider } from "@fss/components";
 import styled from "react-emotion";
 import { withInfo } from "@storybook/addon-info";
 import * as R from "ramda";
@@ -91,25 +91,29 @@ storiesOf("Layout|Grids", module)
   ))
   .add('Left "Flyover"', () => (
     <Wrapper>
-      <FlyOver position="left" width="md" className={flyOverStyle} show />
-      <Grid isContainer preventShrink={false}>
-        {R.range(0, 12).map(index => (
-          <Col size={1} key={index}>
-            <ColumnContent>{index + 1}</ColumnContent>
-          </Col>
-        ))}
-      </Grid>
+      <FlyOverProvider>
+        <FlyOver position="left" width="md" className={flyOverStyle} show />
+        <Grid isContainer preventShrink={false}>
+          {R.range(0, 12).map(index => (
+            <Col size={1} key={index}>
+              <ColumnContent>{index + 1}</ColumnContent>
+            </Col>
+          ))}
+        </Grid>
+      </FlyOverProvider>
     </Wrapper>
   ))
   .add('Right "Flyover"', () => (
     <Wrapper>
-      <Grid isContainer preventShrink={false}>
-        {R.range(0, 12).map(index => (
-          <Col size={1} key={index}>
-            <ColumnContent>{index + 1}</ColumnContent>
-          </Col>
-        ))}
-      </Grid>
-      <FlyOver position="right" width="md" className={flyOverStyle} show />
+      <FlyOverProvider>
+        <Grid isContainer preventShrink={false}>
+          {R.range(0, 12).map(index => (
+            <Col size={1} key={index}>
+              <ColumnContent>{index + 1}</ColumnContent>
+            </Col>
+          ))}
+        </Grid>
+        <FlyOver position="right" width="md" className={flyOverStyle} show />
+      </FlyOverProvider>
     </Wrapper>
   ));

@@ -5,7 +5,6 @@ import { animated, interpolate, Spring, config } from "react-spring";
 import { buildSpacing } from "../../layout/spacing";
 import { context } from "../FlyOverProvider/FlyOverProvider";
 
-import pure from "recompose/pure";
 import ReactDOM from "react-dom";
 
 const sizeMapping = {
@@ -26,7 +25,7 @@ const FlyOverContainer = ({ position, width, className, ...otherProps }: IIntern
     max-width: ${sizeMapping[width] || width};
     height: 100%;
     z-index: 70;
-    ${buildSpacing("xl md lg 2xl", "padding")};
+    ${buildSpacing("xl 2xl lg xl", "padding")};
   `;
   return <animated.div {...otherProps} className={cx(className, cl)} />;
 };
@@ -73,7 +72,6 @@ export class FlyOver extends React.PureComponent<IProps, IState> {
     if (this.state.resting && !show) {
       return null;
     }
-
     return (
       <Spring
         native
@@ -100,7 +98,7 @@ export class FlyOver extends React.PureComponent<IProps, IState> {
                   name="icon--close"
                   className={css`
                     top: 1rem;
-                    right: 1rem;
+                    ${position}: 1rem;
                     position: absolute;
                     cursor: pointer;
                   `}
