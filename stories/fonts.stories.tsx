@@ -8,7 +8,7 @@ import {
   Input,
   Large,
   DataVizLabel
-} from "../src/primitives/text";
+} from "@fss/components/lib/primitives/text";
 import { withInfo } from "@storybook/addon-info";
 
 storiesOf("Fonts", module)

@@ -17,7 +17,8 @@
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "paths": {
-      "@fss/components": ["./src/index.ts"]
+      "@fss/components": ["./src/index.ts"],
+      "@fss/components/lib/*": ["./src/*"]
     },
     "noImplicitAny": false
   },
