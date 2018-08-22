@@ -1,5 +1,6 @@
 import { sortStates } from "carbon-components-react/lib/components/DataTable/state/sorting";
 export { sortStates } from "carbon-components-react/lib/components/DataTable/state/sorting";
+import React from "react";
 
 export function StringCellContent<T>(props: { row: T; colKey: string; rowIndex: number }) {
   return props.row[props.colKey] as React.ReactElement<any>;
