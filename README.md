@@ -1,6 +1,5 @@
 # WFSS Components
-
-[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+Components to support the Watson Financial Services [Capital Design System](https://ibm.biz/capital-design-system).
 
 ## Libraries
 
