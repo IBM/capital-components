@@ -4,6 +4,7 @@ const merge = require("merge2");
 const ts = require("gulp-typescript");
 const replace = require("gulp-replace");
 const sass = require("gulp-sass");
+const babel = require("gulp-babel");
 
 const pkg = require("./package.json");
 const tsProject = ts.createProject("tsconfig.json", {
@@ -13,10 +14,16 @@ const tsProject = ts.createProject("tsconfig.json", {
 
 const clean = () => del(pkg.files);
 
+const sources = ["src/**/*.ts", "src/**/*.tsx", "!src/**/stories.tsx", "!src/**/*.test.ts"];
+
 const compileScripts = () => {
   const tsResult = gulp
-    .src(["src/**/*.ts", "src/**/*.tsx", "!src/**/stories.tsx", "!src/**/*.test.ts"]) // or tsProject.src()
+    .src(sources) // or tsProject.src()
     .pipe(tsProject());
+  const babelResult = gulp
+    .src(sources)
+    .pipe(babel())
+    .pipe(gulp.dest("lib"));
 
   return merge([
     // We need to override references in types to use nodejs
@@ -25,7 +32,7 @@ const compileScripts = () => {
       .pipe(replace(/import\(".*\/node_modules\//g, 'import("'))
       .pipe(replace('/// <reference path="../../node_modules/emotion/types/index.d.ts" />', ""))
       .pipe(gulp.dest("types")),
-    tsResult.js.pipe(gulp.dest("lib"))
+    babelResult
   ]);
 };
 

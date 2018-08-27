@@ -3,6 +3,6 @@
 // where to place different layers of the UI
 // For now, we're just constants
 
-export const enum layers {
+export enum layers {
   FlyOver = 100
 }
