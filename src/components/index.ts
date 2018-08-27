@@ -8,3 +8,5 @@ export { default as Table } from "./Table";
 export { default as Popover } from "./Popover";
 export { default as DropMenu } from "./DropMenu";
 export { default as DropMenuItem } from "./DropMenuItem";
+export { default as Tabs } from "./Tabs";
+export { default as BleedingRow } from "./BleedingRow";

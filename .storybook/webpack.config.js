@@ -2,15 +2,23 @@ const path = require("path");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 module.exports = (baseConfig, env, config) => {
+  config.module.rules[0].use[0].loader = require.resolve("babel-loader");
+  // Just use our babelrc instead.
+  config.module.rules[0].use[0].options.babelrc = true;
+  config.module.rules[0].use[0].options.presets = [];
+  config.module.rules[0].use[0].options.plugins = [];
+
+  const index = config.module.rules.findIndex(rule => {
+    return String(rule.test) === String(/\.svg$/);
+  });
+  // need to modify storybook to prevent built in svg loader
+  config.module.rules.splice(index, 1);
   config.module.rules.push(
     {
       test: /(\.|\/)stories\.tsx?$/,
       use: [
         {
-          loader: "ts-loader",
-          options: {
-            configFile: path.resolve(__dirname, "tsconfig.json")
-          }
+          loader: "babel-loader"
         },
         {
           loader: require.resolve("@storybook/addon-storysource/loader"),
@@ -24,10 +32,7 @@ module.exports = (baseConfig, env, config) => {
       exclude: /(\.|\/)stories\.tsx?$/,
       use: [
         {
-          loader: "ts-loader",
-          options: {
-            configFile: path.resolve(__dirname, "tsconfig.json")
-          }
+          loader: "babel-loader"
         },
         {
           loader: "react-docgen-typescript-loader",
@@ -44,18 +49,6 @@ module.exports = (baseConfig, env, config) => {
       loader: "svg-sprite-loader"
     }
   );
-  // need to modify storybook to prevent built in svg loader
-  const index = config.module.rules.findIndex(rule => {
-    return (
-      String(rule.test) ===
-      String(/\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/)
-    );
-  });
-  if (index >= 0) {
-    config.module.rules[
-      index
-    ].test = /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2)(\?.*)?$/;
-  }
 
   config.resolve.extensions.push(".ts", ".tsx");
   config.resolve.plugins = config.resolve.plugins || [];

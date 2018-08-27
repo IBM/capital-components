@@ -14,7 +14,7 @@ const IEFixer = styled("div")`
 
 export interface IProps {
   /** The reference element. Make sure to pass the ref into the appropriate element. This ref will be used to measure and place the popover */
-  reference: ({ ref }: { ref: Ref<any> }) => React.ReactNode;
+  reference: (args: { ref: Ref<any> }) => React.ReactNode;
   /** The placement/orientation of the popover. See PopperJS docs for details. */
   placement: PopperJS.Placement;
   /** The contents of the popover. */
