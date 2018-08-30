@@ -6,6 +6,7 @@ import {
   ThemeProviderComponent
 } from "emotion-theming";
 import { ComponentType } from "react";
+import { spacing, layout } from "../layout/spacing";
 
 export type Theme = {
   color: {
@@ -28,6 +29,10 @@ export type Theme = {
     support04: string;
     nav01: string;
     nav02: string;
+  };
+  spacing: {
+    spacing: typeof spacing;
+    layout: typeof layout;
   };
 };
 

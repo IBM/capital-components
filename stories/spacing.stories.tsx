@@ -13,10 +13,9 @@ import { withInfo } from "@storybook/addon-info";
 import * as R from "ramda";
 import { css } from "emotion";
 import { spacing } from "../src/layout/spacing";
-import { setOptions } from "@storybook/addon-options";
 
 const spacingList = R.toPairs(spacing);
-const remToPixel = remStr => parseInt(remStr.replace(/rm$/, ""), 10) * 16 + "px";
+const remToPixel = remStr => parseFloat(remStr.replace(/rem$/, ""), 10) * 16 + "px";
 
 const example = css`
   border: 1px solid #6eb1b1;

@@ -7,39 +7,53 @@ import {
   StructuredListBody
 } from "carbon-components-react";
 
-export interface IProps {
+export type ColumnContentRenderer<T> = React.ComponentType<{
+  row: T;
+  colKey: keyof T;
+  rowIndex: number;
+}>;
+
+export interface IProps<T = object> {
   columns: {
-    key: string;
+    key: keyof T;
     header: JSX.Element | string;
-    content: React.ComponentType<{ row: object | string; colKey: string }>;
+    content: ColumnContentRenderer<T>;
   }[];
-  rows: (object | string)[];
+  rows: T[];
   className?: string;
 }
 
-export const Table: React.SFC<IProps> = ({ columns, rows, className }) => (
-  <StructuredListWrapper className={className}>
-    <StructuredListHead>
-      <StructuredListRow head>
-        {columns.map(col => (
-          <StructuredListCell key={col.key} head>
-            {col.header}
-          </StructuredListCell>
-        ))}
-      </StructuredListRow>
-    </StructuredListHead>
-    <StructuredListBody>
-      {rows.map((row, index) => (
-        <StructuredListRow key={index}>
-          {columns.map(col => (
-            <StructuredListCell key={col.key}>
-              {col.content ? <col.content row={row} colKey={col.key} /> : row[col.key]}
-            </StructuredListCell>
+export class Table<T> extends React.PureComponent<IProps<T>> {
+  render() {
+    const { className, columns, rows } = this.props;
+    return (
+      <StructuredListWrapper className={className}>
+        <StructuredListHead>
+          <StructuredListRow head>
+            {columns.map(col => (
+              <StructuredListCell key={col.key} head>
+                {col.header}
+              </StructuredListCell>
+            ))}
+          </StructuredListRow>
+        </StructuredListHead>
+        <StructuredListBody>
+          {rows.map((row, index) => (
+            <StructuredListRow key={index}>
+              {columns.map(col => (
+                <StructuredListCell key={col.key}>
+                  {col.content ? (
+                    <col.content row={row} colKey={col.key} rowIndex={index} />
+                  ) : (
+                    row[col.key]
+                  )}
+                </StructuredListCell>
+              ))}
+            </StructuredListRow>
           ))}
-        </StructuredListRow>
-      ))}
-    </StructuredListBody>
-  </StructuredListWrapper>
-);
-
+        </StructuredListBody>
+      </StructuredListWrapper>
+    );
+  }
+}
 export default Table;

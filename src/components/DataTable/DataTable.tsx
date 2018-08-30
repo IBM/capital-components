@@ -7,17 +7,23 @@ import {
 import { SortDirection, StringCellContent } from "./utils";
 import cx from "classnames";
 
+export type ColumnContentRenderer<T> = React.ComponentType<{
+  row: T;
+  colKey: keyof T;
+  rowIndex: number;
+}>;
+
 export interface ColumnDescriptor<T> {
-  key: string;
+  key: keyof T;
   header: string | ReactElement<any> | null;
   isSortable?: boolean;
-  content?: (props: { row: T; colKey: string; rowIndex: number }) => ReactElement<any> | null;
+  content?: ColumnContentRenderer<T>;
 }
 
 class HeaderComp<T> extends React.PureComponent<{
   colDesc: ColumnDescriptor<T>;
   sortDirection: SortDirection;
-  onHeaderClick: (key: string) => void;
+  onHeaderClick: (key: keyof T) => void;
 }> {
   onClick = () => {
     if (this.props.colDesc.isSortable !== false) {
@@ -67,13 +73,13 @@ class DataTable<T> extends React.PureComponent<{
   /** How your columns will be rendered. See examples for details. */
   columns: ColumnDescriptor<T>[];
   /** The currently sorted column key. */
-  sortKey?: string;
+  sortKey?: keyof T;
   /** The currently sort direction. */
   sortDirection?: SortDirection;
   /** Rows to display. All provided rows will be shown. */
   rows: T[];
   /** Callback to handle when sort is clicked on some header. */
-  onSort?: (arg: { colKey: string; sortDirection: SortDirection }) => void;
+  onSort?: (arg: { colKey: keyof T; sortDirection: SortDirection }) => void;
   /** CSS classname */
   className?: string;
   /** How individual rows are identified. It must return something unique for that row. */
@@ -83,7 +89,7 @@ class DataTable<T> extends React.PureComponent<{
   /** Show alternating colors on rows. Does not effect header. */
   zebra?: boolean;
 }> {
-  onHeaderClick = (colKey: string) => {
+  onHeaderClick = (colKey: keyof T) => {
     this.props.onSort &&
       this.props.onSort({
         colKey,
@@ -112,7 +118,7 @@ class DataTable<T> extends React.PureComponent<{
               {columns.map(col => (
                 <HeaderComp
                   sortDirection={col.key === sortKey ? sortDirection : sortStates.NONE}
-                  key={col.key}
+                  key={col.key.toString()}
                   colDesc={col}
                   onHeaderClick={this.onHeaderClick}
                 />
@@ -126,17 +132,13 @@ class DataTable<T> extends React.PureComponent<{
               return (
                 <CarbonDataTable.TableRow key={rowId} {...additionalProps}>
                   {columns.map(col => {
-                    const renderer =
+                    const Renderer =
                       col.content === undefined || col.content === null
                         ? StringCellContent
                         : col.content;
                     return (
                       <CarbonDataTable.TableCell key={`${rowId}:${col.key}`}>
-                        {renderer({
-                          row,
-                          colKey: col.key,
-                          rowIndex
-                        })}
+                        <Renderer row={row} colKey={col.key} rowIndex={rowIndex} />
                       </CarbonDataTable.TableCell>
                     );
                   })}
