@@ -1,6 +1,8 @@
 # WFSS Components
 Components to support the Watson Financial Services [Capital Design System](https://ibm.biz/capital-design-system).
 
+Please see our [wiki](https://github.ibm.com/watson-finance/wfss-components/wiki) for important links and information about the WFSS development organization
+
 ## Libraries
 
 ### 🛠 Component Library
