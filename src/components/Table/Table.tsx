@@ -6,6 +6,7 @@ import {
   StructuredListCell,
   StructuredListBody
 } from "carbon-components-react";
+import { cx, css } from "emotion";
 
 export type ColumnContentRenderer<T> = React.ComponentType<{
   row: T;
@@ -13,7 +14,7 @@ export type ColumnContentRenderer<T> = React.ComponentType<{
   rowIndex: number;
 }>;
 
-export interface IProps<T = object> {
+export interface IProps<T> {
   columns: {
     key: keyof T;
     header: JSX.Element | string;
@@ -21,39 +22,58 @@ export interface IProps<T = object> {
   }[];
   rows: T[];
   className?: string;
+  selection?: boolean;
+  getAdditionalRowProps?: (row: T) => { [key: string]: any };
+  small?: boolean;
 }
 
-export class Table<T> extends React.PureComponent<IProps<T>> {
-  render() {
-    const { className, columns, rows } = this.props;
-    return (
-      <StructuredListWrapper className={className}>
-        <StructuredListHead>
-          <StructuredListRow head>
-            {columns.map(col => (
-              <StructuredListCell key={col.key} head>
-                {col.header}
-              </StructuredListCell>
-            ))}
-          </StructuredListRow>
-        </StructuredListHead>
-        <StructuredListBody>
-          {rows.map((row, index) => (
-            <StructuredListRow key={index}>
+const smallTableRow = css`
+  > .bx--structured-list-td {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+`;
+
+export default function Table<T>({
+  columns,
+  rows,
+  className,
+  selection,
+  getAdditionalRowProps = () => ({}),
+  small = false
+}: IProps<T>) {
+  return (
+    <StructuredListWrapper className={className} selection={selection}>
+      <StructuredListHead>
+        <StructuredListRow head>
+          {columns.map(col => (
+            <StructuredListCell key={col.key} head>
+              {col.header}
+            </StructuredListCell>
+          ))}
+        </StructuredListRow>
+      </StructuredListHead>
+      <StructuredListBody>
+        {rows.map((row, index) => {
+          const { className, ...otherProps } = getAdditionalRowProps(row);
+
+          return (
+            <StructuredListRow
+              key={index}
+              className={cx(className, {
+                [smallTableRow]: small
+              })}
+              {...otherProps}
+            >
               {columns.map(col => (
                 <StructuredListCell key={col.key}>
-                  {col.content ? (
-                    <col.content row={row} colKey={col.key} rowIndex={index} />
-                  ) : (
-                    row[col.key]
-                  )}
+                  <col.content row={row} colKey={col.key} rowIndex={index} />
                 </StructuredListCell>
               ))}
             </StructuredListRow>
-          ))}
-        </StructuredListBody>
-      </StructuredListWrapper>
-    );
-  }
+          );
+        })}
+      </StructuredListBody>
+    </StructuredListWrapper>
+  );
 }
-export default Table;

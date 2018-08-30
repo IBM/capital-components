@@ -15,7 +15,7 @@ import { css } from "emotion";
 import { spacing } from "../src/layout/spacing";
 
 const spacingList = R.toPairs(spacing);
-const remToPixel = remStr => parseFloat(remStr.replace(/rem$/, ""), 10) * 16 + "px";
+const remToPixel = remStr => parseFloat(remStr.replace(/rem$/, "")) * 16 + "px";
 
 const example = css`
   border: 1px solid #6eb1b1;
