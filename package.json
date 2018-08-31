@@ -82,7 +82,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-rc.3",
-    "babel-loader": "^8.0.0-beta.4",
     "@babel/plugin-proposal-class-properties": "^7.0.0-rc.3",
     "@babel/plugin-proposal-object-rest-spread": "7.0.0-rc.1",
     "@babel/preset-env": "^7.0.0-rc.3",
@@ -106,6 +105,7 @@
     "@types/react-dom": "^16.0.5",
     "@types/storybook__react": "^3.0.7",
     "babel-core": "7.0.0-bridge.0",
+    "babel-loader": "^8.0.0-beta.4",
     "babel-plugin-add-react-displayname": "^0.0.5",
     "babel-plugin-emotion": "^9.2.6",
     "carbon-components": "^8.10.0",
@@ -152,7 +152,7 @@
     "tslint-config-prettier": "^1.1.0",
     "tslint-config-standard": "^7.0.0",
     "typedoc": "^0.11.0",
-    "typescript": "2.9.x",
+    "typescript": "^3.0.3",
     "validate-commit-msg": "^2.12.2",
     "webpack": "^4.16.5"
   },
@@ -172,8 +172,8 @@
     "empty": "^0.10.1",
     "popper.js": "^1.14.3",
     "react-popper": "^1.0.0",
-    "react-spring": "^5.6.6",
-    "recompose": "^0.28.2"
+    "react-spring": "^5.6.11",
+    "recompose": "0.27.1"
   },
   "side-effects": false
 }
