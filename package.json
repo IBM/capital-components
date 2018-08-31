@@ -82,6 +82,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-rc.3",
+    "babel-loader": "^8.0.0-beta.4",
     "@babel/plugin-proposal-class-properties": "^7.0.0-rc.3",
     "@babel/plugin-proposal-object-rest-spread": "7.0.0-rc.1",
     "@babel/preset-env": "^7.0.0-rc.3",
@@ -167,7 +168,6 @@
     "registry": "https://na.artifactory.swg-devops.com:443/artifactory/api/npm/ip-wfss-npm-local"
   },
   "dependencies": {
-    "babel-loader": "^8.0.0-beta.4",
     "classnames": "^2.2.5",
     "empty": "^0.10.1",
     "popper.js": "^1.14.3",
