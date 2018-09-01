@@ -5,6 +5,8 @@ const ts = require("gulp-typescript");
 const replace = require("gulp-replace");
 const sass = require("gulp-sass");
 const babel = require("gulp-babel");
+const gulpIf = require("gulp-if");
+const fail = require("gulp-fail");
 
 const pkg = require("./package.json");
 const tsProject = ts.createProject("tsconfig.json", {
@@ -37,6 +39,12 @@ const compileScripts = () => {
       // and those break when using as a module.
       .pipe(
         replace(/\/\/\/ <reference path=".*\/node_modules\/emotion\/types\/index.d.ts" \/>/, "")
+      )
+      .pipe(
+        // If any reference paths exist to local modules, the reslts will be problematic, just fail
+        gulpIf(file => {
+          return file.contents.toString().match(/\/\/\/ <reference path=".*\/node_modules\//);
+        }, fail(() => "Failed generating types. Found exported references paths."))
       )
       .pipe(gulp.dest("types")),
     babelResult
