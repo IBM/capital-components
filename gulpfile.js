@@ -32,11 +32,12 @@ const compileScripts = () => {
     .pipe(gulp.dest("lib"));
 
   return merge([
-    // We need to override references in types to use nodejs
-    // module resolution instead of relative node_modules for types
     tsResult.dts
-      // .pipe(replace(/import\(".*\/node_modules\//g, 'import("'))
-      // .pipe(replace('/// <reference path="../../node_modules/emotion/types/index.d.ts" />', ""))
+      // Remove external references to emotion types because they use relative paths
+      // and those break when using as a module.
+      .pipe(
+        replace(/\/\/\/ <reference path=".*\/node_modules\/emotion\/types\/index.d.ts" \/>/, "")
+      )
       .pipe(gulp.dest("types")),
     babelResult
   ]);
