@@ -5,7 +5,7 @@ import {
   OptionalThemeProps,
   ThemeProviderComponent
 } from "emotion-theming";
-import { ComponentType } from "react";
+import React, { ComponentType } from "react";
 import { spacing, layout } from "../layout/spacing";
 
 export type Theme = {
