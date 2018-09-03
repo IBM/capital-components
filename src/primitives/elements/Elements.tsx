@@ -1,13 +1,16 @@
 import React from "react";
 import styled from "react-emotion";
 import { css, cx } from "emotion";
-import { buildSpacing } from "../layout/spacing";
-import { BreakPointDescriptor, buildStringForMediaQueries } from "../layout/mediaQueries";
-import { buildAlignment } from "../layout/alignment";
+import { buildSpacing } from "../../layout/spacing";
+import { BreakPointDescriptor } from "../../layout/mediaQueries";
+import { buildAlignment } from "../../layout/alignment";
+import { Theme } from "../../support/theme";
 
 export type SharedElementProps = {
+  /* How to render the padding for this element. Use predefined xs, sm, md, etc padding variables or define a size. */
   padding?: string | BreakPointDescriptor<string>;
   margin?: string | BreakPointDescriptor<string>;
+  cssWithTheme?: (props: { theme: Theme }) => string;
 };
 
 const buildSpacingStyles = ({ padding, margin }: SharedElementProps) => {
@@ -19,25 +22,36 @@ const buildSpacingStyles = ({ padding, margin }: SharedElementProps) => {
   return paddingStr || marginStr;
 };
 
+const addAdditionalStyles = ({ cssWithTheme, theme }: SharedElementProps & { theme: Theme }) => {
+  if (cssWithTheme && theme) {
+    return cssWithTheme({ theme });
+  }
+  return "";
+};
+
 // Basic flex dentered box.
 export const CenteredBlock = styled("div")<SharedElementProps>`
   display: flex;
   justify-content: center;
   align-items: center;
   ${buildSpacingStyles};
+  ${addAdditionalStyles};
 `;
 
 export const Block = styled("div")<SharedElementProps>`
   ${buildSpacingStyles};
+  ${addAdditionalStyles};
 `;
 
 export const Inline = styled("span")<SharedElementProps>`
   ${buildSpacingStyles};
+  ${addAdditionalStyles};
 `;
 
 export const InlineBlock = styled("span")<SharedElementProps>`
   display: inline-block;
   ${buildSpacingStyles};
+  ${addAdditionalStyles};
 `;
 
 export const Flex = styled("div")<
@@ -50,6 +64,7 @@ export const Flex = styled("div")<
   flex-direction: ${({ direction }) => direction || "row"};
   ${buildSpacingStyles};
   ${({ direction, alignment }) => alignment && buildAlignment(direction || "row", alignment)};
+  ${addAdditionalStyles};
 `;
 
 const SeperatorWrapper = styled("div")`

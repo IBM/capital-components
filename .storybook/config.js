@@ -26,7 +26,7 @@ addDecorator(story => <ThemeProvider theme={DefaultTheme}>{story()}</ThemeProvid
 
 // automatically import all files ending in *.stories.js
 const req = require.context("../stories", true, /.stories.(js|ts)x?$/);
-const req2 = require.context("../src/components/", true, /\/stories.(js|ts)x?$/);
+const req2 = require.context("../src", true, /\/stories.(js|ts)x?$/);
 function loadStories() {
   req.keys().forEach(filename => req(filename));
   req2.keys().forEach(filename => req2(filename));
