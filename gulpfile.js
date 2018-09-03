@@ -7,6 +7,7 @@ const sass = require("gulp-sass");
 const babel = require("gulp-babel");
 const gulpIf = require("gulp-if");
 const fail = require("gulp-fail");
+const path = require("path");
 
 const pkg = require("./package.json");
 const tsProject = ts.createProject("tsconfig.json", {
@@ -53,7 +54,7 @@ const compileScripts = () => {
 
 const compileStylesSass = () =>
   gulp
-    .src("./scss/styles.scss")
+    .src(["./scss/styles.scss", "./scss/carbon-components.scss"])
     .pipe(sass())
     .pipe(gulp.dest("styles/css"));
 

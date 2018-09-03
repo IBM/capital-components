@@ -29,7 +29,8 @@
     "commit": "git-cz",
     "precommit": "lint-staged",
     "prepublish": "yarn build",
-    "publish:storybook": "build-storybook && gh-pages -d storybook-static"
+    "publish:storybook": "build-storybook && gh-pages -d storybook-static",
+    "release": "./scripts/release.sh"
   },
   "lint-staged": {
     "{src,test}/**/*.ts": [

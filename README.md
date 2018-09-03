@@ -1,4 +1,5 @@
 # WFSS Components
+
 Components to support the Watson Financial Services [Capital Design System](https://ibm.biz/capital-design-system).
 
 Please see our [wiki](https://github.ibm.com/watson-finance/wfss-components/wiki) for important links and information about the WFSS development organization
@@ -6,10 +7,12 @@ Please see our [wiki](https://github.ibm.com/watson-finance/wfss-components/wiki
 ## Libraries
 
 ### 🛠 Component Library
+
 - [Storybook](https://pages.github.ibm.com/watson-finance/wfss-components/)
 - [Repo](https://github.ibm.com/watson-finance/wfss-components/)
 
 ### 😬 Icon Library
+
 - [Storybook](https://pages.github.ibm.com/watson-finance/wfss-icons/)
 - [Repo](https://github.ibm.com/watson-finance/wfss-icons/#/)
 
@@ -32,7 +35,13 @@ yarn add @fss/components
 This repo provides a small set of SASS files that can be used for styling components.
 
 ```scss
+@import "~@fss/components/styles/scss/carbon-components.scss";
 @import "~@fss/components/styles/scss/styles.scss";
+```
+
+```js
+import "@fss/components/styles/css/carbon-components.css";
+import "@fss/components/styles/css/styles.css";
 ```
 
 We use CSS styling for a few elements (grid, font sizing, base carbon styles) for the sake of a shared reference point with
