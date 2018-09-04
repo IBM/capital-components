@@ -23,7 +23,7 @@ export interface IProps<T> {
   rows: T[];
   className?: string;
   selection?: boolean;
-  getAdditionalRowProps?: (row: T) => { [key: string]: any };
+  getAdditionalRowProps?: (row: T, rowIndex: number) => { [key: string]: any };
   small?: boolean;
 }
 
@@ -55,7 +55,7 @@ export default function Table<T>({
       </StructuredListHead>
       <StructuredListBody>
         {rows.map((row, index) => {
-          const { className, ...otherProps } = getAdditionalRowProps(row);
+          const { className, ...otherProps } = getAdditionalRowProps(row, index);
 
           return (
             <StructuredListRow

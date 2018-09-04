@@ -85,7 +85,7 @@ class DataTable<T> extends React.PureComponent<{
   /** How individual rows are identified. It must return something unique for that row. */
   getRowIdentifier?: (row: T, rowIndex: number) => string;
   /** Gives you a chance to add props to each individual row. Eg, click handler. */
-  getAdditionalRowProps?: (row: T) => { [key: string]: any };
+  getAdditionalRowProps?: (row: T, rowIndex: number) => { [key: string]: any };
   /** Show alternating colors on rows. Does not effect header. */
   zebra?: boolean;
 }> {
@@ -128,7 +128,9 @@ class DataTable<T> extends React.PureComponent<{
           <CarbonDataTable.TableBody>
             {rows.map((row, rowIndex) => {
               const rowId = getRowIdentifier(row, rowIndex);
-              const additionalProps = getAdditionalRowProps ? getAdditionalRowProps(row) : {};
+              const additionalProps = getAdditionalRowProps
+                ? getAdditionalRowProps(row, rowIndex)
+                : {};
               return (
                 <CarbonDataTable.TableRow key={rowId} {...additionalProps}>
                   {columns.map(col => {
