@@ -55,7 +55,7 @@ export default function Table<T>({
       </StructuredListHead>
       <StructuredListBody>
         {rows.map((row, index) => {
-          const { className, ...otherProps } = getAdditionalRowProps(row, index);
+          const { className, ...otherProps } = getAdditionalRowProps(row, index) || ({} as any);
 
           return (
             <StructuredListRow
