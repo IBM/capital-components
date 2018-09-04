@@ -36,6 +36,13 @@ export type Theme = {
     layout: typeof layout;
   };
   layers: typeof layers;
+  fonts: {
+    weights: {
+      thin: number;
+      regular: number;
+      bold: number;
+    };
+  };
 };
 
 export type ThemeModule = EmotionThemingModule<Theme>;

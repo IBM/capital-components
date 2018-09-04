@@ -30,7 +30,14 @@ const theme: Theme = {
     spacing,
     layout
   },
-  layers
+  layers,
+  fonts: {
+    weights: {
+      thin: 200,
+      regular: 400,
+      bold: 600
+    }
+  }
 };
 
 export default theme;
