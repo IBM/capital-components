@@ -7,6 +7,7 @@ import {
 } from "emotion-theming";
 import React, { ComponentType } from "react";
 import { spacing, layout } from "../layout/spacing";
+import { layers } from "../layout/layers";
 
 export type Theme = {
   color: {
@@ -34,6 +35,7 @@ export type Theme = {
     spacing: typeof spacing;
     layout: typeof layout;
   };
+  layers: typeof layers;
 };
 
 export type ThemeModule = EmotionThemingModule<Theme>;

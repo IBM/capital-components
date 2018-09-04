@@ -1,17 +1,12 @@
-import colors from "../colors";
-import { Theme } from "../theme";
-import { spacing, layout } from "../../layout/spacing";
+import shared from "./shared";
 
-const theme: Theme = {
+const theme = {
+  ...shared,
   color: {
-    ...colors,
+    ...shared.color,
     brand01: "#006162",
     brand02: "#009e9b",
     brand03: "#20d5d2"
-  },
-  spacing: {
-    spacing,
-    layout
   }
 };
 

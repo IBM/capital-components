@@ -1,4 +1,8 @@
-export default {
+import { spacing, layout } from "../../layout/spacing";
+import { layers } from "../../layout/layers";
+import { Theme } from "../theme";
+
+const colors = {
   brand01: "#0530ad",
   brand02: "#0f6fff",
   brand03: "#97c1ff",
@@ -19,3 +23,14 @@ export default {
   nav01: "#000000",
   nav02: "#252525"
 };
+
+const theme: Theme = {
+  color: colors,
+  spacing: {
+    spacing,
+    layout
+  },
+  layers
+};
+
+export default theme;

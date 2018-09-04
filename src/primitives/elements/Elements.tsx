@@ -1,10 +1,10 @@
-import React from "react";
+import React, { ComponentType } from "react";
 import styled from "react-emotion";
 import { css, cx } from "emotion";
 import { buildSpacing } from "../../layout/spacing";
 import { BreakPointDescriptor } from "../../layout/mediaQueries";
 import { buildAlignment } from "../../layout/alignment";
-import { Theme } from "../../support/theme";
+import { Theme, withTheme } from "../../support/theme";
 
 export type SharedElementProps = {
   /* How to render the padding for this element. Use predefined xs, sm, md, etc padding variables or define a size. */
@@ -28,6 +28,22 @@ const addAdditionalStyles = ({ cssWithTheme, theme }: SharedElementProps & { the
   }
   return "";
 };
+
+export const makeBaseElement: <Props extends { className?: string }>(
+  element: React.ComponentType<Props>
+) => ComponentType<SharedElementProps & { className?: string } & Props> = element =>
+  withTheme(props => {
+    const { padding, margin, cssWithTheme, theme, className, ...otherProps } = props as any; // Would love to just spread but this prevents it: https://github.com/Microsoft/TypeScript/issues/10727
+    const classes = cx(
+      css`
+        ${buildSpacingStyles({ padding, margin })};
+        ${addAdditionalStyles({ cssWithTheme, theme })};
+      `,
+      className
+    );
+    const Element = element;
+    return <Element className={classes} {...otherProps} />;
+  });
 
 // Basic flex dentered box.
 export const CenteredBlock = styled("div")<SharedElementProps>`

@@ -4,5 +4,7 @@
 // For now, we're just constants
 
 export enum layers {
-  FlyOver = 100
+  FlyOver = 100,
+  Dialog = 200,
+  Alert = 300
 }
