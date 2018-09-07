@@ -2,11 +2,12 @@ import React from "react";
 import {
   createColClass as col,
   SupportedSizes,
-  buildVirticalSpacingFromString,
+  buildVirticalSpacing,
   SupportedHeights
 } from "../../layout/grid";
 import { Flex } from "../../primitives/elements";
 import { cx, css } from "emotion";
+import { BreakPointDescriptor } from "../../layout/mediaQueries";
 
 export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   /** A fraction (1/12, 1/3, etc) to fit the column into the grid. Also can specify
@@ -16,9 +17,9 @@ export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Row height of column entry, is multiplied by our row height preset (according to css-gridish.json - 0.5rem == 8px) */
   height?: SupportedHeights;
   /** Additional vertical padding. Format string to match spacing format. See README for details */
-  verticalPadding?: string;
+  verticalPadding?: string | BreakPointDescriptor<string>;
   /** Additional vertical margin. Format string to match spacing format. See README for details */
-  verticalMargin?: string;
+  verticalMargin?: string | BreakPointDescriptor<string>;
   /** Useful setting to make the contents row/column aligned (flex-direction) */
   flexDirection?: "column" | "row";
   /** Useful setting alignment */
@@ -44,8 +45,8 @@ export const Col: React.SFC<IProps> = ({
         size,
         height
       }),
-      css(buildVirticalSpacingFromString(verticalPadding)),
-      css(buildVirticalSpacingFromString(verticalMargin, "margin"))
+      css(buildVirticalSpacing(verticalPadding)),
+      css(buildVirticalSpacing(verticalMargin, "margin"))
     )}
     {...props}
   />

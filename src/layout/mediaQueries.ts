@@ -1,6 +1,7 @@
 import { css } from "emotion";
 
 export interface BreakPointDescriptor<A> {
+  base?: A;
   xs?: A;
   s?: A;
   m?: A;
@@ -12,6 +13,7 @@ export interface BreakPointDescriptor<A> {
 // We aren't importing it because we don't want to make assumptions
 // about what the client can parse. Keep it to js output.
 const breakpoints: Required<BreakPointDescriptor<number>> = {
+  base: 0,
   // Numerical values will result in a min-width query
   xs: 576,
   s: 768,

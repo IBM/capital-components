@@ -125,3 +125,24 @@ stories.add(
     </Grid>
   ))
 );
+
+stories.add(
+  "Vertical spacing - Media query aware",
+  withInfo({
+    text: `
+            Sometimes you need your spacing to also depend on the screen size
+          `
+  })(() => (
+    <Grid isContainer verticalMargin={{ base: "sm", m: "xl" }}>
+      <Col size={{ base: "all", m: "1/2" }} className={redBackground}>
+        When the screen gets small, I take up all the room.
+      </Col>
+      <Col size="1/6" className={blueBackground} verticalPadding="xl">
+        With a smaller column
+      </Col>
+      <Col size="5/6" className={yellowBackground}>
+        Another column filling up the rest
+      </Col>
+    </Grid>
+  ))
+);
