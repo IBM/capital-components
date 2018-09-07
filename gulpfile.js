@@ -56,7 +56,11 @@ const compileScripts = () => {
 const compileStylesSass = () =>
   gulp
     .src(["./scss/styles.scss", "./scss/carbon-components.scss"])
-    .pipe(sass())
+    .pipe(
+      sass({
+        includePaths: ["node_modules"]
+      })
+    )
     .pipe(gulp.dest("styles/css"));
 
 const compileStylesCSS = () => gulp.src("css-gridish/css/**/*.css").pipe(gulp.dest("styles/css"));

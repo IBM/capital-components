@@ -10,3 +10,5 @@ export { default as DropMenu } from "./DropMenu";
 export { default as DropMenuItem } from "./DropMenuItem";
 export { default as Tabs } from "./Tabs";
 export { default as BleedingRow } from "./BleedingRow";
+export { default as PushOver } from "./PushOver";
+export { default as PushOverItem } from "./PushOverItem";

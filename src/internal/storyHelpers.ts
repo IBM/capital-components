@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 export class WithState<StateShape> extends React.PureComponent<
   {
@@ -8,12 +7,13 @@ export class WithState<StateShape> extends React.PureComponent<
   },
   StateShape
 > {
-  static propTypes = {
-    initialState: PropTypes.object
-  };
   state = this.props.initialState;
 
-  boundSetState = (...args) => (this.setState as any)(...args);
+  boundSetState = (arg1, arg2) => {
+    (this.setState as any)(arg1, () => {
+      if (typeof arg2 === "function") arg2(this.state);
+    });
+  };
 
   render() {
     return this.props.children({

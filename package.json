@@ -179,8 +179,7 @@
     "empty": "^0.10.1",
     "popper.js": "^1.14.3",
     "react-popper": "^1.0.0",
-    "react-spring": "^5.6.11",
-    "recompose": "0.27.1"
+    "react-spring": "^5.6.11"
   },
   "side-effects": false
 }

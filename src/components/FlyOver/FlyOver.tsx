@@ -51,14 +51,14 @@ export class FlyOver extends React.PureComponent<IProps, IState> {
 
   state = {
     // Some internal state used to track when to totally hide the flyover element
-    resting: false,
+    resting: !this.props.show,
     prevProps: this.props // a slight hack to track prevProps in state.
   };
 
   static getDerivedStateFromProps(nextProps: IProps, prevState: IState) {
     const { prevProps } = prevState;
     const nextResting = prevProps.show === nextProps.show;
-    return { resting: nextResting, prevProps: nextProps };
+    return { resting: prevState.resting && nextResting, prevProps: nextProps };
   }
 
   onRest = () => this.setState({ resting: true });

@@ -2,7 +2,6 @@ import React from "react";
 import { Flex, Block, InlineBlock, Seperator } from "@fss/components/lib/primitives/elements";
 import { storiesOf } from "@storybook/react";
 import { withInfo } from "@storybook/addon-info";
-import excludedPropTypes from "storybook-addons/excludedPropTypes";
 
 const stories = storiesOf("Primitives|Elements", module);
 
@@ -10,7 +9,6 @@ stories.add(
   "Basic Usage",
   withInfo({
     inline: true,
-    excludedPropTypes,
     text: `
     These set of elements provide some basic building blocks you can use to build
     your application. They have some useful props to access standard spacing and

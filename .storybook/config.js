@@ -8,6 +8,7 @@ import "../styles/css/cap-grid.css";
 import React from "react";
 import { ThemeProvider } from "../src/support/theme";
 import DefaultTheme from "../src/support/themes/other-products";
+import excludedPropTypes from "./excludedPropTypes";
 
 setOptions({
   name: "Capital Components",
@@ -19,7 +20,8 @@ setOptions({
 
 setDefaults({
   source: false,
-  inline: false
+  inline: false,
+  excludedPropTypes
 });
 
 addDecorator(story => <ThemeProvider theme={DefaultTheme}>{story()}</ThemeProvider>);
