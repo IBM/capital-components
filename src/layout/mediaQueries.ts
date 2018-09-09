@@ -12,7 +12,7 @@ export interface BreakPointDescriptor<A> {
 // breakpoints as defined in css-gridish.json file.
 // We aren't importing it because we don't want to make assumptions
 // about what the client can parse. Keep it to js output.
-const breakpoints: Required<BreakPointDescriptor<number>> = {
+export const breakpoints: Required<BreakPointDescriptor<number>> = {
   base: 0,
   // Numerical values will result in a min-width query
   xs: 576,

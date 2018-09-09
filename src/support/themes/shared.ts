@@ -1,6 +1,7 @@
 import { spacing, layout } from "../../layout/spacing";
 import { layers } from "../../layout/layers";
-import { Theme } from "../theme";
+import { prebuiltFontStyles } from "../../primitives/text";
+import { breakpoints } from "../../layout/mediaQueries";
 
 const colors = {
   brand01: "#0530ad",
@@ -24,7 +25,7 @@ const colors = {
   nav02: "#252525"
 };
 
-const theme: Theme = {
+const theme = {
   color: colors,
   spacing: {
     spacing,
@@ -36,8 +37,10 @@ const theme: Theme = {
       thin: 200,
       regular: 400,
       bold: 600
-    }
-  }
+    },
+    styles: prebuiltFontStyles
+  },
+  breakpoints
 };
 
 export default theme;
