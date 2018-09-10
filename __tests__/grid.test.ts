@@ -75,6 +75,11 @@ describe("custom vertical padding classes", () => {
   it("throws if invalid string provided", () => {
     expect(() => buildVirticalSpacing("something md xl")).toThrow();
   });
+
+  it("allows non-standard values", () => {
+    const result = buildVirticalSpacing("md 0");
+    expect(result).toBe("padding-top: 1rem; padding-bottom: 0;");
+  });
 });
 
 it("replace padding with margin", () => {

@@ -1,6 +1,6 @@
 // Based on grid breakpoints http://carbondesignsystem.com/style/grid/design
 import cx from "classnames";
-import { spacing } from "./spacing";
+import { getSpacingOrDefault } from "./spacing";
 import { BreakPointDescriptor, buildStringForMediaQueries } from "./mediaQueries";
 
 // For now, always assume 12 columns but this could change with media queries.
@@ -92,11 +92,15 @@ export const buildVirticalSpacingFromString = (
 
   const values = desc.trim().split(" ");
   if (values.length === 1) {
-    return `${type}-top: ${spacing[values[0]]}; ${type}-bottom: ${spacing[values[0]]};`;
+    return `${type}-top: ${getSpacingOrDefault(values[0])}; ${type}-bottom: ${getSpacingOrDefault(
+      values[0]
+    )};`;
   } else if (values.length === 2 && ["top", "bottom"].includes(values[0])) {
-    return `${type}-${values[0]}: ${spacing[values[1]]};`;
+    return `${type}-${values[0]}: ${getSpacingOrDefault(values[1])};`;
   } else if (values.length === 2) {
-    return `${type}-top: ${spacing[values[0]]}; ${type}-bottom: ${spacing[values[1]]};`;
+    return `${type}-top: ${getSpacingOrDefault(values[0])}; ${type}-bottom: ${getSpacingOrDefault(
+      values[1]
+    )};`;
   }
   throw new Error(`Invalid padding string provided: ${desc};`);
 };

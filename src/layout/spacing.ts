@@ -32,6 +32,8 @@ export const layout = {
   xl2: "10rem"
 };
 
+export const getSpacingOrDefault = value => spacing[value] || value;
+
 export const buildSpacing = (
   padding?: string | BreakPointDescriptor<string>,
   type: "padding" | "margin" = "padding"
@@ -47,14 +49,14 @@ export const buildSpacingFromString = (
 
   const values = padding.trim().split(" ");
   if (values.length === 1) {
-    return `${type}: ${spacing[values[0]]};`;
+    return `${type}: ${getSpacingOrDefault(values[0])};`;
   } else if (values.length % 2 === 0 && ["top", "right", "bottom", "left"].includes(values[0])) {
     const resultArr: string[] = [];
     for (let i = 0; i < values.length; i += 2) {
-      resultArr.push(`${type}-${values[i]}: ${spacing[values[i + 1]]};`);
+      resultArr.push(`${type}-${values[i]}: ${getSpacingOrDefault(values[i + 1])};`);
     }
     return resultArr.join(" ");
   } else {
-    return `${type}: ${values.map(s => spacing[s] || s).join(" ")};`;
+    return `${type}: ${values.map(getSpacingOrDefault).join(" ")};`;
   }
 };
