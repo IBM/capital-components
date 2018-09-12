@@ -18,7 +18,7 @@ export interface IProps<T> {
   columns: {
     key: keyof T;
     header: JSX.Element | string;
-    content: ColumnContentRenderer<T>;
+    content?: ColumnContentRenderer<T>;
   }[];
   rows: T[];
   className?: string;
@@ -67,7 +67,11 @@ export default function Table<T>({
             >
               {columns.map(col => (
                 <StructuredListCell key={col.key}>
-                  <col.content row={row} colKey={col.key} rowIndex={index} />
+                  {col.content ? (
+                    <col.content row={row} colKey={col.key} rowIndex={index} />
+                  ) : (
+                    row[col.key]
+                  )}
                 </StructuredListCell>
               ))}
             </StructuredListRow>
