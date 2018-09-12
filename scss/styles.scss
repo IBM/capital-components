@@ -10,7 +10,6 @@
   font-size: calculateRem(32px);
   line-height: calculateRem(40px);
   font-weight: 600;
-  color: $text-03;
 }
 
 .cap--type-beta {
@@ -18,7 +17,6 @@
   font-size: calculateRem(24px);
   line-height: calculateRem(32px);
   font-weight: 600;
-  color: $text-03;
 }
 
 .cap--type-gamma {
@@ -26,7 +24,6 @@
   font-size: calculateRem(20px);
   line-height: calculateRem(24px);
   font-weight: 600;
-  color: $text-03;
 }
 
 .cap--type-delta {
@@ -34,7 +31,6 @@
   font-size: calculateRem(16px);
   line-height: calculateRem(20px);
   font-weight: 600;
-  color: $text-03;
 }
 
 .cap--type-epsilon {
@@ -42,66 +38,67 @@
   font-size: calculateRem(14px);
   line-height: calculateRem(20px);
   font-weight: 600;
-  color: $text-03;
 }
 
 .cap--type-body {
   font-size: calculateRem(14px);
   line-height: calculateRem(20px);
   font-weight: 400;
-  color: $text-02;
 }
 
 .cap--type-specialty-body {
   font-size: calculateRem(16px);
   line-height: calculateRem(20px);
   font-weight: 400;
-  color: $text-03;
 }
 
 .cap--type-label {
   font-size: calculateRem(12px);
   line-height: calculateRem(16px);
   font-weight: 600;
-  color: $text-03;
 }
 
 .cap--type-input {
   font-size: calculateRem(14px);
   line-height: calculateRem(16px);
   font-weight: 400;
-  color: $text-03;
 }
 
 .cap--type-large {
   font-size: calculateRem(54px);
   line-height: calculateRem(68px);
   font-weight: 400;
-  color: $text-02;
 }
 
 .cap--type-data-viz--label {
   font-size: calculateRem(12px);
   line-height: calculateRem(14px);
   font-weight: 400;
-  color: $text-02;
 }
 
 body {
   background-color: $ui-01;
 }
 
-// IE10-11 only
-// Overrides to support some grid padding on IE
+// IE hates EVERYONE.
 @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
   .cap-container {
     margin-left: auto;
     margin-right: auto;
-    padding-left: 3vw;
+    padding-left: calc(3vw - 18px); // Offset by scrollbar size
     padding-right: 3vw;
     @media (min-width: 62rem) {
-      padding-left: 5vw;
+      padding-left: calc(5vw - 18px); // Offset by scrollbar size
       padding-right: 5vw;
+    }
+  }
+}
+
+// safari 11+ detection.
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) and (stroke-color: transparent) {
+    .cap-grid > * {
+      height: auto;
     }
   }
 }
