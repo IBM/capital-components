@@ -759,6 +759,10 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
+"@carbon/colors@^0.0.1-alpha.0":
+  version "0.0.1-alpha.0"
+  resolved "https://registry.yarnpkg.com/@carbon/colors/-/colors-0.0.1-alpha.0.tgz#8c53ef65f864106a63cfc412d8ff083a8a04905f"
+
 "@emotion/babel-utils@^0.6.4":
   version "0.6.9"
   resolved "https://registry.yarnpkg.com/@emotion/babel-utils/-/babel-utils-0.6.9.tgz#bb074fadad65c443a575d3379488415fd194fc75"
@@ -3273,32 +3277,37 @@ caniuse-lite@^1.0.30000844:
   version "1.0.30000850"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000850.tgz#e68a88db4ea598b4c33b8419f7385473e4802495"
 
-carbon-components-react@^5.43.1:
-  version "5.43.1"
-  resolved "https://registry.yarnpkg.com/carbon-components-react/-/carbon-components-react-5.43.1.tgz#fe6a0eab5f66ae40960ef65f47f336c969f3e3c7"
+carbon-components-react@^6.32.1:
+  version "6.32.1"
+  resolved "https://registry.yarnpkg.com/carbon-components-react/-/carbon-components-react-6.32.1.tgz#204d3b81e18e75f990aa970123985d9372034b71"
   dependencies:
-    classnames "2.2.5"
-    downshift "^1.23.2"
-    flatpickr "4.4.1"
+    classnames "2.2.6"
+    downshift "^1.31.14"
+    flatpickr "4.5.1"
     invariant "^2.2.3"
     lodash.debounce "^4.0.8"
     lodash.isequal "^4.5.0"
     lodash.omit "^4.5.0"
-    warning "3.0.0"
+    warning "^3.0.0"
     window-or-global "^1.0.1"
 
-carbon-components@^8.10.0:
-  version "8.18.14"
-  resolved "https://registry.yarnpkg.com/carbon-components/-/carbon-components-8.18.14.tgz#579383adfe880469cd1bd78bb2c2b12d47a43273"
+carbon-components@^9.14.0:
+  version "9.14.0"
+  resolved "https://registry.yarnpkg.com/carbon-components/-/carbon-components-9.14.0.tgz#8e6f1197f608509626ffeb570f0cf808478bda88"
   dependencies:
-    carbon-icons "^6.0.4"
+    "@carbon/colors" "^0.0.1-alpha.0"
+    carbon-icons "^7.0.7"
     flatpickr "2.6.3"
     lodash.debounce "^4.0.8"
     warning "^3.0.0"
 
-carbon-icons@^6.0.0, carbon-icons@^6.0.4:
+carbon-icons@^6.0.0:
   version "6.3.2"
   resolved "https://registry.yarnpkg.com/carbon-icons/-/carbon-icons-6.3.2.tgz#2cc942225442b0d5c02593e344b50c7ec22edf28"
+
+carbon-icons@^7.0.7:
+  version "7.0.7"
+  resolved "https://registry.yarnpkg.com/carbon-icons/-/carbon-icons-7.0.7.tgz#ebafe3e9fa25df973796a8eca06d8a7c501cc610"
 
 case-sensitive-paths-webpack-plugin@^2.1.2:
   version "2.1.2"
@@ -3450,7 +3459,11 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classnames@2.2.5, classnames@^2.2.5:
+classnames@2.2.6:
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
+
+classnames@^2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
 
@@ -4448,9 +4461,9 @@ dotenv@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-6.0.0.tgz#24e37c041741c5f4b25324958ebbc34bca965935"
 
-downshift@^1.23.2:
-  version "1.31.12"
-  resolved "https://registry.yarnpkg.com/downshift/-/downshift-1.31.12.tgz#78be425583234f18774fc37643eba17a776a91db"
+downshift@^1.31.14:
+  version "1.31.16"
+  resolved "https://registry.yarnpkg.com/downshift/-/downshift-1.31.16.tgz#acd81631539502d4112d01bd573654419fd9f640"
 
 duplexer2@0.0.2:
   version "0.0.2"
@@ -5265,9 +5278,9 @@ flatpickr@2.6.3:
   version "2.6.3"
   resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-2.6.3.tgz#457357532deb135f3da64b425bf4435737961564"
 
-flatpickr@4.4.1:
-  version "4.4.1"
-  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.4.1.tgz#894255e33c2bed93f48171f8eb5980a79b76ab1d"
+flatpickr@4.5.1:
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.5.1.tgz#f65eaf54c07538f87d6f68a67b03cf816d7fb82f"
 
 flush-write-stream@^1.0.0, flush-write-stream@^1.0.2:
   version "1.0.3"
@@ -12091,7 +12104,7 @@ walker@~1.0.5:
   dependencies:
     makeerror "1.0.x"
 
-warning@3.0.0, warning@^3.0.0:
+warning@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/warning/-/warning-3.0.0.tgz#32e5377cb572de4ab04753bdf8821c01ed605b7c"
   dependencies:
