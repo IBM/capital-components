@@ -18,15 +18,13 @@ export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const PushOverItem = withTheme(
   ({ children, isSelected, theme, className, element = "li", ...restProps }) => {
-    const classes = cx(
-      "cap--type-specialty-body",
+    const classes = 
       css`
         border-bottom: 1px solid ${theme.color.text02};
         font-weight: ${isSelected ? 600 : 400};
         flex: 1 1 auto;
         ${isSelected ? `background-color: ${theme.color.nav01};` : null};
-      `
-    );
+      `;
 
     const wrapper = cx(
       css`

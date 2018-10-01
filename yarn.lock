@@ -2348,6 +2348,10 @@ babel-plugin-transform-async-to-generator@^6.22.0, babel-plugin-transform-async-
     babel-plugin-syntax-async-functions "^6.8.0"
     babel-runtime "^6.22.0"
 
+babel-plugin-transform-carbon-imports@^9.0.3:
+  version "9.0.3"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-carbon-imports/-/babel-plugin-transform-carbon-imports-9.0.3.tgz#d5ecb104a53728e7916794fdc14259e47179a917"
+
 babel-plugin-transform-class-constructor-call@^6.24.1:
   version "6.24.1"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-class-constructor-call/-/babel-plugin-transform-class-constructor-call-6.24.1.tgz#80dc285505ac067dcb8d6c65e2f6f11ab7765ef9"

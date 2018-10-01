@@ -16,6 +16,8 @@ const Wrapper = ({ children, ...otherProps }) => (
           height: 100%;
           background-color: ${theme.color.nav02};
           z-index: ${theme.layers.FlyOver};
+          ${theme.fonts.styles.specialtyBody};
+          line-height: 1rem;
         `}
     {...otherProps}
   >

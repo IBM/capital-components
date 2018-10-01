@@ -19,6 +19,7 @@ module.exports = {
   plugins: [
     "@babel/proposal-class-properties",
     ["emotion", { hoist: true, autoLabel: true }],
-    "babel-plugin-add-react-displayname"
+    "babel-plugin-add-react-displayname",
+    "transform-carbon-imports"
   ]
 };
