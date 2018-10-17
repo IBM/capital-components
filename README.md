@@ -21,8 +21,10 @@ Please see our [wiki](https://github.ibm.com/watson-finance/wfss-components/wiki
 Configure your npmrc file be running this:
 
 ```sh
-node scripts/setup-npmrc.js
+./scripts/setupArtifactory.js
 ```
+
+You can copy the resulting npmrc to ~/.npmrc if you want to install @fss/\* in other projects and skip this step next time.
 
 And then add this dependency:
 
