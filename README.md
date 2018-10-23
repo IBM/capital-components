@@ -132,6 +132,16 @@ Like spacing, we provide a prop on Grid/Col elements called `verticalPadding` wh
 
 Unlike the spacing function, this prop can only apply padding to top or bottom. Please see the [test](https://github.ibm.com/watson-finance/wfss-components/blob/master/src/layout/grid.test.ts) file for more detailed use cases.
 
+### Visualization Colors
+
+Currently we include a palette of 20 colors, importable like so:
+
+```javascript
+import { paletteSet20 } from "@fss/components/lib/support/vizColors";
+```
+
+It comes out as an array of 20 items, randomized, and based on b-splines: http://jsfiddle.net/frj3tb6a/11/
+
 ### Importing library
 
 You can import the generated bundle to use the whole library:
