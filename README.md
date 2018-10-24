@@ -132,6 +132,86 @@ Like spacing, we provide a prop on Grid/Col elements called `verticalPadding` wh
 
 Unlike the spacing function, this prop can only apply padding to top or bottom. Please see the [test](https://github.ibm.com/watson-finance/wfss-components/blob/master/src/layout/grid.test.ts) file for more detailed use cases.
 
+## Media queries
+
+This library exposes some useful media query helpers that can be used inside javascript. They are located here:
+
+```js
+import { breakpoints } from "@fss/components/lib/layout/mediaQueries";
+```
+
+Supported breakpoint sizes can be found [here](https://pages.github.ibm.com/watson-finance/wfss-components/?selectedKind=Layout%7CMedia%20Queries&selectedStory=Scales&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Fstories%2Fstories-panel)
+
+### With React
+
+We also suggest using the package [react-media](https://www.npmjs.com/package/react-media) to supplement this functionality.
+
+With react-media, we can build a component that changes it's rendering based on the media queries:
+
+```jsx
+import Media from "react-media";
+import { breakpoints } from "@fss/components/lib/layout/mediaQueries";
+
+const Comp = () => (
+  <Media query={{ maxWidth: breakpoints.s }}>{matches => (matches ? <Comp1 /> : <Comp2 />)}</Media>
+);
+```
+
+This component would render Comp1 if the screen size is less than the `small` breakpoint.
+
+### With Emotion
+
+Emotion css also works really well with our media queries package. You can see some of the examples inside the media query
+section of [storybook](https://pages.github.ibm.com/watson-finance/wfss-components/?selectedKind=Layout%7CMedia%20Queries&selectedStory=Base%20Elements&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel)
+
+#### mq
+
+Used instead of `css` function from emotion. The following will generate a div that has the
+background color of `red` on screens smaller than the `s` breakpoint:
+
+```jsx
+import { mq } from "@fss/components/lib/layout/mediaQueries";
+
+const Comp = () => <div className={mq.s("background-color: red;")}>Hello World</div>;
+```
+
+#### mqStrings
+
+Another way to do it is to use some media query helpers within another `css` call. So something like the following would
+work. This is useful when combined with non-media query related css. The following will generate a div with display flex and that has the background color of `red` on screens smaller than the `s` breakpoint:
+
+```jsx
+import { css } from "emotion";
+import { mqStrings } from "@fss/components/lib/layout/mediaQueries";
+
+const Comp = () => (
+  <div
+    className={css`
+      display: flex;
+      ${mqStrings.s("background-color: red;")};
+    `}
+  >
+    Hello World
+  </div>
+);
+```
+
+#### buildStringForMediaQuery
+
+This helper is useful for building a map of media query sizes to a specific css combination. The following will generate a div that has the background color of `blue` when screen is smaller than `s` breakpoint and `yellow` when screen is between `s` and `xl`:
+
+```jsx
+import { css } from "emotion";
+import { buildStringForMediaQuery } from "@fss/components/lib/layout/mediaQueries";
+
+const mediaQueryString = buildStringForMediaQuery({
+  s: "background-color: blue;",
+  xl: "background-color: yellow;"
+});
+
+const Comp = () => <div className={css(mediaQueryString)}>Hello World</div>;
+```
+
 ### Visualization Colors
 
 Currently we include a palette of 20 colors, importable like so:

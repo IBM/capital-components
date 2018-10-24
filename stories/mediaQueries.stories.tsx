@@ -14,7 +14,7 @@ const breakpointItems = Object.keys(breakpoints).map(key => ({
 }));
 
 storiesOf("Layout|Media Queries", module)
-  .add("Scales", () => (
+  .add("Breakpoints", () => (
     <Table
       rows={breakpointItems}
       columns={[
