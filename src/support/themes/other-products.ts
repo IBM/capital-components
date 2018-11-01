@@ -5,7 +5,7 @@ const theme = {
   color: {
     ...shared.color,
     brand01: "#0530ad",
-    brand02: "#0f6fff",
+    brand02: "#0062ff",
     brand03: "#97c1ff"
   }
 };

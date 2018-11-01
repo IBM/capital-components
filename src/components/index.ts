@@ -12,3 +12,5 @@ export { default as Tabs } from "./Tabs";
 export { default as BleedingRow } from "./BleedingRow";
 export { default as PushOver } from "./PushOver";
 export { default as PushOverItem } from "./PushOverItem";
+export { default as TabsV2 } from "./TabsV2";
+export { default as Tab } from "./Tab";
