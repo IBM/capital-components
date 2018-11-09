@@ -1,6 +1,6 @@
 import React from "react";
-import { styled } from "@fss/components/lib/support/theme";
-import { Flex } from "@fss/components/lib/primitives/elements";
+import { styled } from "../../support/theme";
+import { Flex } from "../../primitives/elements";
 import { css } from "emotion";
 
 const Nav = styled("nav")`

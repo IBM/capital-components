@@ -30,8 +30,12 @@ const addAdditionalStyles = ({ cssWithTheme, theme }: SharedElementProps & { the
 };
 
 export const makeBaseElement: <Props extends { className?: string }>(
-  element: React.ComponentType<Props>
-) => ComponentType<SharedElementProps & { className?: string } & Props> = element =>
+  element: React.ComponentType<Props> | string,
+  additionalClassNames?: string[]
+) => ComponentType<SharedElementProps & { className?: string } & Props> = (
+  element,
+  additionalClassNames = []
+) =>
   withTheme(props => {
     const { padding, margin, cssWithTheme, theme, className, ...otherProps } = props as any; // Would love to just spread but this prevents it: https://github.com/Microsoft/TypeScript/issues/10727
     const classes = cx(
@@ -39,6 +43,7 @@ export const makeBaseElement: <Props extends { className?: string }>(
         ${buildSpacingStyles({ padding, margin })};
         ${addAdditionalStyles({ cssWithTheme, theme })};
       `,
+      ...additionalClassNames,
       className
     );
     const Element = element;

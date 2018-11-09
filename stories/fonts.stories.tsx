@@ -46,6 +46,12 @@ storiesOf("Fonts", module)
         <Heading level="3">Heading 3</Heading>
         <Heading level="4">Heading 4</Heading>
         <Heading level="5">Heading 5</Heading>
+        <Heading level="5" padding="md">
+          Heading 5 with md padding
+        </Heading>
+        <Heading level="1" padding="md" margin="xs">
+          Heading 5 with md padding and xs margin
+        </Heading>
         <Body>Body</Body>
         <SpecialtyBody>Specialty Body</SpecialtyBody>
         <Label>Label</Label>

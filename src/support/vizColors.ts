@@ -22,3 +22,51 @@ export const paletteSet20 = [
   "#c81d35",
   "#117645"
 ];
+
+const blue = {
+  30: "#97c1ff",
+  40: "#6ea6ff",
+  50: "#418cff",
+  60: "#0062ff",
+  70: "#054ada",
+  80: "#0530ad"
+};
+
+const teal = {
+  30: "#20d5d2",
+  40: "#00bab6",
+  50: "#009e9a",
+  60: "#007d79",
+  70: "#006161",
+  80: "#004548"
+};
+
+const purple = {
+  30: "#d0b0ff",
+  40: "#bb8eff",
+  50: "#a970ff",
+  60: "#8a3ffc",
+  70: "#6e32c9",
+  80: "#4f2196"
+};
+
+export const paletteSet18 = [
+  blue[30],
+  blue[50],
+  blue[70],
+  teal[30],
+  teal[50],
+  teal[70],
+  purple[30],
+  purple[50],
+  purple[70],
+  blue[40],
+  blue[60],
+  blue[80],
+  teal[40],
+  teal[60],
+  teal[80],
+  purple[40],
+  purple[60],
+  purple[80]
+];
