@@ -10,6 +10,7 @@ import {
   DataVizLabel
 } from "@fss/components/lib/primitives/text";
 import { withInfo } from "@storybook/addon-info";
+import { styled } from "@fss/components/lib/support/theme";
 
 storiesOf("Fonts", module)
   .add(
@@ -60,4 +61,29 @@ storiesOf("Fonts", module)
         <DataVizLabel>Data Viz - Label</DataVizLabel>
       </div>
     ))
+  )
+  .add(
+    "With Prebuilt Styles",
+    withInfo({
+      text: `
+        Sometimes you want to be able to bring in styles directly from your theme
+        object. This can easily be done with the prebuilt styles property in fonts.
+        You can easily override any properties by placing them AFTER the expansion.
+      `
+    })(() => {
+      const El1 = styled.div`
+        ${({ theme }) => theme.fonts.styles.dataVizLabel};
+      `;
+      const HeadingWithLargeFontSize = styled.div`
+        ${({ theme }) => theme.fonts.styles.dataVizLabel};
+        font-size: 100px;
+        line-height: 100px;
+      `;
+      return (
+        <div>
+          <El1>dataVizLabel styled element</El1>
+          <HeadingWithLargeFontSize>Giant header!</HeadingWithLargeFontSize>
+        </div>
+      );
+    })
   );
