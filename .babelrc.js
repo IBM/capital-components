@@ -20,6 +20,17 @@ module.exports = {
     "@babel/proposal-class-properties",
     ["emotion", { hoist: true, autoLabel: true }],
     "babel-plugin-add-react-displayname",
-    "transform-carbon-imports"
+    "transform-carbon-imports",
+    [
+      "transform-rename-import",
+      {
+        replacements: [
+          {
+            original: "^carbon-components-react\\/es\\/(.+?)$",
+            replacement: "carbon-components-react/lib/$1"
+          }
+        ]
+      }
+    ]
   ]
 };

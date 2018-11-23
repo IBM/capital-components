@@ -114,6 +114,7 @@
     "babel-plugin-add-react-displayname": "^0.0.5",
     "babel-plugin-emotion": "^9.2.6",
     "babel-plugin-transform-carbon-imports": "^9.0.3",
+    "babel-plugin-transform-rename-import": "^2.3.0",
     "carbon-components": "^9.14.0",
     "carbon-components-react": "^6.32.1",
     "carbon-icons": "^6.0.0",
