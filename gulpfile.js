@@ -48,7 +48,7 @@ const compileScripts = () => {
           return file.contents.toString().match(/\/\/\/ <reference path=".*\/node_modules\//);
         }, fail(() => "Failed generating types. Found exported references paths."))
       )
-      .pipe(gulp.dest("types")),
+      .pipe(gulp.dest("lib")),
     babelResult
   ]);
 };
