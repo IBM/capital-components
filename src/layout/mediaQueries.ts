@@ -22,13 +22,40 @@ export const breakpoints: Required<BreakPointDescriptor<number>> = {
   xl: 1600
 };
 
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+
 export type MqDescriptor = Required<BreakPointDescriptor<(arg: string) => string>>;
 
+/** MQ object supports quick media query aware emotion syntax: https://emotion.sh/docs/media-queries
+ * It generates the CSS string to be used within other other emotion css strings. Note
+ * that the size (m, s, l, etc) indicates the min-width that the css will apply.
+ */
 export const mqStrings: MqDescriptor = Object.keys(breakpoints).reduce(
   (accumulator, label) => {
     accumulator[label] = cls =>
       `
       @media (min-width:${breakpoints[label]}px) {
+        ${cls}${cls.endsWith(";") ? "" : ";"}
+      }
+    `;
+    return accumulator;
+  },
+  {} as any
+);
+
+/** MQ object supports quick media query aware emotion syntax: https://emotion.sh/docs/media-queries
+ * It generates the CSS string to be used within other other emotion css strings. Note
+ * that the size (m, s, l, etc) indicates the max-width that the css will apply.
+ */
+export const mqStringsMax: Omit<MqDescriptor, "base"> = Object.keys(breakpoints).reduce(
+  (accumulator, label) => {
+    // base doesn't make sense for max-widths
+    if (label === "base") {
+      return accumulator;
+    }
+    accumulator[label] = cls =>
+      `
+      @media (max-width:${breakpoints[label]}px) {
         ${cls}${cls.endsWith(";") ? "" : ";"}
       }
     `;
@@ -54,11 +81,24 @@ export const buildStringForMediaQueries = (
 };
 
 /** MQ object supports quick media query aware emotion syntax: https://emotion.sh/docs/media-queries
- * It generates actual classnames, as opposed to mqStrings which generates the CSS string.
+ * It generates actual classnames, as opposed to mqStrings which generates the CSS string. Note
+ * that the size (m, s, l, etc) indicates the min-width that the css will apply.
  */
 export const mq: MqDescriptor = Object.keys(mqStrings).reduce(
   (accumulator, label) => {
     accumulator[label] = cls => css(mqStrings[label](cls));
+    return accumulator;
+  },
+  {} as any
+);
+
+/** MQ object supports quick media query aware emotion syntax: https://emotion.sh/docs/media-queries
+ * It generates actual classnames, as opposed to mqStrings which generates the CSS string. Note
+ * that the size (m, s, l, etc) indicates the max-width that the css will apply.
+ */
+export const mqMax: MqDescriptor = Object.keys(mqStrings).reduce(
+  (accumulator, label) => {
+    accumulator[label] = cls => css(mqStringsMax[label](cls));
     return accumulator;
   },
   {} as any

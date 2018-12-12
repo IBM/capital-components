@@ -37,8 +37,9 @@ storiesOf("Layout|Media Queries", module)
       inline: true,
       text: `
         There are a number of ways to control via media queries. Our base primitive elements have built
-        in support for them with padding and margin. Base indicates the default state (min-height: 0).
-        You can also use the theme object in combination with the media queries.
+        in support for them with padding and margin. Base indicates the default state (min-width: 0).
+        You can also use the theme object in combination with the media queries. The default media-query
+        works with min-width but there are Max varients that work with max-width.
       `
     })(() => (
       <>

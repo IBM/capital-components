@@ -26,6 +26,7 @@ const colors = {
 };
 
 const theme = {
+  colors,
   color: colors,
   spacing: {
     spacing,
