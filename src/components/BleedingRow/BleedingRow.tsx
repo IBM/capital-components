@@ -1,5 +1,5 @@
-import React from "react";
 import { css, cx } from "emotion";
+import React from "react";
 import { mq } from "../../layout/mediaQueries";
 import { Flex } from "../../primitives/elements";
 

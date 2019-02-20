@@ -1,8 +1,8 @@
+import { css, cx } from "emotion";
 import React from "react";
+import { animated, config, interpolate, Spring } from "react-spring";
 import { Flex } from "../../primitives/elements";
 import { styled } from "../../support/theme";
-import { animated, interpolate, Spring, config } from "react-spring";
-import { css, cx } from "emotion";
 
 const PUSH_WIDTH = 320;
 
@@ -41,34 +41,34 @@ interface IState {
 }
 
 export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
-  isOpen: boolean;
+  isOpen?: boolean;
   showOverlay?: boolean;
   onOverlayClick?: React.MouseEventHandler<HTMLDivElement>;
   outerClassName?: string;
 }
 
 class PushOver extends React.PureComponent<IProps & { innerRef: React.Ref<any> }, IState> {
-  static getDerivedStateFromProps(nextProps: IProps, prevState: IState) {
+  public static getDerivedStateFromProps(nextProps: IProps, prevState: IState) {
     const { prevProps } = prevState;
     const nextResting = prevProps.isOpen === nextProps.isOpen;
     return { resting: prevState.resting && nextResting, prevProps: nextProps };
   }
 
-  state = {
+  public state = {
     // Some internal state used to track when to totally hide the flyover element
     resting: !this.props.isOpen,
     prevProps: this.props // a slight hack to track prevProps in state.
   };
 
-  onRest = () => {
+  public onRest = () => {
     this.setState({ resting: true });
   };
 
-  onStart = () => {
+  public onStart = () => {
     this.setState({ resting: false });
   };
 
-  render() {
+  public render() {
     const { isOpen, onOverlayClick, showOverlay, children, outerClassName, ...rest } = this.props;
     const offScreenPosition = {
       width: 0,
@@ -83,7 +83,7 @@ class PushOver extends React.PureComponent<IProps & { innerRef: React.Ref<any> }
     }
     return (
       <Spring
-        native
+        native={true}
         from={isOpen ? offScreenPosition : onScreenPosition}
         to={isOpen ? onScreenPosition : offScreenPosition}
         onRest={this.onRest}

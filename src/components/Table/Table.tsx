@@ -1,12 +1,12 @@
-import React from "react";
 import {
-  StructuredListWrapper,
+  StructuredListBody,
+  StructuredListCell,
   StructuredListHead,
   StructuredListRow,
-  StructuredListCell,
-  StructuredListBody
+  StructuredListWrapper
 } from "carbon-components-react";
-import { cx, css } from "emotion";
+import { css, cx } from "emotion";
+import React from "react";
 
 export type ColumnContentRenderer<T> = React.ComponentType<{
   row: T;
@@ -15,11 +15,11 @@ export type ColumnContentRenderer<T> = React.ComponentType<{
 }>;
 
 export interface IProps<T> {
-  columns: {
+  columns: Array<{
     key: keyof T;
     header: JSX.Element | string;
     content?: ColumnContentRenderer<T>;
-  }[];
+  }>;
   rows: T[];
   className?: string;
   selection?: boolean;
@@ -45,9 +45,9 @@ export default function Table<T>({
   return (
     <StructuredListWrapper className={className} selection={selection}>
       <StructuredListHead>
-        <StructuredListRow head>
+        <StructuredListRow head={true}>
           {columns.map(col => (
-            <StructuredListCell key={col.key} head>
+            <StructuredListCell key={col.key} head={true}>
               {col.header}
             </StructuredListCell>
           ))}

@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import ExternalWindow from "./externalWindow";
 
 const buttonStyle = {
@@ -17,30 +17,26 @@ const buttonStyle = {
   zIndex: 999
 };
 
-export default class extends PureComponent<{}, { isOpen: boolean }> {
-  state = {
-    isOpen: false
-  };
+const Component: React.FunctionComponent<{ rootProps: any }> = ({ rootProps, children }) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const toggleIsOpen = () => setIsOpen(prevState => !prevState);
+  return (
+    <React.Fragment>
+      {children}
+      <button onClick={toggleIsOpen} style={buttonStyle as any}>
+        Open in window
+      </button>
+      {isOpen && (
+        <ExternalWindow
+          title="External Window"
+          closeWindowPortal={toggleIsOpen}
+          rootProps={rootProps}
+        >
+          {children}
+        </ExternalWindow>
+      )}
+    </React.Fragment>
+  );
+};
 
-  toggleIsOpen = () =>
-    this.setState(prevState => ({
-      isOpen: !prevState.isOpen
-    }));
-
-  render() {
-    const { children } = this.props;
-    return (
-      <React.Fragment>
-        {children}
-        <button onClick={this.toggleIsOpen} style={buttonStyle as any}>
-          Open in window
-        </button>
-        {this.state.isOpen && (
-          <ExternalWindow title="External Window" closeWindowPortal={this.toggleIsOpen}>
-            {children}
-          </ExternalWindow>
-        )}
-      </React.Fragment>
-    );
-  }
-}
+export default Component;

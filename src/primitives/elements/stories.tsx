@@ -1,7 +1,7 @@
-import React from "react";
-import { Flex, Block, InlineBlock, Seperator } from "@fss/components/lib/primitives/elements";
-import { storiesOf } from "@storybook/react";
+import { Block, Flex, InlineBlock, Seperator } from "@fss/components/lib/primitives/elements";
 import { withInfo } from "@storybook/addon-info";
+import { storiesOf } from "@storybook/react";
+import React from "react";
 
 const stories = storiesOf("Primitives|Elements", module);
 

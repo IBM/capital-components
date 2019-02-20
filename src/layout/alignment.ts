@@ -1,13 +1,14 @@
-import { BreakPointDescriptor, buildStringForMediaQueries } from "../layout/mediaQueries";
+import { FlexDirectionProperty } from "csstype";
+import { buildStringForMediaQueries, IBreakPointDescriptor } from "../layout/mediaQueries";
 
 export const buildAlignment = (
-  direction: string,
-  alignment: string | BreakPointDescriptor<string>
+  direction: FlexDirectionProperty,
+  alignment: string | IBreakPointDescriptor<string>
 ) => {
   return buildStringForMediaQueries(alignment, align => buildAlignmentString(direction, align));
 };
 
-export const buildAlignmentString = (direction: string, alignment: string) => {
+export const buildAlignmentString = (direction: FlexDirectionProperty, alignment: string) => {
   const values = alignment.split(" ");
   if (values.length === 1) {
     return `justify-content: ${values[0]}; align-items: ${values[0]}`;

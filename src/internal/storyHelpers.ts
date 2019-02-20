@@ -7,15 +7,17 @@ export class WithState<StateShape> extends React.PureComponent<
   },
   StateShape
 > {
-  state = this.props.initialState;
+  public state = this.props.initialState;
 
-  boundSetState = (arg1, arg2) => {
+  public boundSetState = (arg1, arg2) => {
     (this.setState as any)(arg1, () => {
-      if (typeof arg2 === "function") arg2(this.state);
+      if (typeof arg2 === "function") {
+        arg2(this.state);
+      }
     });
   };
 
-  render() {
+  public render() {
     return this.props.children({
       state: this.state,
       setState: this.boundSetState

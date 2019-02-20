@@ -1,7 +1,7 @@
-import React from "react";
+import { Tab, TabsV2 } from "@fss/components";
 import { storiesOf } from "@storybook/react";
-import { TabsV2, Tab } from "@fss/components";
 import * as R from "ramda";
+import React from "react";
 import { WithState } from "../../internal/storyHelpers";
 
 storiesOf("Components|Tabs", module)

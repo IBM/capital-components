@@ -1,9 +1,9 @@
-import React from "react";
 import { FlyOver, FlyOverProvider } from "@fss/components";
-import { storiesOf } from "@storybook/react";
 import { withInfo } from "@storybook/addon-info";
-import styled from "react-emotion";
+import { storiesOf } from "@storybook/react";
 import { css } from "emotion";
+import React from "react";
+import styled from "react-emotion";
 import { WithState } from "../../internal/storyHelpers";
 
 const stories = storiesOf("Components|FlyOver", module);
@@ -45,7 +45,7 @@ stories
               <button onClick={() => setState({ open: !state.open })}>Open/close</button>
               <FlyOverProvider position="left">
                 <FlyOver
-                  closable
+                  closable={true}
                   show={state.open}
                   onCloseClick={() => {
                     setState({
@@ -90,7 +90,7 @@ stories
                   <div>
                     And more more stuff
                     <FlyOver
-                      closable
+                      closable={true}
                       show={state.open}
                       onCloseClick={() => {
                         setState({ open: false });
@@ -127,7 +127,7 @@ stories
             <ContentDefiningFlyOver>
               <FlyOverProvider>
                 <FlyOver
-                  closable
+                  closable={true}
                   show={state.leftOpen}
                   onCloseClick={() => {
                     setState({ leftOpen: false });
@@ -140,7 +140,7 @@ stories
                   Left content
                 </FlyOver>
                 <FlyOver
-                  closable
+                  closable={true}
                   show={state.rightOpen}
                   onCloseClick={() => {
                     setState({ rightOpen: false });

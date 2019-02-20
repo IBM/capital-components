@@ -1,5 +1,5 @@
+import { css, cx } from "emotion";
 import React, { ReactNode } from "react";
-import { cx, css } from "emotion";
 
 // A basic tabs components to represent tabs without having to worry about tab content.
 // Redux handles that.

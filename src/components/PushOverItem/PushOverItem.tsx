@@ -1,7 +1,7 @@
-import { styled, withTheme } from "../../support/theme";
 import { css, cx } from "emotion";
-import { Flex } from "../../primitives/elements";
 import React from "react";
+import { Flex } from "../../primitives/elements";
+import { styled, withTheme } from "../../support/theme";
 
 const HighlightDiv = styled("div")`
   position: absolute;
@@ -18,13 +18,12 @@ export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const PushOverItem = withTheme(
   ({ children, isSelected, theme, className, element = "li", ...restProps }) => {
-    const classes = 
-      css`
-        border-bottom: 1px solid ${theme.color.text02};
-        font-weight: ${isSelected ? 600 : 400};
-        flex: 1 1 auto;
-        ${isSelected ? `background-color: ${theme.color.nav01};` : null};
-      `;
+    const classes = css`
+      border-bottom: 1px solid ${theme.color.text02};
+      font-weight: ${isSelected ? 600 : 400};
+      flex: 1 1 auto;
+      ${isSelected ? `background-color: ${theme.color.nav01};` : null};
+    `;
 
     const wrapper = cx(
       css`
@@ -34,7 +33,7 @@ export const PushOverItem = withTheme(
       className
     );
 
-    const Element = Flex.withComponent(element);
+    const Element = Flex.withComponent(element as any);
 
     return (
       <Element className={wrapper} {...restProps}>

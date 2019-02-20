@@ -20,6 +20,7 @@ const clean = () => del(pkg.files);
 const sources = [
   "src/**/*.ts",
   "src/**/*.tsx",
+  "./types.d.ts",
   "!src/**/stories.tsx",
   "!src/**/*.test.ts",
   "!src/**/test.ts",

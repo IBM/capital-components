@@ -1,5 +1,5 @@
 import React from "react";
-import { SharedElementProps, makeBaseElement } from "./elements";
+import { ISharedElementProps, makeBaseElement } from "./elements";
 
 export const Body = makeBaseElement("div", ["cap--type-body"]);
 export const SpecialtyBody = makeBaseElement("div", ["cap--type-specialty-body"]);
@@ -81,7 +81,7 @@ export const Heading = ({
   ...otherProps
 }: {
   level: "1" | "2" | "3" | "4" | "5" | "6";
-} & SharedElementProps &
+} & ISharedElementProps &
   React.HTMLAttributes<HTMLHeadingElement>) => {
   const Element = makeBaseElement(`h${level}`, [`cap--type-${headerToClassName[level]}`]);
   return React.createElement(Element, otherProps);

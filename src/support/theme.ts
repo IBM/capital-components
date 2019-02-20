@@ -1,26 +1,25 @@
-import emotion, { CreateStyled } from "react-emotion";
 import {
-  ThemeProvider as eThemeProvider,
-  withTheme as eWithTheme,
   OptionalThemeProps,
-  ThemeProviderComponent
+  ThemeProvider as eThemeProvider,
+  ThemeProviderComponent,
+  withTheme as eWithTheme
 } from "emotion-theming";
 import React, { ComponentType } from "react";
+import emotion, { CreateStyled } from "react-emotion";
 import sharedTheme from "./themes/shared";
 
 export type Theme = typeof sharedTheme;
 
-export type ThemeModule = EmotionThemingModule<Theme>;
+export type ThemeModule = IEmotionThemingModule<Theme>;
 
 export const styled = emotion as CreateStyled<Theme>;
 
-interface EmotionThemingModule<Theme> {
-  ThemeProvider: ThemeProviderComponent<Theme>;
-  withTheme<Props>(
-    component: ComponentType<OptionalThemeProps<Props, Theme>>
-  ): ComponentType<Props>;
+interface IEmotionThemingModule<T> {
+  ThemeProvider: ThemeProviderComponent<T>;
+  withTheme<Props>(component: ComponentType<OptionalThemeProps<Props, T>>): ComponentType<Props>;
 }
 
+// tslint:disable-next-line:no-object-literal-type-assertion
 const module = {
   ThemeProvider: eThemeProvider,
   withTheme: eWithTheme

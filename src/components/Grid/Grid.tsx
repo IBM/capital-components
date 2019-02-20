@@ -1,7 +1,7 @@
+import { css, cx } from "emotion";
 import React from "react";
-import { cx, css } from "emotion";
-import { createGridClass as grid, buildVirticalSpacing } from "../../layout/grid";
-import { BreakPointDescriptor } from "../../layout/mediaQueries";
+import { buildVerticalSpacing, createGridClass as grid } from "../../layout/grid";
+import { IBreakPointDescriptor } from "../../layout/mediaQueries";
 
 const preventShrinkStyle = css`
   flex-shrink: 0;
@@ -15,9 +15,9 @@ export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   /** If true, row heights will be in chunks similar to columns. */
   isFluidRows?: boolean;
   /** Additional vertical padding. Format string to match spacing format. See README for details */
-  verticalPadding?: string | BreakPointDescriptor<string>;
+  verticalPadding?: string | IBreakPointDescriptor<string>;
   /** Additional vertical margin. Format string to match spacing format. See README for details */
-  verticalMargin?: string | BreakPointDescriptor<string>;
+  verticalMargin?: string | IBreakPointDescriptor<string>;
   /** If true, the grid will only expand and can't shrink (sets flex-shrink: 0) */
   preventShrink?: boolean;
 }
@@ -40,8 +40,8 @@ export const Grid: React.SFC<IProps> = ({
         isFixedColumns,
         isFluidRows
       }),
-      css(buildVirticalSpacing(verticalPadding)),
-      css(buildVirticalSpacing(verticalMargin, "margin")),
+      css(buildVerticalSpacing(verticalPadding)),
+      css(buildVerticalSpacing(verticalMargin, "margin")),
       {
         [preventShrinkStyle]: preventShrink
       }

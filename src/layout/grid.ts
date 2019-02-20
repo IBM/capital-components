@@ -1,7 +1,7 @@
 // Based on grid breakpoints http://carbondesignsystem.com/style/grid/design
 import cx from "classnames";
+import { buildStringForMediaQueries, IBreakPointDescriptor } from "./mediaQueries";
 import { getSpacingOrDefault } from "./spacing";
-import { BreakPointDescriptor, buildStringForMediaQueries } from "./mediaQueries";
 
 // For now, always assume 12 columns but this could change with media queries.
 
@@ -30,9 +30,9 @@ export type SupportedSizesAsFractions =
 export type SupportedSizes =
   | number
   | SupportedSizesAsFractions
-  | BreakPointDescriptor<number | SupportedSizesAsFractions>;
+  | IBreakPointDescriptor<number | SupportedSizesAsFractions>;
 
-export type SupportedHeights = number | BreakPointDescriptor<number>;
+export type SupportedHeights = number | IBreakPointDescriptor<number>;
 
 const fractionToWhole = {
   "1/6": 2,
@@ -77,18 +77,20 @@ export const createColClass = ({
   );
 };
 
-export const buildVirticalSpacing = (
-  desc?: string | BreakPointDescriptor<string>,
+export const buildVerticalSpacing = (
+  desc?: string | IBreakPointDescriptor<string>,
   type: "padding" | "margin" = "padding"
 ) => {
-  return buildStringForMediaQueries(desc, d => buildVirticalSpacingFromString(d, type));
+  return buildStringForMediaQueries(desc, d => buildVerticalSpacingFromString(d, type));
 };
 
-export const buildVirticalSpacingFromString = (
+export const buildVerticalSpacingFromString = (
   desc?: string,
   type: "padding" | "margin" = "padding"
 ) => {
-  if (!desc) return null;
+  if (!desc) {
+    return null;
+  }
 
   const values = desc.trim().split(" ");
   if (values.length === 1) {

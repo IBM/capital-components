@@ -1,5 +1,5 @@
-import React from "react";
 import { css, cx } from "emotion";
+import React from "react";
 import { CenteredBlock } from "../../primitives/elements";
 
 export interface IProps {
@@ -26,7 +26,7 @@ export const sizeToREM = {
 type ContainerProps = Pick<IProps, "size" | "className" | "onClick" | "children">;
 
 // any => Escape typing until emotion updates to using new context api that supports typing.
-const SVGContainer = React.forwardRef<any, ContainerProps>(
+const SVGContainer = React.forwardRef<HTMLDivElement, ContainerProps>(
   ({ className, onClick, size, children }, ref) => {
     const iconSize = sizeToREM[size];
     const iconHeight = css`
@@ -50,18 +50,20 @@ const SVGContainer = React.forwardRef<any, ContainerProps>(
   }
 );
 
-export const Icon: React.SFC<IProps & { ref?: React.Ref<any> }> = React.forwardRef<any, IProps>(
-  ({ size, title, glyph, children, onClick, ...props }, ref) => (
-    <SVGContainer size={size} {...props} onClick={onClick} ref={ref}>
-      {glyph && (
-        <svg aria-label={title} viewBox={glyph.viewBox}>
-          <title>{title}</title>
-          <use xlinkHref={`#${glyph.id}`} />
-        </svg>
-      )}
-      {children}
-    </SVGContainer>
-  )
-) as any;
+// We do this workaround (type casting) so doc generation can pick out these props
+export const Icon: React.SFC<IProps & { ref?: React.Ref<HTMLDivElement> }> = React.forwardRef<
+  HTMLDivElement,
+  IProps
+>(({ size, title, glyph, children, ...props }, ref) => (
+  <SVGContainer size={size} {...props} ref={ref}>
+    {glyph && (
+      <svg aria-label={title} viewBox={glyph.viewBox}>
+        <title>{title}</title>
+        <use xlinkHref={`#${glyph.id}`} />
+      </svg>
+    )}
+    {children}
+  </SVGContainer>
+)) as any;
 
 export default Icon;

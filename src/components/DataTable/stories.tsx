@@ -1,9 +1,8 @@
-import React from "react";
 import { DataTable } from "@fss/components";
-import { storiesOf } from "@storybook/react";
-import { withInfo } from "@storybook/addon-info";
 import { action } from "@storybook/addon-actions";
+import { storiesOf } from "@storybook/react";
 import { PaginationV2 } from "carbon-components-react";
+import React from "react";
 
 const stories = storiesOf("Components|DataTable", module);
 
@@ -45,30 +44,27 @@ const rows = [
 
 stories.add(
   "Basic",
-  withInfo({
-    text: `
-    DataTable provides a standardized way of dealing with datatables.
-    It takes the column based data approach to reduce duplicated information.
-  `
-  })(() => (
+  () => (
     <DataTable
       title="Data table 1"
       columns={columns}
       rows={rows}
       getRowIdentifier={row => row.name}
     />
-  ))
+  ),
+  {
+    info: {
+      text: `
+    DataTable provides a standardized way of dealing with datatables.
+    It takes the column based data approach to reduce duplicated information.
+  `
+    }
+  }
 );
 
 stories.add(
   "Sorting",
-  withInfo({
-    text: `
-      DataTable does not handle sorting data for you because most non-trivial
-      uses should be doing the sorting on the backend. The callback is triggered
-      when the sort button is clicked and describes the column clicked and the desired direction
-    `
-  })(() => (
+  () => (
     <DataTable
       columns={columns}
       rows={rows}
@@ -77,17 +73,19 @@ stories.add(
       onSort={action("sort")}
       getRowIdentifier={row => row.name}
     />
-  ))
+  ),
+  {
+    text: `
+      DataTable does not handle sorting data for you because most non-trivial
+      uses should be doing the sorting on the backend. The callback is triggered
+      when the sort button is clicked and describes the column clicked and the desired direction
+    `
+  }
 );
 
 stories.add(
   "Row Click",
-  withInfo({
-    text: `
-        Sometimes you want to add some additional properties to a speific row. Note that 
-        these are just props assigned to row element
-      `
-  })(() => (
+  () => (
     <DataTable
       columns={columns}
       rows={rows}
@@ -97,17 +95,18 @@ stories.add(
       getRowIdentifier={row => row.name}
       getAdditionalRowProps={() => ({ onClick: action("row click") })}
     />
-  ))
+  ),
+  {
+    text: `
+        Sometimes you want to add some additional properties to a speific row. Note that 
+        these are just props assigned to row element
+      `
+  }
 );
 
 stories.add(
   "Pagination",
-  withInfo({
-    text: `
-        You will often want a paginator. Use PaginationV2 to support any kind of
-        external paging system.
-      `
-  })(() => (
+  () => (
     <React.Fragment>
       <DataTable
         columns={columns}
@@ -126,16 +125,18 @@ stories.add(
         onChange={action("pagination change")}
       />
     </React.Fragment>
-  ))
+  ),
+  {
+    text: `
+        You will often want a paginator. Use PaginationV2 to support any kind of
+        external paging system.
+      `
+  }
 );
 
 stories.add(
   "Zebra",
-  withInfo({
-    text: `
-        Sometimes you just want to show your stripes
-      `
-  })(() => (
+  () => (
     <DataTable
       columns={columns}
       rows={rows}
@@ -144,7 +145,12 @@ stories.add(
       onSort={action("sort")}
       getRowIdentifier={row => row.name}
       getAdditionalRowProps={() => ({ onClick: action("row click") })}
-      zebra
+      zebra={true}
     />
-  ))
+  ),
+  {
+    text: `
+        Sometimes you just want to show your stripes
+      `
+  }
 );

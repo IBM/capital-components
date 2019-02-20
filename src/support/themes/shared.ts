@@ -1,7 +1,7 @@
-import { spacing, layout } from "../../layout/spacing";
 import { layers } from "../../layout/layers";
-import { prebuiltFontStyles } from "../../primitives/text";
 import { breakpoints } from "../../layout/mediaQueries";
+import { layout, spacing } from "../../layout/spacing";
+import { prebuiltFontStyles } from "../../primitives/text";
 
 const colors = {
   brand01: "#0530ad",

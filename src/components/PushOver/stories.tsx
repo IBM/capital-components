@@ -1,11 +1,11 @@
-import React from "react";
 import { PushOver, PushOverItem } from "@fss/components";
-import { storiesOf } from "@storybook/react";
+import { Block, Flex } from "@fss/components/lib/primitives/elements";
 import { withInfo } from "@storybook/addon-info";
-import { Flex, Block } from "@fss/components/lib/primitives/elements";
-import { WithState } from "../../internal/storyHelpers";
-import * as R from "ramda";
+import { storiesOf } from "@storybook/react";
 import { Icon } from "carbon-components-react";
+import * as R from "ramda";
+import React from "react";
+import { WithState } from "../../internal/storyHelpers";
 
 const stories = storiesOf("Components|PushOver", module);
 let scrollingRef = null;
@@ -37,9 +37,9 @@ stories
   `
     })(() => (
       <Flex direction="row">
-        <PushOver isOpen css="overflow: auto;">
-          <PushOverItem isSelected>{props => <Item {...props}>Item 1</Item>}</PushOverItem>
-          <PushOverItem isSelected>{props => <Item {...props}>Item 2</Item>}</PushOverItem>
+        <PushOver isOpen={true} css="overflow: auto;">
+          <PushOverItem isSelected={true}>{props => <Item {...props}>Item 1</Item>}</PushOverItem>
+          <PushOverItem isSelected={true}>{props => <Item {...props}>Item 2</Item>}</PushOverItem>
           <PushOverItem>{props => <Item {...props}>Item 3</Item>}</PushOverItem>
         </PushOver>
         <Flex
@@ -67,11 +67,11 @@ stories
             <PushOver
               isOpen={state.open}
               css="overflow: auto;"
-              showOverlay
+              showOverlay={true}
               onOverlayClick={() => setState(prevState => ({ open: !prevState.open }))}
             >
-              <PushOverItem isSelected>{props => <Item {...props}>Item 1</Item>}</PushOverItem>
-              <PushOverItem isSelected>{props => <Item {...props}>Item 2</Item>}</PushOverItem>
+              <PushOverItem isSelected={true}>{props => <Item {...props}>Item 1</Item>}</PushOverItem>
+              <PushOverItem isSelected={true}>{props => <Item {...props}>Item 2</Item>}</PushOverItem>
               <PushOverItem>{props => <Item {...props}>Item 3</Item>}</PushOverItem>
             </PushOver>
             <Flex
@@ -103,7 +103,7 @@ stories
           <Flex direction="row">
             <PushOver isOpen={state.open} css="overflow: auto;">
               {R.range(0, 50).map(num => (
-                <PushOverItem key={num} isSelected>
+                <PushOverItem key={num} isSelected={true}>
                   {props => <Item {...props}>Item {num}</Item>}
                 </PushOverItem>
               ))}
