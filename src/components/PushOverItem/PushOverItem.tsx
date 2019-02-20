@@ -20,6 +20,7 @@ export const PushOverItem = withTheme(
   ({ children, isSelected, theme, className, element = "li", ...restProps }) => {
     const classes = css`
       border-bottom: 1px solid ${theme.color.text02};
+      ${theme.fonts.styles.specialtyBody};
       font-weight: ${isSelected ? 600 : 400};
       flex: 1 1 auto;
       ${isSelected ? `background-color: ${theme.color.nav01};` : null};

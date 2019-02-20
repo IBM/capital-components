@@ -11,7 +11,7 @@ import { styled, Theme, withTheme } from "../../support/theme";
 import Icon from "../Icon";
 
 // We can extend existing styles by wrapping them with styled
-const PrimaryBarItem = styled(Flex, {
+const PrimaryBarItem = styled("div", {
   shouldForwardProp: prop => prop !== "isSelected"
 })<ComponentPropsWithoutRef<typeof Flex> & { isSelected?: boolean }>(props => {
   const fromFlex = Flex.formatter({
@@ -31,7 +31,7 @@ const PrimaryBarItem = styled(Flex, {
         `;
 });
 
-export function PrimaryBarNavItem<T extends object = {}>({
+function PrimaryBarNavItem<T extends object = {}>({
   asComp,
   className,
   ...props
@@ -56,7 +56,7 @@ export function PrimaryBarNavItem<T extends object = {}>({
   );
 }
 
-export const PrimaryBarIcon = styled(PrimaryBarItem, {
+const PrimaryBarIcon = styled(PrimaryBarItem, {
   shouldForwardProp: prop => prop !== "isSelected" && prop !== "as"
 })<ComponentPropsWithoutRef<typeof PrimaryBarItem> & { isSelected?: boolean; as?: any }>(props => {
   const color = props.isSelected ? props.theme.color.nav01 : props.theme.color.inverse01;
@@ -71,10 +71,12 @@ export const PrimaryBarIcon = styled(PrimaryBarItem, {
         `;
 });
 
-export const PrimaryBarTitle = styled(PrimaryBarItem)`
+const PrimaryBarTitle = styled(PrimaryBarItem)`
   padding-left: 0;
   flex: 1 1 auto;
   cursor: auto;
+  ${props => props.theme.fonts.styles.specialtyBody};
+  font-weight: ${props => props.theme.fonts.weights.bold};
 `;
 
 const FlexUL = Flex.withComponent("ul");
@@ -195,9 +197,9 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
   </Media>
 );
 
-export const PrimaryBar = withTheme(PrimaryBarWithoutTheme);
+const PrimaryBar = withTheme(PrimaryBarWithoutTheme);
 
-export const SecondaryBar = styled.nav`
+const SecondaryBar = styled.nav`
   border-bottom: ${props => props.theme.color.text02} 1px solid;
   background-color: ${props => props.theme.color.nav02};
   > * {
@@ -205,3 +207,11 @@ export const SecondaryBar = styled.nav`
     padding-right: 28px;
   }
 `;
+
+export default {
+  PrimaryBar,
+  PrimaryBarIcon,
+  PrimaryBarTitle,
+  SecondaryBar,
+  PrimaryBarNavItem
+};

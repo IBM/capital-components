@@ -6,11 +6,7 @@ import {
   Grid,
   Icon,
   Popover,
-  PrimaryBar,
-  PrimaryBarIcon,
-  PrimaryBarNavItem,
-  PrimaryBarTitle,
-  SecondaryBar,
+  NavigationBar,
   Tab,
   TabsV2
 } from "@fss/components";
@@ -31,6 +27,14 @@ import { Link } from "react-router-dom";
 import { Omit } from "type-zoo";
 import useReactRouter from "use-react-router";
 import withExternalWindow from "../storybook-addons/external-window";
+
+const {
+  PrimaryBar,
+  PrimaryBarIcon,
+  PrimaryBarNavItem,
+  PrimaryBarTitle,
+  SecondaryBar
+} = NavigationBar;
 
 const stories = storiesOf("Layout|General", module).addDecorator(withExternalWindow());
 
@@ -116,6 +120,11 @@ const TableToolbarSearch = styled(CCDataTable.TableToolbarSearch)`
   border: 1px solid ${({ theme }) => theme.colors.ui04};
 `;
 
+const IBMTitle = styled.span`
+  font-weight: ${props => props.theme.fonts.weights.regular};
+  margin-right: 0.25rem;
+`;
+
 stories.add(
   "Basic",
   () => {
@@ -128,7 +137,12 @@ stories.add(
         <div ref={menuRef} />
         <MainWrapper>
           <PrimaryBar
-            titleSection={<PrimaryBarTitle>IBM Project name</PrimaryBarTitle>}
+            titleSection={
+              <PrimaryBarTitle>
+                <IBMTitle>IBM</IBMTitle>
+                <span>Project name</span>
+              </PrimaryBarTitle>
+            }
             navSection={
               <>
                 <ReactRouterPrimaryLink path="/mail2">Some Nav 1</ReactRouterPrimaryLink>
@@ -167,7 +181,7 @@ stories.add(
             showMenu={showMenu}
             onMenuToggle={toggleShowMenu}
             mobileMenuContents={<>Hello dearest my old friend</>}
-            mobileMenuRef={ref.current}
+            mobileMenuRef={menuRef.current}
           />
           <SecondaryBar>
             <TabsV2>
