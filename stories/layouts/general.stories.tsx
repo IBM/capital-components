@@ -6,6 +6,7 @@ import {
   Grid,
   Icon,
   Popover,
+  PushOver,
   NavigationBar,
   Tab,
   TabsV2
@@ -13,7 +14,8 @@ import {
 import {
   ContentWrapper,
   MainWrapper,
-  VerticalScrollableContent
+  VerticalScrollableContent,
+  Flex
 } from "@fss/components/lib/primitives/elements";
 import { styled } from "@fss/components/lib/support/theme";
 import MessagesIcon from "@fss/icons/dist/svg/email_24";
@@ -21,12 +23,13 @@ import UserIcon from "@fss/icons/dist/svg/user_64";
 import { action } from "@storybook/addon-actions";
 import { storiesOf } from "@storybook/react";
 import { DataTable as CCDataTable, PaginationV2 } from "carbon-components-react";
-import React, { ComponentPropsWithoutRef, useRef, useState } from "react";
+import React, { ComponentPropsWithoutRef, useRef } from "react";
 import { matchPath } from "react-router";
 import { Link } from "react-router-dom";
 import { Omit } from "type-zoo";
 import useReactRouter from "use-react-router";
-import withExternalWindow from "../storybook-addons/external-window";
+import withExternalWindow from "../../storybook-addons/external-window";
+import { useToggle } from "react-use";
 
 const {
   PrimaryBar,
@@ -84,7 +87,7 @@ const ReactRouterTab: React.FunctionComponent<{
   return (
     <Tab isSelected={!!result} ref={ref}>
       {({ tabProps }) => (
-        <Link to={props.path} {...tabProps} css="text-decoration: none;">
+        <Link to={props.path} {...tabProps}>
           {props.children}
         </Link>
       )}
@@ -128,10 +131,10 @@ const IBMTitle = styled.span`
 stories.add(
   "Basic",
   () => {
-    const [showOptions, setShowOptions] = useState(false);
-    const [showMenu, setShowMenu] = useState(false);
+    const [showOptions, toggleShowOptions] = useToggle(false);
+    const [showMenu, toggleShowMenu] = useToggle(false);
+    const [showPushOver, toggleShowPushOver] = useToggle(false);
     const menuRef = useRef(null);
-    const toggleShowMenu = () => setShowMenu(prevState => !prevState);
     return (
       <>
         <div ref={menuRef} />
@@ -151,6 +154,11 @@ stories.add(
             }
             rightSection={
               <>
+                <PrimaryBarIcon onClick={() => toggleShowPushOver()}>
+                  <Icon size="medium" title="notifications" circleColor="white" color="black">
+                    9+
+                  </Icon>
+                </PrimaryBarIcon>
                 <ReactRouterPrimaryLinkIcon path="/mail">
                   <Icon size="medium" title="email">
                     <MessagesIcon />
@@ -158,10 +166,7 @@ stories.add(
                 </ReactRouterPrimaryLinkIcon>
                 <Popover
                   reference={({ ref }) => (
-                    <PrimaryBarIcon
-                      innerRef={ref}
-                      onClick={() => setShowOptions(prevState => !prevState)}
-                    >
+                    <PrimaryBarIcon innerRef={ref} onClick={() => toggleShowOptions()}>
                       <Icon size="medium" title="User options">
                         <UserIcon />
                       </Icon>
@@ -179,7 +184,7 @@ stories.add(
               </>
             }
             showMenu={showMenu}
-            onMenuToggle={toggleShowMenu}
+            onMenuToggle={() => toggleShowMenu()}
             mobileMenuContents={<>Hello dearest my old friend</>}
             mobileMenuRef={menuRef.current}
           />
@@ -192,21 +197,24 @@ stories.add(
           <ContentWrapper>
             <VerticalScrollableContent>
               <BannerRibbon title="Some Title <Could be component>" />
-              <Grid isContainer verticalPadding="top lg">
-                <DataTable
-                  columns={columns}
-                  rows={rows}
-                  getRowIdentifier={row => row.name}
-                  renderToolbar={<TableToolbarSearch onChange={action("Searching")} />}
-                />
-                <PaginationV2
-                  page={1}
-                  totalItems={50}
-                  pageSize={10}
-                  pageSizes={[10, 50, 100]}
-                  onChange={action("pagination change")}
-                />
-              </Grid>
+              <Flex direction="row">
+                <Grid isContainer verticalPadding="top lg">
+                  <DataTable
+                    columns={columns}
+                    rows={rows}
+                    getRowIdentifier={row => row.name}
+                    renderToolbar={<TableToolbarSearch onChange={action("Searching")} />}
+                  />
+                  <PaginationV2
+                    page={1}
+                    totalItems={50}
+                    pageSize={10}
+                    pageSizes={[10, 50, 100]}
+                    onChange={action("pagination change")}
+                  />
+                </Grid>
+                <PushOver isOpen={showPushOver}>Some content</PushOver>
+              </Flex>
             </VerticalScrollableContent>
           </ContentWrapper>
         </MainWrapper>

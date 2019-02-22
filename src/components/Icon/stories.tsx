@@ -43,6 +43,33 @@ stories
     ))
   )
   .add(
+    "Circle",
+    withInfo({
+      text: `
+    Sometimes you want an inverted icon. Just provide the colors.
+  `
+    })(() => (
+      <>
+        <Icon
+          size="large"
+          title="Mandatory Title (for accessibility)"
+          circleColor="red"
+          color="white"
+        >
+          <NotificationBell />
+        </Icon>
+        <Icon
+          size="large"
+          title="Mandatory Title (for accessibility)"
+          circleColor="red"
+          color="white"
+        >
+          9+
+        </Icon>
+      </>
+    ))
+  )
+  .add(
     "Sizes",
     withInfo({
       text: `

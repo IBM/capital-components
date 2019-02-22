@@ -46,6 +46,7 @@ const Tab = React.forwardRef(({ isSelected, children, className }: IProps, ref) 
         font-size: 0.875rem;
         a {
           color: ${theme.color.inverse01};
+          text-decoration: none;
         }
     `}
       className={className}

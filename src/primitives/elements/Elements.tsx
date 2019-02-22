@@ -86,7 +86,7 @@ export const InlineBlock = Object.assign(
   }
 );
 
-type FlexProps = {
+export type FlexProps = {
   direction?: FlexDirectionProperty;
   alignment?: string;
 } & ISharedElementProps;

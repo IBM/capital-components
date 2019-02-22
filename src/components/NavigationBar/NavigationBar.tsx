@@ -1,19 +1,24 @@
+import isPropValid from "@emotion/is-prop-valid";
 import MenuIcon from "@fss/icons/dist/svg/menu_24";
 import { cx } from "emotion";
-import React, { ComponentPropsWithoutRef, ComponentType } from "react";
+import React, { ComponentType } from "react";
 import ReactDOM from "react-dom";
 import Media from "react-media";
 import { Overwrite } from "type-zoo";
 import { PushOver, PushOverItem } from "../../components";
 import { breakpoints, mqStrings } from "../../layout/mediaQueries";
-import { Flex } from "../../primitives/elements";
+import { Flex, FlexProps } from "../../primitives/elements";
 import { styled, Theme, withTheme } from "../../support/theme";
 import Icon from "../Icon";
 
+export type PrimaryBarItemProps = FlexProps & { isSelected?: boolean };
+
+const shouldForwardProp = (prop: string) => prop !== "isSelected" && isPropValid(prop);
+
 // We can extend existing styles by wrapping them with styled
 const PrimaryBarItem = styled("div", {
-  shouldForwardProp: prop => prop !== "isSelected"
-})<ComponentPropsWithoutRef<typeof Flex> & { isSelected?: boolean }>(props => {
+  shouldForwardProp
+})<PrimaryBarItemProps>(props => {
   const fromFlex = Flex.formatter({
     padding: "md md",
     alignment: "vertical center",
@@ -35,10 +40,7 @@ function PrimaryBarNavItem<T extends object = {}>({
   asComp,
   className,
   ...props
-}: { asComp?: ComponentType<T>; className?: string } & Overwrite<
-  ComponentPropsWithoutRef<typeof PrimaryBarItem>,
-  T
->) {
+}: { asComp?: ComponentType<T>; className?: string } & Overwrite<PrimaryBarItemProps, T>) {
   return (
     <Media query={{ maxWidth: breakpoints.s }}>
       {matches => {
@@ -57,11 +59,21 @@ function PrimaryBarNavItem<T extends object = {}>({
 }
 
 const PrimaryBarIcon = styled(PrimaryBarItem, {
-  shouldForwardProp: prop => prop !== "isSelected" && prop !== "as"
-})<ComponentPropsWithoutRef<typeof PrimaryBarItem> & { isSelected?: boolean; as?: any }>(props => {
+  shouldForwardProp
+})<PrimaryBarItemProps & { as?: any }>(props => {
   const color = props.isSelected ? props.theme.color.nav01 : props.theme.color.inverse01;
   return `
-          ${props.isSelected ? `background-color: ${props.theme.color.brand03};` : ""}
+          ${
+            props.isSelected
+              ? `
+            background-color: ${props.theme.color.brand03};
+            & > .icon-circle {
+              color: ${props.theme.color.brand03};
+              fill: ${props.theme.color.brand03};
+            }
+          `
+              : ""
+          }
           color: ${color};
           fill: ${color};
           border-left: 1px solid ${props.theme.color.ui04};
@@ -102,7 +114,9 @@ const defaultTranslations: Record<TranslationKeys, string> = {
 const defaultTranslateWithId = (id: TranslationKeys) => defaultTranslations[id];
 
 const PrimaryBarWithoutTheme: React.FunctionComponent<
-  ComponentPropsWithoutRef<typeof PrimaryBarInternal> & {
+  {
+    className?: string;
+  } & {
     titleSection?: React.ReactNode;
     navSection?: React.ReactNode;
     rightSection?: React.ReactNode;
@@ -137,6 +151,7 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
           <PrimaryBarInternal {...otherProps}>
             {titleSection}
             {navSection}
+            <div css="margin-left: 1rem;" />
             {rightSection}
           </PrimaryBarInternal>
         );

@@ -91,7 +91,7 @@ export class FlyOver extends React.PureComponent<IProps, IState> {
               position={position}
               width={width}
               {...otherProps}
-              style={{ transform: interpolate([x], x => `translate3d(${x}%,0,0)`) }}
+              style={{ transform: interpolate([x], xInner => `translate3d(${xInner}%,0,0)`) }}
             >
               {closable && (
                 <Icon
@@ -121,7 +121,9 @@ export class FlyOver extends React.PureComponent<IProps, IState> {
         {args => {
           const containerRef =
             this.props.position === "left" ? args.getLeftRef() : args.getRightRef();
-          if (containerRef === null) { return null; }
+          if (containerRef === null) {
+            return null;
+          }
           return ReactDOM.createPortal(this.renderContent(), containerRef);
         }}
       </context.Consumer>

@@ -72,3 +72,5 @@ gulp.task(
   "build",
   gulp.series([clean, compileScripts, compileStylesSass, compileStylesCSS, copyStylesSass])
 );
+
+gulp.task("watch:scripts", () => gulp.watch(sources, compileScripts));

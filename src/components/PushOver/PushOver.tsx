@@ -1,28 +1,35 @@
+import { Icon } from "carbon-components-react";
 import { css, cx } from "emotion";
 import React from "react";
 import { animated, config, interpolate, Spring } from "react-spring";
 import { Flex } from "../../primitives/elements";
 import { styled } from "../../support/theme";
 
-const PUSH_WIDTH = 320;
+const sizeMapping = {
+  xl: 560,
+  lg: 460,
+  md: 360,
+  sm: 200
+};
 
-const Wrapper = ({ children, ...otherProps }) => (
+const inversePosition = (position: "left" | "right") => (position === "left" ? "right" : "left");
+
+const Wrapper = ({ size, position, listMode, ...otherProps }) => (
   <Flex
     direction="column"
+    padding={listMode ? "0" : "xl 2xl"}
     cssWithTheme={({ theme }) => `
-          right: 0;
+          ${inversePosition(position)}: 0;
           position: absolute;
-          width: ${PUSH_WIDTH}px;
+          width: ${size}px;
           height: 100%;
-          background-color: ${theme.color.nav02};
+          background-color: ${listMode ? theme.color.nav02 : theme.color.ui02};
           z-index: ${theme.layers.FlyOver};
           ${theme.fonts.styles.specialtyBody};
           line-height: 1rem;
         `}
     {...otherProps}
-  >
-    {children}
-  </Flex>
+  />
 );
 
 const Overlay = styled.div`
@@ -45,6 +52,12 @@ export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   showOverlay?: boolean;
   onOverlayClick?: React.MouseEventHandler<HTMLDivElement>;
   outerClassName?: string;
+  size?: keyof typeof sizeMapping | number;
+  closable?: boolean;
+  onCloseClick?: React.MouseEventHandler<HTMLDivElement>;
+  position?: "left" | "right";
+  closePosition?: "left" | "right";
+  listMode?: boolean;
 }
 
 class PushOver extends React.PureComponent<IProps & { innerRef: React.Ref<any> }, IState> {
@@ -69,15 +82,30 @@ class PushOver extends React.PureComponent<IProps & { innerRef: React.Ref<any> }
   };
 
   public render() {
-    const { isOpen, onOverlayClick, showOverlay, children, outerClassName, ...rest } = this.props;
+    const {
+      isOpen,
+      onOverlayClick,
+      showOverlay,
+      children,
+      outerClassName,
+      size,
+      closable,
+      onCloseClick,
+      position = "left",
+      closePosition = inversePosition(position),
+      listMode = true,
+      ...rest
+    } = this.props;
     const offScreenPosition = {
       width: 0,
       overlayColor: "#00000000"
     };
+    const sizeInternal = sizeMapping[size] || size || sizeMapping.md;
     const onScreenPosition = {
-      width: PUSH_WIDTH,
+      width: sizeInternal,
       overlayColor: "#00000066"
     };
+
     if (this.state.resting && !isOpen) {
       return null;
     }
@@ -115,10 +143,27 @@ class PushOver extends React.PureComponent<IProps & { innerRef: React.Ref<any> }
               style={{
                 width: interpolate([width], xInternal => `${xInternal}px`),
                 minWidth: interpolate([width], xInternal => `${xInternal}px`),
-                position: "relative"
+                position: "relative",
+                overflow: position === "right" ? "hidden" : "visible"
               }}
             >
-              <Wrapper {...rest}>{children}</Wrapper>
+              <Wrapper size={sizeInternal} position={position} listMode={listMode} {...rest}>
+                {children}
+                {closable && (
+                  <Icon
+                    name="icon--close"
+                    className={css`
+                      top: 1rem;
+                      ${closePosition}: 1rem;
+                      position: absolute;
+                      cursor: pointer;
+                    `}
+                    height="12"
+                    width="12"
+                    onClick={onCloseClick}
+                  />
+                )}
+              </Wrapper>
             </animated.div>
           </React.Fragment>
         )}

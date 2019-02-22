@@ -1,18 +1,18 @@
 import { css, cx } from "emotion";
-import React from "react";
+import React, { ComponentPropsWithoutRef } from "react";
+import { Omit } from "type-zoo";
 import { CenteredBlock } from "../../primitives/elements";
 
-export interface IProps {
+export type Props = ComponentPropsWithoutRef<typeof CenteredBlock> & {
   size: "xsmall" | "small" | "medium" | "large" | "xlarge" | "xxxlarge";
   title: string;
   glyph?: {
     id: string;
     viewBox: string;
   };
-  children?: React.ReactNode;
-  className?: string;
-  onClick?: () => void;
-}
+  circleColor?: string;
+  color?: string;
+};
 
 export const sizeToREM = {
   xsmall: 0.5,
@@ -23,27 +23,43 @@ export const sizeToREM = {
   xxxlarge: 10
 };
 
-type ContainerProps = Pick<IProps, "size" | "className" | "onClick" | "children">;
+type ContainerProps = Omit<Props, "title" | "glyph">;
 
 // any => Escape typing until emotion updates to using new context api that supports typing.
 const SVGContainer = React.forwardRef<HTMLDivElement, ContainerProps>(
-  ({ className, onClick, size, children }, ref) => {
+  ({ className, onClick, size, children, circleColor, color }, ref) => {
     const iconSize = sizeToREM[size];
-    const iconHeight = css`
+
+    const fill = css`
       height: ${iconSize}rem;
       min-height: ${iconSize}rem;
       width: ${iconSize}rem;
       min-width: ${iconSize}rem;
       position: relative;
-    `; // Use min-height/max-height for IE issue with svg sizing.
-
-    const fill = css`
-      ${iconHeight} > * {
+      fill: ${color};
+      color: ${color};
+      > * {
         flex: 1 1 auto;
       }
     `;
+    const circleStyle = cx(
+      css`
+        background-color: ${circleColor};
+        border-radius: 50%;
+        > * {
+          margin: 0.25rem;
+        }
+      `,
+      "icon-circle" // This is getting around an issue that should be resolved with emotion 10
+    );
     return (
-      <CenteredBlock className={cx(className, fill)} onClick={onClick} innerRef={ref}>
+      <CenteredBlock
+        className={cx(className, fill, "icon", {
+          [circleStyle]: circleColor
+        })}
+        onClick={onClick}
+        innerRef={ref}
+      >
         {children}
       </CenteredBlock>
     );
@@ -51,9 +67,9 @@ const SVGContainer = React.forwardRef<HTMLDivElement, ContainerProps>(
 );
 
 // We do this workaround (type casting) so doc generation can pick out these props
-export const Icon: React.SFC<IProps & { ref?: React.Ref<HTMLDivElement> }> = React.forwardRef<
+export const Icon: React.SFC<Props & { ref?: React.Ref<HTMLDivElement> }> = React.forwardRef<
   HTMLDivElement,
-  IProps
+  Props
 >(({ size, title, glyph, children, ...props }, ref) => (
   <SVGContainer size={size} {...props} ref={ref}>
     {glyph && (
