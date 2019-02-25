@@ -1,7 +1,7 @@
-import React from "react";
 import Icon from "carbon-components-react/lib/components/Icon";
 import { css, cx } from "emotion";
-import { animated, interpolate, Spring, config } from "react-spring";
+import React from "react";
+import { animated, config, interpolate, Spring } from "react-spring";
 import { buildSpacing } from "../../layout/spacing";
 import { context } from "../FlyOverProvider/FlyOverProvider";
 
@@ -42,30 +42,30 @@ interface IState {
 }
 
 export class FlyOver extends React.PureComponent<IProps, IState> {
-  static defaultProps = {
+  public static defaultProps = {
     position: "left",
     width: "md",
     closable: true,
     show: true
   };
 
-  state = {
+  public state = {
     // Some internal state used to track when to totally hide the flyover element
     resting: !this.props.show,
     prevProps: this.props // a slight hack to track prevProps in state.
   };
 
-  static getDerivedStateFromProps(nextProps: IProps, prevState: IState) {
+  public static getDerivedStateFromProps(nextProps: IProps, prevState: IState) {
     const { prevProps } = prevState;
     const nextResting = prevProps.show === nextProps.show;
     return { resting: prevState.resting && nextResting, prevProps: nextProps };
   }
 
-  onRest = () => this.setState({ resting: true });
+  public onRest = () => this.setState({ resting: true });
 
-  onStart = () => this.setState({ resting: false });
+  public onStart = () => this.setState({ resting: false });
 
-  renderContent() {
+  public renderContent() {
     const { position, width, show, closable, onCloseClick, children, ...otherProps } = this.props;
     const offScreenPosition = position === "left" ? { x: -100 } : { x: 100 };
     const onScreenPosition = { x: 0 };
@@ -74,7 +74,7 @@ export class FlyOver extends React.PureComponent<IProps, IState> {
     }
     return (
       <Spring
-        native
+        native={true}
         from={show ? offScreenPosition : onScreenPosition}
         to={show ? onScreenPosition : offScreenPosition}
         onRest={this.onRest}
@@ -91,7 +91,7 @@ export class FlyOver extends React.PureComponent<IProps, IState> {
               position={position}
               width={width}
               {...otherProps}
-              style={{ transform: interpolate([x], x => `translate3d(${x}%,0,0)`) }}
+              style={{ transform: interpolate([x], xInner => `translate3d(${xInner}%,0,0)`) }}
             >
               {closable && (
                 <Icon
@@ -115,13 +115,15 @@ export class FlyOver extends React.PureComponent<IProps, IState> {
     );
   }
 
-  render() {
+  public render() {
     return (
       <context.Consumer>
         {args => {
           const containerRef =
             this.props.position === "left" ? args.getLeftRef() : args.getRightRef();
-          if (containerRef === null) return null;
+          if (containerRef === null) {
+            return null;
+          }
           return ReactDOM.createPortal(this.renderContent(), containerRef);
         }}
       </context.Consumer>

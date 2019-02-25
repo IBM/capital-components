@@ -20,7 +20,8 @@
       "@fss/components": ["./src/index.ts"],
       "@fss/components/lib/*": ["./src/*"]
     },
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "skipLibCheck": true
   },
   "include": ["src/**/*", "stories/**/*", "storybook-addons/**/*", "./types.d.ts"],
   "exclude": ["node_modules", "build", "scripts"]

@@ -4,12 +4,10 @@ declare module "*.md" {
 }
 
 declare module "*.svg" {
-  const content: {
+  const contentSVG: {
     id: string;
     viewBox: string;
     content: string;
   };
-  export default content;
+  export default contentSVG;
 }
-
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;

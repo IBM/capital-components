@@ -20,6 +20,7 @@ const clean = () => del(pkg.files);
 const sources = [
   "src/**/*.ts",
   "src/**/*.tsx",
+  "./types.d.ts",
   "!src/**/stories.tsx",
   "!src/**/*.test.ts",
   "!src/**/test.ts",
@@ -71,3 +72,5 @@ gulp.task(
   "build",
   gulp.series([clean, compileScripts, compileStylesSass, compileStylesCSS, copyStylesSass])
 );
+
+gulp.task("watch:scripts", () => gulp.watch(sources, compileScripts));

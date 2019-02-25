@@ -1,8 +1,8 @@
-import React from "react";
 import { Icon, Table } from "@fss/components";
-import { storiesOf } from "@storybook/react";
+import NotificationBell from "@fss/icons/dist/svg/notification-bell_24";
 import { withInfo } from "@storybook/addon-info";
-import notificationBell from "@fss/icons/dist/svg/notification-bell_24.svg";
+import { storiesOf } from "@storybook/react";
+import React from "react";
 import { sizeToREM } from "./Icon";
 const stories = storiesOf("Components|Icon", module);
 
@@ -21,7 +21,11 @@ const iconColumns = [
   {
     key: "icon",
     header: "Icon",
-    content: ({ row }) => <Icon size={row} title="Some icon" glyph={notificationBell} />
+    content: ({ row }) => (
+      <Icon size={row} title="Some icon">
+        <NotificationBell />
+      </Icon>
+    )
   }
 ];
 
@@ -33,7 +37,36 @@ stories
     Basic icon
   `
     })(() => (
-      <Icon size="large" title="Mandatory Title (for accessibility)" glyph={notificationBell} />
+      <Icon size="large" title="Mandatory Title (for accessibility)">
+        <NotificationBell />
+      </Icon>
+    ))
+  )
+  .add(
+    "Circle",
+    withInfo({
+      text: `
+    Sometimes you want an inverted icon. Just provide the colors.
+  `
+    })(() => (
+      <>
+        <Icon
+          size="large"
+          title="Mandatory Title (for accessibility)"
+          circleColor="red"
+          color="white"
+        >
+          <NotificationBell />
+        </Icon>
+        <Icon
+          size="large"
+          title="Mandatory Title (for accessibility)"
+          circleColor="red"
+          color="white"
+        >
+          9+
+        </Icon>
+      </>
     ))
   )
   .add(

@@ -1,8 +1,8 @@
-import React from "react";
-import { Grid, Col } from "@fss/components";
-import { storiesOf } from "@storybook/react";
+import { Col, Grid } from "@fss/components";
 import { withInfo } from "@storybook/addon-info";
+import { storiesOf } from "@storybook/react";
 import { css } from "emotion";
+import React from "react";
 
 const stories = storiesOf("Components|Grid", module);
 
@@ -25,7 +25,7 @@ stories.add(
     fraction of 12 (reduced) or an integer (<= 12).
   `
   })(() => (
-    <Grid isContainer>
+    <Grid isContainer={true}>
       <Col size="all" className={redBackground}>
         This is one column crossing all
       </Col>
@@ -47,7 +47,7 @@ stories.add(
       width (in chunks). This means that 12 rows make up 100vh.
     `
   })(() => (
-    <Grid isContainer isFluidRows>
+    <Grid isContainer={true} isFluidRows={true}>
       <Col size="all" className={redBackground}>
         This is one column crossing all
       </Col>
@@ -69,7 +69,7 @@ stories.add(
         is always 1/12 of our optimal screen width.
       `
   })(() => (
-    <Grid isContainer isFixedColumns>
+    <Grid isContainer={true} isFixedColumns={true}>
       <Col size="all" className={redBackground}>
         This is one column crossing all
       </Col>
@@ -90,7 +90,7 @@ stories.add(
           Padding can be added for vertical alignment
         `
   })(() => (
-    <Grid isContainer verticalPadding="top xl">
+    <Grid isContainer={true} verticalPadding="top xl">
       <Col size="all" className={redBackground}>
         This is one column crossing all
       </Col>
@@ -112,7 +112,7 @@ stories.add(
             depending on the screen size.
           `
   })(() => (
-    <Grid isContainer>
+    <Grid isContainer={true}>
       <Col size={{ xs: "all", m: "1/2" }} className={redBackground}>
         When the screen gets small, I take up all the room.
       </Col>
@@ -133,7 +133,7 @@ stories.add(
             Sometimes you need your spacing to also depend on the screen size
           `
   })(() => (
-    <Grid isContainer verticalMargin={{ base: "sm", m: "xl" }}>
+    <Grid isContainer={true} verticalMargin={{ base: "sm", m: "xl" }}>
       <Col size={{ base: "all", m: "1/2" }} className={redBackground}>
         When the screen gets small, I take up all the room.
       </Col>

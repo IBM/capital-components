@@ -1,92 +1,116 @@
-import React, { ComponentType } from "react";
-import styled from "react-emotion";
+import isPropValid from "@emotion/is-prop-valid";
+import { FlexDirectionProperty } from "csstype";
 import { css, cx } from "emotion";
-import { buildSpacing } from "../../layout/spacing";
-import { BreakPointDescriptor } from "../../layout/mediaQueries";
+import React, { ComponentType } from "react";
 import { buildAlignment } from "../../layout/alignment";
-import { Theme, withTheme } from "../../support/theme";
+import { IBreakPointDescriptor } from "../../layout/mediaQueries";
+import { buildSpacing } from "../../layout/spacing";
+import { styled, Theme, withTheme } from "../../support/theme";
 
-export type SharedElementProps = {
+export interface ISharedElementProps {
   /* How to render the padding for this element. Use predefined xs, sm, md, etc padding variables or define a size. */
-  padding?: string | BreakPointDescriptor<string>;
-  margin?: string | BreakPointDescriptor<string>;
+  padding?: string | IBreakPointDescriptor<string>;
+  margin?: string | IBreakPointDescriptor<string>;
   cssWithTheme?: (props: { theme: Theme }) => string;
-};
+}
 
-const buildSpacingStyles = ({ padding, margin }: SharedElementProps) => {
+const buildSpacingStyles = ({ padding, margin }: ISharedElementProps) => {
   const paddingStr = buildSpacing(padding);
   const marginStr = buildSpacing(margin, "margin");
   if (paddingStr && marginStr) {
     return `${paddingStr}; ${marginStr}`;
   }
-  return paddingStr || marginStr;
+
+  return paddingStr || marginStr || "";
 };
 
-const addAdditionalStyles = ({ cssWithTheme, theme }: SharedElementProps & { theme: Theme }) => {
+export const addCssWithTheme = ({
+  cssWithTheme,
+  theme
+}: ISharedElementProps & { theme?: Theme }) => {
   if (cssWithTheme && theme) {
     return cssWithTheme({ theme });
   }
   return "";
 };
 
+export const buildSharedPropsStyles = (props: ISharedElementProps & { theme?: Theme }) => `
+  ${buildSpacingStyles(props)};
+  ${addCssWithTheme(props)};
+`;
+
 export const makeBaseElement: <Props extends { className?: string }>(
   element: React.ComponentType<Props> | string,
   additionalClassNames?: string[]
-) => ComponentType<SharedElementProps & { className?: string } & Props> = (
+) => ComponentType<ISharedElementProps & { className?: string } & Props> = (
   element,
   additionalClassNames = []
 ) =>
   withTheme(props => {
-    const { padding, margin, cssWithTheme, theme, className, ...otherProps } = props as any; // Would love to just spread but this prevents it: https://github.com/Microsoft/TypeScript/issues/10727
+    const { padding, margin, cssWithTheme, theme, className, ...otherProps } = props;
     const classes = cx(
       css`
-        ${buildSpacingStyles({ padding, margin })};
-        ${addAdditionalStyles({ cssWithTheme, theme })};
+        ${buildSharedPropsStyles({ padding, margin, cssWithTheme, theme })};
       `,
       ...additionalClassNames,
       className
     );
-    const Element = element;
+    const Element = element as any;
     return <Element className={classes} {...otherProps} />;
   });
 
 // Basic flex dentered box.
-export const CenteredBlock = styled("div")<SharedElementProps>`
+export const CenteredBlock = styled("div")<ISharedElementProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  ${buildSpacingStyles};
-  ${addAdditionalStyles};
+  ${buildSharedPropsStyles};
 `;
 
-export const Block = styled("div")<SharedElementProps>`
-  ${buildSpacingStyles};
-  ${addAdditionalStyles};
-`;
+export const Block = Object.assign(styled("div")<ISharedElementProps>(buildSharedPropsStyles), {
+  formatter: buildSharedPropsStyles
+});
 
-export const Inline = styled("span")<SharedElementProps>`
-  ${buildSpacingStyles};
-  ${addAdditionalStyles};
-`;
+export const Inline = Object.assign(styled("div")<ISharedElementProps>(buildSharedPropsStyles), {
+  formatter: buildSharedPropsStyles
+});
 
-export const InlineBlock = styled("span")<SharedElementProps>`
+const inlineBlockStyleFormatter = (props: FlexProps) => `
   display: inline-block;
-  ${buildSpacingStyles};
-  ${addAdditionalStyles};
+  ${buildSharedPropsStyles(props)};
 `;
 
-export const Flex = styled("div")<
+export const InlineBlock = Object.assign(
+  styled("div")<ISharedElementProps>(inlineBlockStyleFormatter),
   {
-    direction?: "column" | "row";
-    alignment?: string;
-  } & SharedElementProps
->`
+    formatter: inlineBlockStyleFormatter
+  }
+);
+
+export type FlexProps = {
+  direction?: FlexDirectionProperty;
+  alignment?: string;
+} & ISharedElementProps;
+
+const flexStyleFormatter = (props: FlexProps) => `
   display: flex;
-  flex-direction: ${({ direction }) => direction || "row"};
-  ${buildSpacingStyles};
-  ${({ direction, alignment }) => alignment && buildAlignment(direction || "row", alignment)};
-  ${addAdditionalStyles};
+  flex-direction: ${props.direction || "row"};
+  ${props.alignment ? buildAlignment(props.direction || "row", props.alignment) : ""};
+  ${buildSharedPropsStyles(props)};
 `;
+
+const shouldForwardProp = (prop: string) => prop !== "direction" && isPropValid(prop);
+
+// Use Object.assign to add additional properties to this component,
+// allowing other components to use it's stylings
+export const Flex = Object.assign(
+  styled("div", {
+    shouldForwardProp
+  })<FlexProps>(flexStyleFormatter),
+  {
+    formatter: flexStyleFormatter
+  }
+);
 
 const SeperatorWrapper = styled("div")`
   position: relative;
@@ -110,7 +134,7 @@ export const Seperator = ({
 }: {
   inverse?: boolean;
   fullWidth?: boolean;
-  padding?: string | BreakPointDescriptor<string>;
+  padding?: string | IBreakPointDescriptor<string>;
   className?: string;
   hideBar?: boolean;
   withinGrid?: boolean;
@@ -141,10 +165,55 @@ export const VerticalSeperator = ({
   className
 }: {
   inverse?: boolean;
-  padding?: string | BreakPointDescriptor<string>;
+  padding?: string | IBreakPointDescriptor<string>;
   className?: string;
 }) => (
   <div className={cx(className, css(buildSpacing(padding), css("position: relative;")))}>
     <VerticalSeperatorInternal inverse={inverse} />
   </div>
 );
+
+export const ContentWrapper = styled.div<{ forcedBottomPadding?: string | null }>`
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  overflow: auto;
+
+  > * {
+    flex-shrink: 0;
+  }
+`;
+
+export const ContentBottomPadding = styled.div`
+  min-height: 6rem;
+  height: 6rem;
+  flex: 0 0 6rem;
+`;
+
+export const MainWrapper = styled.div`
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 100vw;
+`;
+
+/**
+ * Be careful, the following element cannot be a flex item that wraps a grid element
+ * so you can toggle the flex off if the grid is immediately within this element.
+ * This is due to a very annoying bug in safari that causes general weirdness if a
+ * grid is contained in an expanding flexbox.
+ */
+export const VerticalScrollableContent = styled.div<{ containsGrid?: boolean }>`
+  flex: 1 0 auto;
+  ${({ containsGrid }) => (containsGrid ? "" : "display: flex; flex-direction: column;")};
+  overflow-y: auto;
+  overflow-x: hidden;
+  > .cap-container {
+    overflow: hidden;
+  }
+  @supports (-webkit-overflow-scrolling: touch) {
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+`;

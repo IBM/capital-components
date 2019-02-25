@@ -1,11 +1,11 @@
 import CarbonDataTable from "carbon-components-react/lib/components/DataTable";
-import React, { ReactElement } from "react";
 import {
   getNextSortDirection,
   sortStates
 } from "carbon-components-react/lib/components/DataTable/state/sorting";
-import { SortDirection, StringCellContent } from "./utils";
 import cx from "classnames";
+import React, { ReactElement } from "react";
+import { SortDirection, StringCellContent } from "./utils";
 
 export type ColumnContentRenderer<T> = React.ComponentType<{
   row: T;
@@ -13,7 +13,7 @@ export type ColumnContentRenderer<T> = React.ComponentType<{
   rowIndex: number;
 }>;
 
-export interface ColumnDescriptor<T> {
+export interface IColumnDescriptor<T> {
   key: keyof T;
   header: string | ReactElement<any> | null;
   isSortable?: boolean;
@@ -21,17 +21,17 @@ export interface ColumnDescriptor<T> {
 }
 
 class HeaderComp<T> extends React.PureComponent<{
-  colDesc: ColumnDescriptor<T>;
+  colDesc: IColumnDescriptor<T>;
   sortDirection: SortDirection;
   onHeaderClick: (key: keyof T) => void;
 }> {
-  onClick = () => {
+  public onClick = () => {
     if (this.props.colDesc.isSortable !== false) {
       this.props.onHeaderClick(this.props.colDesc.key);
     }
   };
 
-  render() {
+  public render() {
     const {
       colDesc: { header, isSortable },
       sortDirection
@@ -50,7 +50,7 @@ class HeaderComp<T> extends React.PureComponent<{
   }
 }
 
-function defaultGetRowIdentifier(row: any, _rowIndex: number) {
+function defaultGetRowIdentifier(row: any, rowIndex: number) {
   return row.id;
 }
 
@@ -71,7 +71,7 @@ class DataTable<T> extends React.PureComponent<{
   /** Title of the table */
   title?: React.ReactNode;
   /** How your columns will be rendered. See examples for details. */
-  columns: ColumnDescriptor<T>[];
+  columns: Array<IColumnDescriptor<T>>;
   /** The currently sorted column key. */
   sortKey?: keyof T;
   /** The currently sort direction. */
@@ -88,16 +88,20 @@ class DataTable<T> extends React.PureComponent<{
   getAdditionalRowProps?: (row: T, rowIndex: number) => { [key: string]: any };
   /** Show alternating colors on rows. Does not effect header. */
   zebra?: boolean;
+  /** How to render the toolbar */
+  renderToolbar?: React.ReactNode;
 }> {
-  onHeaderClick = (colKey: keyof T) => {
-    this.props.onSort &&
+  public onHeaderClick = (colKey: keyof T) => {
+    return (
+      this.props.onSort &&
       this.props.onSort({
         colKey,
         sortDirection: getNextSortDirection(this.props.sortKey, colKey, this.props.sortDirection)
-      });
+      })
+    );
   };
 
-  render() {
+  public render() {
     const {
       title,
       columns,
@@ -107,11 +111,15 @@ class DataTable<T> extends React.PureComponent<{
       className,
       getRowIdentifier = defaultGetRowIdentifier,
       getAdditionalRowProps,
-      zebra
+      zebra,
+      renderToolbar
     } = this.props;
 
     return (
       <CarbonDataTable.TableContainer title={title} className={className}>
+        {renderToolbar && (
+          <CarbonDataTable.TableToolbar>{renderToolbar}</CarbonDataTable.TableToolbar>
+        )}
         <Table zebra={zebra}>
           <CarbonDataTable.TableHead>
             <CarbonDataTable.TableRow>
@@ -134,10 +142,12 @@ class DataTable<T> extends React.PureComponent<{
               return (
                 <CarbonDataTable.TableRow key={rowId} {...additionalProps}>
                   {columns.map(col => {
-                    const Renderer =
-                      col.content === undefined || col.content === null
-                        ? StringCellContent
-                        : col.content;
+                    const Renderer: React.ComponentType<{
+                      row: T;
+                      colKey: keyof T;
+                      rowIndex: number;
+                    }> = col.content ? col.content : StringCellContent;
+
                     return (
                       <CarbonDataTable.TableCell key={`${rowId}:${col.key}`}>
                         <Renderer row={row} colKey={col.key} rowIndex={rowIndex} />

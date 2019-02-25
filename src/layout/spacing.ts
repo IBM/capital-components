@@ -1,5 +1,5 @@
 // based on http://carbondesignsystem.com/style/spacing
-import { BreakPointDescriptor, buildStringForMediaQueries } from "./mediaQueries";
+import { buildStringForMediaQueries, IBreakPointDescriptor } from "./mediaQueries";
 
 // Use for margins within grid elements
 // 3xs = xs3 and similar for the sake of consistent naming
@@ -35,7 +35,7 @@ export const layout = {
 export const getSpacingOrDefault = value => spacing[value] || value;
 
 export const buildSpacing = (
-  padding?: string | BreakPointDescriptor<string>,
+  padding?: string | IBreakPointDescriptor<string>,
   type: "padding" | "margin" = "padding"
 ) => {
   return buildStringForMediaQueries(padding, pad => buildSpacingFromString(pad, type));
@@ -45,7 +45,9 @@ export const buildSpacingFromString = (
   padding?: string,
   type: "padding" | "margin" = "padding"
 ) => {
-  if (!padding) return null;
+  if (!padding) {
+    return null;
+  }
 
   const values = padding.trim().split(" ");
   if (values.length === 1) {

@@ -30,15 +30,15 @@ export class FlyOverProvider extends React.PureComponent<
   IProps,
   { leftContentRef: HTMLElement; rightContentRef: HTMLElement }
 > {
-  leftContentRef: HTMLElement = null;
-  rightContentRef: HTMLElement = null;
+  public leftContentRef: HTMLElement = null;
+  public rightContentRef: HTMLElement = null;
 
-  state = {
+  public state = {
     leftContentRef: null,
     rightContentRef: null
   };
 
-  componentDidMount() {
+  public componentDidMount() {
     // Only update these on mount so we don't get uneccessary ref changes. If
     // the provider changes parents, it'll be remounted, which works for us.
     this.setState({
@@ -47,7 +47,7 @@ export class FlyOverProvider extends React.PureComponent<
     });
   }
 
-  render() {
+  public render() {
     const { children, position = "left", ...otherProps } = this.props;
     // const context = position === "left" ? leftContext : rightContext;
     return (

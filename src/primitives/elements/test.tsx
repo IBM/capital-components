@@ -1,9 +1,9 @@
+import * as emotion from "emotion";
+import { createMatchers } from "jest-emotion";
 import React from "react";
 import renderer from "react-test-renderer";
-import { Flex } from "./Elements";
 import sampleTheme from "../../support/themes/other-products";
-import { createMatchers } from "jest-emotion";
-import * as emotion from "emotion";
+import { Flex } from "./Elements";
 expect.extend(createMatchers(emotion));
 
 test("Additional styles are added from theme", () => {

@@ -1,6 +1,6 @@
 import React from "react";
-import { styled } from "../../support/theme";
 import { Flex } from "../../primitives/elements";
+import { styled } from "../../support/theme";
 
 const FlexLI = Flex.withComponent("li");
 
@@ -17,21 +17,25 @@ const UnderscoreDiv = styled("div")`
   width: calc(100% - 2 * ${({ theme }) => theme.spacing.spacing.sm});
 `;
 
+interface ITabProps {
+  role: string;
+  "aria-selected": boolean | "false" | "true";
+}
 interface IProps {
   isSelected?: boolean;
-  children: (
-    props: { tabProps: { role: string; "aria-selected": boolean | "false" | "true" } }
-  ) => JSX.Element;
+  children?: ((props: { tabProps: ITabProps }) => JSX.Element) | React.ReactNode;
   className?: string;
 }
 
-const Tab = React.forwardRef(({ isSelected, children, className }, ref) => (
-  <FlexLI
-    innerRef={ref}
-    role="presentation"
-    tabIndex={-1}
-    padding="left sm right sm"
-    cssWithTheme={({ theme }) => `
+const Tab = React.forwardRef(({ isSelected, children, className }: IProps, ref) => {
+  const tabProps: ITabProps = { role: "tab", "aria-selected": isSelected ? "true" : "false" };
+  return (
+    <FlexLI
+      innerRef={ref}
+      role="presentation"
+      tabIndex={-1}
+      padding="left sm right sm"
+      cssWithTheme={({ theme }) => `
         ${theme.fonts.styles.body};
         color: ${theme.color.inverse01};
         line-height: ${theme.spacing.spacing.xl3};
@@ -40,12 +44,21 @@ const Tab = React.forwardRef(({ isSelected, children, className }, ref) => (
         cursor: pointer;
         flex-shrink: 0;
         font-size: 0.875rem;
+        a {
+          color: ${theme.color.inverse01};
+          text-decoration: none;
+        }
     `}
-    className={className}
-  >
-    {children({ tabProps: { role: "tab", "aria-selected": isSelected ? "true" : "false" } })}
-    {isSelected && <UnderscoreDiv />}
-  </FlexLI>
-)) as React.SFC<IProps>;
+      className={className}
+    >
+      {typeof children === "function" ? (
+        (children as any)({ tabProps })
+      ) : (
+        <div {...tabProps}>{children}</div>
+      )}
+      {isSelected && <UnderscoreDiv />}
+    </FlexLI>
+  );
+});
 
 export default Tab;

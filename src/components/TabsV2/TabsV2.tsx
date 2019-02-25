@@ -1,11 +1,9 @@
-import React from "react";
-import { styled } from "../../support/theme";
-import { Flex } from "../../primitives/elements";
 import { css } from "emotion";
+import React from "react";
+import { Flex } from "../../primitives/elements";
+import { styled } from "../../support/theme";
 
 const Nav = styled("nav")`
-  background-color: ${props => props.theme.color.nav02};
-  border-bottom: ${props => props.theme.color.text02} 1px solid;
   font-weight: ${props => props.theme.fonts.weights.regular};
   overflow: auto;
   direction: rtl;
@@ -14,19 +12,21 @@ const Nav = styled("nav")`
 
 const FlexUl = Flex.withComponent("ul");
 
-class TabsV2 extends React.PureComponent<{
-  scrollToTab?: number;
-}> {
+class TabsV2 extends React.PureComponent<
+  {
+    scrollToTab?: number;
+  } & React.ComponentPropsWithoutRef<typeof Nav>
+> {
   private childRefs: HTMLElement[];
 
-  componentDidMount() {
+  public componentDidMount() {
     const { scrollToTab } = this.props;
     if (scrollToTab !== undefined && scrollToTab < this.childRefs.length) {
       this.childRefs[scrollToTab].scrollIntoView();
     }
   }
 
-  componentDidUpdate(prevProps) {
+  public componentDidUpdate(prevProps) {
     const { scrollToTab } = this.props;
     const { scrollToTab: prevScrollToTab } = prevProps;
     // Only update scroll if scrollToTab is changing, otherwise we could scroll on any other
@@ -41,8 +41,8 @@ class TabsV2 extends React.PureComponent<{
     }
   }
 
-  render() {
-    const { children } = this.props;
+  public render() {
+    const { children, scrollToTab, ...otherProps } = this.props;
     this.childRefs = [];
     // Capture refs to children so we can scroll to the appropriate element
     const newChildrenWithRefs = React.Children.map(children, (child, index) =>
@@ -52,7 +52,7 @@ class TabsV2 extends React.PureComponent<{
     );
 
     return (
-      <Nav role="navigation">
+      <Nav role="navigation" {...otherProps}>
         <FlexUl
           direction="row"
           alignment="horizontal flex-end"

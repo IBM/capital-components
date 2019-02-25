@@ -2,7 +2,6 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { Grid, Col, FlyOver, FlyOverProvider } from "@fss/components";
 import styled from "react-emotion";
-import { withInfo } from "@storybook/addon-info";
 import * as R from "ramda";
 import withExternalWindow from "../storybook-addons/external-window";
 import { css } from "emotion";
@@ -49,50 +48,28 @@ const flyOverStyle = css`
 
 storiesOf("Layout|Grids", module)
   .addDecorator(withExternalWindow())
-  .addDecorator((storyFn, context) =>
-    withInfo({
-      propTablesExclude: [Grid, Col, Wrapper, ColumnContent]
-    })(storyFn)(context)
+  .add(
+    "Default",
+    () => (
+      <Wrapper>
+        <Grid isContainer>
+          {R.range(0, 12).map(index => (
+            <Col size={1} key={index}>
+              <ColumnContent>{index + 1}</ColumnContent>
+            </Col>
+          ))}
+        </Grid>
+      </Wrapper>
+    ),
+    {
+      info: { disable: true }
+    }
   )
-  .add("Default", () => (
-    <Wrapper>
-      <Grid isContainer>
-        {R.range(0, 12).map(index => (
-          <Col size={1} key={index}>
-            <ColumnContent>{index + 1}</ColumnContent>
-          </Col>
-        ))}
-      </Grid>
-    </Wrapper>
-  ))
-  .add('Left "Nav"', () => (
-    <Wrapper>
-      <PushNav />
-      <Grid isContainer preventShrink={false}>
-        {R.range(0, 12).map(index => (
-          <Col size={1} key={index}>
-            <ColumnContent>{index + 1}</ColumnContent>
-          </Col>
-        ))}
-      </Grid>
-    </Wrapper>
-  ))
-  .add('Right "Nav"', () => (
-    <Wrapper>
-      <Grid isContainer preventShrink={false}>
-        {R.range(0, 12).map(index => (
-          <Col size={1} key={index}>
-            <ColumnContent>{index + 1}</ColumnContent>
-          </Col>
-        ))}
-      </Grid>
-      <PushNav />
-    </Wrapper>
-  ))
-  .add('Left "Flyover"', () => (
-    <Wrapper>
-      <FlyOverProvider>
-        <FlyOver position="left" width="md" className={flyOverStyle} show />
+  .add(
+    'Left "Nav"',
+    () => (
+      <Wrapper>
+        <PushNav />
         <Grid isContainer preventShrink={false}>
           {R.range(0, 12).map(index => (
             <Col size={1} key={index}>
@@ -100,12 +77,16 @@ storiesOf("Layout|Grids", module)
             </Col>
           ))}
         </Grid>
-      </FlyOverProvider>
-    </Wrapper>
-  ))
-  .add('Right "Flyover"', () => (
-    <Wrapper>
-      <FlyOverProvider>
+      </Wrapper>
+    ),
+    {
+      info: { disable: true }
+    }
+  )
+  .add(
+    'Right "Nav"',
+    () => (
+      <Wrapper>
         <Grid isContainer preventShrink={false}>
           {R.range(0, 12).map(index => (
             <Col size={1} key={index}>
@@ -113,7 +94,50 @@ storiesOf("Layout|Grids", module)
             </Col>
           ))}
         </Grid>
-        <FlyOver position="right" width="md" className={flyOverStyle} show />
-      </FlyOverProvider>
-    </Wrapper>
-  ));
+        <PushNav />
+      </Wrapper>
+    ),
+    {
+      info: { disable: true }
+    }
+  )
+  .add(
+    'Left "Flyover"',
+    () => (
+      <Wrapper>
+        <FlyOverProvider>
+          <FlyOver position="left" width="md" className={flyOverStyle} show />
+          <Grid isContainer preventShrink={false}>
+            {R.range(0, 12).map(index => (
+              <Col size={1} key={index}>
+                <ColumnContent>{index + 1}</ColumnContent>
+              </Col>
+            ))}
+          </Grid>
+        </FlyOverProvider>
+      </Wrapper>
+    ),
+    {
+      info: { disable: true }
+    }
+  )
+  .add(
+    'Right "Flyover"',
+    () => (
+      <Wrapper>
+        <FlyOverProvider>
+          <Grid isContainer preventShrink={false}>
+            {R.range(0, 12).map(index => (
+              <Col size={1} key={index}>
+                <ColumnContent>{index + 1}</ColumnContent>
+              </Col>
+            ))}
+          </Grid>
+          <FlyOver position="right" width="md" className={flyOverStyle} show />
+        </FlyOverProvider>
+      </Wrapper>
+    ),
+    {
+      info: { disable: true }
+    }
+  );

@@ -8,17 +8,15 @@ module.exports = (baseConfig, env, config) => {
   config.module.rules[0].use[0].options.presets = [];
   config.module.rules[0].use[0].options.plugins = [];
 
-  const index = config.module.rules.findIndex(rule => {
-    return String(rule.test) === String(/\.svg$/);
-  });
-  // need to modify storybook to prevent built in svg loader
-  config.module.rules.splice(index, 1);
   config.module.rules.push(
     {
       test: /(\.|\/)stories\.tsx?$/,
       use: [
         {
-          loader: "babel-loader"
+          loader: "babel-loader",
+          options: {
+            babelrc: true
+          }
         },
         {
           loader: require.resolve("@storybook/addon-storysource/loader"),
@@ -32,7 +30,10 @@ module.exports = (baseConfig, env, config) => {
       exclude: /(\.|\/)stories\.tsx?$/,
       use: [
         {
-          loader: "babel-loader"
+          loader: "babel-loader",
+          options: {
+            babelrc: true
+          }
         },
         {
           loader: "react-docgen-typescript-loader",
@@ -43,10 +44,6 @@ module.exports = (baseConfig, env, config) => {
           }
         }
       ]
-    },
-    {
-      test: /\.svg$/,
-      loader: "svg-sprite-loader"
     }
   );
 

@@ -3,7 +3,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-function copyStyles(sourceDoc, targetDoc) {
+function copyStyles(sourceDoc: Document, targetDoc: Document) {
   Array.from(sourceDoc.styleSheets).forEach((styleSheet: any) => {
     if (styleSheet.cssRules) {
       // true for inline styles
@@ -25,9 +25,17 @@ function copyStyles(sourceDoc, targetDoc) {
   });
 }
 
+function copySVGSprites(sourceDoc: Document, targetDoc: Document) {
+  const sprite = sourceDoc.getElementById("__SVG_SPRITE_NODE__");
+  if (sprite) {
+    targetDoc.body.appendChild(sprite.cloneNode(true));
+  }
+}
+
 interface IProps {
   title: string;
   closeWindowPortal: () => void;
+  rootProps?: any;
 }
 
 export default class extends React.PureComponent<IProps> {
@@ -37,6 +45,11 @@ export default class extends React.PureComponent<IProps> {
   componentDidMount() {
     // STEP 3: open a new browser window and store a reference to it
     this.externalWindow = window.open("", "", "width=600,height=400,left=200,top=200");
+    Object.keys(this.props.rootProps).forEach(key => {
+      this.containerElement.setAttribute(key, this.props.rootProps[key]);
+    });
+
+    copySVGSprites(document, this.externalWindow.document);
 
     // STEP 4: append the container <div> (that has props.children appended to it) to the body of the new window
     this.externalWindow.document.body.appendChild(this.containerElement);

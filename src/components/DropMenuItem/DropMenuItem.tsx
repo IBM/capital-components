@@ -1,7 +1,7 @@
-import React from "react";
-import { withTheme } from "../../support/theme";
-import { Block } from "../../primitives/elements";
 import { css, cx } from "emotion";
+import React from "react";
+import { Block } from "../../primitives/elements";
+import { withTheme } from "../../support/theme";
 
 export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Where to include a seperator */

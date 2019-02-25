@@ -1,28 +1,35 @@
+import { Icon } from "carbon-components-react";
+import { css, cx } from "emotion";
 import React from "react";
+import { animated, config, interpolate, Spring } from "react-spring";
 import { Flex } from "../../primitives/elements";
 import { styled } from "../../support/theme";
-import { animated, interpolate, Spring, config } from "react-spring";
-import { css, cx } from "emotion";
 
-const PUSH_WIDTH = 320;
+const sizeMapping = {
+  xl: 560,
+  lg: 460,
+  md: 360,
+  sm: 200
+};
 
-const Wrapper = ({ children, ...otherProps }) => (
+const inversePosition = (position: "left" | "right") => (position === "left" ? "right" : "left");
+
+const Wrapper = ({ size, position, listMode, ...otherProps }) => (
   <Flex
     direction="column"
+    padding={listMode ? "0" : "xl 2xl"}
     cssWithTheme={({ theme }) => `
-          right: 0;
+          ${inversePosition(position)}: 0;
           position: absolute;
-          width: ${PUSH_WIDTH}px;
+          width: ${size}px;
           height: 100%;
-          background-color: ${theme.color.nav02};
+          background-color: ${listMode ? theme.color.nav02 : theme.color.ui02};
           z-index: ${theme.layers.FlyOver};
           ${theme.fonts.styles.specialtyBody};
-          line-height: 1rem;
+          ${listMode ? "line-height: 1rem;" : ""}
         `}
     {...otherProps}
-  >
-    {children}
-  </Flex>
+  />
 );
 
 const Overlay = styled.div`
@@ -41,49 +48,77 @@ interface IState {
 }
 
 export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
-  isOpen: boolean;
+  isOpen?: boolean;
   showOverlay?: boolean;
   onOverlayClick?: React.MouseEventHandler<HTMLDivElement>;
   outerClassName?: string;
+  size?: keyof typeof sizeMapping | number;
+  closable?: boolean;
+  onCloseClick?: React.MouseEventHandler<HTMLDivElement>;
+  position?: "left" | "right";
+  closePosition?: "left" | "right";
+  listMode?: boolean;
+  fullScreenMode?: boolean;
 }
 
 class PushOver extends React.PureComponent<IProps & { innerRef: React.Ref<any> }, IState> {
-  static getDerivedStateFromProps(nextProps: IProps, prevState: IState) {
+  public static getDerivedStateFromProps(nextProps: IProps, prevState: IState) {
     const { prevProps } = prevState;
     const nextResting = prevProps.isOpen === nextProps.isOpen;
     return { resting: prevState.resting && nextResting, prevProps: nextProps };
   }
 
-  state = {
+  public state = {
     // Some internal state used to track when to totally hide the flyover element
     resting: !this.props.isOpen,
     prevProps: this.props // a slight hack to track prevProps in state.
   };
 
-  onRest = () => {
+  public onRest = () => {
     this.setState({ resting: true });
   };
 
-  onStart = () => {
+  public onStart = () => {
     this.setState({ resting: false });
   };
 
-  render() {
-    const { isOpen, onOverlayClick, showOverlay, children, outerClassName, ...rest } = this.props;
+  public render() {
+    const {
+      isOpen,
+      onOverlayClick,
+      showOverlay,
+      children,
+      outerClassName,
+      size,
+      closable,
+      onCloseClick,
+      position = "left",
+      closePosition = inversePosition(position),
+      /** If you don't want prestyled for a basic list */
+      listMode = true,
+      /**
+       * By fedault, pushOver takes 100% of the screen height (as long as it's placed at the top).
+       * If you need push over to sit somewhere other than the top level, set this to false
+       */
+      fullScreenMode = true,
+      ...rest
+    } = this.props;
     const offScreenPosition = {
       width: 0,
       overlayColor: "#00000000"
     };
+    const sizeInternal = sizeMapping[size] || size || sizeMapping.md;
     const onScreenPosition = {
-      width: PUSH_WIDTH,
+      width: sizeInternal,
       overlayColor: "#00000066"
     };
+
     if (this.state.resting && !isOpen) {
       return null;
     }
     return (
       <Spring
-        native
+        native={true}
         from={isOpen ? offScreenPosition : onScreenPosition}
         to={isOpen ? onScreenPosition : offScreenPosition}
         onRest={this.onRest}
@@ -108,17 +143,34 @@ class PushOver extends React.PureComponent<IProps & { innerRef: React.Ref<any> }
               className={cx(
                 css`
                   position: relative;
-                  height: 100vh;
+                  ${fullScreenMode ? "height: 100vh;" : ""};
                 `,
                 outerClassName
               )}
               style={{
                 width: interpolate([width], xInternal => `${xInternal}px`),
                 minWidth: interpolate([width], xInternal => `${xInternal}px`),
-                position: "relative"
+                position: "relative",
+                overflow: position === "right" ? "hidden" : "visible"
               }}
             >
-              <Wrapper {...rest}>{children}</Wrapper>
+              <Wrapper size={sizeInternal} position={position} listMode={listMode} {...rest}>
+                {children}
+                {closable && (
+                  <Icon
+                    name="icon--close"
+                    className={css`
+                      top: 1rem;
+                      ${closePosition}: 1rem;
+                      position: absolute;
+                      cursor: pointer;
+                    `}
+                    height="12"
+                    width="12"
+                    onClick={onCloseClick}
+                  />
+                )}
+              </Wrapper>
             </animated.div>
           </React.Fragment>
         )}

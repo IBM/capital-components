@@ -20,6 +20,7 @@ module.exports = {
     "@babel/proposal-class-properties",
     ["emotion", { hoist: true, autoLabel: true }],
     "babel-plugin-add-react-displayname",
+    ["lodash", { id: ["recompose"] }],
     "transform-carbon-imports",
     [
       "transform-rename-import",
