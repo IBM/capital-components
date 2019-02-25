@@ -26,7 +26,7 @@ const Wrapper = ({ size, position, listMode, ...otherProps }) => (
           background-color: ${listMode ? theme.color.nav02 : theme.color.ui02};
           z-index: ${theme.layers.FlyOver};
           ${theme.fonts.styles.specialtyBody};
-          line-height: 1rem;
+          ${listMode ? "line-height: 1rem;" : ""}
         `}
     {...otherProps}
   />
@@ -58,6 +58,7 @@ export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   position?: "left" | "right";
   closePosition?: "left" | "right";
   listMode?: boolean;
+  fullScreenMode?: boolean;
 }
 
 class PushOver extends React.PureComponent<IProps & { innerRef: React.Ref<any> }, IState> {
@@ -93,7 +94,13 @@ class PushOver extends React.PureComponent<IProps & { innerRef: React.Ref<any> }
       onCloseClick,
       position = "left",
       closePosition = inversePosition(position),
+      /** If you don't want prestyled for a basic list */
       listMode = true,
+      /**
+       * By fedault, pushOver takes 100% of the screen height (as long as it's placed at the top).
+       * If you need push over to sit somewhere other than the top level, set this to false
+       */
+      fullScreenMode = true,
       ...rest
     } = this.props;
     const offScreenPosition = {
@@ -136,7 +143,7 @@ class PushOver extends React.PureComponent<IProps & { innerRef: React.Ref<any> }
               className={cx(
                 css`
                   position: relative;
-                  height: 100vh;
+                  ${fullScreenMode ? "height: 100vh;" : ""};
                 `,
                 outerClassName
               )}

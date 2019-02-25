@@ -15,7 +15,8 @@ import {
   ContentWrapper,
   MainWrapper,
   VerticalScrollableContent,
-  Flex
+  Flex,
+  ContentBottomPadding
 } from "@fss/components/lib/primitives/elements";
 import { styled } from "@fss/components/lib/support/theme";
 import MessagesIcon from "@fss/icons/dist/svg/email_24";
@@ -23,13 +24,17 @@ import UserIcon from "@fss/icons/dist/svg/user_64";
 import { action } from "@storybook/addon-actions";
 import { storiesOf } from "@storybook/react";
 import { DataTable as CCDataTable, PaginationV2 } from "carbon-components-react";
-import React, { ComponentPropsWithoutRef, useRef } from "react";
+import React, { ComponentPropsWithoutRef, useRef, useState } from "react";
 import { matchPath } from "react-router";
 import { Link } from "react-router-dom";
 import { Omit } from "type-zoo";
 import useReactRouter from "use-react-router";
 import withExternalWindow from "../../storybook-addons/external-window";
-import { useToggle } from "react-use";
+
+function useToggle(initialState: boolean) {
+  const [state, setState] = useState(initialState);
+  return [state, () => setState(prevState => !prevState)] as [boolean, () => void];
+}
 
 const {
   PrimaryBar,
@@ -198,7 +203,7 @@ stories.add(
             <VerticalScrollableContent>
               <BannerRibbon title="Some Title <Could be component>" />
               <Flex direction="row">
-                <Grid isContainer verticalPadding="top lg">
+                <Grid isContainer verticalPadding="top lg" preventShrink={false}>
                   <DataTable
                     columns={columns}
                     rows={rows}
@@ -212,8 +217,19 @@ stories.add(
                     pageSizes={[10, 50, 100]}
                     onChange={action("pagination change")}
                   />
+                  <ContentBottomPadding />
                 </Grid>
-                <PushOver isOpen={showPushOver}>Some content</PushOver>
+                <PushOver
+                  isOpen={showPushOver}
+                  position="right"
+                  closePosition="right"
+                  listMode={false}
+                  closable
+                  onCloseClick={() => toggleShowPushOver()}
+                  fullScreenMode={false}
+                >
+                  Some content
+                </PushOver>
               </Flex>
             </VerticalScrollableContent>
           </ContentWrapper>

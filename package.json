@@ -155,7 +155,6 @@
     "react-router": "^4.4.0-beta.6",
     "react-router-dom": "^4.4.0-beta.6",
     "react-test-renderer": "^16.4.0",
-    "react-use": "^5.3.1",
     "replace-in-file": "^3.0.0-beta.2",
     "rimraf": "^2.6.1",
     "storybook-react-router": "^1.0.2",

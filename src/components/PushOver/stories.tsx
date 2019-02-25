@@ -1,17 +1,18 @@
 import { PushOver, PushOverItem } from "@fss/components";
 import { Block, Flex } from "@fss/components/lib/primitives/elements";
-import { withInfo } from "@storybook/addon-info";
 import { storiesOf } from "@storybook/react";
 import { Icon } from "carbon-components-react";
 import * as R from "ramda";
-import React from "react";
+import React, { useState } from "react";
 import { WithState } from "../../internal/storyHelpers";
-import { useToggle } from "react-use";
 import { Heading } from "../../primitives/text";
 
 const stories = storiesOf("Components|PushOver", module);
-let scrollingRef = null;
-let menuRef = null;
+
+function useToggle(initialState: boolean) {
+  const [state, setState] = useState(initialState);
+  return [state, () => setState(prevState => !prevState)] as [boolean, () => void];
+}
 
 const Item = ({ className, ...otherProps }: React.HTMLAttributes<HTMLDivElement>) => (
   <Block

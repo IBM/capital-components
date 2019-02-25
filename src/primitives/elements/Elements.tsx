@@ -1,3 +1,4 @@
+import isPropValid from "@emotion/is-prop-valid";
 import { FlexDirectionProperty } from "csstype";
 import { css, cx } from "emotion";
 import React, { ComponentType } from "react";
@@ -98,11 +99,18 @@ const flexStyleFormatter = (props: FlexProps) => `
   ${buildSharedPropsStyles(props)};
 `;
 
+const shouldForwardProp = (prop: string) => prop !== "direction" && isPropValid(prop);
+
 // Use Object.assign to add additional properties to this component,
 // allowing other components to use it's stylings
-export const Flex = Object.assign(styled("div")<FlexProps>(flexStyleFormatter), {
-  formatter: flexStyleFormatter
-});
+export const Flex = Object.assign(
+  styled("div", {
+    shouldForwardProp
+  })<FlexProps>(flexStyleFormatter),
+  {
+    formatter: flexStyleFormatter
+  }
+);
 
 const SeperatorWrapper = styled("div")`
   position: relative;
@@ -174,20 +182,12 @@ export const ContentWrapper = styled.div<{ forcedBottomPadding?: string | null }
   > * {
     flex-shrink: 0;
   }
-  ${({ forcedBottomPadding = "6rem" }) =>
-    forcedBottomPadding
-      ? `
-    > *:last-child {
-      ::after {
-        min-height: ${forcedBottomPadding};
-        height: ${forcedBottomPadding};
-        flex: 0 0 ${forcedBottomPadding};
-        display: block;
-        content: '';
-      }
-    }
-  `
-      : ""};
+`;
+
+export const ContentBottomPadding = styled.div`
+  min-height: 6rem;
+  height: 6rem;
+  flex: 0 0 6rem;
 `;
 
 export const MainWrapper = styled.div`
@@ -198,11 +198,15 @@ export const MainWrapper = styled.div`
   min-width: 100vw;
 `;
 
-// Be careful, the following element cannot be a flex item that wraps a grid element
-// This is due to a very annoying bug in safari that causes general weirdness if a
-// grid is contained in an expanding flexbox.
-export const VerticalScrollableContent = styled.div`
+/**
+ * Be careful, the following element cannot be a flex item that wraps a grid element
+ * so you can toggle the flex off if the grid is immediately within this element.
+ * This is due to a very annoying bug in safari that causes general weirdness if a
+ * grid is contained in an expanding flexbox.
+ */
+export const VerticalScrollableContent = styled.div<{ containsGrid?: boolean }>`
   flex: 1 0 auto;
+  ${({ containsGrid }) => (containsGrid ? "" : "display: flex; flex-direction: column;")};
   overflow-y: auto;
   overflow-x: hidden;
   > .cap-container {
