@@ -3,7 +3,9 @@
   "rules": {
     "object-literal-sort-keys": false,
     "no-submodule-imports": false,
-    "max-classes-per-file": false
+    "max-classes-per-file": false,
+    "member-access": false,
+    "member-ordering": false
   },
   "linterOptions": {
     "exclude": ["bin", "**/stories.tsx", "**/*.stories.tsx"]

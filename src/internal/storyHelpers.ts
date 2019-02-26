@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 export class WithState<StateShape> extends React.PureComponent<
   {
@@ -23,4 +23,9 @@ export class WithState<StateShape> extends React.PureComponent<
       setState: this.boundSetState
     });
   }
+}
+
+export function useToggle(initialState: boolean) {
+  const [state, setState] = useState(initialState);
+  return [state, () => setState(prevState => !prevState)] as [boolean, () => void];
 }

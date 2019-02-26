@@ -27,7 +27,7 @@ type ContainerProps = Omit<Props, "title" | "glyph">;
 
 // any => Escape typing until emotion updates to using new context api that supports typing.
 const SVGContainer = React.forwardRef<HTMLDivElement, ContainerProps>(
-  ({ className, onClick, size, children, circleColor, color }, ref) => {
+  ({ className, size, children, circleColor, color, ...otherProps }, ref) => {
     const iconSize = sizeToREM[size];
 
     const fill = css`
@@ -57,8 +57,8 @@ const SVGContainer = React.forwardRef<HTMLDivElement, ContainerProps>(
         className={cx(className, fill, "icon", {
           [circleStyle]: circleColor
         })}
-        onClick={onClick}
         innerRef={ref}
+        {...otherProps}
       >
         {children}
       </CenteredBlock>

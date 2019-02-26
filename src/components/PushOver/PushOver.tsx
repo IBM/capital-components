@@ -14,19 +14,15 @@ const sizeMapping = {
 
 const inversePosition = (position: "left" | "right") => (position === "left" ? "right" : "left");
 
-const Wrapper = ({ size, position, listMode, ...otherProps }) => (
+const Wrapper = ({ size, position, ...otherProps }) => (
   <Flex
     direction="column"
-    padding={listMode ? "0" : "xl 2xl"}
     cssWithTheme={({ theme }) => `
           ${inversePosition(position)}: 0;
           position: absolute;
           width: ${size}px;
           height: 100%;
-          background-color: ${listMode ? theme.color.nav02 : theme.color.ui02};
           z-index: ${theme.layers.FlyOver};
-          ${theme.fonts.styles.specialtyBody};
-          ${listMode ? "line-height: 1rem;" : ""}
         `}
     {...otherProps}
   />
@@ -94,8 +90,6 @@ class PushOver extends React.PureComponent<IProps & { innerRef: React.Ref<any> }
       onCloseClick,
       position = "left",
       closePosition = inversePosition(position),
-      /** If you don't want prestyled for a basic list */
-      listMode = true,
       /**
        * By fedault, pushOver takes 100% of the screen height (as long as it's placed at the top).
        * If you need push over to sit somewhere other than the top level, set this to false
@@ -154,7 +148,7 @@ class PushOver extends React.PureComponent<IProps & { innerRef: React.Ref<any> }
                 overflow: position === "right" ? "hidden" : "visible"
               }}
             >
-              <Wrapper size={sizeInternal} position={position} listMode={listMode} {...rest}>
+              <Wrapper size={sizeInternal} position={position} {...rest}>
                 {children}
                 {closable && (
                   <Icon

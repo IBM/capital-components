@@ -13,6 +13,13 @@ import Icon from "../Icon";
 
 export type PrimaryBarItemProps = FlexProps & { isSelected?: boolean };
 
+const MobileWrapper = styled.div`
+  flex: 1 1 auto;
+  overflow: auto;
+  background-color: ${({ theme }) => theme.color.nav02};
+  ${({ theme }) => theme.fonts.styles.specialtyBody};
+`;
+
 const shouldForwardProp = (prop: string) => prop !== "isSelected" && isPropValid(prop);
 
 // We can extend existing styles by wrapping them with styled
@@ -107,11 +114,11 @@ enum TranslationKeys {
   menuTitle = "wfss-components.primarybar.menu.title"
 }
 
-const defaultTranslations: Record<TranslationKeys, string> = {
+const defaultTranslation: Record<TranslationKeys, string> = {
   [TranslationKeys.menuTitle]: "Menu"
 };
 
-const defaultTranslateWithId = (id: TranslationKeys) => defaultTranslations[id];
+const defaultTranslate = (args: { id: TranslationKeys }) => defaultTranslation[args.id];
 
 const PrimaryBarWithoutTheme: React.FunctionComponent<
   {
@@ -128,7 +135,7 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
     mobileMenuRef?: Element | null;
     mobileMenuHeaderContent?: React.ReactNode;
     theme?: Theme;
-    translateWithId?: typeof defaultTranslateWithId;
+    translate?: typeof defaultTranslate;
   }
 > = ({
   titleSection,
@@ -141,7 +148,7 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
   mobileMenuRef,
   mobileMenuHeaderContent,
   theme,
-  translateWithId = defaultTranslateWithId,
+  translate = defaultTranslate,
   ...otherProps
 }) => (
   <Media query={{ maxWidth: breakpoints.s }}>
@@ -161,7 +168,7 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
         <>
           <PrimaryBarInternal {...otherProps}>
             <PrimaryBarMainMenuItem onClick={onMenuToggle}>
-              <Icon size="medium" title={translateWithId(TranslationKeys.menuTitle)}>
+              <Icon size="medium" title={translate({ id: TranslationKeys.menuTitle })}>
                 <PrimaryIcon />
               </Icon>
             </PrimaryBarMainMenuItem>
@@ -170,39 +177,32 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
           </PrimaryBarInternal>
           {mobileMenuRef &&
             ReactDOM.createPortal(
-              <PushOver
-                isOpen={showMenu}
-                showOverlay={true}
-                css={`
-                  overflow: hidden;
-                  ${theme.fonts.styles.specialtyBody};
-                  line-height: 1rem;
-                `}
-                onOverlayClick={onMenuToggle}
-              >
-                {mobileMenuHeaderContent && (
-                  <Flex
-                    alignment="center"
-                    padding="md lg"
+              <PushOver isOpen={showMenu} showOverlay={true} onOverlayClick={onMenuToggle}>
+                <MobileWrapper>
+                  {mobileMenuHeaderContent && (
+                    <Flex
+                      alignment="center"
+                      padding="md lg"
+                      css={`
+                        flex-shrink: 0;
+                        background-color: ${theme.color.nav01};
+                        border-bottom: 1px solid ${theme.color.brand03};
+                      `}
+                    >
+                      {mobileMenuHeaderContent}
+                    </Flex>
+                  )}
+                  <FlexUL
+                    direction="column"
                     css={`
-                      flex-shrink: 0;
-                      background-color: ${theme.color.nav01};
-                      border-bottom: 1px solid ${theme.color.brand03};
+                      color: ${theme.color.inverse01};
+                      flex: 1 1 auto;
+                      overflow: auto;
                     `}
                   >
-                    {mobileMenuHeaderContent}
-                  </Flex>
-                )}
-                <FlexUL
-                  direction="column"
-                  css={`
-                    color: ${theme.color.inverse01};
-                    flex: 1 1 auto;
-                    overflow: auto;
-                  `}
-                >
-                  {navSection}
-                </FlexUL>
+                    {navSection}
+                  </FlexUL>
+                </MobileWrapper>
               </PushOver>,
               mobileMenuRef
             )}

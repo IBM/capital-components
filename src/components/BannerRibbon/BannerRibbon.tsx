@@ -24,7 +24,7 @@ const BannerRibbonWrapper = styled("div")`
   }
 `;
 
-export const BannerDropdownWrapper = styled("div")`
+const DropdownWrapper = styled("div")`
   ${mediaQuery.base(`
     max-width: 100%;
   `)};
@@ -35,7 +35,7 @@ export const BannerDropdownWrapper = styled("div")`
   `)};
 `;
 
-const BannerRibbon: React.SFC<{
+const Ribbon: React.SFC<{
   className?: string;
   wrapperClassName?: string;
   children?: React.ReactNode;
@@ -55,12 +55,9 @@ const BannerRibbon: React.SFC<{
 }) => (
   <Media query={{ maxWidth: breakpoints.s }}>
     {matches => {
-      let isActuallyExpandable = expandable;
-      if (matches) {
-        isActuallyExpandable = expandable || (!!floatRightOfTitle || !!children);
-      } else {
-        isActuallyExpandable = expandable || !!children;
-      }
+      const isActuallyExpandable = matches
+        ? expandable || (!!floatRightOfTitle || !!children)
+        : expandable || !!children;
       const content = (
         <>
           <BannerTitleRow
@@ -166,4 +163,7 @@ const BannerTitleRow: React.SFC<IExpandableProps> = ({ className, ...props }) =>
   return content;
 };
 
-export default BannerRibbon;
+export default {
+  Ribbon,
+  DropdownWrapper
+};

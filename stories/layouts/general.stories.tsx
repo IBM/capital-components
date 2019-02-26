@@ -30,11 +30,7 @@ import { Link } from "react-router-dom";
 import { Omit } from "type-zoo";
 import useReactRouter from "use-react-router";
 import withExternalWindow from "../../storybook-addons/external-window";
-
-function useToggle(initialState: boolean) {
-  const [state, setState] = useState(initialState);
-  return [state, () => setState(prevState => !prevState)] as [boolean, () => void];
-}
+import { useToggle } from "../../src/internal/storyHelpers";
 
 const {
   PrimaryBar,

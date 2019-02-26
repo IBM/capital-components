@@ -60,12 +60,19 @@ export const makeBaseElement: <Props extends { className?: string }>(
   });
 
 // Basic flex dentered box.
-export const CenteredBlock = styled("div")<ISharedElementProps>`
+const buildCenteredBlockStyles = (props: ISharedElementProps) => `
   display: flex;
   justify-content: center;
   align-items: center;
-  ${buildSharedPropsStyles};
+  ${buildSharedPropsStyles(props)};
 `;
+
+export const CenteredBlock = Object.assign(
+  styled("div")<ISharedElementProps>(buildCenteredBlockStyles),
+  {
+    formatter: buildCenteredBlockStyles
+  }
+);
 
 export const Block = Object.assign(styled("div")<ISharedElementProps>(buildSharedPropsStyles), {
   formatter: buildSharedPropsStyles

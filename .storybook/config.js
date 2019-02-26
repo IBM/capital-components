@@ -10,7 +10,7 @@ import React from "react";
 import { ThemeProvider } from "../src/support/theme";
 import DefaultTheme from "../src/support/themes/other-products";
 import excludedPropTypes from "./excludedPropTypes";
-import StoryRouter from "storybook-react-router";
+import StoryRouter from "../storybook-addons/router";
 
 setOptions({
   name: "Capital Components",

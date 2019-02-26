@@ -4,15 +4,11 @@ import { storiesOf } from "@storybook/react";
 import { Icon } from "carbon-components-react";
 import * as R from "ramda";
 import React, { useState } from "react";
-import { WithState } from "../../internal/storyHelpers";
-import { Heading } from "../../primitives/text";
+import { Heading } from "@fss/components/lib/primitives/text";
+import { styled } from "@fss/components/lib/support/theme";
+import { useToggle } from "../../internal/storyHelpers";
 
 const stories = storiesOf("Components|PushOver", module);
-
-function useToggle(initialState: boolean) {
-  const [state, setState] = useState(initialState);
-  return [state, () => setState(prevState => !prevState)] as [boolean, () => void];
-}
 
 const Item = ({ className, ...otherProps }: React.HTMLAttributes<HTMLDivElement>) => (
   <Block
@@ -31,15 +27,24 @@ const UserProfileOptions = () => (
   </React.Fragment>
 );
 
+const MobileWrapper = styled.div`
+  flex: 1 1 auto;
+  overflow: auto;
+  background-color: ${({ theme }) => theme.color.nav02};
+  ${({ theme }) => theme.fonts.styles.specialtyBody};
+`;
+
 stories
   .add(
     "Basic Usage",
     () => (
       <Flex direction="row">
         <PushOver isOpen={true} css="overflow: auto;">
-          <PushOverItem isSelected={true}>{props => <Item {...props}>Item 1</Item>}</PushOverItem>
-          <PushOverItem isSelected={true}>{props => <Item {...props}>Item 2</Item>}</PushOverItem>
-          <PushOverItem>{props => <Item {...props}>Item 3</Item>}</PushOverItem>
+          <MobileWrapper>
+            <PushOverItem isSelected={true}>{props => <Item {...props}>Item 1</Item>}</PushOverItem>
+            <PushOverItem isSelected={true}>{props => <Item {...props}>Item 2</Item>}</PushOverItem>
+            <PushOverItem>{props => <Item {...props}>Item 3</Item>}</PushOverItem>
+          </MobileWrapper>
         </PushOver>
         <Flex
           direction="column"
@@ -62,16 +67,17 @@ stories
   )
   .add(
     "With State",
-    () => (
-      <WithState initialState={{ open: true }}>
-        {({ state, setState }) => (
-          <Flex direction="row">
-            <PushOver
-              isOpen={state.open}
-              css="overflow: auto;"
-              showOverlay={true}
-              onOverlayClick={() => setState(prevState => ({ open: !prevState.open }))}
-            >
+    () => {
+      const [open, setOpen] = useState(true);
+      return (
+        <Flex direction="row">
+          <PushOver
+            isOpen={open}
+            css="overflow: auto;"
+            showOverlay={true}
+            onOverlayClick={() => setOpen(prevState => !prevState)}
+          >
+            <MobileWrapper>
               <PushOverItem isSelected={true}>
                 {props => <Item {...props}>Item 1</Item>}
               </PushOverItem>
@@ -79,23 +85,21 @@ stories
                 {props => <Item {...props}>Item 2</Item>}
               </PushOverItem>
               <PushOverItem>{props => <Item {...props}>Item 3</Item>}</PushOverItem>
-            </PushOver>
-            <Flex
-              direction="column"
-              cssWithTheme={({ theme }) => `
+            </MobileWrapper>
+          </PushOver>
+          <Flex
+            direction="column"
+            cssWithTheme={({ theme }) => `
             flex: 1 1 auto;
             background-color: ${theme.color.brand03};
           `}
-            >
-              Some other content...
-              <button onClick={() => setState(prevState => ({ open: !prevState.open }))}>
-                Open/Close
-              </button>
-            </Flex>
+          >
+            Some other content...
+            <button onClick={() => setOpen(prevState => !prevState)}>Open/Close</button>
           </Flex>
-        )}
-      </WithState>
-    ),
+        </Flex>
+      );
+    },
     {
       info: {
         text: `
@@ -106,33 +110,32 @@ stories
   )
   .add(
     "Lots of items",
-    () => (
-      <WithState initialState={{ open: true }}>
-        {({ state, setState }) => (
-          <Flex direction="row">
-            <PushOver isOpen={state.open} css="overflow: auto;">
+    () => {
+      const [open, setOpen] = useState(true);
+      return (
+        <Flex direction="row">
+          <PushOver isOpen={open} css="overflow: auto;">
+            <MobileWrapper>
               {R.range(0, 50).map(num => (
                 <PushOverItem key={num} isSelected={true}>
                   {props => <Item {...props}>Item {num}</Item>}
                 </PushOverItem>
               ))}
-            </PushOver>
-            <Flex
-              direction="column"
-              cssWithTheme={({ theme }) => `
+            </MobileWrapper>
+          </PushOver>
+          <Flex
+            direction="column"
+            cssWithTheme={({ theme }) => `
             flex: 1 1 auto;
             background-color: ${theme.color.brand03};
           `}
-            >
-              Some other content...
-              <button onClick={() => setState(prevState => ({ open: !prevState.open }))}>
-                Open/Close
-              </button>
-            </Flex>
+          >
+            Some other content...
+            <button onClick={() => setOpen(prevState => !prevState)}>Open/Close</button>
           </Flex>
-        )}
-      </WithState>
-    ),
+        </Flex>
+      );
+    },
     {
       info: {
         text: `
@@ -160,32 +163,36 @@ stories
       );
       return (
         <Flex direction="row">
-          <PushOver isOpen={open} css="overflow: auto;" ref={scrollingRef}>
-            <Flex direction="column" css="flex: 1 0 auto;">
-              {R.range(0, 9).map(num => (
-                <PushOverItem key={num}>{props => <Item {...props}>Item {num}</Item>}</PushOverItem>
-              ))}
-            </Flex>
-            <Flex direction="column" css="flex-shrink: 0;" innerRef={menuRef}>
-              <Flex
-                direction="row"
-                alignment="center space-between"
-                padding="md lg"
-                cssWithTheme={({ theme }) => `
+          <PushOver isOpen={open}>
+            <MobileWrapper innerRef={scrollingRef}>
+              <Flex direction="column" css="flex: 1 0 auto;">
+                {R.range(0, 9).map(num => (
+                  <PushOverItem key={num}>
+                    {props => <Item {...props}>Item {num}</Item>}
+                  </PushOverItem>
+                ))}
+              </Flex>
+              <Flex direction="column" css="flex-shrink: 0;" innerRef={menuRef}>
+                <Flex
+                  direction="row"
+                  alignment="center space-between"
+                  padding="md lg"
+                  cssWithTheme={({ theme }) => `
                   background-color: ${theme.color.nav01};
                   border-top: 1px solid ${theme.color.brand03};
                   color: ${theme.color.inverse01};
                   fill: ${theme.color.inverse01};
                   flex-shrink: 0;
                 `}
-                onClick={() => {
-                  toggleProfileOpen();
-                }}
-              >
-                User Profile <Icon name={`icon--caret--${profileOpen ? "down" : "up"}`} />
+                  onClick={() => {
+                    toggleProfileOpen();
+                  }}
+                >
+                  User Profile <Icon name={`icon--caret--${profileOpen ? "down" : "up"}`} />
+                </Flex>
+                {profileOpen && <UserProfileOptions />}
               </Flex>
-              {profileOpen && <UserProfileOptions />}
-            </Flex>
+            </MobileWrapper>
           </PushOver>
           <Flex
             direction="column"
@@ -209,7 +216,7 @@ stories
     }
   )
   .add(
-    "List mode vs freestyle",
+    "Left and right",
     () => {
       const [openLeft, toggleOpenLeft] = useToggle(true);
       const [openRight, toggleOpenRight] = useToggle(true);
@@ -217,14 +224,16 @@ stories
       return (
         <Flex direction="row" css="width: 100%;">
           <PushOver isOpen={openLeft} css="overflow: auto;" onCloseClick={() => toggleOpenLeft()}>
-            This is a list
-            <PushOverItem isSelected={false}>
-              {props => <Item {...props}>Item 1</Item>}
-            </PushOverItem>
-            <PushOverItem isSelected={false}>
-              {props => <Item {...props}>Item 2</Item>}
-            </PushOverItem>
-            <PushOverItem>{props => <Item {...props}>Item 3</Item>}</PushOverItem>
+            <MobileWrapper>
+              This is a list
+              <PushOverItem isSelected={false}>
+                {props => <Item {...props}>Item 1</Item>}
+              </PushOverItem>
+              <PushOverItem isSelected={false}>
+                {props => <Item {...props}>Item 2</Item>}
+              </PushOverItem>
+              <PushOverItem>{props => <Item {...props}>Item 3</Item>}</PushOverItem>
+            </MobileWrapper>
           </PushOver>
           <Flex
             direction="column"
@@ -239,15 +248,23 @@ stories
           </Flex>
           <PushOver
             isOpen={openRight}
-            css="overflow: auto;"
             closable
             onCloseClick={() => toggleOpenRight()}
             position="right"
             closePosition="right"
-            listMode={false}
           >
-            <Heading level="3">Inquiry</Heading>
-            This is freestyle mode
+            <Flex
+              direction="column"
+              padding="xl 2xl"
+              cssWithTheme={({ theme }) => `
+              background-color: ${theme.color.ui02};
+              overflow: auto;
+              flex: 1 1 auto;
+            `}
+            >
+              <Heading level="3">Inquiry</Heading>
+              This is freestyle mode
+            </Flex>
           </PushOver>
         </Flex>
       );
