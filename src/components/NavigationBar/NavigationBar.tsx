@@ -66,7 +66,7 @@ function PrimaryBarNavItem<T extends object = {}>({
 }
 
 const PrimaryBarIcon = styled(PrimaryBarItem, {
-  shouldForwardProp
+  shouldForwardProp: prop => prop !== "as"
 })<PrimaryBarItemProps & { as?: any }>(props => {
   const color = props.isSelected ? props.theme.color.nav01 : props.theme.color.inverse01;
   return `
