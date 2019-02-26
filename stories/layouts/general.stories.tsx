@@ -24,7 +24,7 @@ import UserIcon from "@fss/icons/dist/svg/user_64";
 import { action } from "@storybook/addon-actions";
 import { storiesOf } from "@storybook/react";
 import { DataTable as CCDataTable, PaginationV2 } from "carbon-components-react";
-import React, { ComponentPropsWithoutRef, useRef, useState } from "react";
+import React, { ComponentPropsWithoutRef, useRef } from "react";
 import { matchPath } from "react-router";
 import { Link } from "react-router-dom";
 import { Omit } from "type-zoo";
@@ -197,7 +197,7 @@ stories.add(
           </SecondaryBar>
           <ContentWrapper>
             <VerticalScrollableContent>
-              <BannerRibbon title="Some Title <Could be component>" />
+              <BannerRibbon.Ribbon title="Some Title <Could be component>" />
               <Flex direction="row">
                 <Grid isContainer verticalPadding="top lg" preventShrink={false}>
                   <DataTable
