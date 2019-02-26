@@ -30,7 +30,7 @@ import { Link } from "react-router-dom";
 import { Omit } from "type-zoo";
 import useReactRouter from "use-react-router";
 import withExternalWindow from "../../storybook-addons/external-window";
-import { useToggle } from "../../src/internal/storyHelpers";
+import useToggle from "../../src/hooks/useToggle";
 
 const {
   PrimaryBar,

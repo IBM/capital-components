@@ -2,7 +2,7 @@ import { BannerRibbon, ScrollRow, Col } from "@fss/components";
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { useToggle } from "../../internal/storyHelpers";
+import useToggle from "../../hooks/useToggle";
 import { Button, DropdownV2 } from "carbon-components-react";
 
 const stories = storiesOf("Components|BannerRibbon", module);

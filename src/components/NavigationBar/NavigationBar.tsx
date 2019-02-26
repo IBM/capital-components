@@ -83,10 +83,6 @@ const PrimaryBarIcon = styled(PrimaryBarItem, {
           }
           color: ${color};
           fill: ${color};
-          border-left: 1px solid ${props.theme.color.ui04};
-          height: 55px;
-          cursor: pointer;
-          text-decoration: none;
         `;
 });
 
@@ -96,6 +92,19 @@ const PrimaryBarTitle = styled(PrimaryBarItem)`
   cursor: auto;
   ${props => props.theme.fonts.styles.specialtyBody};
   font-weight: ${props => props.theme.fonts.weights.bold};
+`;
+
+const NavSectionWrapper = styled.div`
+  display: flex;
+  overflow: auto;
+`;
+
+const RightSectionWrapper = styled.div`
+  margin-left: 1rem;
+  display: flex;
+  > * {
+    border-left: 1px solid ${props => props.theme.color.ui04};
+  }
 `;
 
 const FlexUL = Flex.withComponent("ul");
@@ -153,29 +162,23 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
 }) => (
   <Media query={{ maxWidth: breakpoints.s }}>
     {matches => {
-      if (!matches) {
-        return (
-          <PrimaryBarInternal {...otherProps}>
-            {titleSection}
-            {navSection}
-            <div css="margin-left: 1rem;" />
-            {rightSection}
-          </PrimaryBarInternal>
-        );
-      }
       const PrimaryIcon = menuIcon || MenuIcon;
       return (
         <>
           <PrimaryBarInternal {...otherProps}>
-            <PrimaryBarMainMenuItem onClick={onMenuToggle}>
-              <Icon size="medium" title={translate({ id: TranslationKeys.menuTitle })}>
-                <PrimaryIcon />
-              </Icon>
-            </PrimaryBarMainMenuItem>
+            {matches && (
+              <PrimaryBarMainMenuItem onClick={onMenuToggle}>
+                <Icon size="medium" title={translate({ id: TranslationKeys.menuTitle })}>
+                  <PrimaryIcon />
+                </Icon>
+              </PrimaryBarMainMenuItem>
+            )}
             {titleSection}
-            {rightSection}
+            {!matches && <NavSectionWrapper>{navSection}</NavSectionWrapper>}
+            {rightSection && <RightSectionWrapper>{rightSection}</RightSectionWrapper>}
           </PrimaryBarInternal>
-          {mobileMenuRef &&
+          {matches &&
+            mobileMenuRef &&
             ReactDOM.createPortal(
               <PushOver isOpen={showMenu} showOverlay={true} onOverlayClick={onMenuToggle}>
                 <MobileWrapper>

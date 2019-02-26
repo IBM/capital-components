@@ -1,8 +1,9 @@
-import { Icon, Table, NavigationBar } from "@fss/components";
+import { Icon, NavigationBar } from "@fss/components";
 import NotificationBell from "@fss/icons/dist/svg/notification-bell_24";
-import { withInfo } from "@storybook/addon-info";
 import { storiesOf } from "@storybook/react";
-import React from "react";
+import React, { useRef } from "react";
+import useToggle from "../../hooks/useToggle";
+import { Flex } from "@fss/components/lib/primitives/elements/Elements";
 
 const stories = storiesOf("Components|Navigation Bar", module);
 
@@ -69,6 +70,90 @@ stories.add(
       text: `
               Basic Primary bar with a few navigation items
           `
+    }
+  }
+);
+
+stories.add(
+  "Too many nav items",
+  () => (
+    <div css="max-width: 500px">
+      <PrimaryBar
+        titleSection={<PrimaryBarTitle>Title</PrimaryBarTitle>}
+        navSection={
+          <>
+            <PrimaryBarNavItem>Something 1</PrimaryBarNavItem>
+            <PrimaryBarNavItem>Else 2</PrimaryBarNavItem>
+            <PrimaryBarNavItem>Something 3</PrimaryBarNavItem>
+            <PrimaryBarNavItem>Else 4</PrimaryBarNavItem>
+            <PrimaryBarNavItem>Something 5</PrimaryBarNavItem>
+            <PrimaryBarNavItem>Else 6</PrimaryBarNavItem>
+            <PrimaryBarNavItem>Something 7</PrimaryBarNavItem>
+            <PrimaryBarNavItem>Else 8</PrimaryBarNavItem>
+          </>
+        }
+        rightSection={
+          <PrimaryBarIcon>
+            <Icon size="medium" title="notifications">
+              <NotificationBell />
+            </Icon>
+          </PrimaryBarIcon>
+        }
+      />
+    </div>
+  ),
+  {
+    info: {
+      inline: true,
+      text: `
+                Basic Primary bar with a few navigation items
+            `
+    }
+  }
+);
+
+stories.add(
+  "Mobile nav support",
+  () => {
+    const menuRef = useRef(null);
+    const [open, toggleOpen] = useToggle(false);
+    return (
+      <Flex css="max-width: 500px;" direction="row">
+        <div ref={menuRef} />
+        <PrimaryBar
+          showMenu={open}
+          onMenuToggle={toggleOpen}
+          mobileMenuRef={menuRef.current}
+          titleSection={<PrimaryBarTitle>Title</PrimaryBarTitle>}
+          navSection={
+            <>
+              <PrimaryBarNavItem>Something 1</PrimaryBarNavItem>
+              <PrimaryBarNavItem>Else 2</PrimaryBarNavItem>
+              <PrimaryBarNavItem>Something 3</PrimaryBarNavItem>
+              <PrimaryBarNavItem>Else 4</PrimaryBarNavItem>
+              <PrimaryBarNavItem>Something 5</PrimaryBarNavItem>
+              <PrimaryBarNavItem>Else 6</PrimaryBarNavItem>
+              <PrimaryBarNavItem>Something 7</PrimaryBarNavItem>
+              <PrimaryBarNavItem>Else 8</PrimaryBarNavItem>
+            </>
+          }
+          rightSection={
+            <PrimaryBarIcon>
+              <Icon size="medium" title="notifications">
+                <NotificationBell />
+              </Icon>
+            </PrimaryBarIcon>
+          }
+        />
+      </Flex>
+    );
+  },
+  {
+    info: {
+      inline: true,
+      text: `
+                  Basic Primary bar with a few navigation items
+              `
     }
   }
 );

@@ -6,7 +6,7 @@ import * as R from "ramda";
 import React, { useState } from "react";
 import { Heading } from "@fss/components/lib/primitives/text";
 import { styled } from "@fss/components/lib/support/theme";
-import { useToggle } from "../../internal/storyHelpers";
+import useToggle from "../../hooks/useToggle";
 
 const stories = storiesOf("Components|PushOver", module);
 
