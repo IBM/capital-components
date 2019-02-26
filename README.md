@@ -24,7 +24,7 @@ Please see our [wiki](https://github.ibm.com/watson-finance/wfss-components/wiki
 Configure your npmrc file be running this:
 
 ```sh
-./scripts/setupArtifactory.js
+npx git+ssh://git@github.ibm.com:watson-finance/npm-login-artifactory.git -n na.artifactory.swg-devops.com -r "@fss=>ip-wfss-npm-virtual"
 ```
 
 You can copy the resulting npmrc to ~/.npmrc if you want to install @fss/\* in other projects and skip this step next time.

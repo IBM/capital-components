@@ -7,8 +7,10 @@ These steps will guide you through contributing to this project:
 - Fork the repo
 - Clone it and install dependencies
 
-		git clone https://github.ibm.com/wfss-finance/wfss-components
-		yarn
+      		git clone https://github.ibm.com/wfss-finance/wfss-components
+      		yarn
+
+- Commit changes with `yarn commit`.
 
 Make and commit your changes. Make sure the commands npm run build and npm run test:prod are working.
 
