@@ -104,3 +104,45 @@ stories.add(
         `
   }
 );
+
+stories.add(
+  "Without any expandable content",
+  () => {
+    const [open, toggleOpen] = useToggle(false);
+    return (
+      <div css="width: 100vw;">
+        <BannerRibbon.Ribbon title="Some Content goes here" expandable={false}>
+          Some static content
+        </BannerRibbon.Ribbon>
+      </div>
+    );
+  },
+  {
+    text: `
+            Sometimes the banner just has static content.
+          `
+  }
+);
+
+stories.add(
+  "With a breadcrumb",
+  () => {
+    return (
+      <div css="width: 100vw;">
+        <BannerRibbon.Ribbon
+          supertitle="breadcrumb/to/something"
+          title="Some title"
+          expandable
+          onExpandClick={action("expand")}
+        >
+          Something to expand
+        </BannerRibbon.Ribbon>
+      </div>
+    );
+  },
+  {
+    text: `
+              Sometimes you need a breadcrumb
+            `
+  }
+);

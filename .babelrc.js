@@ -1,13 +1,22 @@
 "use strict";
 
-const BABEL_ENV = process.env.BABEL_ENV;
+const NODE_ENV = process.env.NODE_ENV;
 
-module.exports = {
+const moduleResolverOptions = {
+  extensions: [".js", ".jsx", ".ts", ".tsx"],
+  alias: {
+    "^carbon-components-react/es/(.+?)$": "carbon-components-react/lib/\\1",
+    "^@fss/components$": "./src/index.ts",
+    "^@fss/components/lib/(.+?)$": "./src/\\1"
+  }
+};
+
+const config = {
   presets: [
     [
       "@babel/env",
       {
-        modules: BABEL_ENV === "es" ? false : "commonjs",
+        modules: "commonjs",
         targets: {
           browsers: ["last 1 versions", "Firefox ESR"]
         }
@@ -21,16 +30,14 @@ module.exports = {
     ["emotion", { hoist: true, autoLabel: true }],
     "babel-plugin-add-react-displayname",
     "transform-carbon-imports",
-    [
-      "transform-rename-import",
-      {
-        replacements: [
-          {
-            original: "^carbon-components-react\\/es\\/(.+?)$",
-            replacement: "carbon-components-react/lib/$1"
-          }
-        ]
-      }
-    ]
+    ["module-resolver", moduleResolverOptions]
   ]
 };
+if (NODE_ENV !== "test") {
+  config.plugins.push("babel-plugin-jsx-remove-data-test-id");
+} else {
+  // This alias is only appropriate for testing environment, not building
+  moduleResolverOptions.alias["test-utils"] = "./test-helpers/utils.tsx";
+}
+
+module.exports = config;

@@ -11,3 +11,17 @@ declare module "*.svg" {
   };
   export default contentSVG;
 }
+
+declare namespace jest {
+  interface Matchers<R> {
+    toHaveTextContent: (htmlElement: string) => object;
+    toBeInTheDOM: () => void;
+    toHaveAttribute: (attr: string) => object;
+  }
+
+  interface Expect {
+    toHaveTextContent: (htmlElement: string) => object;
+    toBeInTheDOM: () => void;
+    toHaveAttribute: (attr: string) => object;
+  }
+}

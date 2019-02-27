@@ -1,5 +1,4 @@
 const path = require("path");
-const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 module.exports = (baseConfig, env, config) => {
   config.module.rules[0].use[0].loader = require.resolve("babel-loader");
@@ -47,12 +46,8 @@ module.exports = (baseConfig, env, config) => {
     }
   );
 
-  config.resolve.extensions.push(".ts", ".tsx");
-  config.resolve.plugins = config.resolve.plugins || [];
-  config.resolve.plugins.push(
-    new TsconfigPathsPlugin({ configFile: path.resolve(__dirname, "../tsconfig.json") })
-  );
-  config.resolve.modules.push(path.join(__dirname, "../src/"));
-  config.module;
+  // need extensions because babel-resolve doesn't handle this for us.
+  // little bit of duplicated config. Make sure this matches in .babelrc.js
+  config.resolve.extensions.push(".js", "jsx", ".ts", ".tsx");
   return config;
 };

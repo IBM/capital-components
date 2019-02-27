@@ -44,6 +44,7 @@ const Ribbon: React.SFC<{
   onExpandClick?: React.MouseEventHandler<HTMLDivElement>;
   title: React.ReactNode;
   floatRightOfTitle?: React.ReactNode;
+  supertitle?: React.ReactNode;
 }> = ({
   className,
   wrapperClassName,
@@ -55,9 +56,9 @@ const Ribbon: React.SFC<{
 }) => (
   <Media query={{ maxWidth: breakpoints.s }}>
     {matches => {
-      const isActuallyExpandable = matches
-        ? expandable || (!!floatRightOfTitle || !!children)
-        : expandable || !!children;
+      const isActuallyExpandable =
+        (matches ? expandable || (!!floatRightOfTitle || !!children) : expandable || !!children) &&
+        !!otherProps.onExpandClick;
       const content = (
         <>
           <BannerTitleRow
@@ -104,6 +105,7 @@ interface IExpandableProps {
   onExpandClick?: React.MouseEventHandler<HTMLDivElement>;
   title: React.ReactNode;
   mobile?: boolean;
+  supertitle?: React.ReactNode;
 }
 
 const ExpandWrapper: React.SFC<IExpandableProps> = ({
@@ -112,25 +114,30 @@ const ExpandWrapper: React.SFC<IExpandableProps> = ({
   onExpandClick,
   children,
   title,
-  mobile
+  mobile,
+  supertitle
 }) => (
   <>
-    <Flex
-      padding={mobile ? "top md bottom md" : undefined}
-      cssWithTheme={({ theme }) => `
+    <Flex direction="column" css="flex: 1 1 auto;">
+      {supertitle}
+      <Flex
+        padding={mobile ? "top md bottom md" : undefined}
+        cssWithTheme={({ theme }) => `
             ${mediaQuery.base(theme.fonts.styles.specialtyBody)};
             ${mediaQuery.s(theme.fonts.styles.alpha)};
             color: currentColor;
             flex: 1 1 auto;
             position: relative;
         `}
-      onClick={onExpandClick}
-    >
-      {expandable && (
-        <Flex
-          alignment="center"
-          padding="right xs"
-          cssWithTheme={({ theme }) => `
+        onClick={onExpandClick}
+        role={expandable ? "button" : "header"}
+        aria-expanded={expandable ? isExpanded : undefined}
+      >
+        {expandable && (
+          <Flex
+            alignment="center"
+            padding="right xs"
+            cssWithTheme={({ theme }) => `
                     position: absolute;
                     transform: translateX(-100%);
                     fill: ${theme.color.ui01};
@@ -139,13 +146,14 @@ const ExpandWrapper: React.SFC<IExpandableProps> = ({
                     justify-content: flex-end;
                     top: 0;
                   `}
-        >
-          <Icon size="small" title="expand">
-            {isExpanded ? <RightIcon /> : <DownIcon />}
-          </Icon>
-        </Flex>
-      )}
-      {title}
+          >
+            <Icon size="small" title="expand">
+              {isExpanded ? <DownIcon /> : <RightIcon />}
+            </Icon>
+          </Flex>
+        )}
+        {title}
+      </Flex>
     </Flex>
     {(isExpanded || !expandable || !mobile) && children}
   </>

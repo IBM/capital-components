@@ -18,11 +18,18 @@
     "esModuleInterop": true,
     "paths": {
       "@fss/components": ["./src/index.ts"],
-      "@fss/components/lib/*": ["./src/*"]
+      "@fss/components/lib/*": ["./src/*"],
+      "test-utils": ["./test-helpers/utils.tsx"]
     },
     "noImplicitAny": false,
     "skipLibCheck": true
   },
-  "include": ["src/**/*", "stories/**/*", "storybook-addons/**/*", "./types.d.ts"],
+  "include": [
+    "src/**/*",
+    "stories/**/*",
+    "storybook-addons/**/*",
+    "./types.d.ts",
+    "./test-helpers/**/*"
+  ],
   "exclude": ["node_modules", "build", "scripts"]
 }

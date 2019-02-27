@@ -197,7 +197,10 @@ stories.add(
           </SecondaryBar>
           <ContentWrapper>
             <VerticalScrollableContent>
-              <BannerRibbon.Ribbon title="Some Title <Could be component>" />
+              <BannerRibbon.Ribbon
+                title="Some Title <Could be component>"
+                supertitle="breadcrumb/to/something"
+              />
               <Flex direction="row">
                 <Grid isContainer verticalPadding="top lg" preventShrink={false}>
                   <DataTable

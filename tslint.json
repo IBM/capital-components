@@ -8,6 +8,13 @@
     "member-ordering": false
   },
   "linterOptions": {
-    "exclude": ["bin", "**/stories.tsx", "**/*.stories.tsx"]
+    "exclude": [
+      "bin",
+      "**/stories.tsx",
+      "**/*.stories.tsx",
+      "**/test.tsx",
+      "**/*.test.tsx",
+      "test-helpers/**"
+    ]
   }
 }

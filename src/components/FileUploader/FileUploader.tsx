@@ -38,8 +38,11 @@ const FakeLink = styled.span`
   cursor: pointer;
 `;
 
-const FileUploaderFileName = styled.div`
+// Not sure why I need th additional type here but whatever
+const FileUploaderFileName = styled.div<JSX.IntrinsicElements["div"]>`
   flex: 1 1 auto;
+  color: ${({ theme, onClick }) => (onClick ? theme.colors.brand01 : "inherit")};
+  cursor: ${({ onClick }) => (onClick ? "pointer" : "inherit")};
 `;
 
 interface IProps extends Omit<DropzoneProps, "onDropAccepted"> {

@@ -120,11 +120,13 @@ const PrimaryBarInternal = styled.nav`
 `;
 
 enum TranslationKeys {
-  menuTitle = "wfss-components.primarybar.menu.title"
+  menuTitle = "wfss-components.primarybar.menu.title",
+  mainNavTitle = "wfss-components.primarybar.title"
 }
 
 const defaultTranslation: Record<TranslationKeys, string> = {
-  [TranslationKeys.menuTitle]: "Menu"
+  [TranslationKeys.menuTitle]: "Menu",
+  [TranslationKeys.mainNavTitle]: "Main navigation"
 };
 
 const defaultTranslate = (args: { id: TranslationKeys }) => defaultTranslation[args.id];
@@ -165,7 +167,10 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
       const PrimaryIcon = menuIcon || MenuIcon;
       return (
         <>
-          <PrimaryBarInternal {...otherProps}>
+          <PrimaryBarInternal
+            aria-label={translate({ id: TranslationKeys.mainNavTitle })}
+            {...otherProps}
+          >
             {matches && (
               <PrimaryBarMainMenuItem onClick={onMenuToggle}>
                 <Icon size="medium" title={translate({ id: TranslationKeys.menuTitle })}>
