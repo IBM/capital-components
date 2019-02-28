@@ -23,7 +23,7 @@ import MessagesIcon from "@fss/icons/dist/svg/email_24";
 import UserIcon from "@fss/icons/dist/svg/user_64";
 import { action } from "@storybook/addon-actions";
 import { storiesOf } from "@storybook/react";
-import { DataTable as CCDataTable, PaginationV2 } from "carbon-components-react";
+import { DataTable as CCDataTable, PaginationV2, Button } from "carbon-components-react";
 import React, { ComponentPropsWithoutRef, useRef } from "react";
 import { matchPath } from "react-router";
 import { Link } from "react-router-dom";
@@ -135,6 +135,7 @@ stories.add(
     const [showOptions, toggleShowOptions] = useToggle(false);
     const [showMenu, toggleShowMenu] = useToggle(false);
     const [showPushOver, toggleShowPushOver] = useToggle(false);
+    const [bannerExpanded, toggleBannerExpanded] = useToggle(false);
     const menuRef = useRef(null);
     return (
       <>
@@ -200,6 +201,14 @@ stories.add(
               <BannerRibbon.Ribbon
                 title="Some Title <Could be component>"
                 supertitle="breadcrumb/to/something"
+                expandable
+                isExpanded={bannerExpanded}
+                onExpandClick={toggleBannerExpanded}
+                floatRightOfTitle={
+                  <div>
+                    <Button>Click me!</Button>
+                  </div>
+                }
               />
               <Flex direction="row">
                 <Grid isContainer verticalPadding="top lg" preventShrink={false}>

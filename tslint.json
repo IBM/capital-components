@@ -14,7 +14,9 @@
       "**/*.stories.tsx",
       "**/test.tsx",
       "**/*.test.tsx",
-      "test-helpers/**"
+      "test-helpers/**",
+      "**/test.ts",
+      "**/*.test.ts"
     ]
   }
 }

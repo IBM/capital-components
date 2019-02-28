@@ -1,11 +1,11 @@
 import { css, cx } from "emotion";
 import React, { ComponentPropsWithoutRef } from "react";
 import { Omit } from "type-zoo";
-import { CenteredBlock } from "../../primitives/elements";
+import { CenteredBlock, ISharedElementProps } from "../../primitives/elements";
 
 export type Props = ComponentPropsWithoutRef<typeof CenteredBlock> & {
   size: "xsmall" | "small" | "medium" | "large" | "xlarge" | "xxxlarge";
-  title: string;
+  title?: string;
   glyph?: {
     id: string;
     viewBox: string;
@@ -23,7 +23,7 @@ export const sizeToREM = {
   xxxlarge: 10
 };
 
-type ContainerProps = Omit<Props, "title" | "glyph">;
+type ContainerProps = Omit<Props, "glyph">;
 
 // any => Escape typing until emotion updates to using new context api that supports typing.
 const SVGContainer = React.forwardRef<HTMLDivElement, ContainerProps>(
@@ -71,8 +71,13 @@ export const Icon: React.SFC<Props & { ref?: React.Ref<HTMLDivElement> }> = Reac
   HTMLDivElement,
   Props
 >(({ size, title, glyph, children, ...props }, ref) => (
-  <SVGContainer size={size} {...props} ref={ref}>
-    {glyph && (
+  <SVGContainer
+    size={size}
+    {...props}
+    ref={ref}
+    title={/* istanbul ignore next */ glyph ? undefined : title}
+  >
+    {/* istanbul ignore next */ glyph && (
       <svg aria-label={title} viewBox={glyph.viewBox}>
         <title>{title}</title>
         <use xlinkHref={`#${glyph.id}`} />

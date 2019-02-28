@@ -16,12 +16,12 @@ declare namespace jest {
   interface Matchers<R> {
     toHaveTextContent: (htmlElement: string) => object;
     toBeInTheDOM: () => void;
-    toHaveAttribute: (attr: string) => object;
+    toHaveAttribute: (attr: string, attrValue?: any) => object;
   }
 
   interface Expect {
     toHaveTextContent: (htmlElement: string) => object;
     toBeInTheDOM: () => void;
-    toHaveAttribute: (attr: string) => object;
+    toHaveAttribute: (attr: string, attrValue?: any) => object;
   }
 }

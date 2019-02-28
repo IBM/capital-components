@@ -71,6 +71,7 @@ class PushOver extends React.PureComponent<IProps & { innerRef: React.Ref<any> }
   };
 
   public onRest = () => {
+    /* istanbul ignore next */
     this.setState({ resting: true });
   };
 
@@ -107,6 +108,7 @@ class PushOver extends React.PureComponent<IProps & { innerRef: React.Ref<any> }
       overlayColor: "#00000066"
     };
 
+    /* istanbul ignore if */
     if (this.state.resting && !isOpen) {
       return null;
     }

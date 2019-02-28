@@ -1,4 +1,4 @@
-import { buildAlignment } from "../src/layout/alignment";
+import { buildAlignment } from "./alignment";
 
 describe("flex alignment", () => {
   test("will align on all axii", () => {

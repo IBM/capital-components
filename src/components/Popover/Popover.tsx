@@ -29,7 +29,7 @@ export interface IProps {
   preventOverflow?: boolean;
   /** Adjust offset from top. */
   offsetTop?: number;
-  /** Adjust offset from bottom. */
+  /** Adjust offset from left. */
   offsetLeft?: number;
 }
 
@@ -37,7 +37,7 @@ export const Popover: React.SFC<IProps> = ({
   reference,
   children,
   show,
-  placement,
+  placement: outerPlacement,
   onClickOutside = empty.func,
   preventOverflow = true,
   offsetTop = 0,
@@ -48,7 +48,7 @@ export const Popover: React.SFC<IProps> = ({
     {show &&
       ReactDOM.createPortal(
         <Popper
-          placement={placement}
+          placement={outerPlacement}
           modifiers={{
             preventOverflow: { enabled: preventOverflow },
             offset: {

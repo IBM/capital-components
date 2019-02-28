@@ -108,7 +108,6 @@ stories.add(
 stories.add(
   "Without any expandable content",
   () => {
-    const [open, toggleOpen] = useToggle(false);
     return (
       <div css="width: 100vw;">
         <BannerRibbon.Ribbon title="Some Content goes here" expandable={false}>
@@ -144,5 +143,36 @@ stories.add(
     text: `
               Sometimes you need a breadcrumb
             `
+  }
+);
+
+stories.add(
+  "With a static right section",
+  () => {
+    const [open, toggleOpen] = useToggle(false);
+    return (
+      <div css="width: 100vw;">
+        <BannerRibbon.Ribbon
+          supertitle="breadcrumb/to/something"
+          title="Some title"
+          expandable
+          isExpanded={open}
+          onExpandClick={toggleOpen}
+          isStaticRightSection
+          floatRightOfTitle={
+            <div>
+              <Button>Click Me</Button>
+            </div>
+          }
+        >
+          Something to expand
+        </BannerRibbon.Ribbon>
+      </div>
+    );
+  },
+  {
+    text: `
+                Sometimes you need a breadcrumb
+              `
   }
 );

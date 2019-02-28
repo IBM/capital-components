@@ -12,14 +12,16 @@ enum TranslationKeys {
   delete = "wfss-components.fileuploader.delete"
 }
 
-const defaultTranslations: Record<TranslationKeys, string> = {
-  [TranslationKeys.dropTitle]: "Drop files to attach, or",
-  [TranslationKeys.browseTitle]: "browse",
-  [TranslationKeys.delete]: "delete"
+const defaultTranslations: Record<TranslationKeys, (values: any) => string> = {
+  [TranslationKeys.dropTitle]: () => "Drop files to attach, or",
+  [TranslationKeys.browseTitle]: () => "browse",
+  [TranslationKeys.delete]: values => `Remove file ${values.name}`
 };
 
-const defaultTranslate = (arg: { id: TranslationKeys }) => defaultTranslations[arg.id];
+const defaultTranslate = (arg: { id: TranslationKeys; values?: any }) =>
+  defaultTranslations[arg.id](arg.values);
 
+/* istanbul ignore next */
 const FileUploaderWrapper = styled(CenteredBlock)<ISharedElementProps & { isDragActive: boolean }>`
   flex-direction: column;
   border-width: 2px;
@@ -45,11 +47,14 @@ const FileUploaderFileName = styled.div<JSX.IntrinsicElements["div"]>`
   cursor: ${({ onClick }) => (onClick ? "pointer" : "inherit")};
 `;
 
+const FlexLi = Flex.withComponent("li");
+const FlexUl = Flex.withComponent("ul");
+
 interface IProps extends Omit<DropzoneProps, "onDropAccepted"> {
   initialFilesSelected?: File[];
   translate?: typeof defaultTranslate;
   onFileClick?: (file: File, event: React.MouseEvent) => void;
-  onChange?: (files: File[], event: React.MouseEvent) => void;
+  onChange: (files: File[], event: React.MouseEvent) => void;
 }
 
 interface IState {
@@ -88,14 +93,12 @@ class FileUploader extends React.PureComponent<IProps, IState> {
   };
 
   updateListeners(event: React.MouseEvent) {
-    if (this.props.onChange) {
-      this.props.onChange(this.state.selectedFiles, event);
-    }
+    this.props.onChange(this.state.selectedFiles, event);
   }
 
   handleItemClick = (file: File) => (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (this.props.onFileClick) {
-      e.stopPropagation();
       this.props.onFileClick(file, e);
     }
   };
@@ -106,9 +109,12 @@ class FileUploader extends React.PureComponent<IProps, IState> {
     return (
       <Dropzone {...otherProps} onDropAccepted={this.onDropAccepted}>
         {({ getRootProps, getInputProps, isDragActive }) => (
-          <FileUploaderWrapper isDragActive={isDragActive} {...getRootProps()}>
+          <FileUploaderWrapper
+            isDragActive={isDragActive}
+            {...getRootProps({ refKey: "innerRef" })}
+          >
             <Flex padding="md md" alignment="center" css="width: 100%;">
-              <input {...getInputProps()} />
+              <input {...getInputProps()} data-testid="wfss-file-uploader-input" />
               <span>
                 {translate({ id: TranslationKeys.dropTitle })}
                 <FakeLink css="padding-left: 0.25rem;">
@@ -117,19 +123,25 @@ class FileUploader extends React.PureComponent<IProps, IState> {
               </span>
             </Flex>
             {selectedFiles.length > 0 && (
-              <Flex padding="0 md md md" direction="column" css="width: 100%;">
-                {selectedFiles.map(file => (
-                  <Flex key={file.name} css="width: 100%;" padding="top xs">
-                    <FileUploaderFileName
-                      onClick={
-                        initialFilesSelected.find(f => f.name === file.name) &&
-                        this.handleItemClick(file)
-                      }
-                    >
-                      {file.name}
-                    </FileUploaderFileName>
-                    <Icon
-                      cssWithTheme={({ theme }) => `
+              <FlexUl padding="0 md md md" direction="column" css="width: 100%;">
+                {selectedFiles.map(file => {
+                  const isInitialFile = !!initialFilesSelected.find(f => f.name === file.name);
+
+                  return (
+                    <FlexLi key={file.name} css="width: 100%;" padding="top xs" title={file.name}>
+                      <FileUploaderFileName
+                        onClick={isInitialFile ? this.handleItemClick(file) : undefined}
+                        role={isInitialFile ? "button" : undefined}
+                      >
+                        {file.name}
+                      </FileUploaderFileName>
+                      <Icon
+                        role="button"
+                        title={translate({
+                          id: TranslationKeys.delete,
+                          values: { name: file.name }
+                        })}
+                        cssWithTheme={({ theme }) => `
                         margin-top: 2px;
                         cursor: pointer;
                         &:hover {
@@ -137,28 +149,28 @@ class FileUploader extends React.PureComponent<IProps, IState> {
                           fill: ${theme.color.brand01};
                         }
                       `}
-                      size="small"
-                      title={translate({ id: TranslationKeys.delete })}
-                      onClick={e => {
-                        e.persist();
-                        e.stopPropagation();
-                        this.setState(
-                          prevState => ({
-                            selectedFiles: prevState.selectedFiles.filter(
-                              iF => iF.name !== file.name
-                            )
-                          }),
-                          () => {
-                            this.updateListeners(e);
-                          }
-                        );
-                      }}
-                    >
-                      <Trash />
-                    </Icon>
-                  </Flex>
-                ))}
-              </Flex>
+                        size="small"
+                        onClick={e => {
+                          e.persist();
+                          e.stopPropagation();
+                          this.setState(
+                            prevState => ({
+                              selectedFiles: prevState.selectedFiles.filter(
+                                iF => iF.name !== file.name
+                              )
+                            }),
+                            () => {
+                              this.updateListeners(e);
+                            }
+                          );
+                        }}
+                      >
+                        <Trash />
+                      </Icon>
+                    </FlexLi>
+                  );
+                })}
+              </FlexUl>
             )}
           </FileUploaderWrapper>
         )}

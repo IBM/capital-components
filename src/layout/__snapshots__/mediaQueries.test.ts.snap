@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`media queries with classnames 1`] = `"@media (min-width:1200px){.css-1ixoql-mq{background-color:blue;}}"`;

@@ -2,21 +2,21 @@ import { cleanup } from "react-testing-library";
 import "jest-dom/extend-expect";
 import { BannerRibbon } from "@fss/components";
 import React from "react";
-import { renderWithDefaultTheme, createMediaMockForScreenSize } from "test-utils";
+import { renderWithDefaultTheme, mockScreenSize } from "test-utils";
 
 afterEach(cleanup);
 
 test("Basic title", async () => {
-  createMediaMockForScreenSize("monitor");
+  mockScreenSize("monitor");
   const { queryByRole, getByRole } = renderWithDefaultTheme(<BannerRibbon.Ribbon title="Title" />);
 
   // When not expandable, it is a header element
-  expect(queryByRole("button")).toBeNull();
+  expect(queryByRole("button")).not.toBeInTheDocument();
   expect(getByRole("header")).toBeInTheDocument();
 });
 
 test("Expanding is prevented without a onExpandClick prop", async () => {
-  createMediaMockForScreenSize("monitor");
+  mockScreenSize("monitor");
   const { getByRole } = renderWithDefaultTheme(
     <BannerRibbon.Ribbon title="Title">Some fixed content</BannerRibbon.Ribbon>
   );
@@ -26,7 +26,7 @@ test("Expanding is prevented without a onExpandClick prop", async () => {
 });
 
 test("Floating content is shown in monitor", async () => {
-  createMediaMockForScreenSize("monitor");
+  mockScreenSize("monitor");
   const { getByRole, getByText } = renderWithDefaultTheme(
     <BannerRibbon.Ribbon
       title="Title"
@@ -42,7 +42,7 @@ test("Floating content is shown in monitor", async () => {
 });
 
 test("Floating content is hidden in phone", async () => {
-  createMediaMockForScreenSize("phone");
+  mockScreenSize("phone");
   const { getByRole, queryByText, getByText } = renderWithDefaultTheme(
     <BannerRibbon.Ribbon
       title="Title"
@@ -54,12 +54,12 @@ test("Floating content is hidden in phone", async () => {
   );
 
   expect(getByRole("button")).toBeInTheDocument();
-  expect(queryByText("Some floating content")).toBeNull();
+  expect(queryByText("Some floating content")).not.toBeInTheDocument();
   expect(getByText("Some fixed content")).toBeInTheDocument();
 });
 
 test("Explicit expandable is needed when items are hidden", async () => {
-  createMediaMockForScreenSize("phone");
+  mockScreenSize("phone");
   const isExpanded = false;
   const { getByRole, queryByText } = renderWithDefaultTheme(
     <BannerRibbon.Ribbon
@@ -74,15 +74,64 @@ test("Explicit expandable is needed when items are hidden", async () => {
   );
 
   expect(getByRole("button")).toBeInTheDocument();
-  expect(queryByText("Some floating content")).toBeNull();
+  expect(queryByText("Some floating content")).not.toBeInTheDocument();
 });
 
-test("in phone", async () => {
-  createMediaMockForScreenSize("phone");
+test("basic, in phone", async () => {
+  mockScreenSize("phone");
   const { getByRole } = renderWithDefaultTheme(
     <BannerRibbon.Ribbon title="Title">Some fixed content</BannerRibbon.Ribbon>
   );
 
   // When not expandable, it is a header element
   expect(getByRole("header")).toBeInTheDocument();
+});
+
+test("isStaticRightSection makes floatRightOfTitle visible in phone", async () => {
+  mockScreenSize("phone");
+  const { getByText } = renderWithDefaultTheme(
+    <BannerRibbon.Ribbon
+      title="Title"
+      isStaticRightSection
+      floatRightOfTitle={<div>Some staticly visible section</div>}
+    >
+      Some fixed content
+    </BannerRibbon.Ribbon>
+  );
+
+  expect(getByText("Some staticly visible section")).toBeInTheDocument();
+});
+
+test("floatRightOfTitle invisible in phone when not expanded", async () => {
+  mockScreenSize("phone");
+  const { queryByText } = renderWithDefaultTheme(
+    <BannerRibbon.Ribbon
+      title="Title"
+      expandable
+      isExpanded={false}
+      floatRightOfTitle={<div>section1</div>}
+      onExpandClick={jest.fn()}
+    >
+      Some fixed content
+    </BannerRibbon.Ribbon>
+  );
+
+  expect(queryByText("section1")).not.toBeInTheDocument();
+});
+
+test("floatRightOfTitle visible in phone when expanded", async () => {
+  mockScreenSize("phone");
+  const { queryByText } = renderWithDefaultTheme(
+    <BannerRibbon.Ribbon
+      title="Title"
+      expandable
+      isExpanded={true}
+      floatRightOfTitle={<div>section1</div>}
+      onExpandClick={jest.fn()}
+    >
+      Some fixed content
+    </BannerRibbon.Ribbon>
+  );
+
+  expect(queryByText("section1")).toBeInTheDocument();
 });

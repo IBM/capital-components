@@ -120,13 +120,15 @@ const PrimaryBarInternal = styled.nav`
 `;
 
 enum TranslationKeys {
+  openMenu = "wfss-components.primarybar.menu.open",
   menuTitle = "wfss-components.primarybar.menu.title",
   mainNavTitle = "wfss-components.primarybar.title"
 }
 
 const defaultTranslation: Record<TranslationKeys, string> = {
   [TranslationKeys.menuTitle]: "Menu",
-  [TranslationKeys.mainNavTitle]: "Main navigation"
+  [TranslationKeys.mainNavTitle]: "Main",
+  [TranslationKeys.openMenu]: "Open menu"
 };
 
 const defaultTranslate = (args: { id: TranslationKeys }) => defaultTranslation[args.id];
@@ -147,6 +149,7 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
     mobileMenuHeaderContent?: React.ReactNode;
     theme?: Theme;
     translate?: typeof defaultTranslate;
+    id?: string;
   }
 > = ({
   titleSection,
@@ -160,6 +163,7 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
   mobileMenuHeaderContent,
   theme,
   translate = defaultTranslate,
+  id = "",
   ...otherProps
 }) => (
   <Media query={{ maxWidth: breakpoints.s }}>
@@ -169,11 +173,19 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
         <>
           <PrimaryBarInternal
             aria-label={translate({ id: TranslationKeys.mainNavTitle })}
+            id={`wfss-navigation-bar-primary-${id}`}
             {...otherProps}
           >
             {matches && (
-              <PrimaryBarMainMenuItem onClick={onMenuToggle}>
-                <Icon size="medium" title={translate({ id: TranslationKeys.menuTitle })}>
+              <PrimaryBarMainMenuItem
+                onClick={onMenuToggle}
+                role="button"
+                aria-haspopup={!!mobileMenuRef}
+                aria-expanded={mobileMenuRef && showMenu}
+                aria-controls={`wfss-navigation-bar-primary-${id}-mobile-menu`}
+                aria-label={translate({ id: TranslationKeys.openMenu })}
+              >
+                <Icon size="medium">
                   <PrimaryIcon />
                 </Icon>
               </PrimaryBarMainMenuItem>
@@ -185,8 +197,15 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
           {matches &&
             mobileMenuRef &&
             ReactDOM.createPortal(
-              <PushOver isOpen={showMenu} showOverlay={true} onOverlayClick={onMenuToggle}>
-                <MobileWrapper>
+              <PushOver
+                isOpen={showMenu}
+                showOverlay={true}
+                onOverlayClick={onMenuToggle}
+                role="navigation"
+                aria-label={translate({ id: TranslationKeys.menuTitle })}
+                id={`wfss-navigation-bar-primary-${id}-mobile-menu`}
+              >
+                <MobileWrapper tabIndex={-1}>
                   {mobileMenuHeaderContent && (
                     <Flex
                       alignment="center"
@@ -222,6 +241,7 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
 
 const PrimaryBar = withTheme(PrimaryBarWithoutTheme);
 
+// istanbul ignore next
 const SecondaryBar = styled.nav`
   border-bottom: ${props => props.theme.color.text02} 1px solid;
   background-color: ${props => props.theme.color.nav02};

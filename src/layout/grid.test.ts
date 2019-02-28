@@ -1,4 +1,4 @@
-import { createGridClass, createColClass, buildVirticalSpacing } from "../src/layout/grid";
+import { buildVerticalSpacing, createColClass, createGridClass } from "./grid";
 
 describe("grid classnames", () => {
   it("base grid definition", () => {
@@ -53,35 +53,35 @@ describe("column classnames", () => {
 
 describe("custom vertical padding classes", () => {
   it("returns undefined if empty provided", () => {
-    const result = buildVirticalSpacing();
+    const result = buildVerticalSpacing();
     expect(result).toBeNull();
   });
 
   it("singular specified direction", () => {
-    const result = buildVirticalSpacing("top md");
+    const result = buildVerticalSpacing("top md");
     expect(result).toBe("padding-top: 1rem;");
   });
 
   it("all vertical padding", () => {
-    const result = buildVirticalSpacing("md");
+    const result = buildVerticalSpacing("md");
     expect(result).toBe("padding-top: 1rem; padding-bottom: 1rem;");
   });
 
   it("specified direction", () => {
-    const result = buildVirticalSpacing("md xl");
+    const result = buildVerticalSpacing("md xl");
     expect(result).toBe("padding-top: 1rem; padding-bottom: 2rem;");
   });
 
   it("throws if invalid string provided", () => {
-    expect(() => buildVirticalSpacing("something md xl")).toThrow();
+    expect(() => buildVerticalSpacing("something md xl")).toThrow();
   });
 
   it("allows non-standard values", () => {
-    const result = buildVirticalSpacing("md 0");
+    const result = buildVerticalSpacing("md 0");
     expect(result).toBe("padding-top: 1rem; padding-bottom: 0;");
   });
 });
 
 it("replace padding with margin", () => {
-  expect(buildVirticalSpacing("md xl", "margin")).toBe("margin-top: 1rem; margin-bottom: 2rem;");
+  expect(buildVerticalSpacing("md xl", "margin")).toBe("margin-top: 1rem; margin-bottom: 2rem;");
 });

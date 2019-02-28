@@ -1,0 +1,163 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Basic snapshot, in monitor 1`] = `
+.emotion-12 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  border-bottom: 1px solid #97c1ff;
+  background-color: #000000;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+@media (min-width:768px) {
+  .emotion-12 {
+    padding-left: 40px;
+  }
+}
+
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 1rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  color: #ffffff;
+  fill: #ffffff;
+  height: 55px;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-left: 0;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  cursor: auto;
+  font-size: 1rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  font-weight: 600;
+}
+
+.emotion-6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: auto;
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 1rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  color: #ffffff;
+  fill: #ffffff;
+  height: 55px;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-10 {
+  margin-left: 1rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-10 > * {
+  border-left: 1px solid #dcdcdc;
+}
+
+.emotion-8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 1rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  color: #ffffff;
+  fill: #ffffff;
+  height: 55px;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #ffffff;
+  fill: #ffffff;
+}
+
+<body>
+  <div>
+    <nav
+      aria-label="Main"
+      class="emotion-12 emotion-13"
+      id="wfss-navigation-bar-primary-"
+    >
+      <div
+        class="emotion-0 emotion-1"
+      >
+        Title
+      </div>
+      <div
+        class="emotion-6 emotion-7"
+      >
+        <div
+          class="emotion-2 emotion-3"
+        >
+          Item 1
+        </div>
+        <div
+          class="emotion-2 emotion-3"
+        >
+          Item 2
+        </div>
+      </div>
+      <div
+        class="emotion-10 emotion-11"
+      >
+        <div
+          class="emotion-8 emotion-9"
+        >
+          ICO
+        </div>
+      </div>
+    </nav>
+  </div>
+</body>
+`;

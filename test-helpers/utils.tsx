@@ -27,7 +27,7 @@ const presets = {
   }
 };
 
-export function createMediaMockForScreenSize(size: keyof typeof presets) {
+export function mockScreenSize(size: keyof typeof presets) {
   const mock = MatchMediaMock.create();
   mock.setConfig(presets[size]);
   window.matchMedia = jest.fn().mockImplementation(mock);

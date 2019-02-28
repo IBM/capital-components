@@ -1,4 +1,4 @@
-import { buildSpacing } from "../src/layout/spacing";
+import { buildSpacing } from "./spacing";
 
 it("returns null if no padding provided", () => {
   const result = buildSpacing();

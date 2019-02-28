@@ -59,9 +59,22 @@
       "json"
     ],
     "collectCoverageFrom": [
-      "src/**/*.tsx",
-      "src/**/*.ts",
-      "!src/**/stories.tsx"
+      "src/components/**/*.tsx",
+      "src/components/**/*.ts",
+      "!src/components/**/stories.tsx",
+      "!src/components/Popover/**",
+      "!src/components/BleedingRow/**",
+      "!src/components/DropMenu/**",
+      "!src/components/DropMenuItem/**",
+      "!src/components/FlyOver/**",
+      "!src/components/FlyOverProvider/**",
+      "!src/components/Grid/**",
+      "!src/components/Col/**",
+      "!src/components/Table/**",
+      "!src/components/Tab/**",
+      "!src/components/Tabs/**",
+      "!src/components/TabsV2/**",
+      "!src/components/ScrollRow/**"
     ],
     "coverageThreshold": {
       "global": {
@@ -191,6 +204,7 @@
     "classnames": "^2.2.5",
     "csstype": "^2.6.2",
     "empty": "^0.10.1",
+    "invariant": "^2.2.4",
     "popper.js": "^1.14.7",
     "react-dropzone": "^9.0.0",
     "react-media": "^1.9.2",

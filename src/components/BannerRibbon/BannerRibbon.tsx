@@ -1,5 +1,6 @@
 import DownIcon from "@fss/icons/dist/svg/triangle-down_16";
 import RightIcon from "@fss/icons/dist/svg/triangle-right_16";
+import invariant from "invariant";
 import React from "react";
 import Media from "react-media";
 import { Col, Grid, Icon } from "../../";
@@ -36,14 +37,24 @@ const DropdownWrapper = styled("div")`
 `;
 
 const Ribbon: React.SFC<{
+  /** ClassName to the grid/inner element */
   className?: string;
+  /** ClassName for the full wrapping element */
   wrapperClassName?: string;
   children?: React.ReactNode;
+  /** Whether or not the banner ribbon can expand. This MUST be combined with onExpandClick. */
   expandable?: boolean;
+  /** Whether or not the banner ribbon is expanded. */
   isExpanded?: boolean;
+  /** Handles click on banner. */
   onExpandClick?: React.MouseEventHandler<HTMLDivElement>;
+  /** Node to be displayed as title. */
   title: React.ReactNode;
+  /** If set to false, the floatRightOfTitle will NOT move under the title on mobile. */
+  isStaticRightSection?: boolean;
+  /** Element that will float to the right until in mobile view. In mobile view, it will be underneath. */
   floatRightOfTitle?: React.ReactNode;
+  /** Node to be displayed just above title. */
   supertitle?: React.ReactNode;
 }> = ({
   className,
@@ -52,10 +63,15 @@ const Ribbon: React.SFC<{
   title,
   floatRightOfTitle,
   expandable,
+  isStaticRightSection,
   ...otherProps
 }) => (
   <Media query={{ maxWidth: breakpoints.s }}>
     {matches => {
+      invariant(
+        !expandable || otherProps.onExpandClick,
+        "BannerRibbon: if expandable is specified, onExpandClick must be provided as well."
+      );
       const isActuallyExpandable =
         (matches ? expandable || (!!floatRightOfTitle || !!children) : expandable || !!children) &&
         !!otherProps.onExpandClick;
@@ -64,6 +80,7 @@ const Ribbon: React.SFC<{
           <BannerTitleRow
             title={title}
             expandable={isActuallyExpandable}
+            isStaticRightSection={isStaticRightSection}
             {...otherProps}
             mobile={matches}
           >
@@ -106,6 +123,7 @@ interface IExpandableProps {
   title: React.ReactNode;
   mobile?: boolean;
   supertitle?: React.ReactNode;
+  isStaticRightSection?: boolean;
 }
 
 const ExpandWrapper: React.SFC<IExpandableProps> = ({
@@ -115,13 +133,17 @@ const ExpandWrapper: React.SFC<IExpandableProps> = ({
   children,
   title,
   mobile,
-  supertitle
+  supertitle,
+  isStaticRightSection
 }) => (
   <>
-    <Flex direction="column" css="flex: 1 1 auto;">
+    <Flex
+      direction="column"
+      css="flex: 1 1 auto;"
+      padding={mobile ? "top md bottom md" : undefined}
+    >
       {supertitle}
       <Flex
-        padding={mobile ? "top md bottom md" : undefined}
         cssWithTheme={({ theme }) => `
             ${mediaQuery.base(theme.fonts.styles.specialtyBody)};
             ${mediaQuery.s(theme.fonts.styles.alpha)};
@@ -153,9 +175,10 @@ const ExpandWrapper: React.SFC<IExpandableProps> = ({
           </Flex>
         )}
         {title}
+        {isStaticRightSection && children}
       </Flex>
     </Flex>
-    {(isExpanded || !expandable || !mobile) && children}
+    {(isExpanded || !expandable || !mobile) && !isStaticRightSection && children}
   </>
 );
 
