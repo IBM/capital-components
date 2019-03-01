@@ -56,8 +56,8 @@ export const Popover: React.SFC<IProps> = ({
             }
           }}
         >
-          {({ ref, style, placement }) => (
-            <div ref={ref} style={{ ...style, zIndex: 9999 }} data-placement={placement}>
+          {({ ref, style, placement, outOfBoundaries }) => (
+            <div ref={ref} style={{ ...style, zIndex: 9999 }} data-placement={placement} data-out-of-boundaries={outOfBoundaries}>
               <ClickListener onClickOutside={onClickOutside} refKey="innerRef">
                 <IEFixer>{children}</IEFixer>
               </ClickListener>
