@@ -48,7 +48,7 @@ export const Popover: React.FunctionComponent<IProps> = ({
   const popperRef = useRef(null);
   const arrowRef = useRef(null);
 
-  const { style, placement: pOut } = usePopper(
+  const { style, placement: pOut, outOfBoundaries } = usePopper(
     {
       placement,
       referenceRef,
@@ -70,7 +70,7 @@ export const Popover: React.FunctionComponent<IProps> = ({
         ReactDOM.createPortal(
           <ClickListener onClickOutside={onClickOutside} refKey="innerRef">
             <IEFixer>
-              <div ref={popperRef} style={{ ...style, zIndex: 9999 }} data-placement={pOut}>
+              <div ref={popperRef} style={{ ...style, zIndex: 9999 }} data-placement={pOut} data-out-of-boundaries={outOfBoundaries}>
                 {children}
               </div>
             </IEFixer>
