@@ -1,8 +1,6 @@
-import { css } from "emotion";
 import React from "react";
 import { Flex } from "../../primitives/elements";
 import { styled } from "../../support/theme";
-import { mqStrings } from "../../layout/mediaQueries";
 
 const Nav = styled("nav")`
   font-weight: ${props => props.theme.fonts.weights.regular};

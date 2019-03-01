@@ -85,8 +85,8 @@ body {
   .cap-container {
     margin-left: auto;
     margin-right: auto;
-    padding-left: calc(3vw - 18px); // Offset by scrollbar size
-    padding-right: 3vw;
+    padding-left: calc(11px - 18px); // Offset by scrollbar size
+    padding-right: 11px;
     @media (min-width: 62rem) {
       padding-left: calc(5vw - 18px); // Offset by scrollbar size
       padding-right: 5vw;

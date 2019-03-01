@@ -312,11 +312,11 @@ body {
 
 .cap-grid {
   grid-auto-rows: minmax(0.5rem, min-content);
-  grid-template-columns: repeat(auto-fill, calc((100vw - 6vw) * 0.0833)); }
+  grid-template-columns: repeat(auto-fill, calc((100vw - 22px) * 0.0833)); }
   .cap-grid.cap-grid--fixed-columns {
     grid-template-columns: repeat(auto-fill, 3rem); }
   .cap-grid.cap-grid--fluid-rows {
-    grid-auto-rows: calc((100vw - 6vw) * 0.0833); }
+    grid-auto-rows: calc((100vw - 22px) * 0.0833); }
   .cap-grid > * {
     grid-column: span 12; }
 
@@ -431,8 +431,8 @@ body {
 .cap-container {
   margin-left: auto;
   margin-right: auto;
-  padding-left: 3vw;
-  padding-right: 3vw; }
+  padding-left: 11px;
+  padding-right: 11px; }
 
 .cap-container--left {
   margin-left: 0; }
@@ -444,31 +444,31 @@ body {
 .cap-container__bleed--xs--left,
 .cap-container__break--xs,
 .cap-container__break--xs--left {
-  margin-left: -3vw; }
+  margin-left: -11px; }
 
 .cap-container__bleed--xs,
 .cap-container__bleed--xs--right,
 .cap-container__break--xs,
 .cap-container__break--xs--right {
-  margin-right: -3vw; }
+  margin-right: -11px; }
 
 .cap-container__bleed--xs,
 .cap-container__bleed--xs--left {
-  padding-left: 3vw; }
+  padding-left: 11px; }
   .cap-container__bleed--xs.cap-padding, .cap-container__bleed--xs.cap-padding--horizontal, .cap-container__bleed--xs.cap-padding--left,
   .cap-container__bleed--xs--left.cap-padding,
   .cap-container__bleed--xs--left.cap-padding--horizontal,
   .cap-container__bleed--xs--left.cap-padding--left {
-    padding-left: calc(3vw + 5px); }
+    padding-left: calc(11px + 5px); }
 
 .cap-container__bleed--xs,
 .cap-container__bleed--xs--right {
-  padding-right: 3vw; }
+  padding-right: 11px; }
   .cap-container__bleed--xs.cap-padding, .cap-container__bleed--xs.cap-padding--horizontal, .cap-container__bleed--xs.cap-padding--right,
   .cap-container__bleed--xs--right.cap-padding,
   .cap-container__bleed--xs--right.cap-padding--horizontal,
   .cap-container__bleed--xs--right.cap-padding--right {
-    padding-right: calc(3vw + 5px); }
+    padding-right: calc(11px + 5px); }
 
 @media screen and (min-width: 48rem) {
   .cap-grid__height--s--0 {

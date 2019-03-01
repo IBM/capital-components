@@ -441,16 +441,16 @@ body {
 
 .cap-grid {
   grid-auto-rows: minmax(0.5rem, min-content);
-  grid-template-columns: repeat(auto-fill, calc((100vw - 6vw) * 0.0833)); }
+  grid-template-columns: repeat(auto-fill, calc((100vw - 22px) * 0.0833)); }
   .cap-grid.cap-grid--fixed-columns {
     grid-template-columns: repeat(auto-fill, 3rem); }
   .cap-grid.cap-grid--fluid-rows {
-    grid-auto-rows: calc((100vw - 6vw) * 0.0833); }
+    grid-auto-rows: calc((100vw - 22px) * 0.0833); }
   .cap-grid > * {
     grid-column: span 12; }
 
 .cap-grid__col--xs--1 {
-  width: calc((100vw - 6vw) * 0.0833);
+  width: calc((100vw - 22px) * 0.0833);
   grid-column: span 1; }
   .cap-grid__col--xs--1.cap-grid > *:not([class*="cap-grid__col"]) {
     grid-column: span 1; }
@@ -458,11 +458,11 @@ body {
 .cap-grid--fluid-rows
 > .cap-grid__height--xs--1 {
   grid-row: span 1;
-  height: calc((100vw - 6vw) * 0.0833);
-  min-height: calc((100vw - 6vw) * 0.0833); }
+  height: calc((100vw - 22px) * 0.0833);
+  min-height: calc((100vw - 22px) * 0.0833); }
 
 .cap-grid__col--xs--2 {
-  width: calc((100vw - 6vw) * 0.1666);
+  width: calc((100vw - 22px) * 0.1666);
   grid-column: span 2; }
   .cap-grid__col--xs--2.cap-grid > *:not([class*="cap-grid__col"]) {
     grid-column: span 2; }
@@ -470,11 +470,11 @@ body {
 .cap-grid--fluid-rows
 > .cap-grid__height--xs--2 {
   grid-row: span 2;
-  height: calc((100vw - 6vw) * 0.1666);
-  min-height: calc((100vw - 6vw) * 0.1666); }
+  height: calc((100vw - 22px) * 0.1666);
+  min-height: calc((100vw - 22px) * 0.1666); }
 
 .cap-grid__col--xs--3 {
-  width: calc((100vw - 6vw) * 0.25);
+  width: calc((100vw - 22px) * 0.25);
   grid-column: span 3; }
   .cap-grid__col--xs--3.cap-grid > *:not([class*="cap-grid__col"]) {
     grid-column: span 3; }
@@ -482,11 +482,11 @@ body {
 .cap-grid--fluid-rows
 > .cap-grid__height--xs--3 {
   grid-row: span 3;
-  height: calc((100vw - 6vw) * 0.25);
-  min-height: calc((100vw - 6vw) * 0.25); }
+  height: calc((100vw - 22px) * 0.25);
+  min-height: calc((100vw - 22px) * 0.25); }
 
 .cap-grid__col--xs--4 {
-  width: calc((100vw - 6vw) * 0.3333);
+  width: calc((100vw - 22px) * 0.3333);
   grid-column: span 4; }
   .cap-grid__col--xs--4.cap-grid > *:not([class*="cap-grid__col"]) {
     grid-column: span 4; }
@@ -494,11 +494,11 @@ body {
 .cap-grid--fluid-rows
 > .cap-grid__height--xs--4 {
   grid-row: span 4;
-  height: calc((100vw - 6vw) * 0.3333);
-  min-height: calc((100vw - 6vw) * 0.3333); }
+  height: calc((100vw - 22px) * 0.3333);
+  min-height: calc((100vw - 22px) * 0.3333); }
 
 .cap-grid__col--xs--5 {
-  width: calc((100vw - 6vw) * 0.4166);
+  width: calc((100vw - 22px) * 0.4166);
   grid-column: span 5; }
   .cap-grid__col--xs--5.cap-grid > *:not([class*="cap-grid__col"]) {
     grid-column: span 5; }
@@ -506,11 +506,11 @@ body {
 .cap-grid--fluid-rows
 > .cap-grid__height--xs--5 {
   grid-row: span 5;
-  height: calc((100vw - 6vw) * 0.4166);
-  min-height: calc((100vw - 6vw) * 0.4166); }
+  height: calc((100vw - 22px) * 0.4166);
+  min-height: calc((100vw - 22px) * 0.4166); }
 
 .cap-grid__col--xs--6 {
-  width: calc((100vw - 6vw) * 0.5);
+  width: calc((100vw - 22px) * 0.5);
   grid-column: span 6; }
   .cap-grid__col--xs--6.cap-grid > *:not([class*="cap-grid__col"]) {
     grid-column: span 6; }
@@ -518,11 +518,11 @@ body {
 .cap-grid--fluid-rows
 > .cap-grid__height--xs--6 {
   grid-row: span 6;
-  height: calc((100vw - 6vw) * 0.5);
-  min-height: calc((100vw - 6vw) * 0.5); }
+  height: calc((100vw - 22px) * 0.5);
+  min-height: calc((100vw - 22px) * 0.5); }
 
 .cap-grid__col--xs--7 {
-  width: calc((100vw - 6vw) * 0.5833);
+  width: calc((100vw - 22px) * 0.5833);
   grid-column: span 7; }
   .cap-grid__col--xs--7.cap-grid > *:not([class*="cap-grid__col"]) {
     grid-column: span 7; }
@@ -530,11 +530,11 @@ body {
 .cap-grid--fluid-rows
 > .cap-grid__height--xs--7 {
   grid-row: span 7;
-  height: calc((100vw - 6vw) * 0.5833);
-  min-height: calc((100vw - 6vw) * 0.5833); }
+  height: calc((100vw - 22px) * 0.5833);
+  min-height: calc((100vw - 22px) * 0.5833); }
 
 .cap-grid__col--xs--8 {
-  width: calc((100vw - 6vw) * 0.6666);
+  width: calc((100vw - 22px) * 0.6666);
   grid-column: span 8; }
   .cap-grid__col--xs--8.cap-grid > *:not([class*="cap-grid__col"]) {
     grid-column: span 8; }
@@ -542,11 +542,11 @@ body {
 .cap-grid--fluid-rows
 > .cap-grid__height--xs--8 {
   grid-row: span 8;
-  height: calc((100vw - 6vw) * 0.6666);
-  min-height: calc((100vw - 6vw) * 0.6666); }
+  height: calc((100vw - 22px) * 0.6666);
+  min-height: calc((100vw - 22px) * 0.6666); }
 
 .cap-grid__col--xs--9 {
-  width: calc((100vw - 6vw) * 0.75);
+  width: calc((100vw - 22px) * 0.75);
   grid-column: span 9; }
   .cap-grid__col--xs--9.cap-grid > *:not([class*="cap-grid__col"]) {
     grid-column: span 9; }
@@ -554,11 +554,11 @@ body {
 .cap-grid--fluid-rows
 > .cap-grid__height--xs--9 {
   grid-row: span 9;
-  height: calc((100vw - 6vw) * 0.75);
-  min-height: calc((100vw - 6vw) * 0.75); }
+  height: calc((100vw - 22px) * 0.75);
+  min-height: calc((100vw - 22px) * 0.75); }
 
 .cap-grid__col--xs--10 {
-  width: calc((100vw - 6vw) * 0.8333);
+  width: calc((100vw - 22px) * 0.8333);
   grid-column: span 10; }
   .cap-grid__col--xs--10.cap-grid > *:not([class*="cap-grid__col"]) {
     grid-column: span 10; }
@@ -566,11 +566,11 @@ body {
 .cap-grid--fluid-rows
 > .cap-grid__height--xs--10 {
   grid-row: span 10;
-  height: calc((100vw - 6vw) * 0.8333);
-  min-height: calc((100vw - 6vw) * 0.8333); }
+  height: calc((100vw - 22px) * 0.8333);
+  min-height: calc((100vw - 22px) * 0.8333); }
 
 .cap-grid__col--xs--11 {
-  width: calc((100vw - 6vw) * 0.9166);
+  width: calc((100vw - 22px) * 0.9166);
   grid-column: span 11; }
   .cap-grid__col--xs--11.cap-grid > *:not([class*="cap-grid__col"]) {
     grid-column: span 11; }
@@ -578,11 +578,11 @@ body {
 .cap-grid--fluid-rows
 > .cap-grid__height--xs--11 {
   grid-row: span 11;
-  height: calc((100vw - 6vw) * 0.9166);
-  min-height: calc((100vw - 6vw) * 0.9166); }
+  height: calc((100vw - 22px) * 0.9166);
+  min-height: calc((100vw - 22px) * 0.9166); }
 
 .cap-grid__col--xs--12 {
-  width: calc((100vw - 6vw) * 1);
+  width: calc((100vw - 22px) * 1);
   grid-column: span 12; }
   .cap-grid__col--xs--12.cap-grid > *:not([class*="cap-grid__col"]) {
     grid-column: span 12; }
@@ -590,15 +590,15 @@ body {
 .cap-grid--fluid-rows
 > .cap-grid__height--xs--12 {
   grid-row: span 12;
-  height: calc((100vw - 6vw) * 1);
-  min-height: calc((100vw - 6vw) * 1); }
+  height: calc((100vw - 22px) * 1);
+  min-height: calc((100vw - 22px) * 1); }
 
 @supports (display: grid) {
   .cap-container {
     margin-left: auto;
     margin-right: auto;
-    padding-left: 3vw;
-    padding-right: 3vw; }
+    padding-left: 11px;
+    padding-right: 11px; }
   .cap-container--left {
     margin-left: 0; }
   .cap-container--right {
@@ -607,28 +607,28 @@ body {
   .cap-container__bleed--xs--left,
   .cap-container__break--xs,
   .cap-container__break--xs--left {
-    margin-left: -3vw; }
+    margin-left: -11px; }
   .cap-container__bleed--xs,
   .cap-container__bleed--xs--right,
   .cap-container__break--xs,
   .cap-container__break--xs--right {
-    margin-right: -3vw; }
+    margin-right: -11px; }
   .cap-container__bleed--xs,
   .cap-container__bleed--xs--left {
-    padding-left: 3vw; }
+    padding-left: 11px; }
     .cap-container__bleed--xs.cap-padding, .cap-container__bleed--xs.cap-padding--horizontal, .cap-container__bleed--xs.cap-padding--left,
     .cap-container__bleed--xs--left.cap-padding,
     .cap-container__bleed--xs--left.cap-padding--horizontal,
     .cap-container__bleed--xs--left.cap-padding--left {
-      padding-left: calc(3vw + 5px); }
+      padding-left: calc(11px + 5px); }
   .cap-container__bleed--xs,
   .cap-container__bleed--xs--right {
-    padding-right: 3vw; }
+    padding-right: 11px; }
     .cap-container__bleed--xs.cap-padding, .cap-container__bleed--xs.cap-padding--horizontal, .cap-container__bleed--xs.cap-padding--right,
     .cap-container__bleed--xs--right.cap-padding,
     .cap-container__bleed--xs--right.cap-padding--horizontal,
     .cap-container__bleed--xs--right.cap-padding--right {
-      padding-right: calc(3vw + 5px); } }
+      padding-right: calc(11px + 5px); } }
 
 @media screen and (min-width: 48rem) {
   .cap-grid__height--s--0 {

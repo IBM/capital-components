@@ -44,7 +44,10 @@ const Ribbon: React.SFC<{
   /** ClassName for the full wrapping element */
   wrapperClassName?: string;
   children?: React.ReactNode;
-  /** Whether or not the banner ribbon can expand. This MUST be combined with onExpandClick. */
+  /**
+   * Whether or not the banner ribbon can expand. This MUST be combined with onExpandClick. If this is undefined
+   * we will try to guess at if it can be expanded.
+   */
   expandable?: boolean;
   /** Whether or not the banner ribbon is expanded. */
   isExpanded?: boolean;
@@ -74,14 +77,19 @@ const Ribbon: React.SFC<{
         !expandable || otherProps.onExpandClick,
         "BannerRibbon: if expandable is specified, onExpandClick must be provided as well."
       );
-      const isActuallyExpandable =
-        (matches ? expandable || (!!floatRightOfTitle || !!children) : expandable || !!children) &&
-        !!otherProps.onExpandClick;
+
+      const isExpandable = isActuallyExpandable(
+        matches,
+        expandable,
+        floatRightOfTitle,
+        children,
+        otherProps
+      );
       const content = (
         <>
           <BannerTitleRow
             title={title}
-            expandable={isActuallyExpandable}
+            expandable={isExpandable}
             isStaticRightSection={isStaticRightSection}
             {...otherProps}
             mobile={matches}
@@ -97,12 +105,8 @@ const Ribbon: React.SFC<{
           cssWithTheme={({ theme }) => `
             position: relative;
             > * {
-                padding-left: ${theme.spacing.spacing.xl};
-                padding-right: ${theme.spacing.spacing.xl};
-            }
-            > :not(:first-child) {
-                padding-top: 12px;
-                padding-bottom: ${theme.spacing.spacing.lg};
+                padding-left: ${isExpandable ? theme.spacing.spacing.xl : "calc(11px + 5px)"};
+                padding-right: ${isExpandable ? theme.spacing.spacing.xl : "calc(11px + 5px)"};
             }
           `}
         >
@@ -128,6 +132,18 @@ interface IExpandableProps {
   supertitle?: React.ReactNode;
   isStaticRightSection?: boolean;
 }
+
+const BannerMobileFloatWrapper = styled.div`
+  padding-top: 12px;
+  padding-bottom: ${({ theme }) => theme.spacing.spacing.lg};
+`;
+
+const renderFloatWrapper = (mobile, children) => {
+  if (mobile && children) {
+    return <BannerMobileFloatWrapper>{children}</BannerMobileFloatWrapper>;
+  }
+  return children;
+};
 
 const ExpandWrapper: React.SFC<IExpandableProps> = ({
   expandable,
@@ -181,7 +197,9 @@ const ExpandWrapper: React.SFC<IExpandableProps> = ({
         {isStaticRightSection && children}
       </Flex>
     </Flex>
-    {(isExpanded || !expandable || !mobile) && !isStaticRightSection && children}
+    {(isExpanded || !expandable || !mobile) &&
+      !isStaticRightSection &&
+      renderFloatWrapper(mobile, children)}
   </>
 );
 
@@ -189,7 +207,12 @@ const BannerTitleRow: React.SFC<IExpandableProps> = ({ className, ...props }) =>
   const content = <ExpandWrapper {...props} />;
   if (!props.mobile) {
     return (
-      <Col size="all" flexDirection="row" className={className}>
+      <Col
+        size="all"
+        flexDirection="row"
+        verticalPadding={props.isExpanded ? "bottom 2xs" : undefined}
+        className={className}
+      >
         {content}
       </Col>
     );
@@ -197,7 +220,43 @@ const BannerTitleRow: React.SFC<IExpandableProps> = ({ className, ...props }) =>
   return content;
 };
 
+const Breadcrumb = styled.a`
+  ${({ theme }) => theme.fonts.styles.body};
+  color: ${({ theme }) => theme.color.brand03};
+  cursor: pointer;
+  :hover {
+    text-decoration: underline;
+  }
+`;
+
 export default {
   Ribbon,
-  DropdownWrapper
+  DropdownWrapper,
+  Breadcrumb
 };
+
+function isActuallyExpandable(
+  isMobile: boolean,
+  expandable: boolean,
+  floatRightOfTitle: React.ReactNode,
+  children: React.ReactNode,
+  otherProps: {
+    /** Whether or not the banner ribbon is expanded. */
+    isExpanded?: boolean;
+    /** Handles click on banner. */
+    onExpandClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+    /** Node to be displayed just above title. */
+    supertitle?: React.ReactNode;
+  }
+) {
+  if (!otherProps.onExpandClick) {
+    return false;
+  }
+  if (expandable === false) {
+    return false;
+  }
+  if (isMobile) {
+    return expandable || (!!floatRightOfTitle || !!children);
+  }
+  return expandable || !!children;
+}

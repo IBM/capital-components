@@ -21,7 +21,7 @@ const PrimaryBarItem = styled("div", {
   shouldForwardProp
 })<PrimaryBarItemProps>(props => {
   const fromFlex = Flex.formatter({
-    padding: "md md",
+    padding: "sm md",
     alignment: "vertical center",
     ...props
   });
@@ -34,9 +34,10 @@ const PrimaryBarItem = styled("div", {
           :hover {
             background-color: ${props.theme.color.nav02};
           }
-          height: 48px;
           cursor: pointer;
           text-decoration: none;
+          outline: none;
+          flex-shrink: 0;
         `;
 });
 
@@ -107,7 +108,7 @@ const RightSectionWrapper = styled.div`
   margin-left: 1rem;
   display: flex;
   > * {
-    border-left: 1px solid ${props => props.theme.color.ui04};
+    border-left: 1px solid ${props => props.theme.color.text02};
   }
 `;
 
@@ -118,7 +119,9 @@ const PrimaryBarInternal = styled.nav`
   border-bottom: 1px solid ${props => props.theme.color.brand03};
   background-color: ${props => props.theme.color.nav01};
   flex-shrink: 0;
+  height: 48px;
   ${mqStrings.s("padding-left: 40px;")};
+  overflow: hidden;
 `;
 
 enum TranslationKeys {

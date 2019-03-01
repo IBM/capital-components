@@ -7,6 +7,7 @@ import { Flex } from "../../primitives/elements";
 export const scrollRowContainerClass = css`
   overflow-x: auto;
   overflow-y: hidden;
+  padding-bottom: 0.75rem;
   > * {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
@@ -27,7 +28,9 @@ export const ScrollRow: React.SFC<{
   maxWidth?: string;
   minWidth?: string;
   preventShrink?: boolean;
-}> = ({ maxWidth = "40vw", minWidth = "40vw", children, preventShrink }) => (
+  /** An additional classname to apply when scrolling is triggered */
+  scrollClassName?: string;
+}> = ({ maxWidth = "40vw", minWidth = "40vw", children, preventShrink, scrollClassName }) => (
   <Media query={{ minWidth: breakpoints.s }}>
     {matches => {
       if (matches) {
@@ -48,7 +51,7 @@ export const ScrollRow: React.SFC<{
       return (
         <Flex
           direction="row"
-          className={cx(scrollRowContainerClass, minMaxWidth, {
+          className={cx(scrollRowContainerClass, scrollClassName, minMaxWidth, {
             [preventShrinkClass]: preventShrink
           })}
         >

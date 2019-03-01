@@ -1,4 +1,4 @@
-import { BannerRibbon, ScrollRow, Col } from "@fss/components";
+import { BannerRibbon, ScrollRow, Col, BleedingRow } from "@fss/components";
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
@@ -19,26 +19,30 @@ stories.add(
           isExpanded={open}
           expandable
           floatRightOfTitle={
-            <div>
-              <Button>Do something</Button>
-            </div>
+            <BannerRibbon.DropdownWrapper>
+              <DropdownV2
+                items={["Option 1", "Option 2", "Option 3"]}
+                onChange={action("onChange")}
+              />
+            </BannerRibbon.DropdownWrapper>
           }
         >
-          {open && <Col size="all">Some content is hidden with expand/collapse</Col>}
-          <ScrollRow preventShrink>
-            <Col size={2} verticalPadding="sm" css="justify-content: space-between;">
-              Some content is not
-            </Col>
-            <Col size={2} verticalPadding="sm" css="justify-content: space-between;">
-              This is just a scrolling view, if items are too large
-            </Col>
-            <Col size={2} verticalPadding="sm" css="justify-content: space-between;">
-              or there are too many
-            </Col>
-            <Col size={2} verticalPadding="sm" css="justify-content: space-between;">
-              or something
-            </Col>
-          </ScrollRow>
+          {open && (
+            <ScrollRow preventShrink>
+              <Col size={2} verticalPadding="sm" css="justify-content: space-between;">
+                Some content is not
+              </Col>
+              <Col size={2} verticalPadding="sm" css="justify-content: space-between;">
+                This is just a scrolling view, if items are too large
+              </Col>
+              <Col size={2} verticalPadding="sm" css="justify-content: space-between;">
+                or there are too many
+              </Col>
+              <Col size={2} verticalPadding="sm" css="justify-content: space-between;">
+                or something
+              </Col>
+            </ScrollRow>
+          )}
         </BannerRibbon.Ribbon>
       </div>
     );
@@ -154,7 +158,7 @@ stories.add(
       <div css="width: 100vw;">
         <BannerRibbon.Ribbon
           supertitle="breadcrumb/to/something"
-          title="Some title"
+          title={<div css="flex: 1 1 auto; align-items: center; display: flex;">Some title</div>}
           expandable
           isExpanded={open}
           onExpandClick={toggleOpen}
@@ -165,7 +169,12 @@ stories.add(
             </div>
           }
         >
-          Something to expand
+          {open && (
+            <>
+              <Col>Some item</Col>
+              <Col>Some item2</Col>
+            </>
+          )}
         </BannerRibbon.Ribbon>
       </div>
     );
