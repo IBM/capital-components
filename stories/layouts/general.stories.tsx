@@ -78,6 +78,23 @@ const rows = [
   }
 ];
 
+const FlexUL = Flex.withComponent("ul");
+
+const renderMobileMenuContent = ({ navSection, getWrapperProps }) => (
+  <div {...getWrapperProps()}>
+    <FlexUL
+      direction="column"
+      cssWithTheme={({ theme }) => `
+        color: ${theme.color.inverse01};
+        flex: 1 1 auto;
+        overflow: auto;
+      `}
+    >
+      {navSection}
+    </FlexUL>
+  </div>
+);
+
 const ReactRouterTab: React.FunctionComponent<{
   path: string;
   children: React.ReactNode;
@@ -187,8 +204,8 @@ stories.add(
             }
             showMenu={showMenu}
             onMenuToggle={() => toggleShowMenu()}
-            mobileMenuContents={<>Hello dearest my old friend</>}
-            mobileMenuRef={menuRef.current}
+            mobileMenuRef={menuRef}
+            renderMobileMenuContent={renderMobileMenuContent}
           />
           <SecondaryBar>
             <TabsV2>

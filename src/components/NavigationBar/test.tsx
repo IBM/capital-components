@@ -31,7 +31,7 @@ test("Open menu, in phone", async () => {
   const { getByRole } = renderWithDefaultTheme(
     <PrimaryBar
       id="main"
-      mobileMenuRef={document.body}
+      mobileMenuRef={{ current: document.body }}
       showMenu={true}
       titleSection={<PrimaryBarTitle>Title</PrimaryBarTitle>}
       navSection={
@@ -46,7 +46,6 @@ test("Open menu, in phone", async () => {
           <PrimaryBarIcon isSelected>ICO2</PrimaryBarIcon>
         </>
       }
-      mobileMenuHeaderContent="Some content"
     />
   );
 

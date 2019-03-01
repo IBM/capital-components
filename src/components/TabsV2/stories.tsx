@@ -1,62 +1,71 @@
-import { Tab, TabsV2 } from "@fss/components";
+import { Tab, TabsV2, NavigationBar } from "@fss/components";
 import { storiesOf } from "@storybook/react";
 import * as R from "ramda";
-import React from "react";
-import { WithState } from "../../internal/storyHelpers";
+import React, { useState } from "react";
+
+const { SecondaryBar } = NavigationBar;
 
 storiesOf("Components|Tabs", module)
-  .add("Some basic tabs", () => (
-    <TabsV2>
-      <Tab>{({ tabProps }) => <div {...tabProps}>SomeContent</div>}</Tab>
-      <Tab>{({ tabProps }) => <div {...tabProps}>SomeContent2</div>}</Tab>
-    </TabsV2>
-  ))
-  .add("Many tabs and scroll control", () => (
-    <WithState initialState={{ selectTabIndex: 0 }}>
-      {({ state, setState }) => (
-        <React.Fragment>
-          <TabsV2 scrollToTab={state.selectTabIndex}>
+  .add("Some basic tabs", () => {
+    const [selectedTabIndex, setSelectedTabIndex] = useState(0);
+    return (
+      <SecondaryBar css="width: 500px;">
+        <TabsV2>
+          <Tab isSelected={selectedTabIndex === 0}>
+            {({ tabProps }) => (
+              <div {...tabProps} onClick={() => setSelectedTabIndex(0)}>
+                SomeContent
+              </div>
+            )}
+          </Tab>
+          <Tab isSelected={selectedTabIndex === 1}>
+            {({ tabProps }) => (
+              <div {...tabProps} onClick={() => setSelectedTabIndex(1)}>
+                SomeContent2
+              </div>
+            )}
+          </Tab>
+        </TabsV2>
+      </SecondaryBar>
+    );
+  })
+  .add("Many tabs and scroll control", () => {
+    const [selectedTabIndex, setSelectedTabIndex] = useState(0);
+    return (
+      <React.Fragment>
+        <SecondaryBar>
+          <TabsV2 scrollToTab={selectedTabIndex}>
             {R.range(0, 50).map(num => (
-              <Tab key={num} isSelected={num === state.selectTabIndex}>
+              <Tab key={num} isSelected={num === selectedTabIndex}>
                 {({ tabProps }) => <div {...tabProps}>SomeContent{num}</div>}
               </Tab>
             ))}
           </TabsV2>
-          <button
-            onClick={() =>
-              setState(prevState => ({ selectTabIndex: (prevState.selectTabIndex + 1) % 50 }))
-            }
-          >
-            Focus on tab {state.selectTabIndex}
-          </button>
-        </React.Fragment>
-      )}
-    </WithState>
-  ))
-  .add("Adding dyanimc tabs", () => (
-    <WithState initialState={{ selectTabIndex: 0, tabs: [] }}>
-      {({ state, setState }) => (
-        <React.Fragment>
-          <TabsV2 scrollToTab={state.selectTabIndex}>
-            {state.tabs.map((_, index) => (
-              <Tab key={index} isSelected={index === state.selectTabIndex}>
+        </SecondaryBar>
+        <button onClick={() => setSelectedTabIndex(prevState => (prevState + 1) % 50)}>
+          Focus on tab {selectedTabIndex}
+        </button>
+      </React.Fragment>
+    );
+  })
+  .add("Adding dyanimc tabs", () => {
+    const [selectedTabIndex, setSelectedTabIndex] = useState(0);
+    const [tabs, setTabs] = useState([]);
+    return (
+      <React.Fragment>
+        <SecondaryBar>
+          <TabsV2 scrollToTab={selectedTabIndex}>
+            {tabs.map((_, index) => (
+              <Tab key={index} isSelected={index === selectedTabIndex}>
                 {({ tabProps }) => <div {...tabProps}>SomeContent{index}</div>}
               </Tab>
             ))}
           </TabsV2>
-          <button
-            onClick={() =>
-              setState(prevState => ({
-                selectTabIndex: (prevState.selectTabIndex + 1) % prevState.tabs.length
-              }))
-            }
-          >
-            Focus on tab {state.selectTabIndex}
-          </button>
-          <button onClick={() => setState(prevState => ({ tabs: [...prevState.tabs, {}] }))}>
-            Create new tab
-          </button>
-        </React.Fragment>
-      )}
-    </WithState>
-  ));
+        </SecondaryBar>
+        <button onClick={() => setSelectedTabIndex(prevState => (prevState + 1) % 50)}>
+          Focus on tab {selectedTabIndex}
+        </button>
+        <button onClick={() => setTabs(prevState => [...prevState, {}])}>Create new tab</button>
+      </React.Fragment>
+    );
+  });

@@ -9,6 +9,23 @@ const stories = storiesOf("Components|Navigation Bar", module);
 
 const { PrimaryBar, PrimaryBarNavItem, PrimaryBarTitle, PrimaryBarIcon } = NavigationBar;
 
+const FlexUL = Flex.withComponent("ul");
+
+const renderMobileMenuContent = ({ navSection, getWrapperProps }) => (
+  <div {...getWrapperProps()}>
+    <FlexUL
+      direction="column"
+      cssWithTheme={({ theme }) => `
+        color: ${theme.color.inverse01};
+        flex: 1 1 auto;
+        overflow: auto;
+      `}
+    >
+      {navSection}
+    </FlexUL>
+  </div>
+);
+
 stories.add(
   "Navigation Items",
   () => (
@@ -121,9 +138,10 @@ stories.add(
       <Flex css="max-width: 500px;" direction="row">
         <div ref={menuRef} />
         <PrimaryBar
+          renderMobileMenuContent={renderMobileMenuContent}
           showMenu={open}
           onMenuToggle={toggleOpen}
-          mobileMenuRef={menuRef.current}
+          mobileMenuRef={menuRef}
           titleSection={<PrimaryBarTitle>Title</PrimaryBarTitle>}
           navSection={
             <>

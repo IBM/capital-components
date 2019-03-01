@@ -1,24 +1,18 @@
 import isPropValid from "@emotion/is-prop-valid";
 import MenuIcon from "@fss/icons/dist/svg/menu_24";
-import { cx } from "emotion";
+import { css, cx } from "emotion";
 import React, { ComponentType } from "react";
 import ReactDOM from "react-dom";
 import Media from "react-media";
 import { Overwrite } from "type-zoo";
-import { PushOver, PushOverItem } from "../../components";
-import { breakpoints, mqStrings } from "../../layout/mediaQueries";
+import { breakpoints, mqStrings, mqStringsMax } from "../../layout/mediaQueries";
 import { Flex, FlexProps } from "../../primitives/elements";
 import { styled, Theme, withTheme } from "../../support/theme";
 import Icon from "../Icon";
+import PushOver from "../PushOver";
+import PushOverItem from "../PushOverItem";
 
 export type PrimaryBarItemProps = FlexProps & { isSelected?: boolean };
-
-const MobileWrapper = styled.div`
-  flex: 1 1 auto;
-  overflow: auto;
-  background-color: ${({ theme }) => theme.color.nav02};
-  ${({ theme }) => theme.fonts.styles.specialtyBody};
-`;
 
 const shouldForwardProp = (prop: string) => prop !== "isSelected" && isPropValid(prop);
 
@@ -37,7 +31,10 @@ const PrimaryBarItem = styled("div", {
           ${props.isSelected ? `font-weight: ${props.theme.fonts.weights.bold};` : ""}
           color: ${props.theme.color.inverse01};
           fill: ${props.theme.color.inverse01};
-          height: 55px;
+          :hover {
+            background-color: ${props.theme.color.nav02};
+          }
+          height: 48px;
           cursor: pointer;
           text-decoration: none;
         `;
@@ -66,14 +63,14 @@ function PrimaryBarNavItem<T extends object = {}>({
 }
 
 const PrimaryBarIcon = styled(PrimaryBarItem, {
-  shouldForwardProp: prop => prop !== "as"
+  shouldForwardProp: prop => prop !== "as" && shouldForwardProp(prop)
 })<PrimaryBarItemProps & { as?: any }>(props => {
   const color = props.isSelected ? props.theme.color.nav01 : props.theme.color.inverse01;
   return `
           ${
             props.isSelected
               ? `
-            background-color: ${props.theme.color.brand03};
+            background-color: ${props.theme.color.brand03} !important;
             & > .icon-circle {
               color: ${props.theme.color.brand03};
               fill: ${props.theme.color.brand03};
@@ -83,6 +80,12 @@ const PrimaryBarIcon = styled(PrimaryBarItem, {
           }
           color: ${color};
           fill: ${color};
+          :hover {
+            > .icon-circle {
+              color: ${props.theme.color.nav02};
+              fill: ${props.theme.color.nav02};
+            }
+          }
         `;
 });
 
@@ -94,9 +97,10 @@ const PrimaryBarTitle = styled(PrimaryBarItem)`
   font-weight: ${props => props.theme.fonts.weights.bold};
 `;
 
-const NavSectionWrapper = styled.div`
+const NavSectionWrapper = styled.div<{ hasTitleSection?: boolean }>`
   display: flex;
   overflow: auto;
+  ${({ hasTitleSection }) => (hasTitleSection ? "" : "flex: 1 1 auto; justify-content: flex-end;")};
 `;
 
 const RightSectionWrapper = styled.div`
@@ -106,8 +110,6 @@ const RightSectionWrapper = styled.div`
     border-left: 1px solid ${props => props.theme.color.ui04};
   }
 `;
-
-const FlexUL = Flex.withComponent("ul");
 
 const PrimaryBarMainMenuItem = PrimaryBarItem.withComponent("div");
 
@@ -144,9 +146,10 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
     /* Event handler for when primary bar is viewed from a small screen */
     onMenuToggle?: React.MouseEventHandler;
     showMenu?: boolean;
-    mobileMenuContents?: React.ReactNode;
-    mobileMenuRef?: Element | null;
-    mobileMenuHeaderContent?: React.ReactNode;
+    mobileMenuRef?: React.RefObject<HTMLElement>;
+    renderMobileMenuContent?: (
+      arg: { navSection: React.ReactNode; getWrapperProps: () => any }
+    ) => React.ReactNode;
     theme?: Theme;
     translate?: typeof defaultTranslate;
     id?: string;
@@ -158,9 +161,8 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
   menuIcon,
   onMenuToggle,
   showMenu,
-  mobileMenuContents,
   mobileMenuRef,
-  mobileMenuHeaderContent,
+  renderMobileMenuContent,
   theme,
   translate = defaultTranslate,
   id = "",
@@ -169,6 +171,18 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
   <Media query={{ maxWidth: breakpoints.s }}>
     {matches => {
       const PrimaryIcon = menuIcon || MenuIcon;
+      const wrapperProps = {
+        className: css`
+          display: flex;
+          flex: 1 1 auto;
+          overflow: auto;
+          background-color: ${theme.color.nav02};
+          flex-direction: column;
+          ${theme.fonts.styles.specialtyBody};
+        `,
+        tabIndex: -1
+      };
+      const mobileMenuRefCurrent = mobileMenuRef && mobileMenuRef.current;
       return (
         <>
           <PrimaryBarInternal
@@ -180,8 +194,8 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
               <PrimaryBarMainMenuItem
                 onClick={onMenuToggle}
                 role="button"
-                aria-haspopup={!!mobileMenuRef}
-                aria-expanded={mobileMenuRef && showMenu}
+                aria-haspopup={!!mobileMenuRefCurrent}
+                aria-expanded={mobileMenuRefCurrent && showMenu}
                 aria-controls={`wfss-navigation-bar-primary-${id}-mobile-menu`}
                 aria-label={translate({ id: TranslationKeys.openMenu })}
               >
@@ -191,11 +205,14 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
               </PrimaryBarMainMenuItem>
             )}
             {titleSection}
-            {!matches && <NavSectionWrapper>{navSection}</NavSectionWrapper>}
+            {!matches && (
+              <NavSectionWrapper hasTitleSection={!!titleSection}>{navSection}</NavSectionWrapper>
+            )}
             {rightSection && <RightSectionWrapper>{rightSection}</RightSectionWrapper>}
           </PrimaryBarInternal>
           {matches &&
-            mobileMenuRef &&
+            mobileMenuRefCurrent &&
+            renderMobileMenuContent &&
             ReactDOM.createPortal(
               <PushOver
                 isOpen={showMenu}
@@ -205,33 +222,9 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
                 aria-label={translate({ id: TranslationKeys.menuTitle })}
                 id={`wfss-navigation-bar-primary-${id}-mobile-menu`}
               >
-                <MobileWrapper tabIndex={-1}>
-                  {mobileMenuHeaderContent && (
-                    <Flex
-                      alignment="center"
-                      padding="md lg"
-                      css={`
-                        flex-shrink: 0;
-                        background-color: ${theme.color.nav01};
-                        border-bottom: 1px solid ${theme.color.brand03};
-                      `}
-                    >
-                      {mobileMenuHeaderContent}
-                    </Flex>
-                  )}
-                  <FlexUL
-                    direction="column"
-                    css={`
-                      color: ${theme.color.inverse01};
-                      flex: 1 1 auto;
-                      overflow: auto;
-                    `}
-                  >
-                    {navSection}
-                  </FlexUL>
-                </MobileWrapper>
+                {renderMobileMenuContent({ navSection, getWrapperProps: () => wrapperProps })}
               </PushOver>,
-              mobileMenuRef
+              mobileMenuRefCurrent
             )}
         </>
       );
@@ -245,10 +238,17 @@ const PrimaryBar = withTheme(PrimaryBarWithoutTheme);
 const SecondaryBar = styled.nav`
   border-bottom: ${props => props.theme.color.text02} 1px solid;
   background-color: ${props => props.theme.color.nav02};
+  ${mqStrings.s(`
   > * {
     padding-left: 28px;
     padding-right: 28px;
   }
+  `)};
+  ${mqStringsMax.s(`
+    [role="tablist"] {
+      justify-content: flex-start;
+    }
+  `)};
 `;
 
 export default {

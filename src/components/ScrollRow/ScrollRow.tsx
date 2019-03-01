@@ -7,6 +7,10 @@ import { Flex } from "../../primitives/elements";
 export const scrollRowContainerClass = css`
   overflow-x: auto;
   overflow-y: hidden;
+  > * {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
   > *:first-child {
     ${mqStringsMax.s(`
       padding-left: 0
@@ -23,7 +27,7 @@ export const ScrollRow: React.SFC<{
   maxWidth?: string;
   minWidth?: string;
   preventShrink?: boolean;
-}> = ({ maxWidth = "45vw", minWidth = "30vw", children, preventShrink }) => (
+}> = ({ maxWidth = "40vw", minWidth = "40vw", children, preventShrink }) => (
   <Media query={{ minWidth: breakpoints.s }}>
     {matches => {
       if (matches) {

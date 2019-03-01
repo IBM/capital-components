@@ -22,6 +22,8 @@ const sources = [
   "src/**/*.tsx",
   "./types.d.ts",
   "!src/**/stories.tsx",
+  "!src/**/*.test.tsx",
+  "!src/**/test.tsx",
   "!src/**/*.test.ts",
   "!src/**/test.ts",
   "!src/internal/**/*"

@@ -3,10 +3,12 @@ import RightIcon from "@fss/icons/dist/svg/triangle-right_16";
 import invariant from "invariant";
 import React from "react";
 import Media from "react-media";
-import { Col, Grid, Icon } from "../../";
 import { breakpoints, mqStrings as mediaQuery } from "../../layout/mediaQueries";
 import { Block, Flex } from "../../primitives/elements";
 import { styled } from "../../support/theme";
+import Col from "../Col";
+import Grid from "../Grid";
+import Icon from "../Icon";
 import { scrollRowContainerClass } from "../ScrollRow/ScrollRow";
 
 const BannerRibbonWrapper = styled("div")`
@@ -99,7 +101,8 @@ const Ribbon: React.SFC<{
                 padding-right: ${theme.spacing.spacing.xl};
             }
             > :not(:first-child) {
-                padding-bottom: ${theme.spacing.spacing.md};
+                padding-top: 12px;
+                padding-bottom: ${theme.spacing.spacing.lg};
             }
           `}
         >
@@ -140,7 +143,7 @@ const ExpandWrapper: React.SFC<IExpandableProps> = ({
     <Flex
       direction="column"
       css="flex: 1 1 auto;"
-      padding={mobile ? "top md bottom md" : undefined}
+      padding={mobile ? "top 12px bottom 12px" : undefined}
     >
       {supertitle}
       <Flex
