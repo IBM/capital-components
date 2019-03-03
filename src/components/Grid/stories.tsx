@@ -3,8 +3,10 @@ import { withInfo } from "@storybook/addon-info";
 import { storiesOf } from "@storybook/react";
 import { css } from "emotion";
 import React from "react";
+import Readme from "./README.md";
+import { withReadme } from "storybook-readme";
 
-const stories = storiesOf("Components|Grid", module);
+const stories = storiesOf("Components|Grid", module).addDecorator(withReadme([Readme]));
 
 const redBackground = css(`background-color: red;`);
 const blueBackground = css(`background-color: blue;`);

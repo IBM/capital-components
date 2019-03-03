@@ -97,11 +97,11 @@ export default function usePopper(inputOpts: IInputOptions, inputs = []) {
   const arrowStyle = !arrowRef.current || !state.data ? initialArrowStyle : state.data.arrowStyles;
 
   return {
-    style,
-    placement: state.placement,
-    outOfBoundaries: state.data && state.data.hide,
+    style: style as React.CSSProperties,
+    placement: state.placement as PopperJS.Placement,
+    outOfBoundaries: state.data && (state.data.hide as boolean),
     scheduleUpdate:
       popperInstance && popperInstance.current ? popperInstance.current.scheduleUpdate : noop,
-    arrowStyle
+    arrowStyle: arrowStyle as React.CSSProperties
   };
 }

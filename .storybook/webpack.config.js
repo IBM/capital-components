@@ -33,14 +33,6 @@ module.exports = (baseConfig, env, config) => {
           options: {
             babelrc: true
           }
-        },
-        {
-          loader: "react-docgen-typescript-loader",
-          options: {
-            tsconfigPath: path.resolve(__dirname, "tsconfig.json"),
-            includes: ["components.*\\.tsx$"],
-            excludes: ["stories\\.tsx$", "stories\\.ts"]
-          }
         }
       ]
     }

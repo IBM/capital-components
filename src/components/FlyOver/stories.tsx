@@ -5,8 +5,10 @@ import { css } from "emotion";
 import React from "react";
 import styled from "react-emotion";
 import { WithState } from "../../internal/storyHelpers";
+import Readme from "./README.md";
+import { withReadme } from "storybook-readme";
 
-const stories = storiesOf("Components|FlyOver", module);
+const stories = storiesOf("Components|Flyover", module).addDecorator(withReadme([Readme]));
 
 const Base = styled("div")`
   height: 100vh;

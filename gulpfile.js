@@ -8,12 +8,21 @@ const babel = require("gulp-babel");
 const gulpIf = require("gulp-if");
 const fail = require("gulp-fail");
 const path = require("path");
+const map = require("through2-map");
+const docGen = require("react-docgen-typescript");
+const rename = require("gulp-rename");
+const Vinyl = require("vinyl");
+const ReactDocGenMarkdownRenderer = require("react-docgen-markdown-renderer");
+const createTemplate = require("./docTemplate");
+const fs = require("fs");
 
 const pkg = require("./package.json");
 const tsProject = ts.createProject("tsconfig.json", {
   module: "commonjs",
   declaration: true
 });
+
+const parser = docGen.withCustomConfig("./tsconfig.json");
 
 const clean = () => del(pkg.files);
 
@@ -76,3 +85,54 @@ gulp.task(
 );
 
 gulp.task("watch:scripts", () => gulp.watch(sources, compileScripts));
+
+const generateDocs = () =>
+  gulp
+    .src([
+      "src/components/**/*.tsx",
+      "!src/components/**/stories.tsx",
+      "!src/components/**/stories.ts",
+      "!src/components/**/test.tsx",
+      "!src/components/**/test.ts",
+      "!src/components/**/index.tsx",
+      "!src/components/**/index.ts"
+    ])
+    .pipe(
+      map(
+        {
+          objectMode: true
+        },
+        file => {
+          const readmePath = path.join(path.dirname(file.path), "README.md");
+          const hasExistingReadme = fs.existsSync(readmePath);
+
+          let templateContent = "";
+          if (hasExistingReadme) {
+            templateContent = fs.readFileSync(readmePath).toString();
+          }
+
+          const template = createTemplate(templateContent);
+
+          const renderer = new ReactDocGenMarkdownRenderer({
+            template
+          });
+          const docs = parser.parse(file.path);
+          const results = docs.map(c => renderer.render(file.path, c, [])).join("\n");
+
+          return new Vinyl({
+            base: file.base,
+            path: file.path,
+            contents: new Buffer(results)
+          });
+        }
+      )
+    )
+    .pipe(
+      rename({
+        basename: "README",
+        extname: ".md"
+      })
+    )
+    .pipe(gulp.dest("src/components"));
+
+gulp.task("generateDocs", generateDocs);

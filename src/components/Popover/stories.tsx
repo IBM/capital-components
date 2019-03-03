@@ -5,8 +5,10 @@ import { withInfo } from "@storybook/addon-info";
 import { storiesOf } from "@storybook/react";
 import React from "react";
 import { WithState } from "../../internal/storyHelpers";
+import Readme from "./README.md";
+import { withReadme } from "storybook-readme";
 
-const stories = storiesOf("Components|Popover", module);
+const stories = storiesOf("Components|Popover", module).addDecorator(withReadme([Readme]));
 
 stories.add(
   "Basic",

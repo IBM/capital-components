@@ -4,7 +4,10 @@ import { withInfo } from "@storybook/addon-info";
 import { storiesOf } from "@storybook/react";
 import React from "react";
 import { sizeToREM } from "./Icon";
-const stories = storiesOf("Components|Icon", module);
+import Readme from "./README.md";
+import { withReadme } from "storybook-readme";
+
+const stories = storiesOf("Components|Icon", module).addDecorator(withReadme([Readme]));
 
 const sizes = Object.keys(sizeToREM);
 

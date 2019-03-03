@@ -2,8 +2,10 @@ import { Table } from "@fss/components";
 import { withInfo } from "@storybook/addon-info";
 import { storiesOf } from "@storybook/react";
 import React from "react";
+import Readme from "./README.md";
+import { withReadme } from "storybook-readme";
 
-const stories = storiesOf("Components|Table", module);
+const stories = storiesOf("Components|Table", module).addDecorator(withReadme([Readme]));
 
 const columns = [
   {

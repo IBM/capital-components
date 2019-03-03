@@ -8,3 +8,7 @@ body,
   display: flex;
   overflow: hidden;
 }
+
+.bx--tooltip {
+  position: relative;
+}

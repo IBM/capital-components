@@ -7,8 +7,10 @@ import React, { useState } from "react";
 import { Heading } from "@fss/components/lib/primitives/text";
 import { styled } from "@fss/components/lib/support/theme";
 import useToggle from "../../hooks/useToggle";
+import Readme from "./README.md";
+import { withReadme } from "storybook-readme";
 
-const stories = storiesOf("Components|PushOver", module);
+const stories = storiesOf("Components|PushOver", module).addDecorator(withReadme([Readme]));
 
 const Item = ({ className, ...otherProps }: React.HTMLAttributes<HTMLDivElement>) => (
   <Block

@@ -1,6 +1,10 @@
 import Component from "./component";
 import React from "react";
 
-export default () => storyFn => {
-  return <Component rootProps={{ class: "external-preview" }}>{storyFn()}</Component>;
+export default () => StoryFn => {
+  return (
+    <Component rootProps={{ class: "external-preview" }}>
+      <StoryFn />
+    </Component>
+  );
 };

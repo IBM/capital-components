@@ -6,8 +6,10 @@ import { storiesOf } from "@storybook/react";
 import React from "react";
 import styled from "react-emotion";
 import { WithState } from "../../internal/storyHelpers";
+import Readme from "./README.md";
+import { withReadme } from "storybook-readme";
 
-const stories = storiesOf("Components|DropMenu", module);
+const stories = storiesOf("Components|DropMenu", module).addDecorator(withReadme([Readme]));
 
 stories.add(
   "Basic",

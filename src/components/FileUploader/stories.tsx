@@ -2,8 +2,10 @@ import { FileUploader } from "@fss/components";
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import Readme from "./README.md";
+import { withReadme } from "storybook-readme";
 
-const stories = storiesOf("Components|FileUploader", module);
+const stories = storiesOf("Components|FileUploader", module).addDecorator(withReadme([Readme]));
 
 stories.add(
   "Basic",

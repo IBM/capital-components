@@ -1,6 +1,5 @@
 import { configure } from "@storybook/react";
 import { setOptions } from "@storybook/addon-options";
-import { withInfo } from "@storybook/addon-info";
 import { addDecorator } from "@storybook/react";
 import "carbon-components/css/carbon-components.css";
 import "../styles/css/styles.css";
@@ -22,17 +21,11 @@ setOptions({
 
 addDecorator(story => <ThemeProvider theme={DefaultTheme}>{story()}</ThemeProvider>);
 addDecorator(StoryRouter());
-addDecorator(
-  withInfo({
-    source: false,
-    inline: false,
-    excludedPropTypes
-  })
-);
 
 // automatically import all files ending in *.stories.js
 const req = require.context("../stories", true, /.stories.(js|ts)x?$/);
 const req2 = require.context("../src", true, /\/stories.(js|ts)x?$/);
+
 function loadStories() {
   req.keys().forEach(filename => req(filename));
   req2.keys().forEach(filename => req2(filename));

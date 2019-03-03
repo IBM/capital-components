@@ -2,10 +2,14 @@ import { Tab, TabsV2, NavigationBar } from "@fss/components";
 import { storiesOf } from "@storybook/react";
 import * as R from "ramda";
 import React, { useState } from "react";
+import Readme from "./README.md";
+import { withReadme } from "storybook-readme";
+
+const stories = storiesOf("Components|Tabs", module).addDecorator(withReadme([Readme]));
 
 const { SecondaryBar } = NavigationBar;
 
-storiesOf("Components|Tabs", module)
+stories
   .add("Some basic tabs", () => {
     const [selectedTabIndex, setSelectedTabIndex] = useState(0);
     return (
@@ -13,7 +17,7 @@ storiesOf("Components|Tabs", module)
         <TabsV2>
           <Tab isSelected={selectedTabIndex === 0}>
             {({ tabProps }) => (
-              <div {...tabProps} onClick={() => setSelectedTabIndex(0)}>
+              <div style={{}} {...tabProps} onClick={() => setSelectedTabIndex(0)}>
                 SomeContent
               </div>
             )}

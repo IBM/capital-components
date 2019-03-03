@@ -3,8 +3,10 @@ import { action } from "@storybook/addon-actions";
 import { storiesOf } from "@storybook/react";
 import { PaginationV2 } from "carbon-components-react";
 import React from "react";
+import Readme from "./README.md";
+import { withReadme } from "storybook-readme";
 
-const stories = storiesOf("Components|DataTable", module);
+const stories = storiesOf("Components|DataTable", module).addDecorator(withReadme([Readme]));
 
 const columns = [
   {

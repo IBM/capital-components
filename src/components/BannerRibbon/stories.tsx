@@ -1,4 +1,4 @@
-import { BannerRibbon, ScrollRow, Col, BleedingRow } from "@fss/components";
+import { BannerRibbon, ScrollRow, Col } from "@fss/components";
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";

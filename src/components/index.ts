@@ -18,3 +18,4 @@ export { default as BannerRibbon } from "./BannerRibbon";
 export { default as NavigationBar } from "./NavigationBar";
 export { default as FileUploader } from "./FileUploader";
 export { default as ScrollRow } from "./ScrollRow";
+export { default as Tooltip } from "./Tooltip";

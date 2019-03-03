@@ -4,8 +4,10 @@ import { storiesOf } from "@storybook/react";
 import React, { useRef } from "react";
 import useToggle from "../../hooks/useToggle";
 import { Flex } from "@fss/components/lib/primitives/elements/Elements";
+import Readme from "./README.md";
+import { withReadme } from "storybook-readme";
 
-const stories = storiesOf("Components|Navigation Bar", module);
+const stories = storiesOf("Components|Navigation Bar", module).addDecorator(withReadme([Readme]));
 
 const { PrimaryBar, PrimaryBarNavItem, PrimaryBarTitle, PrimaryBarIcon } = NavigationBar;
 
