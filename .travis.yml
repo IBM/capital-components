@@ -2,7 +2,9 @@ language: node_js
 branches:
   only:
     - master
-    - /^greenkeeper/.*$/
+env:
+  global:
+    - NODE_ENV=development
 cache:
   yarn: true
   directories:
@@ -11,9 +13,18 @@ notifications:
   email: false
 node_js:
   - node
+before_install:
+  - npx git+ssh://git@github.ibm.com:watson-finance/npm-login-artifactory.git -q -n na.artifactory.swg-devops.com -r "@fss=>ip-wfss-npm-local" -p $ART_TOKEN
 script:
-  - npm run test:prod && npm run build
-after_success:
-  - npm run report-coverage
-  - npm run deploy-docs
-  - npm run semantic-release
+  - yarn test:prod && yarn build && yarn build-storybook
+
+deploy:
+  - provider: pages
+      github-url: github.ibm.com
+      local-dir: storybook-static
+      skip-cleanup: true
+      github-token: $GH_TOKEN
+      keep-history: false
+  - provider: script
+      skip_cleanup: true
+      script: npm run semantic-release

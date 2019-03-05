@@ -28,8 +28,7 @@
     "test:prod": "npm run lint && npm run test -- --coverage --no-cache",
     "commit": "git-cz",
     "precommit": "lint-staged",
-    "prepublish": "yarn build",
-    "publish:storybook": "build-storybook && gh-pages -d storybook-static"
+    "deploy-docs": "build-storybook && gh-pages -d storybook-static"
   },
   "lint-staged": {
     "{src,test}/**/*.ts": [
@@ -78,10 +77,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "branches": 90,
-        "functions": 95,
-        "lines": 95,
-        "statements": 95
+        "branches": 75,
+        "functions": 85,
+        "lines": 85,
+        "statements": 90
       }
     },
     "collectCoverage": true,
@@ -190,6 +189,7 @@
     "react-testing-library": "^6.0.0",
     "replace-in-file": "^3.0.0-beta.2",
     "rimraf": "^2.6.1",
+    "semantic-release": "^15.13.3",
     "storybook-react-router": "^1.0.2",
     "storybook-readme": "^4.0.5",
     "svg-sprite-loader": "^3.8.0",
