@@ -14,7 +14,7 @@ notifications:
 node_js:
   - node
 before_install:
-  - npx git+ssh://git@github.ibm.com:watson-finance/npm-login-artifactory.git -q -n na.artifactory.swg-devops.com -r "@fss=>ip-wfss-npm-local" -p $ART_TOKEN
+  - npx git+https://$GH_TOKEN:x-oauth-basic@github.ibm.com/watson-finance/npm-login-artifactory.git -q -n na.artifactory.swg-devops.com -r "@fss=>ip-wfss-npm-local" -p $ART_TOKEN -x
 script:
   - yarn test:prod && yarn build && yarn build-storybook
 
