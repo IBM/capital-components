@@ -169,6 +169,7 @@ const ExpandWrapper: React.SFC<IExpandableProps> = ({
             color: currentColor;
             flex: 1 1 auto;
             position: relative;
+
         `}
         onClick={onExpandClick}
         role={expandable ? "button" : "header"}
@@ -186,6 +187,8 @@ const ExpandWrapper: React.SFC<IExpandableProps> = ({
                     width: 32px;
                     justify-content: flex-end;
                     top: 0;
+                    word-break: break-word;
+                    word-wrap: break-word;
                   `}
           >
             <Icon size="small" title="expand">

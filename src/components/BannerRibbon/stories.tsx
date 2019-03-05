@@ -14,7 +14,7 @@ stories.add(
     return (
       <div css="width: 100vw;">
         <BannerRibbon.Ribbon
-          title="Some Content goes here"
+          title="Sssdjnfkjdfdhsfgjksdfkjghdfkjhgjkdfhgkjdfshgkjhsdfkjghsdfkjghdfkjhgkdsfjhgkjdfhgkjdhfkjghdsfkjghsdfkjhgkjdfhgkjdfhkgjhdfkghdfkhgkjdsf"
           onExpandClick={toggleOpen}
           isExpanded={open}
           expandable
