@@ -11,6 +11,8 @@ exports[`Basic snapshot, in monitor 1`] = `
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+  height: 48px;
+  overflow: hidden;
 }
 
 @media (min-width:768px) {
@@ -31,16 +33,19 @@ exports[`Basic snapshot, in monitor 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 1rem 1rem;
+  padding: 0.75rem 1rem;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 400;
   color: #ffffff;
   fill: #ffffff;
-  height: 55px;
   cursor: pointer;
   -webkit-text-decoration: none;
   text-decoration: none;
+  outline: none;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
   padding-left: 0;
   -webkit-flex: 1 1 auto;
   -ms-flex: 1 1 auto;
@@ -50,6 +55,10 @@ exports[`Basic snapshot, in monitor 1`] = `
   line-height: 1.25rem;
   font-weight: 400;
   font-weight: 600;
+}
+
+.emotion-0:hover {
+  background-color: #252525;
 }
 
 .emotion-6 {
@@ -72,16 +81,23 @@ exports[`Basic snapshot, in monitor 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 1rem 1rem;
+  padding: 0.75rem 1rem;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 400;
   color: #ffffff;
   fill: #ffffff;
-  height: 55px;
   cursor: pointer;
   -webkit-text-decoration: none;
   text-decoration: none;
+  outline: none;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.emotion-2:hover {
+  background-color: #252525;
 }
 
 .emotion-10 {
@@ -93,7 +109,7 @@ exports[`Basic snapshot, in monitor 1`] = `
 }
 
 .emotion-10 > * {
-  border-left: 1px solid #dcdcdc;
+  border-left: 1px solid #767676;
 }
 
 .emotion-8 {
@@ -108,18 +124,30 @@ exports[`Basic snapshot, in monitor 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 1rem 1rem;
+  padding: 0.75rem 1rem;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 400;
   color: #ffffff;
   fill: #ffffff;
-  height: 55px;
   cursor: pointer;
   -webkit-text-decoration: none;
   text-decoration: none;
+  outline: none;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
   color: #ffffff;
   fill: #ffffff;
+}
+
+.emotion-8:hover {
+  background-color: #252525;
+}
+
+.emotion-8:hover > .icon-circle {
+  color: #252525;
+  fill: #252525;
 }
 
 <body>

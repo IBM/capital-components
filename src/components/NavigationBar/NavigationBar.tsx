@@ -5,6 +5,7 @@ import React, { ComponentType } from "react";
 import ReactDOM from "react-dom";
 import Media from "react-media";
 import { Overwrite } from "type-zoo";
+import { darkModeContext } from "../../contexts";
 import { breakpoints, mqStrings, mqStringsMax } from "../../layout/mediaQueries";
 import { Flex, FlexProps } from "../../primitives/elements";
 import { styled, Theme, withTheme } from "../../support/theme";
@@ -238,7 +239,13 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
 const PrimaryBar = withTheme(PrimaryBarWithoutTheme);
 
 // istanbul ignore next
-const SecondaryBar = styled.nav`
+const SecondaryBar = styled((props: JSX.IntrinsicElements["nav"]) => {
+  return (
+    <darkModeContext.Provider value={true}>
+      <nav {...props} />
+    </darkModeContext.Provider>
+  );
+})`
   border-bottom: ${props => props.theme.color.text02} 1px solid;
   background-color: ${props => props.theme.color.nav02};
   ${mqStrings.s(`

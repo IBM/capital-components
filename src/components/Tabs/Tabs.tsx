@@ -17,7 +17,6 @@ export default ({ children, className }: { children: ReactNode; className?: stri
             padding-bottom: calc(0.75rem - 2px);
           }
         }
-        .;
       `,
       // Bunch of override CSS to prevent mobile version
       css`
@@ -58,7 +57,7 @@ export default ({ children, className }: { children: ReactNode; className?: stri
   </nav>
 );
 
-interface TabProps {
+interface ITabProps {
   label: ReactNode;
   id: string;
   selected: boolean;

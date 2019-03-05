@@ -17,23 +17,6 @@ export const createGridClass = (args?: {
   });
 };
 
-export type SupportedSizesAsFractions =
-  | "1/2"
-  | "1/3"
-  | "1/4"
-  | "1/6"
-  | "2/3"
-  | "3/4"
-  | "5/6"
-  | "all";
-
-export type SupportedSizes =
-  | number
-  | SupportedSizesAsFractions
-  | IBreakPointDescriptor<number | SupportedSizesAsFractions>;
-
-export type SupportedHeights = number | IBreakPointDescriptor<number>;
-
 const fractionToWhole = {
   "1/6": 2,
   "1/4": 3,
@@ -45,11 +28,20 @@ const fractionToWhole = {
   all: 12
 };
 
+export type SupportedSizesAsFractions = keyof typeof fractionToWhole;
+
+export type SupportedSizes =
+  | number
+  | SupportedSizesAsFractions
+  | IBreakPointDescriptor<number | SupportedSizesAsFractions>;
+
+export type SupportedHeights = number | IBreakPointDescriptor<number>;
+
 const determineSize = (size: number | SupportedSizesAsFractions) => {
   if (typeof size === "number") {
     return size;
   }
-  return fractionToWhole[size];
+  return fractionToWhole[size] || size;
 };
 
 /**

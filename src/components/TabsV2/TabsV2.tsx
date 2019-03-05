@@ -40,6 +40,14 @@ class TabsV2 extends React.PureComponent<
     }
   }
 
+  public static getDerivedStateFromProps(props) {
+    return {
+      contextValue: {
+        darkMode: props.darkMode
+      }
+    };
+  }
+
   public render() {
     const { children, scrollToTab, ...otherProps } = this.props;
     this.childRefs = [];

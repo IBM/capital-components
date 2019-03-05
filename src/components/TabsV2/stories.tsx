@@ -72,4 +72,25 @@ stories
         <button onClick={() => setTabs(prevState => [...prevState, {}])}>Create new tab</button>
       </React.Fragment>
     );
+  })
+  .add("Light colored tabs", () => {
+    const [selectedTabIndex, setSelectedTabIndex] = useState(0);
+    return (
+      <TabsV2>
+        <Tab isSelected={selectedTabIndex === 0}>
+          {({ tabProps }) => (
+            <div style={{}} {...tabProps} onClick={() => setSelectedTabIndex(0)}>
+              SomeContent
+            </div>
+          )}
+        </Tab>
+        <Tab isSelected={selectedTabIndex === 1}>
+          {({ tabProps }) => (
+            <div {...tabProps} onClick={() => setSelectedTabIndex(1)}>
+              SomeContent2
+            </div>
+          )}
+        </Tab>
+      </TabsV2>
+    );
   });

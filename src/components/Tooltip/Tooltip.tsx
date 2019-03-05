@@ -62,6 +62,7 @@ export default function Tooltip<R extends HTMLElement = any>(props: IProps<R>) {
     [props.content, referenceRef.current, popperRef.current]
   );
   useClickOutside(popperRef, () => {
+    /* istanbul ignore next */
     if (props.clickToOpen) {
       setIsOpen(false);
     }
@@ -72,6 +73,7 @@ export default function Tooltip<R extends HTMLElement = any>(props: IProps<R>) {
       setIsOpen(true);
     } else {
       // Note: SVGElement in IE11 does not have `.contains()`
+      /* istanbul ignore next */
       const shouldPreventClose =
         relatedTarget &&
         ((referenceRef.current &&

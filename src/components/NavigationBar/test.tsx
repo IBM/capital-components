@@ -46,6 +46,9 @@ test("Open menu, in phone", async () => {
           <PrimaryBarIcon isSelected>ICO2</PrimaryBarIcon>
         </>
       }
+      renderMobileMenuContent={({ navSection, getWrapperProps }) => (
+        <div {...getWrapperProps()}>{navSection}</div>
+      )}
     />
   );
 
@@ -55,5 +58,5 @@ test("Open menu, in phone", async () => {
     "aria-controls",
     "wfss-navigation-bar-primary-main-mobile-menu"
   );
-  expect(getByLabelTextGlobal(document.body, "Menu")).toBeInTheDocument();
+  expect(getByLabelTextGlobal(document.body, "Open menu")).toBeInTheDocument();
 });
