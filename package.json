@@ -57,6 +57,10 @@
       "js",
       "json"
     ],
+    "testPathIgnorePatterns": [
+      "node_modules",
+      "__snapshots__"
+    ],
     "collectCoverageFrom": [
       "src/components/**/*.tsx",
       "src/components/**/*.ts",
