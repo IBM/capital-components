@@ -20,11 +20,11 @@ script:
 
 deploy:
   - provider: pages
-      github-url: github.ibm.com
-      local-dir: storybook-static
-      skip-cleanup: true
-      github-token: $GH_TOKEN
-      keep-history: false
+    github-url: github.ibm.com
+    local-dir: storybook-static
+    skip-cleanup: true
+    github-token: $GH_TOKEN
+    keep-history: false
   - provider: script
-      skip_cleanup: true
-      script: npm run semantic-release
+    skip_cleanup: true
+    script: npm run semantic-release
