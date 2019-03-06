@@ -11,7 +11,7 @@ cache:
 notifications:
   email: false
 node_js:
-  - node
+  - "9"
 
 before_install:
   - npx git+https://$GH_TOKEN:x-oauth-basic@github.ibm.com/watson-finance/npm-login-artifactory.git -e paul.sachs@ibm.com -p $ART_TOKEN -n na.artifactory.swg-devops.com -r "@fss=>ip-wfss-npm-virtual" -xzq
