@@ -40,11 +40,19 @@ const fileList = [
   safeCreatefile([], "Some long file name that will need to wrap around")
 ];
 
+const fileClick = (file: File | { name: string; docID: string }) => {
+  console.log(file.name);
+};
+
 stories.add(
   "Preset list of files",
   () => (
     <div css="width: 300px;">
-      <FileUploader initialFilesSelected={fileList} onChange={action("Files Changed")} />
+      <FileUploader
+        initialFilesSelected={fileList}
+        onChange={action("Files Changed")}
+        onFileClick={fileClick}
+      />
     </div>
   ),
   {

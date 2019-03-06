@@ -97,7 +97,7 @@ stories
   .add("Left aligned tabs", () => {
     const [selectedTabIndex, setSelectedTabIndex] = useState(0);
     return (
-      <TabsV2 alignment="left">
+      <TabsV2 alignment="flex-start">
         <Tab isSelected={selectedTabIndex === 0}>
           {({ tabProps }) => (
             <div style={{}} {...tabProps} onClick={() => setSelectedTabIndex(0)}>

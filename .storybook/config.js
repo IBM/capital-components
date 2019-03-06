@@ -3,7 +3,7 @@ import { setOptions } from "@storybook/addon-options";
 import { addDecorator } from "@storybook/react";
 import "carbon-components/css/carbon-components.css";
 import "../styles/css/styles.css";
-import "../styles/css/cap-grid.css";
+import "../styles/css/cap-grid-legacy.css";
 import "./styles.css";
 import React from "react";
 import { ThemeProvider } from "../src/support/theme";

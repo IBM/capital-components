@@ -29,6 +29,7 @@
     "commit": "git-cz",
     "precommit": "lint-staged",
     "build-storybook": "build-storybook",
+    "semantic-release": "semantic-release",
     "deploy-docs": "build-storybook && gh-pages -d storybook-static"
   },
   "lint-staged": {
@@ -226,6 +227,7 @@
     "@emotion/is-prop-valid": "^0.7.3",
     "classnames": "^2.2.5",
     "csstype": "^2.6.2",
+    "detect-browser": "^4.1.0",
     "empty": "^0.10.1",
     "invariant": "^2.2.4",
     "popper.js": "^1.14.7",

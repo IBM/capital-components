@@ -16,7 +16,7 @@ class TabsV2 extends React.PureComponent<
     /** The index of the tab to scroll to. */
     scrollToTab?: number;
     /** Whether to align the tabs left or right. Defaults to "right" */
-    alignment?: "left" | "right";
+    alignment?: "flex-start" | "flex-end";
   } & React.ComponentPropsWithoutRef<typeof Nav>
 > {
   private childRefs: HTMLElement[];
@@ -52,7 +52,7 @@ class TabsV2 extends React.PureComponent<
   }
 
   public render() {
-    const { children, scrollToTab, alignment = "right", ...otherProps } = this.props;
+    const { children, scrollToTab, alignment = "flex-end", ...otherProps } = this.props;
     this.childRefs = [];
     // Capture refs to children so we can scroll to the appropriate element
     const newChildrenWithRefs = React.Children.map(children, (child, index) =>
@@ -61,13 +61,11 @@ class TabsV2 extends React.PureComponent<
       })
     );
 
-    const tabsAlignment = alignment === "right" ? "flex-end" : "flex-start";
-
     return (
       <Nav role="navigation" {...otherProps}>
         <FlexUl
           direction="row"
-          alignment={`horizontal ${tabsAlignment}`}
+          alignment={`horizontal ${alignment}`}
           role="tablist"
           css={`
             direction: ltr;

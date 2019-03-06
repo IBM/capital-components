@@ -14,7 +14,7 @@ stories.add(
     return (
       <div css="width: 100vw;">
         <BannerRibbon.Ribbon
-          title="Sssdjnfkjdfdhsfgjksdfkjghdfkjhgjkdfhgkjdfshgkjhsdfkjghsdfkjghdfkjhgkdsfjhgkjdfhgkjdhfkjghdsfkjghsdfkjhgkjdfhgkjdfhkgjhdfkghdfkhgkjdsf"
+          title="Basic title"
           onExpandClick={toggleOpen}
           isExpanded={open}
           expandable
@@ -150,38 +150,66 @@ stories.add(
   }
 );
 
-stories.add(
-  "With a static right section",
-  () => {
-    const [open, toggleOpen] = useToggle(false);
-    return (
-      <div css="width: 100vw;">
-        <BannerRibbon.Ribbon
-          supertitle="breadcrumb/to/something"
-          title={<div css="flex: 1 1 auto; align-items: center; display: flex;">Some title</div>}
-          expandable
-          isExpanded={open}
-          onExpandClick={toggleOpen}
-          isStaticRightSection
-          floatRightOfTitle={
-            <div>
-              <Button>Click Me</Button>
-            </div>
-          }
-        >
-          {open && (
-            <>
-              <Col>Some item</Col>
-              <Col>Some item2</Col>
-            </>
-          )}
-        </BannerRibbon.Ribbon>
-      </div>
-    );
-  },
-  {
-    text: `
-                Sometimes you need a breadcrumb
-              `
-  }
-);
+stories.add("Variety of title lengths", () => {
+  return (
+    <div css="width: 100vw;">
+      <BannerRibbon.Ribbon
+        title="Basic title"
+        floatRightOfTitle={
+          <Col size={2}>
+            <DropdownV2
+              items={["Option 1", "Option 2", "Option 3"]}
+              onChange={action("onChange")}
+            />
+          </Col>
+        }
+      />
+      <BannerRibbon.Ribbon
+        title={`
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a augue lorem. In eu nunc ut quam viverra eleifend id a massa. In vitae sollicitudin odio, ac semper nulla. Fusce vitae convallis lorem. Phasellus tempor metus nec aliquam luctus. Duis odio nunc, ullamcorper ac augue quis, luctus posuere leo. Nam.
+          `}
+        floatRightOfTitle={
+          <Col size={2}>
+            <DropdownV2
+              items={["Option 1", "Option 2", "Option 3"]}
+              onChange={action("onChange")}
+            />
+          </Col>
+        }
+      />
+      <BannerRibbon.Ribbon
+        supertitle="Something/super"
+        title={`
+            Loremipsumdolorsitamet,consecteturadipiscingelit.Etiamaauguelorem.Ineununcutquamviverraeleifendidamassa.Invitaesollicitudinodio,acsempernulla.Fuscevitaeconvallislorem.Phasellustempormetusnecaliquamluctus.Duisodionunc,ullamcorperacauguequis,luctusposuereleo.Nam.
+          `}
+        floatRightOfTitle={
+          <Col size={2}>
+            <DropdownV2
+              items={["Option 1", "Option 2", "Option 3"]}
+              onChange={action("onChange")}
+            />
+          </Col>
+        }
+      />
+    </div>
+  );
+});
+
+stories.add("Restricted title width", () => {
+  return (
+    <div css="width: 100vw;">
+      <BannerRibbon.Ribbon
+        title="Basic title"
+        titleWidthHint="6"
+        floatRightOfTitle={
+          <Col size={2}>
+            <DropdownV2
+              items={["Option 1", "Option 2", "Option 3"]}
+              onChange={action("onChange")}
+            />
+          </Col>
+        }
+      />
+    </div>
+  );
+});
