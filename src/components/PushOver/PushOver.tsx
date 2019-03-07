@@ -38,6 +38,17 @@ const Overlay = styled.div`
 // This works as long as there are no custom props.
 const AnimatedOverlay = Overlay.withComponent(animated.div);
 
+enum TranslationKeys {
+  close = "wfss-components.close"
+}
+
+const defaultTranslations: Record<TranslationKeys, (values: any) => string> = {
+  [TranslationKeys.close]: () => "close"
+};
+
+const defaultTranslate = (arg: { id: TranslationKeys; values?: any }) =>
+  defaultTranslations[arg.id](arg.values);
+
 interface IState {
   resting: boolean;
   prevProps: IProps;
@@ -45,16 +56,26 @@ interface IState {
 
 export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   isOpen?: boolean;
+  /** An overlay over the rest of the document to draw focus to this push navigation */
   showOverlay?: boolean;
+  /** Occurs when user clicks on the overlay. Only used when showOverlay is true. */
   onOverlayClick?: React.MouseEventHandler<HTMLDivElement>;
+  /** A classname to be applied to the animated element. Usuaully not used unless you know what you're doing. */
   outerClassName?: string;
+  /** The max-width of the element */
   size?: keyof typeof sizeMapping | number;
+  /** Whether or not to render a close button. */
   closable?: boolean;
+  /** Callback for close button click. */
   onCloseClick?: React.MouseEventHandler<HTMLDivElement>;
+  /** Position the element will animate from. Defaults to left. */
   position?: "left" | "right";
+  /** Position of the close button. Also only valid when closable is true. Defaults to opposite of position */
   closePosition?: "left" | "right";
-  listMode?: boolean;
+  /** When or not the element will try to take up the full screen or not. If this is supposed to be positioned under another element, probably set this to fasle. Defaults to false. */
   fullScreenMode?: boolean;
+  /** Translation fucntion */
+  translate?: typeof defaultTranslate;
 }
 
 class PushOver extends React.PureComponent<IProps & { innerRef: React.Ref<any> }, IState> {
@@ -71,7 +92,6 @@ class PushOver extends React.PureComponent<IProps & { innerRef: React.Ref<any> }
   };
 
   public onRest = () => {
-    /* istanbul ignore next */
     this.setState({ resting: true });
   };
 
@@ -96,6 +116,7 @@ class PushOver extends React.PureComponent<IProps & { innerRef: React.Ref<any> }
        * If you need push over to sit somewhere other than the top level, set this to false
        */
       fullScreenMode = true,
+      translate = defaultTranslate,
       ...rest
     } = this.props;
     const offScreenPosition = {
@@ -108,7 +129,6 @@ class PushOver extends React.PureComponent<IProps & { innerRef: React.Ref<any> }
       overlayColor: "#00000066"
     };
 
-    /* istanbul ignore if */
     if (this.state.resting && !isOpen) {
       return null;
     }
@@ -154,6 +174,8 @@ class PushOver extends React.PureComponent<IProps & { innerRef: React.Ref<any> }
                 {children}
                 {closable && (
                   <Icon
+                    role="button"
+                    description={translate({ id: TranslationKeys.close })}
                     name="icon--close"
                     className={css`
                       top: 1rem;

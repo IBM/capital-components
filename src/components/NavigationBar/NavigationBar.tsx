@@ -99,6 +99,7 @@ const PrimaryBarTitle = styled(PrimaryBarItem)`
   font-weight: ${props => props.theme.fonts.weights.bold};
 `;
 
+/* istanbul ignore next */
 const NavSectionWrapper = styled.div<{ hasTitleSection?: boolean }>`
   display: flex;
   overflow: auto;
@@ -151,9 +152,10 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
     onMenuToggle?: React.MouseEventHandler;
     showMenu?: boolean;
     mobileMenuRef?: React.RefObject<HTMLElement>;
-    renderMobileMenuContent?: (
-      arg: { navSection: React.ReactNode; getWrapperProps: () => any }
-    ) => React.ReactNode;
+    renderMobileMenuContent?: (arg: {
+      navSection: React.ReactNode;
+      getWrapperProps: () => any;
+    }) => React.ReactNode;
     theme?: Theme;
     translate?: typeof defaultTranslate;
     id?: string;

@@ -14,7 +14,8 @@ import Icon from "../Icon";
 import { scrollRowContainerClass } from "../ScrollRow/ScrollRow";
 
 const browser = detect();
-const isIE = browser.name === "ie";
+/* istanbul ignore next */
+const isIE = browser && browser.name === "ie";
 
 const BannerRibbonWrapper = styled("div")<{ mobile: boolean; isExpandable: boolean }>`
   background-color: ${({ theme }) => theme.color.nav02};
@@ -43,6 +44,7 @@ const BannerRibbonWrapper = styled("div")<{ mobile: boolean; isExpandable: boole
       : ""}
 `;
 
+/* istanbul ignore next */
 const DropdownWrapper = props => (
   <Media query={{ maxWidth: breakpoints.s }}>
     {isMobile =>
@@ -113,6 +115,7 @@ const Ribbon: React.SFC<{
         );
       }
 
+      /* istanbul ignore next */
       if (isIE) {
         // this is why we can't have nice things
         const vwCalced = (90 * Number.parseInt(titleWidthHint, 10)) / 12;
@@ -152,6 +155,7 @@ const Ribbon: React.SFC<{
             <Flex direction="row">
               <DesktopExpandWrapper
                 {...otherProps}
+                expandable={isExpandable}
                 titleWidthHint={titleWidthHint}
                 title={title}
                 floatRightOfTitle={floatRightOfTitle}
@@ -265,18 +269,21 @@ const BannerDesktopFloatWrapper = styled.div`
   }
 `;
 
+/* istanbul ignore next */
 const IETitleWrapper = styled(Flex)`
   ${({ theme }) => mediaQuery.base(theme.fonts.styles.specialtyBody)};
   overflow: hidden;
   flex: 1 1 auto;
 `;
 
+/* istanbul ignore next */
 const IETextWrap = styled(TextWrap)`
   ${({ theme }) => mediaQuery.s(theme.fonts.styles.alpha)};
   overflow: hidden;
   flex: 1 1 auto;
 `;
 
+/* istanbul ignore next */
 const IEDesktopExpandWrapper = ({ supertitle, title, floatRightOfTitle, ...props }) => (
   <>
     <IETitleWrapper direction="column" {...props}>
@@ -300,6 +307,7 @@ const DesktopExpandWrapper: React.SFC<IExpandableProps & { titleWidthHint: strin
   className
 }) => {
   const vwCalced = (90 * Number.parseInt(titleWidthHint, 10)) / 12;
+  /* istanbul ignore next */
   const maxWidth =
     !titleWidthHint || titleWidthHint === "all" ? undefined : `max-width: ${vwCalced}vw;`;
 
@@ -324,6 +332,7 @@ const DesktopExpandWrapper: React.SFC<IExpandableProps & { titleWidthHint: strin
   );
 };
 
+/* istanbul ignore next */
 const Breadcrumb = styled.a`
   ${({ theme }) => theme.fonts.styles.body};
   color: ${({ theme }) => theme.color.brand03};

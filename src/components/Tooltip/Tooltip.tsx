@@ -80,6 +80,7 @@ export default function Tooltip<R extends HTMLElement = any>(props: IProps<R>) {
           referenceRef.current.contains &&
           referenceRef.current.contains(relatedTarget)) ||
           (popperRef.current && popperRef.current.contains(relatedTarget)));
+      /* istanbul ignore next */
       if (!shouldPreventClose) {
         setIsOpen(false);
       }
@@ -95,6 +96,7 @@ export default function Tooltip<R extends HTMLElement = any>(props: IProps<R>) {
       blur: "out",
       click: "click"
     }[e.type];
+    /* istanbul ignore if */
     if (props.clickToOpen) {
       if (state === "click") {
         e.nativeEvent.stopImmediatePropagation();
