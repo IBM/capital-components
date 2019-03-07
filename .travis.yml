@@ -5,6 +5,8 @@ branches:
 env:
   global:
     - NODE_ENV=development
+    - GH_URL=https://github.ibm.com
+    - GH_PREFIX=/api/v3
 cache:
   directories:
     - node_modules
