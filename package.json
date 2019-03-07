@@ -13,7 +13,7 @@
   "author": "Paul Sachs <paul.sachs@ibm.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.ibm.com/wfss-finance/wfss-components.git"
+    "url": "https://github.ibm.com/watson-finance/wfss-components.git"
   },
   "license": "MIT",
   "engines": {
