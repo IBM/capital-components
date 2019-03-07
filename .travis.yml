@@ -34,4 +34,4 @@ deploy:
     keep-history: false
   - provider: script
     skip_cleanup: true
-    script: yarn semantic-release
+    script: npm run semantic-release
