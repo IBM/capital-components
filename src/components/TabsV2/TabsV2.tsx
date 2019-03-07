@@ -1,13 +1,5 @@
 import React from "react";
 import { Flex } from "../../primitives/elements";
-import { styled } from "../../support/theme";
-
-const Nav = styled("nav")`
-  font-weight: ${props => props.theme.fonts.weights.regular};
-  overflow: auto;
-  direction: rtl;
-  flex-shrink: 0;
-`;
 
 const FlexUl = Flex.withComponent("ul");
 
@@ -17,7 +9,9 @@ class TabsV2 extends React.PureComponent<
     scrollToTab?: number;
     /** Whether to align the tabs left or right. Defaults to "right" */
     alignment?: "flex-start" | "flex-end";
-  } & React.ComponentPropsWithoutRef<typeof Nav>
+    /** Determines the height of the underscore for each tab. Defaults to thick */
+    underscoreHeight?: "thick" | "thin";
+  } & React.ComponentPropsWithoutRef<typeof FlexUl>
 > {
   private childRefs: HTMLElement[];
 
@@ -52,28 +46,43 @@ class TabsV2 extends React.PureComponent<
   }
 
   public render() {
-    const { children, scrollToTab, alignment = "flex-end", ...otherProps } = this.props;
+    const {
+      children,
+      scrollToTab,
+      alignment = "flex-end",
+      underscoreHeight,
+      ...otherProps
+    } = this.props;
     this.childRefs = [];
+    const childrenCount = React.Children.count(children);
     // Capture refs to children so we can scroll to the appropriate element
     const newChildrenWithRefs = React.Children.map(children, (child, index) =>
       React.cloneElement(child as any, {
-        ref: node => (this.childRefs[index] = node)
+        ref: node => (this.childRefs[index] = node),
+        firstChild: index === 0,
+        lastChild: index === childrenCount - 1,
+        underscoreHeight: underscoreHeight === "thin" ? "2px" : "4px"
       })
     );
 
     return (
-      <Nav role="navigation" {...otherProps}>
-        <FlexUl
-          direction="row"
-          alignment={`horizontal ${alignment}`}
-          role="tablist"
-          css={`
+      <FlexUl
+        direction="row"
+        alignment={`horizontal ${alignment}`}
+        role="tablist"
+        cssWithTheme={({ theme }) => `
             direction: ltr;
+            > :first-child {
+              padding-left: 0px;
+            }
+            > :last-child {
+              padding-right: 0px;
+            }
           `}
-        >
-          {newChildrenWithRefs}
-        </FlexUl>
-      </Nav>
+        {...otherProps}
+      >
+        {newChildrenWithRefs}
+      </FlexUl>
     );
   }
 }

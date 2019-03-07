@@ -22,12 +22,27 @@ stories
               </div>
             )}
           </Tab>
-          <Tab isSelected={selectedTabIndex === 1}>
+          <Tab isSelected={selectedTabIndex === 1} onClick={() => setSelectedTabIndex(1)}>
+            SomeContent2
+          </Tab>
+        </TabsV2>
+      </SecondaryBar>
+    );
+  })
+  .add("Some basic thin tabs", () => {
+    const [selectedTabIndex, setSelectedTabIndex] = useState(0);
+    return (
+      <SecondaryBar css="width: 500px;">
+        <TabsV2 underscoreHeight="thin">
+          <Tab isSelected={selectedTabIndex === 0}>
             {({ tabProps }) => (
-              <div {...tabProps} onClick={() => setSelectedTabIndex(1)}>
-                SomeContent2
+              <div style={{}} {...tabProps} onClick={() => setSelectedTabIndex(0)}>
+                SomeContent
               </div>
             )}
+          </Tab>
+          <Tab isSelected={selectedTabIndex === 1} onClick={() => setSelectedTabIndex(1)}>
+            SomeContent2
           </Tab>
         </TabsV2>
       </SecondaryBar>

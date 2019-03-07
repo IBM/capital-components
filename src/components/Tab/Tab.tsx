@@ -8,38 +8,64 @@ const FlexLI = Flex.withComponent("li");
 // Here we use an absolute div to render the underline
 // this allows us to finely control positioning/animation.
 // We also need to customize the width due to padding.
-const UnderscoreDiv = styled("div")<{ darkMode: boolean }>`
-  position: absolute;
-  left: ${({ theme }) => theme.spacing.spacing.sm};
-  height: 4px;
-  width: 100%;
-  background-color: ${({ theme, darkMode }) =>
-    darkMode ? theme.color.text02 : theme.color.brand01};
-  bottom: 0;
-  width: calc(100% - 2 * ${({ theme }) => theme.spacing.spacing.sm});
-`;
+const UnderscoreDiv = styled("div")<{
+  darkMode: boolean;
+  firstChild?: boolean;
+  lastChild?: boolean;
+  underscoreHeight?: "4px" | "2px";
+}>(({ firstChild, lastChild, darkMode, theme, underscoreHeight }) => ({
+  position: "absolute",
+  left: firstChild ? 0 : theme.spacing.spacing.sm,
+  height: underscoreHeight,
+  backgroundColor: darkMode ? theme.color.text02 : theme.color.brand01,
+  bottom: 0,
+  width: `calc(100% - ${firstChild || lastChild ? 1 : 2} * ${theme.spacing.spacing.sm})`
+}));
 
 interface ITabProps {
   role: string;
   "aria-selected": boolean | "false" | "true";
 }
-interface IProps {
+interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   isSelected?: boolean;
   children?: ((props: { tabProps: ITabProps }) => JSX.Element) | React.ReactNode;
   className?: string;
+  /** Prop usually provided by TabsV2. Override at your own risk. */
+  firstChild?: boolean;
+  /** Prop usually provided by TabsV2. Override at your own risk. */
+  lastChild?: boolean;
+  /** Prop usually provided by TabsV2. Override at your own risk. */
+  underscoreHeight?: "4px" | "2px";
 }
 
-const Tab = React.forwardRef(({ isSelected, children, className }: IProps, ref) => {
-  const tabProps: ITabProps = { role: "tab", "aria-selected": isSelected ? "true" : "false" };
-  return (
-    <darkModeContext.Consumer>
-      {darkMode => (
-        <FlexLI
-          innerRef={ref}
-          role="presentation"
-          tabIndex={-1}
-          padding="left sm right sm"
-          cssWithTheme={({ theme }) => `
+const Tab = React.forwardRef(
+  (
+    {
+      isSelected,
+      children,
+      className,
+      firstChild,
+      lastChild,
+      underscoreHeight,
+      ...otherTabProps
+    }: IProps,
+    ref
+  ) => {
+    const tabProps: ITabProps = {
+      role: "tab",
+      "aria-selected": isSelected ? "true" : "false",
+      ...otherTabProps
+    };
+    const padding = `left ${firstChild ? 0 : "sm"} right ${lastChild ? 0 : "sm"}`;
+    return (
+      <darkModeContext.Consumer>
+        {darkMode => (
+          <FlexLI
+            innerRef={ref}
+            role="presentation"
+            tabIndex={-1}
+            padding={padding}
+            cssWithTheme={({ theme }) => `
           ${theme.fonts.styles.body};
           color: ${
             darkMode ? theme.color.inverse01 : isSelected ? theme.color.brand01 : theme.color.text01
@@ -59,18 +85,26 @@ const Tab = React.forwardRef(({ isSelected, children, className }: IProps, ref) 
             color: ${darkMode ? theme.color.inverse01 : theme.color.brand01};
           }
       `}
-          className={className}
-        >
-          {typeof children === "function" ? (
-            (children as any)({ tabProps })
-          ) : (
-            <div {...tabProps}>{children}</div>
-          )}
-          {isSelected && <UnderscoreDiv darkMode={darkMode} />}
-        </FlexLI>
-      )}
-    </darkModeContext.Consumer>
-  );
-});
+            className={className}
+          >
+            {typeof children === "function" ? (
+              (children as any)({ tabProps })
+            ) : (
+              <div {...tabProps}>{children}</div>
+            )}
+            {isSelected && (
+              <UnderscoreDiv
+                underscoreHeight={underscoreHeight}
+                firstChild={firstChild}
+                lastChild={lastChild}
+                darkMode={darkMode}
+              />
+            )}
+          </FlexLI>
+        )}
+      </darkModeContext.Consumer>
+    );
+  }
+);
 
 export default Tab;

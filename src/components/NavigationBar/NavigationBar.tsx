@@ -1,7 +1,7 @@
 import isPropValid from "@emotion/is-prop-valid";
 import MenuIcon from "@fss/icons/dist/svg/menu_24";
 import { css, cx } from "emotion";
-import React, { ComponentType } from "react";
+import React, { ComponentPropsWithoutRef, ComponentType } from "react";
 import ReactDOM from "react-dom";
 import Media from "react-media";
 import { Overwrite } from "type-zoo";
@@ -240,23 +240,35 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
 
 const PrimaryBar = withTheme(PrimaryBarWithoutTheme);
 
+const Nav = styled("nav")`
+  font-weight: ${props => props.theme.fonts.weights.regular};
+  overflow: auto;
+  ${mqStrings.s("direction: rtl;")}
+  flex-shrink: 0;
+`;
+
 // istanbul ignore next
-const SecondaryBar = styled((props: JSX.IntrinsicElements["nav"]) => {
+const SecondaryBar = styled((props: ComponentPropsWithoutRef<typeof Nav>) => {
   return (
     <darkModeContext.Provider value={true}>
-      <nav {...props} />
+      <Nav {...props} />
     </darkModeContext.Provider>
   );
 })`
   border-bottom: ${props => props.theme.color.text02} 1px solid;
   background-color: ${props => props.theme.color.nav02};
   ${mqStrings.s(`
-  > * {
+  [role="tablist"]::after, [role="tablist"]::before {
+    content: "";
     padding-left: 28px;
-    padding-right: 28px;
   }
   `)};
-  ${mqStringsMax.s(`
+  ${({ theme }) =>
+    mqStringsMax.s(`
+    [role="tablist"]::after, [role="tablist"]::before {
+      content: "";
+      padding-left: ${theme.spacing.spacing.sm};
+    }
     [role="tablist"] {
       justify-content: flex-start;
     }
