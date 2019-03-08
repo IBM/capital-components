@@ -8,13 +8,11 @@ import Icon from "../Icon";
 
 enum TranslationKeys {
   dropTitle = "wfss-components.fileuploader.droptitle",
-  browseTitle = "wfss-components.fileuploader.browsetitle",
   delete = "wfss-components.fileuploader.delete"
 }
 
 const defaultTranslations: Record<TranslationKeys, (values: any) => string> = {
-  [TranslationKeys.dropTitle]: () => "Drop files to attach, or",
-  [TranslationKeys.browseTitle]: () => "browse",
+  [TranslationKeys.dropTitle]: () => "Drop files to attach, or browse",
   [TranslationKeys.delete]: values => `Remove file ${values.name}`
 };
 
@@ -42,24 +40,35 @@ const FakeLink = styled.span`
 
 // Not sure why I need th additional type here but whatever
 const FileUploaderFileName = styled.div<JSX.IntrinsicElements["div"]>`
-  flex: 1 1 auto;
   color: ${({ theme, onClick }) => (onClick ? theme.colors.brand01 : "inherit")};
   cursor: ${({ onClick }) => (onClick ? "pointer" : "inherit")};
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-all;
+  word-break: break-word;
+  hyphens: auto;
+  overflow: hidden;
 `;
 
 const FlexLi = Flex.withComponent("li");
 const FlexUl = Flex.withComponent("ul");
 
-interface IProps extends Omit<DropzoneProps, "onDropAccepted"> {
-  initialFilesSelected?: File[];
+interface IProps<T> extends Omit<DropzoneProps, "onDropAccepted"> {
+  /** files to be populated in list of loaded files. */
+  files?: T[];
+  /** called to check if a file can be clicked. */
+  canClickFile?: (file: T) => boolean;
+  /** called to check if a file can be removed. */
+  canRemoveFile?: (file: T) => boolean;
+  /** called when a specific file name is clicked, often used to trigger a download of a specific file. */
+  onFileClick?: (file: T, event: React.MouseEvent) => void;
+  /** called files are added (via dragndrop or manual browse). */
+  onFilesAdded: (files: File[], event: React.MouseEvent) => void;
+  /** called files are removed */
+  onFilesRemoved?: (files: T[], event: React.MouseEvent) => void;
   translate?: typeof defaultTranslate;
-  onFileClick?: (file: File, event: React.MouseEvent) => void;
-  onChange: (files: File[], event: React.MouseEvent) => void;
 }
 
-interface IState {
-  selectedFiles: File[];
-}
 /**
  * This component is largely a wrapper around react-dropzone so more documentation can
  * be found here: https://react-dropzone.js.org/#!/Accepting%20specific%20file%20types
@@ -67,45 +76,35 @@ interface IState {
  * @class FileUploader
  * @extends {React.PureComponent<IProps>}
  */
-class FileUploader extends React.PureComponent<IProps, IState> {
-  state: IState = {
-    selectedFiles: this.props.initialFilesSelected || []
+class FileUploader<T extends { name: string }> extends React.PureComponent<IProps<T>> {
+  public static defaultProps = {
+    files: []
   };
-
+  /** Testing dnd is currently kind tricky so skipping this for now */
   onDropAccepted = (acceptedFiles: File[], event: React.DragEvent<HTMLElement>) => {
+    /* istanbul ignore next */
     event.persist();
-    this.setState(
-      prevState => {
-        let newSelectedFiles = prevState.selectedFiles;
-        acceptedFiles.forEach(file => {
-          if (!newSelectedFiles.find(f => f.name === file.name)) {
-            newSelectedFiles = [...newSelectedFiles, file];
-          }
-        });
-        return {
-          selectedFiles: newSelectedFiles
-        };
-      },
-      () => {
-        this.updateListeners(event);
-      }
-    );
+    /* istanbul ignore next */
+    this.props.onFilesAdded(acceptedFiles, event);
   };
 
-  updateListeners(event: React.MouseEvent) {
-    this.props.onChange(this.state.selectedFiles, event);
-  }
-
-  handleItemClick = (file: File) => (e: React.MouseEvent) => {
+  handleItemClick = (file: T) => (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (this.props.onFileClick) {
-      this.props.onFileClick(file, e);
-    }
+    // onFileClick is checked before even assigning handleItemClick so it will never by undefined.
+    this.props.onFileClick(file, e);
   };
 
   render() {
-    const { translate = defaultTranslate, initialFilesSelected = [], ...otherProps } = this.props;
-    const { selectedFiles } = this.state;
+    const {
+      translate = defaultTranslate,
+      files,
+      canClickFile,
+      canRemoveFile,
+      onFileClick,
+      onFilesRemoved,
+      ...otherProps
+    } = this.props;
+
     return (
       <Dropzone {...otherProps} onDropAccepted={this.onDropAccepted}>
         {({ getRootProps, getInputProps, isDragActive }) => (
@@ -115,33 +114,35 @@ class FileUploader extends React.PureComponent<IProps, IState> {
           >
             <Flex padding="md md" alignment="center" css="width: 100%;">
               <input {...getInputProps()} data-testid="wfss-file-uploader-input" />
-              <span>
-                {translate({ id: TranslationKeys.dropTitle })}
-                <FakeLink css="padding-left: 0.25rem;">
-                  {translate({ id: TranslationKeys.browseTitle })}
-                </FakeLink>
-              </span>
+              <FakeLink>{translate({ id: TranslationKeys.dropTitle })}</FakeLink>
             </Flex>
-            {selectedFiles.length > 0 && (
+            {files.length > 0 && (
               <FlexUl padding="0 md md md" direction="column" css="width: 100%;">
-                {selectedFiles.map(file => {
-                  const isInitialFile = !!initialFilesSelected.find(f => f.name === file.name);
-
+                {files.map(file => {
+                  const canClick = canClickFile && onFileClick ? canClickFile(file) : false;
+                  const canRemove = canRemoveFile && onFilesRemoved ? canRemoveFile(file) : false;
                   return (
-                    <FlexLi key={file.name} css="width: 100%;" padding="top xs" title={file.name}>
+                    <FlexLi
+                      key={file.name}
+                      css="width: 100%;"
+                      padding="top xs"
+                      title={file.name}
+                      alignment="horizontal space-between"
+                    >
                       <FileUploaderFileName
-                        onClick={isInitialFile ? this.handleItemClick(file) : undefined}
-                        role={isInitialFile ? "button" : undefined}
+                        onClick={canClick ? this.handleItemClick(file) : undefined}
+                        role={canClick ? "button" : undefined}
                       >
                         {file.name}
                       </FileUploaderFileName>
-                      <Icon
-                        role="button"
-                        title={translate({
-                          id: TranslationKeys.delete,
-                          values: { name: file.name }
-                        })}
-                        cssWithTheme={({ theme }) => `
+                      {canRemove && (
+                        <Icon
+                          role="button"
+                          title={translate({
+                            id: TranslationKeys.delete,
+                            values: { name: file.name }
+                          })}
+                          cssWithTheme={({ theme }) => `
                         margin-top: 2px;
                         cursor: pointer;
                         &:hover {
@@ -149,24 +150,16 @@ class FileUploader extends React.PureComponent<IProps, IState> {
                           fill: ${theme.color.brand01};
                         }
                       `}
-                        size="small"
-                        onClick={e => {
-                          e.persist();
-                          e.stopPropagation();
-                          this.setState(
-                            prevState => ({
-                              selectedFiles: prevState.selectedFiles.filter(
-                                iF => iF.name !== file.name
-                              )
-                            }),
-                            () => {
-                              this.updateListeners(e);
-                            }
-                          );
-                        }}
-                      >
-                        <Trash />
-                      </Icon>
+                          size="small"
+                          onClick={e => {
+                            e.persist();
+                            e.stopPropagation();
+                            onFilesRemoved([file], e);
+                          }}
+                        >
+                          <Trash />
+                        </Icon>
+                      )}
                     </FlexLi>
                   );
                 })}

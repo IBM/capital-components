@@ -4,7 +4,13 @@ import { NavigationBar } from "@fss/components";
 import React from "react";
 import { renderWithDefaultTheme, mockScreenSize } from "test-utils";
 
-const { PrimaryBar, PrimaryBarIcon, PrimaryBarNavItem, PrimaryBarTitle } = NavigationBar;
+const {
+  PrimaryBar,
+  PrimaryBarIcon,
+  PrimaryBarNavItem,
+  PrimaryBarTitle,
+  SecondaryBar
+} = NavigationBar;
 
 afterEach(cleanup);
 
@@ -59,4 +65,10 @@ test("Open menu, in phone", async () => {
     "wfss-navigation-bar-primary-main-mobile-menu"
   );
   expect(getByLabelTextGlobal(document.body, "Open menu")).toBeInTheDocument();
+});
+
+test("Basic Secondary Bar in phone", () => {
+  mockScreenSize("phone");
+  const { baseElement } = renderWithDefaultTheme(<SecondaryBar>Item1 Item2</SecondaryBar>);
+  expect(baseElement).toMatchSnapshot();
 });

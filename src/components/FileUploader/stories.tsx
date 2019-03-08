@@ -10,8 +10,8 @@ const stories = storiesOf("Components|FileUploader", module).addDecorator(withRe
 stories.add(
   "Basic",
   () => (
-    <div css="width: 400px;">
-      <FileUploader onChange={action("Files Changed")} />
+    <div css="width: 300px;">
+      <FileUploader onFilesAdded={action("Files Changed")} />
     </div>
   ),
   {
@@ -28,7 +28,7 @@ const safeCreatefile: (...args: any[]) => File = (...args) => {
     // Because IE11 is terrible
     // Note, this is not actually a file object. Just used for storybooks.
     return {
-      bane: args[1],
+      name: args[1],
       content: args[0]
     };
   }
@@ -37,27 +37,52 @@ const safeCreatefile: (...args: any[]) => File = (...args) => {
 const fileList = [
   safeCreatefile([], "File 1"),
   safeCreatefile([], "File 2"),
-  safeCreatefile([], "Some long file name that will need to wrap around")
+  safeCreatefile([], "Some long file name that will need to wrap around"),
+  safeCreatefile([], "superlongunbrokenfilewithasinglefreakinglongfilename")
 ];
 
-const fileClick = (file: File | { name: string; docID: string }) => {
-  console.log(file.name);
-};
+stories.add("Preset list of files", () => (
+  <div css="width: 300px;">
+    <FileUploader
+      files={fileList}
+      onFilesAdded={action("Files added")}
+      onFileClick={action("file clicked")}
+    />
+  </div>
+));
 
-stories.add(
-  "Preset list of files",
-  () => (
-    <div css="width: 300px;">
-      <FileUploader
-        initialFilesSelected={fileList}
-        onChange={action("Files Changed")}
-        onFileClick={fileClick}
-      />
-    </div>
-  ),
-  {
-    text: `
-        Nothing special
-      `
-  }
-);
+stories.add("DeletableFiles", () => (
+  <div css="width: 300px;">
+    <FileUploader
+      files={fileList}
+      onFilesAdded={action("Files added")}
+      onFilesRemoved={action("files removed")}
+      canRemoveFile={() => true}
+    />
+  </div>
+));
+
+stories.add("Removable files", () => (
+  <div css="width: 300px;">
+    <FileUploader
+      files={fileList}
+      onFilesAdded={action("Files added")}
+      onFilesRemoved={action("Files removed")}
+      canRemoveFile={file => file.name === "File 1"}
+      onFileClick={action("file clicked")}
+    />
+  </div>
+));
+
+stories.add("Clickable files", () => (
+  <div css="width: 300px;">
+    <FileUploader
+      files={fileList}
+      onFilesAdded={action("Files added")}
+      onFilesRemoved={action("Files removed")}
+      canRemoveFile={file => file.name === "File 1"}
+      onFileClick={action("file clicked")}
+      canClickFile={file => file.name === "File 2"}
+    />
+  </div>
+));

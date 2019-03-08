@@ -75,7 +75,7 @@ export const Icon: React.SFC<Props & { ref?: React.Ref<HTMLDivElement> }> = Reac
     size={size}
     {...props}
     ref={ref}
-    title={/* istanbul ignore next */ glyph ? undefined : title}
+    aria-label={/* istanbul ignore next */ glyph ? undefined : title}
   >
     {/* istanbul ignore next */ glyph && (
       <svg aria-label={title} viewBox={glyph.viewBox}>

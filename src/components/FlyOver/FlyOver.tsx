@@ -6,6 +6,7 @@ import { buildSpacing } from "../../layout/spacing";
 import { context } from "../FlyOverProvider/FlyOverProvider";
 
 import ReactDOM from "react-dom";
+import { Omit } from "type-zoo/types";
 
 const sizeMapping = {
   xl: "560px",
@@ -14,7 +15,7 @@ const sizeMapping = {
   sm: "200px"
 };
 
-interface IInternalProps extends React.HTMLAttributes<HTMLDivElement> {
+interface IInternalProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "position"> {
   position?: "left" | "right";
   width?: "xl" | "l" | "md" | "sm" | string;
 }

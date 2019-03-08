@@ -19,7 +19,10 @@ setOptions({
   sortStoriesByKind: true
 });
 
+const enableHooks = Story => <Story />;
+
 addDecorator(story => <ThemeProvider theme={DefaultTheme}>{story()}</ThemeProvider>);
+addDecorator(enableHooks);
 addDecorator(StoryRouter());
 
 // automatically import all files ending in *.stories.js

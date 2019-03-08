@@ -55,7 +55,6 @@ exports[`Basic snapshot 1`] = `
   text-decoration: underline;
   color: #0530ad;
   cursor: pointer;
-  padding-left: 0.25rem;
 }
 
 <body>
@@ -75,13 +74,10 @@ exports[`Basic snapshot 1`] = `
           tabindex="-1"
           type="file"
         />
-        <span>
-          Drop files to attach, or
-          <span
-            class="emotion-0 emotion-1"
-          >
-            browse
-          </span>
+        <span
+          class="emotion-0 emotion-1"
+        >
+          Drop files to attach, or browse
         </span>
       </div>
     </div>

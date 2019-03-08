@@ -313,7 +313,12 @@ const DesktopExpandWrapper: React.SFC<IExpandableProps & { titleWidthHint: strin
 
   return (
     <>
-      <Flex direction="column" css="flex: 1 1 auto;" className={className}>
+      <Flex
+        direction="column"
+        alignment="horizontal flex-start"
+        css="flex: 1 1 auto;"
+        className={className}
+      >
         {supertitle}
         <ExpanderWrapper
           onClick={onExpandClick}
