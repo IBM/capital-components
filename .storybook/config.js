@@ -21,8 +21,10 @@ setOptions({
 
 const enableHooks = Story => <Story />;
 
-addDecorator(story => <ThemeProvider theme={DefaultTheme}>{story()}</ThemeProvider>);
+// Note that this prevents addon-info from analyzing used components. I think it's worth it
+// to use hooks.
 addDecorator(enableHooks);
+addDecorator(story => <ThemeProvider theme={DefaultTheme}>{story()}</ThemeProvider>);
 addDecorator(StoryRouter());
 
 // automatically import all files ending in *.stories.js

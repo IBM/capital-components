@@ -7,7 +7,8 @@ import {
   SupportedSizes
 } from "../../layout/grid";
 import { IBreakPointDescriptor } from "../../layout/mediaQueries";
-import { Flex } from "../../primitives/elements";
+import { Flex, VerticalSeperator } from "../../primitives/elements";
+import { styled } from "../../support/theme";
 
 export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -25,9 +26,46 @@ export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   flexDirection?: "column" | "row";
   /** Useful setting alignment */
   flexAlignment?: string;
+  /** If your column needs a separator from the rest of the columns. Currently we only support a right separator. */
+  separator?: "right";
 }
 
-export const Col: React.SFC<IProps> = ({
+export const Col: React.SFC<IProps> = props => {
+  const {
+    size,
+    height,
+    verticalPadding,
+    verticalMargin,
+    className,
+    flexDirection,
+    flexAlignment,
+    separator,
+    ...otherProps
+  } = props;
+
+  if (separator) {
+    return <VerticalSeparatedCol separator={separator} {...props} />;
+  }
+
+  return (
+    <Flex
+      direction={flexDirection || "column"}
+      alignment={flexAlignment}
+      className={cx(
+        className,
+        col({
+          size,
+          height
+        }),
+        css(buildVerticalSpacing(verticalPadding)),
+        css(buildVerticalSpacing(verticalMargin, "margin"))
+      )}
+      {...otherProps}
+    />
+  );
+};
+
+const VerticalSeparatedCol: React.SFC<IProps & { separator: "right" }> = ({
   size,
   height,
   verticalPadding,
@@ -35,13 +73,13 @@ export const Col: React.SFC<IProps> = ({
   className,
   flexDirection,
   flexAlignment,
+  separator,
   ...props
 }) => (
   <Flex
-    direction={flexDirection || "column"}
-    alignment={flexAlignment}
+    direction="row"
+    alignment={separator === "right" ? "horizontal space-between" : undefined}
     className={cx(
-      className,
       col({
         size,
         height
@@ -49,8 +87,10 @@ export const Col: React.SFC<IProps> = ({
       css(buildVerticalSpacing(verticalPadding)),
       css(buildVerticalSpacing(verticalMargin, "margin"))
     )}
-    {...props}
-  />
+  >
+    <Flex direction={flexDirection} className={className} alignment={flexAlignment} {...props} />
+    {separator === "right" && <VerticalSeperator padding="left 15px right 5px" />}
+  </Flex>
 );
 
 export default Col;

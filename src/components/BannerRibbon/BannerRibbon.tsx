@@ -1,7 +1,7 @@
 import DownIcon from "@fss/icons/dist/svg/triangle-down_16";
 import RightIcon from "@fss/icons/dist/svg/triangle-right_16";
 import { detect } from "detect-browser";
-import { css } from "emotion";
+import { css, cx } from "emotion";
 import invariant from "invariant";
 import React from "react";
 import Media from "react-media";
@@ -217,6 +217,7 @@ const ExpanderIcon = ({
 const ExpanderWrapper = styled(Flex)`
   ${({ theme }) => mediaQuery.base(theme.fonts.styles.specialtyBody)};
   ${({ theme }) => mediaQuery.s(theme.fonts.styles.alpha)};
+
   color: currentColor;
   flex: 1 1 auto;
   position: relative;
@@ -316,8 +317,13 @@ const DesktopExpandWrapper: React.SFC<IExpandableProps & { titleWidthHint: strin
       <Flex
         direction="column"
         alignment="horizontal flex-start"
-        css="flex: 1 1 auto;"
-        className={className}
+        className={cx(
+          css`
+            flex: 1 1 auto;
+          `,
+          "cap-padding--horizontal",
+          className
+        )}
       >
         {supertitle}
         <ExpanderWrapper

@@ -211,8 +211,11 @@ export const MainWrapper = styled.div`
  * This is due to a very annoying bug in safari that causes general weirdness if a
  * grid is contained in an expanding flexbox.
  */
-export const VerticalScrollableContent = styled.div<{ containsGrid?: boolean }>`
-  flex: 1 0 auto;
+export const VerticalScrollableContent = styled.div<{
+  containsGrid?: boolean;
+  allowShrink?: boolean;
+}>`
+  flex: 1 ${({ allowShrink }) => (allowShrink ? 1 : 0)} auto;
   ${({ containsGrid }) => (containsGrid ? "" : "display: flex; flex-direction: column;")};
   overflow-y: auto;
   overflow-x: hidden;

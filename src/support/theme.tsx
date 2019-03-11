@@ -25,5 +25,20 @@ const module = {
   withTheme: eWithTheme
 } as ThemeModule;
 
-export const ThemeProvider = module.ThemeProvider;
+// Can't default to shared theme because it will create a circular dependency
+export const themeContext = React.createContext<Theme>(null);
+
+const InnerThemeProvider = module.withTheme(({ theme, ...otherProps }) => (
+  <>
+    <themeContext.Provider {...otherProps} value={theme} />
+  </>
+));
+// We wrap the theme provider with another context so can use react's native context object
+// along with emotions withTheme. This can go away once we upgrade to emotion 10.
+export const ThemeProvider: React.SFC<{ theme: Theme }> = ({ theme, ...otherProps }) => (
+  <module.ThemeProvider theme={theme}>
+    <InnerThemeProvider {...otherProps} />
+  </module.ThemeProvider>
+);
+// export const ThemeProvider = module.ThemeProvider;
 export const withTheme = module.withTheme;

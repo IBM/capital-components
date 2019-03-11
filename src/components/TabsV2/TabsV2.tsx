@@ -13,6 +13,10 @@ class TabsV2 extends React.PureComponent<
     underscoreHeight?: "thick" | "thin";
   } & React.ComponentPropsWithoutRef<typeof FlexUl>
 > {
+  public static defaultProps = {
+    underscoreHeight: "thick"
+  };
+
   private childRefs: HTMLElement[];
 
   public componentDidMount() {
@@ -70,15 +74,15 @@ class TabsV2 extends React.PureComponent<
         direction="row"
         alignment={`horizontal ${alignment}`}
         role="tablist"
-        cssWithTheme={({ theme }) => `
-            direction: ltr;
-            > :first-child {
-              padding-left: 0px;
-            }
-            > :last-child {
-              padding-right: 0px;
-            }
-          `}
+        css={`
+          direction: ltr;
+          > :first-child {
+            padding-left: 0px;
+          }
+          > :last-child {
+            padding-right: 0px;
+          }
+        `}
         {...otherProps}
       >
         {newChildrenWithRefs}

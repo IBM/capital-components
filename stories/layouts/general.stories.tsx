@@ -9,7 +9,9 @@ import {
   PushOver,
   NavigationBar,
   Tab,
-  TabsV2
+  TabsV2,
+  ScrollRow,
+  Col
 } from "@fss/components";
 import {
   ContentWrapper,
@@ -31,6 +33,7 @@ import { Omit } from "type-zoo";
 import useReactRouter from "use-react-router";
 import withExternalWindow from "../../storybook-addons/external-window";
 import useToggle from "../../src/hooks/useToggle";
+import { Heading } from "@fss/components/lib/primitives/text";
 
 const {
   PrimaryBar,
@@ -103,7 +106,7 @@ const ReactRouterTab: React.FunctionComponent<{
   const result = matchPath(location.pathname, props);
 
   return (
-    <Tab isSelected={!!result} ref={ref}>
+    <Tab {...props} isSelected={!!result} ref={ref}>
       {({ tabProps }) => (
         <Link to={props.path} {...tabProps}>
           {props.children}
@@ -146,125 +149,255 @@ const IBMTitle = styled.span`
   margin-right: 0.25rem;
 `;
 
-stories.add(
-  "Basic",
-  () => {
-    const [showOptions, toggleShowOptions] = useToggle(false);
-    const [showMenu, toggleShowMenu] = useToggle(false);
-    const [showPushOver, toggleShowPushOver] = useToggle(false);
-    const [bannerExpanded, toggleBannerExpanded] = useToggle(false);
-    const menuRef = useRef(null);
-    return (
-      <>
-        <div ref={menuRef} />
-        <MainWrapper>
-          <PrimaryBar
-            titleSection={
-              <PrimaryBarTitle>
-                <IBMTitle>IBM</IBMTitle>
-                <span>Project name</span>
-              </PrimaryBarTitle>
+stories.add("Basic", () => {
+  const [showOptions, toggleShowOptions] = useToggle(false);
+  const [showMenu, toggleShowMenu] = useToggle(false);
+  const [showPushOver, toggleShowPushOver] = useToggle(false);
+  const [bannerExpanded, toggleBannerExpanded] = useToggle(false);
+  const menuRef = useRef(null);
+  return (
+    <>
+      <div ref={menuRef} />
+      <MainWrapper>
+        <PrimaryBar
+          titleSection={
+            <PrimaryBarTitle>
+              <IBMTitle>IBM</IBMTitle>
+              <span>Project name</span>
+            </PrimaryBarTitle>
+          }
+          navSection={
+            <>
+              <ReactRouterPrimaryLink path="/mail2">Some Nav 1</ReactRouterPrimaryLink>
+              <ReactRouterPrimaryLink path="/mail3">Some Nav 1</ReactRouterPrimaryLink>
+            </>
+          }
+          rightSection={
+            <>
+              <PrimaryBarIcon onClick={() => toggleShowPushOver()}>
+                <Icon size="medium" title="notifications" circleColor="white" color="black">
+                  9+
+                </Icon>
+              </PrimaryBarIcon>
+              <ReactRouterPrimaryLinkIcon path="/mail">
+                <Icon size="medium" title="email">
+                  <MessagesIcon />
+                </Icon>
+              </ReactRouterPrimaryLinkIcon>
+              <Popover
+                reference={({ ref }) => (
+                  <PrimaryBarIcon innerRef={ref} onClick={() => toggleShowOptions()}>
+                    <Icon size="medium" title="User options">
+                      <UserIcon />
+                    </Icon>
+                  </PrimaryBarIcon>
+                )}
+                placement="bottom-end"
+                show={showOptions}
+              >
+                <DropMenu>
+                  <DropMenuItem>Item 1</DropMenuItem>
+                  <DropMenuItem>Item 2</DropMenuItem>
+                  <DropMenuItem seperator="top">Item 3</DropMenuItem>
+                </DropMenu>
+              </Popover>
+            </>
+          }
+          showMenu={showMenu}
+          onMenuToggle={() => toggleShowMenu()}
+          mobileMenuRef={menuRef}
+          renderMobileMenuContent={renderMobileMenuContent}
+        />
+        <SecondaryBar>
+          <TabsV2>
+            <ReactRouterTab path="/el1">Element 1</ReactRouterTab>
+            <ReactRouterTab path="/el2">Element 2</ReactRouterTab>
+          </TabsV2>
+        </SecondaryBar>
+        <ContentWrapper>
+          <VerticalScrollableContent>
+            <BannerRibbon.Ribbon
+              title="Some Title <Could be component>"
+              supertitle="breadcrumb/to/something"
+              expandable
+              isExpanded={bannerExpanded}
+              onExpandClick={toggleBannerExpanded}
+              floatRightOfTitle={
+                <div>
+                  <Button>Click me!</Button>
+                </div>
+              }
+            />
+            <Flex direction="row">
+              <Grid isContainer verticalPadding="top lg" preventShrink={false}>
+                <DataTable
+                  columns={columns}
+                  rows={rows}
+                  getRowIdentifier={row => row.name}
+                  renderToolbar={<TableToolbarSearch onChange={action("Searching")} />}
+                />
+                <PaginationV2
+                  page={1}
+                  totalItems={50}
+                  pageSize={10}
+                  pageSizes={[10, 50, 100]}
+                  onChange={action("pagination change")}
+                />
+                <ContentBottomPadding />
+              </Grid>
+              <PushOver
+                isOpen={showPushOver}
+                position="right"
+                closePosition="right"
+                closable
+                onCloseClick={() => toggleShowPushOver()}
+                fullScreenMode={false}
+              >
+                Some content
+              </PushOver>
+            </Flex>
+          </VerticalScrollableContent>
+        </ContentWrapper>
+      </MainWrapper>
+    </>
+  );
+});
+
+stories.add("Sidebar section", () => {
+  const [showOptions, toggleShowOptions] = useToggle(false);
+  const [showMenu, toggleShowMenu] = useToggle(false);
+  const [showPushOver, toggleShowPushOver] = useToggle(false);
+  const [bannerExpanded, toggleBannerExpanded] = useToggle(false);
+  const menuRef = useRef(null);
+  return (
+    <>
+      <div ref={menuRef} />
+      <MainWrapper>
+        <PrimaryBar
+          titleSection={
+            <PrimaryBarTitle>
+              <IBMTitle>IBM</IBMTitle>
+              <span>Project name</span>
+            </PrimaryBarTitle>
+          }
+          navSection={
+            <>
+              <ReactRouterPrimaryLink path="/mail2">Some Nav 1</ReactRouterPrimaryLink>
+              <ReactRouterPrimaryLink path="/mail3">Some Nav 1</ReactRouterPrimaryLink>
+            </>
+          }
+          rightSection={
+            <>
+              <PrimaryBarIcon onClick={() => toggleShowPushOver()}>
+                <Icon size="medium" title="notifications" circleColor="white" color="black">
+                  9+
+                </Icon>
+              </PrimaryBarIcon>
+              <ReactRouterPrimaryLinkIcon path="/mail">
+                <Icon size="medium" title="email">
+                  <MessagesIcon />
+                </Icon>
+              </ReactRouterPrimaryLinkIcon>
+              <Popover
+                reference={({ ref }) => (
+                  <PrimaryBarIcon innerRef={ref} onClick={() => toggleShowOptions()}>
+                    <Icon size="medium" title="User options">
+                      <UserIcon />
+                    </Icon>
+                  </PrimaryBarIcon>
+                )}
+                placement="bottom-end"
+                show={showOptions}
+              >
+                <DropMenu>
+                  <DropMenuItem>Item 1</DropMenuItem>
+                  <DropMenuItem>Item 2</DropMenuItem>
+                  <DropMenuItem seperator="top">Item 3</DropMenuItem>
+                </DropMenu>
+              </Popover>
+            </>
+          }
+          showMenu={showMenu}
+          onMenuToggle={() => toggleShowMenu()}
+          mobileMenuRef={menuRef}
+          renderMobileMenuContent={renderMobileMenuContent}
+        />
+        <SecondaryBar>
+          <TabsV2>
+            <ReactRouterTab path="/el1">Element 1</ReactRouterTab>
+            <ReactRouterTab path="/el2">Element 2</ReactRouterTab>
+          </TabsV2>
+        </SecondaryBar>
+        <ContentWrapper>
+          <BannerRibbon.Ribbon
+            title="INQUIRIES_TITLE"
+            floatRightOfTitle={
+              <ScrollRow>
+                <Col size={2}>
+                  <Heading level="2">Header 1</Heading>
+                  <Flex alignment="vertical center">Some other content</Flex>
+                </Col>
+                <Col size={2}>
+                  <Heading level="2">Header 2</Heading>
+                  <Flex alignment="vertical center">Some other content</Flex>
+                </Col>
+                <Col size={2}>
+                  <Heading level="2">Header 3</Heading>
+                  <Flex alignment="vertical center">Some other content</Flex>
+                </Col>
+                <Col size={2}>
+                  <Heading level="2">Header 4</Heading>
+                  <Flex alignment="vertical center">Some other content</Flex>
+                </Col>
+              </ScrollRow>
             }
-            navSection={
-              <>
-                <ReactRouterPrimaryLink path="/mail2">Some Nav 1</ReactRouterPrimaryLink>
-                <ReactRouterPrimaryLink path="/mail3">Some Nav 1</ReactRouterPrimaryLink>
-              </>
-            }
-            rightSection={
-              <>
-                <PrimaryBarIcon onClick={() => toggleShowPushOver()}>
-                  <Icon size="medium" title="notifications" circleColor="white" color="black">
-                    9+
-                  </Icon>
-                </PrimaryBarIcon>
-                <ReactRouterPrimaryLinkIcon path="/mail">
-                  <Icon size="medium" title="email">
-                    <MessagesIcon />
-                  </Icon>
-                </ReactRouterPrimaryLinkIcon>
-                <Popover
-                  reference={({ ref }) => (
-                    <PrimaryBarIcon innerRef={ref} onClick={() => toggleShowOptions()}>
-                      <Icon size="medium" title="User options">
-                        <UserIcon />
-                      </Icon>
-                    </PrimaryBarIcon>
-                  )}
-                  placement="bottom-end"
-                  show={showOptions}
-                >
-                  <DropMenu>
-                    <DropMenuItem>Item 1</DropMenuItem>
-                    <DropMenuItem>Item 2</DropMenuItem>
-                    <DropMenuItem seperator="top">Item 3</DropMenuItem>
-                  </DropMenu>
-                </Popover>
-              </>
-            }
-            showMenu={showMenu}
-            onMenuToggle={() => toggleShowMenu()}
-            mobileMenuRef={menuRef}
-            renderMobileMenuContent={renderMobileMenuContent}
           />
-          <SecondaryBar>
-            <TabsV2>
-              <ReactRouterTab path="/el1">Element 1</ReactRouterTab>
-              <ReactRouterTab path="/el2">Element 2</ReactRouterTab>
-            </TabsV2>
-          </SecondaryBar>
-          <ContentWrapper>
-            <VerticalScrollableContent>
-              <BannerRibbon.Ribbon
-                title="Some Title <Could be component>"
-                supertitle="breadcrumb/to/something"
-                expandable
-                isExpanded={bannerExpanded}
-                onExpandClick={toggleBannerExpanded}
-                floatRightOfTitle={
-                  <div>
-                    <Button>Click me!</Button>
-                  </div>
-                }
-              />
-              <Flex direction="row">
-                <Grid isContainer verticalPadding="top lg" preventShrink={false}>
-                  <DataTable
-                    columns={columns}
-                    rows={rows}
-                    getRowIdentifier={row => row.name}
-                    renderToolbar={<TableToolbarSearch onChange={action("Searching")} />}
-                  />
-                  <PaginationV2
-                    page={1}
-                    totalItems={50}
-                    pageSize={10}
-                    pageSizes={[10, 50, 100]}
-                    onChange={action("pagination change")}
-                  />
-                  <ContentBottomPadding />
-                </Grid>
-                <PushOver
-                  isOpen={showPushOver}
-                  position="right"
-                  closePosition="right"
-                  listMode={false}
-                  closable
-                  onCloseClick={() => toggleShowPushOver()}
-                  fullScreenMode={false}
-                >
-                  Some content
-                </PushOver>
-              </Flex>
-            </VerticalScrollableContent>
-          </ContentWrapper>
-        </MainWrapper>
-      </>
-    );
-  },
-  {
-    info: {
-      disable: true
-    }
-  }
-);
+          <VerticalScrollableContent allowShrink>
+            <Grid isContainer>
+              <Col size="all">
+                <TabsV2 alignment="flex-start" underscoreHeight="thin">
+                  <ReactRouterTab path="/el1">Element 1</ReactRouterTab>
+                  <ReactRouterTab path="/el2">Element 2</ReactRouterTab>
+                </TabsV2>
+              </Col>
+              <Col size="1/3" separator="right">
+                Some sidebar content
+              </Col>
+              <Col size="1/3">
+                <div>Some main content</div>
+                <div>Some main content</div>
+                <div>Some main content</div>
+                <div>Some main content</div>
+                <div>Some main content</div>
+                <div>Some main content</div>
+                <div>Some main content</div>
+                <div>Some main content</div>
+                <div>Some main content</div>
+                <div>Some main content</div>
+                <div>Some main content</div>
+                <div>Some main content</div>
+                <div>Some main content</div>
+                <div>Some main content</div>
+                <div>Some main content</div>
+                <div>Some main content</div>
+                <div>Some main content</div>
+                <div>Some main content</div>
+                <div>Some main content</div>
+                <div>Some main content</div>
+                <div>Some main content</div>
+                <div>Some main content</div>
+                <div>Some main content</div>
+                <div>Some main content</div>
+                <div>Some main content</div>
+                <div>Some main content</div>
+                <div>Some main content</div>
+                <div>Some main content</div>
+              </Col>
+              <Col size="1/3">Some sidebar content</Col>
+            </Grid>
+          </VerticalScrollableContent>
+        </ContentWrapper>
+      </MainWrapper>
+    </>
+  );
+});
