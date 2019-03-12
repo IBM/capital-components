@@ -343,21 +343,7 @@ const DesktopExpandWrapper: React.SFC<IExpandableProps & { titleWidthHint: strin
   );
 };
 
-/* istanbul ignore next */
-const Breadcrumb = styled.a`
-  ${({ theme }) => theme.fonts.styles.body};
-  color: ${({ theme }) => theme.color.brand03};
-  cursor: pointer;
-  :hover {
-    text-decoration: underline;
-  }
-`;
-
-export default {
-  Ribbon,
-  DropdownWrapper,
-  Breadcrumb
-};
+export default Ribbon;
 
 function isActuallyExpandable(
   isMobile: boolean,
