@@ -26,9 +26,7 @@ class HeaderComp<T> extends React.PureComponent<{
   onHeaderClick: (key: keyof T) => void;
 }> {
   public onClick = () => {
-    if (this.props.colDesc.isSortable !== false) {
-      this.props.onHeaderClick(this.props.colDesc.key);
-    }
+    this.props.onHeaderClick(this.props.colDesc.key);
   };
 
   public render() {
@@ -49,7 +47,6 @@ class HeaderComp<T> extends React.PureComponent<{
     );
   }
 }
-
 function defaultGetRowIdentifier(row: any, rowIndex: number) {
   return row.id;
 }
@@ -85,7 +82,7 @@ class DataTable<T> extends React.PureComponent<{
   /** How individual rows are identified. It must return something unique for that row. */
   getRowIdentifier?: (row: T, rowIndex: number) => string;
   /** Gives you a chance to add props to each individual row. Eg, click handler. */
-  getAdditionalRowProps?: (row: T, rowIndex: number) => { [key: string]: any };
+  getAdditionalRowProps?: (row: T, rowIndex: number) => JSX.IntrinsicElements["tr"];
   /** Show alternating colors on rows. Does not effect header. */
   zebra?: boolean;
   /** How to render the toolbar */
