@@ -1,19 +1,26 @@
 import Trash from "@fss/icons/dist/svg/trash_24";
+import { detect } from "detect-browser";
 import React from "react";
-import Dropzone, { DropzoneProps } from "react-dropzone";
+import Dropzone, { DropzoneProps, DropzoneRootProps } from "react-dropzone";
 import { Omit } from "type-zoo/types";
 import { CenteredBlock, Flex, ISharedElementProps } from "../../primitives/elements";
 import { styled } from "../../support/theme";
 import Icon from "../Icon";
 
+const browser = detect();
+/* istanbul ignore next */
+const isIE = browser && browser.name === "ie";
+
 enum TranslationKeys {
   dropTitle = "wfss-components.fileuploader.droptitle",
-  delete = "wfss-components.fileuploader.delete"
+  delete = "wfss-components.fileuploader.delete",
+  browseTitle = "wfss-components.fileuploader.browse"
 }
 
 const defaultTranslations: Record<TranslationKeys, (values: any) => string> = {
   [TranslationKeys.dropTitle]: () => "Drop files to attach, or browse",
-  [TranslationKeys.delete]: values => `Remove file ${values.name}`
+  [TranslationKeys.delete]: values => `Remove file ${values.name}`,
+  [TranslationKeys.browseTitle]: () => "Browse to attach files"
 };
 
 const defaultTranslate = (arg: { id: TranslationKeys; values?: any }) =>
@@ -53,18 +60,35 @@ const FileUploaderFileName = styled.div<JSX.IntrinsicElements["div"]>`
 const FlexLi = Flex.withComponent("li");
 const FlexUl = Flex.withComponent("ul");
 
+const IESupportFilter = (props: DropzoneRootProps) => {
+  /** istanbul ignore next */
+  if (isIE) {
+    // If we are IE, we don't currently support drag and drop.
+    return Object.keys(props).reduce((acc, key) => {
+      if (key.startsWith("onDrag") || key === "onDrop") {
+        return {
+          ...acc,
+          [key]: undefined
+        };
+      }
+      return acc;
+    }, props);
+  }
+  return props;
+};
+
 interface IProps<T> extends Omit<DropzoneProps, "onDropAccepted"> {
   /** files to be populated in list of loaded files. */
   files?: T[];
-  /** called to check if a file can be clicked. */
+  /** called to check if a file can be clicked. Defaults to false for all files. */
   canClickFile?: (file: T) => boolean;
-  /** called to check if a file can be removed. */
+  /** called to check if a file can be removed. Defaults to false for all files. */
   canRemoveFile?: (file: T) => boolean;
   /** called when a specific file name is clicked, often used to trigger a download of a specific file. */
   onFileClick?: (file: T, event: React.MouseEvent) => void;
-  /** called files are added (via dragndrop or manual browse). */
+  /** called when files are added (via dragndrop or manual browse). */
   onFilesAdded: (files: File[], event: React.MouseEvent) => void;
-  /** called files are removed */
+  /** called when files are removed */
   onFilesRemoved?: (files: T[], event: React.MouseEvent) => void;
   translate?: typeof defaultTranslate;
 }
@@ -110,11 +134,13 @@ class FileUploader<T extends { name: string }> extends React.PureComponent<IProp
         {({ getRootProps, getInputProps, isDragActive }) => (
           <FileUploaderWrapper
             isDragActive={isDragActive}
-            {...getRootProps({ refKey: "innerRef" })}
+            {...IESupportFilter(getRootProps({ refKey: "innerRef" }))}
           >
             <Flex padding="md md" alignment="center" css="width: 100%;">
               <input {...getInputProps()} data-testid="wfss-file-uploader-input" />
-              <FakeLink>{translate({ id: TranslationKeys.dropTitle })}</FakeLink>
+              <FakeLink>
+                {translate({ id: isIE ? TranslationKeys.browseTitle : TranslationKeys.dropTitle })}
+              </FakeLink>
             </Flex>
             {files.length > 0 && (
               <FlexUl padding="0 md md md" direction="column" css="width: 100%;">
