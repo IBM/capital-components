@@ -221,6 +221,7 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
             renderMobileMenuContent &&
             ReactDOM.createPortal(
               <PushOver
+                size={300}
                 isOpen={showMenu}
                 showOverlay={true}
                 onOverlayClick={onMenuToggle}
