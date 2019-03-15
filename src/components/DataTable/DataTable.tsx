@@ -41,6 +41,12 @@ class HeaderComp<T> extends React.PureComponent<{
         isSortHeader={isSortable !== false}
         onClick={this.onClick}
         sortDirection={sortDirection}
+        // To fix a bonkers IE11 bug. IE11 is why we can't have nice things.
+        css={`
+          .bx--table-sort-v2__icon {
+            width: 14px;
+          }
+        `}
       >
         {header}
       </CarbonDataTable.TableHeader>
