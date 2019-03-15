@@ -168,3 +168,21 @@ test("floatRightOfTitle visible in phone when expanded", async () => {
 
   expect(queryByText("section1")).toBeInTheDocument();
 });
+
+test("Supertitle", async () => {
+  mockScreenSize("phone");
+  const { getByText } = renderWithDefaultTheme(
+    <BannerRibbon.Ribbon
+      title="Title"
+      supertitle={<BannerRibbon.Breadcrumb>Some Supertitle</BannerRibbon.Breadcrumb>}
+      expandable
+      isExpanded={true}
+      floatRightOfTitle={<div>section1</div>}
+      onExpandClick={jest.fn()}
+    >
+      Some fixed content
+    </BannerRibbon.Ribbon>
+  );
+
+  expect(getByText("Some Supertitle")).toBeInTheDocument();
+});
