@@ -208,7 +208,7 @@ const ExpanderIcon = ({
             `}
       className={className}
     >
-      <Icon size="small" title="expand">
+      <Icon size="small" title="expand" css="position: absolute !important; top: 0.8rem;">
         {isExpanded ? <DownIcon /> : <RightIcon />}
       </Icon>
     </Flex>

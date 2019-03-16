@@ -15,6 +15,7 @@ stories.add(
       <div css="width: 100vw;">
         <BannerRibbon.Ribbon
           title="Basic title"
+          supertitle={<BannerRibbon.Breadcrumb>Breadkcrumb/</BannerRibbon.Breadcrumb>}
           onExpandClick={toggleOpen}
           isExpanded={open}
           expandable

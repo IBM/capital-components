@@ -26,7 +26,7 @@ const FlyOverContainer = ({ position, width, className, ...otherProps }: IIntern
     max-width: ${sizeMapping[width] || width};
     height: 100%;
     z-index: 70;
-    ${buildSpacing("xl 2xl lg xl", "padding")};
+    ${buildSpacing("xl 2xl lg 2xl", "padding")};
   `;
   return <animated.div {...otherProps} className={cx(className, cl)} />;
 };
