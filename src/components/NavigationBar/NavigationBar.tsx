@@ -13,14 +13,14 @@ import Icon from "../Icon";
 import PushOver from "../PushOver";
 import PushOverItem from "../PushOverItem";
 
-export type PrimaryBarItemProps = FlexProps & { isSelected?: boolean };
+export type NavigationBarItemProps = FlexProps & { isSelected?: boolean };
+export type PrimaryBarItemProps = NavigationBarItemProps;
 
 const shouldForwardProp = (prop: string) => prop !== "isSelected" && isPropValid(prop);
 
-// We can extend existing styles by wrapping them with styled
-const PrimaryBarItem = styled("div", {
+const NavigationBarItem = styled("div", {
   shouldForwardProp
-})<PrimaryBarItemProps>(props => {
+})<NavigationBarItemProps>(props => {
   const fromFlex = Flex.formatter({
     padding: "sm md",
     alignment: "vertical center",
@@ -32,15 +32,21 @@ const PrimaryBarItem = styled("div", {
           ${props.isSelected ? `font-weight: ${props.theme.fonts.weights.bold};` : ""}
           color: ${props.theme.color.inverse01};
           fill: ${props.theme.color.inverse01};
-          :hover {
-            background-color: ${props.theme.color.nav02};
-          }
           cursor: pointer;
           text-decoration: none;
           outline: none;
           flex-shrink: 0;
         `;
 });
+
+// We can extend existing styles by wrapping them with styled
+const PrimaryBarItem = styled(NavigationBarItem, {
+  shouldForwardProp
+})<PrimaryBarItemProps>`
+  :hover {
+    background-color: ${({ theme }) => theme.color.nav02};
+  }
+`;
 
 function PrimaryBarNavItem<T extends object = {}>({
   asComp,
@@ -64,22 +70,26 @@ function PrimaryBarNavItem<T extends object = {}>({
   );
 }
 
+const generateIconClasses = (props: { isSelected?: boolean; theme: Theme }) => `
+  ${
+    props.isSelected
+      ? `
+    background-color: ${props.theme.color.brand03} !important;
+    & > .icon-circle {
+      color: ${props.theme.color.brand03};
+      fill: ${props.theme.color.brand03};
+    }
+  `
+      : ""
+  }
+`;
+
 const PrimaryBarIcon = styled(PrimaryBarItem, {
-  shouldForwardProp: prop => prop !== "as" && shouldForwardProp(prop)
-})<PrimaryBarItemProps & { as?: any }>(props => {
+  shouldForwardProp
+})<PrimaryBarItemProps>(props => {
   const color = props.isSelected ? props.theme.color.nav01 : props.theme.color.inverse01;
   return `
-          ${
-            props.isSelected
-              ? `
-            background-color: ${props.theme.color.brand03} !important;
-            & > .icon-circle {
-              color: ${props.theme.color.brand03};
-              fill: ${props.theme.color.brand03};
-            }
-          `
-              : ""
-          }
+          ${generateIconClasses(props)}
           color: ${color};
           fill: ${color};
           :hover {
@@ -88,6 +98,18 @@ const PrimaryBarIcon = styled(PrimaryBarItem, {
               fill: ${props.theme.color.nav02};
             }
           }
+        `;
+});
+
+const SecondaryBarIcon = styled(NavigationBarItem, {
+  shouldForwardProp
+})<NavigationBarItemProps>(props => {
+  const color = props.isSelected ? props.theme.color.nav02 : props.theme.color.inverse01;
+  return `
+          ${generateIconClasses(props)}
+          border-left: 1px solid ${props.theme.color.text02};
+          color: ${color};
+          fill: ${color};
         `;
 });
 
@@ -244,6 +266,7 @@ const PrimaryBar = withTheme(PrimaryBarWithoutTheme);
 const Nav = styled("nav")`
   font-weight: ${props => props.theme.fonts.weights.regular};
   overflow: auto;
+  display: flex;
   ${mqStrings.s("direction: rtl;")}
   flex-shrink: 0;
 `;
@@ -281,5 +304,6 @@ export default {
   PrimaryBarIcon,
   PrimaryBarTitle,
   SecondaryBar,
-  PrimaryBarNavItem
+  PrimaryBarNavItem,
+  SecondaryBarIcon
 };

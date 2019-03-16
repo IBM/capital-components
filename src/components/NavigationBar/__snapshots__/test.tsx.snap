@@ -5,6 +5,10 @@ exports[`Basic Secondary Bar in phone 1`] = `
   .emotion-1 {
   font-weight: 400;
   overflow: auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;

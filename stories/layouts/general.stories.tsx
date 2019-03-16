@@ -23,6 +23,7 @@ import {
 import { styled } from "@fss/components/lib/support/theme";
 import MessagesIcon from "@fss/icons/dist/svg/email_24";
 import UserIcon from "@fss/icons/dist/svg/user_64";
+import FilterIcon from "@fss/icons/dist/svg/filter_64";
 import { action } from "@storybook/addon-actions";
 import { storiesOf } from "@storybook/react";
 import { DataTable as CCDataTable, PaginationV2, Button } from "carbon-components-react";
@@ -40,7 +41,8 @@ const {
   PrimaryBarIcon,
   PrimaryBarNavItem,
   PrimaryBarTitle,
-  SecondaryBar
+  SecondaryBar,
+  SecondaryBarIcon
 } = NavigationBar;
 
 const stories = storiesOf("Layout|General", module).addDecorator(withExternalWindow());
@@ -147,6 +149,11 @@ const TableToolbarSearch = styled(CCDataTable.TableToolbarSearch)`
 const IBMTitle = styled.span`
   font-weight: ${props => props.theme.fonts.weights.regular};
   margin-right: 0.25rem;
+`;
+
+const Footer = styled(NavigationBar.SecondaryBar)`
+  direction: ltr !important;
+  justify-content: flex-end;
 `;
 
 stories.add("Basic", () => {
@@ -266,8 +273,6 @@ stories.add("Basic", () => {
 stories.add("Sidebar section", () => {
   const [showOptions, toggleShowOptions] = useToggle(false);
   const [showMenu, toggleShowMenu] = useToggle(false);
-  const [showPushOver, toggleShowPushOver] = useToggle(false);
-  const [bannerExpanded, toggleBannerExpanded] = useToggle(false);
   const menuRef = useRef(null);
   return (
     <>
@@ -288,7 +293,7 @@ stories.add("Sidebar section", () => {
           }
           rightSection={
             <>
-              <PrimaryBarIcon onClick={() => toggleShowPushOver()}>
+              <PrimaryBarIcon>
                 <Icon size="medium" title="notifications" circleColor="white" color="black">
                   9+
                 </Icon>
@@ -329,30 +334,30 @@ stories.add("Sidebar section", () => {
           </TabsV2>
         </SecondaryBar>
         <ContentWrapper>
-          <BannerRibbon.Ribbon
-            title="INQUIRIES_TITLE"
-            floatRightOfTitle={
-              <ScrollRow>
-                <Col size={2}>
-                  <Heading level="2">Header 1</Heading>
-                  <Flex alignment="vertical center">Some other content</Flex>
-                </Col>
-                <Col size={2}>
-                  <Heading level="2">Header 2</Heading>
-                  <Flex alignment="vertical center">Some other content</Flex>
-                </Col>
-                <Col size={2}>
-                  <Heading level="2">Header 3</Heading>
-                  <Flex alignment="vertical center">Some other content</Flex>
-                </Col>
-                <Col size={2}>
-                  <Heading level="2">Header 4</Heading>
-                  <Flex alignment="vertical center">Some other content</Flex>
-                </Col>
-              </ScrollRow>
-            }
-          />
           <VerticalScrollableContent allowShrink>
+            <BannerRibbon.Ribbon
+              title="INQUIRIES_TITLE"
+              floatRightOfTitle={
+                <ScrollRow>
+                  <Col size={2}>
+                    <Heading level="2">Header 1</Heading>
+                    <Flex alignment="vertical center">Some other content</Flex>
+                  </Col>
+                  <Col size={2}>
+                    <Heading level="2">Header 2</Heading>
+                    <Flex alignment="vertical center">Some other content</Flex>
+                  </Col>
+                  <Col size={2}>
+                    <Heading level="2">Header 3</Heading>
+                    <Flex alignment="vertical center">Some other content</Flex>
+                  </Col>
+                  <Col size={2}>
+                    <Heading level="2">Header 4</Heading>
+                    <Flex alignment="vertical center">Some other content</Flex>
+                  </Col>
+                </ScrollRow>
+              }
+            />
             <Grid isContainer>
               <Col size="all">
                 <TabsV2 alignment="flex-start" underscoreHeight="thin">
@@ -396,6 +401,18 @@ stories.add("Sidebar section", () => {
               <Col size="1/3">Some sidebar content</Col>
             </Grid>
           </VerticalScrollableContent>
+          <Footer>
+            <SecondaryBarIcon onClick={action("email")}>
+              <Icon size="medium" title="email">
+                <MessagesIcon />
+              </Icon>
+            </SecondaryBarIcon>
+            <SecondaryBarIcon onClick={action("filter")} isSelected={true}>
+              <Icon size="medium" title="filter">
+                <FilterIcon />
+              </Icon>
+            </SecondaryBarIcon>
+          </Footer>
         </ContentWrapper>
       </MainWrapper>
     </>
