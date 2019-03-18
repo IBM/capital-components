@@ -96,7 +96,7 @@ export default function Tooltip<R extends HTMLElement = any>(props: IProps<R>) {
       blur: "out",
       click: "click"
     }[e.type];
-    /* istanbul ignore if */
+    /* istanbul ignore next */
     if (props.clickToOpen) {
       if (state === "click") {
         e.nativeEvent.stopImmediatePropagation();

@@ -157,12 +157,12 @@ stories.add("Variety of title lengths", () => {
       <BannerRibbon.Ribbon
         title="Basic title"
         floatRightOfTitle={
-          <Col size={2}>
+          <BannerRibbon.DropdownWrapper>
             <DropdownV2
               items={["Option 1", "Option 2", "Option 3"]}
               onChange={action("onChange")}
             />
-          </Col>
+          </BannerRibbon.DropdownWrapper>
         }
       />
       <BannerRibbon.Ribbon
@@ -170,12 +170,12 @@ stories.add("Variety of title lengths", () => {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a augue lorem. In eu nunc ut quam viverra eleifend id a massa. In vitae sollicitudin odio, ac semper nulla. Fusce vitae convallis lorem. Phasellus tempor metus nec aliquam luctus. Duis odio nunc, ullamcorper ac augue quis, luctus posuere leo. Nam.
           `}
         floatRightOfTitle={
-          <Col size={2}>
+          <BannerRibbon.DropdownWrapper>
             <DropdownV2
               items={["Option 1", "Option 2", "Option 3"]}
               onChange={action("onChange")}
             />
-          </Col>
+          </BannerRibbon.DropdownWrapper>
         }
       />
       <BannerRibbon.Ribbon
@@ -184,12 +184,12 @@ stories.add("Variety of title lengths", () => {
             Loremipsumdolorsitamet,consecteturadipiscingelit.Etiamaauguelorem.Ineununcutquamviverraeleifendidamassa.Invitaesollicitudinodio,acsempernulla.Fuscevitaeconvallislorem.Phasellustempormetusnecaliquamluctus.Duisodionunc,ullamcorperacauguequis,luctusposuereleo.Nam.
           `}
         floatRightOfTitle={
-          <Col size={2}>
+          <BannerRibbon.DropdownWrapper>
             <DropdownV2
               items={["Option 1", "Option 2", "Option 3"]}
               onChange={action("onChange")}
             />
-          </Col>
+          </BannerRibbon.DropdownWrapper>
         }
       />
     </div>
@@ -203,12 +203,12 @@ stories.add("Restricted title width", () => {
         title="Basic title"
         titleWidthHint="6"
         floatRightOfTitle={
-          <Col size={2}>
+          <BannerRibbon.DropdownWrapper>
             <DropdownV2
               items={["Option 1", "Option 2", "Option 3"]}
               onChange={action("onChange")}
             />
-          </Col>
+          </BannerRibbon.DropdownWrapper>
         }
       />
     </div>

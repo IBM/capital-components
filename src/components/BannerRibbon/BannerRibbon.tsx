@@ -184,6 +184,10 @@ const BannerMobileFloatWrapper = styled.div`
   padding-bottom: ${({ theme }) => theme.spacing.spacing.lg};
 `;
 
+const expanderIconClass = css`
+  ${mediaQuery.s("position: absolute !important; top: 0.8rem;")}
+`;
+
 const ExpanderIcon = ({
   expandable,
   isExpanded,
@@ -208,7 +212,11 @@ const ExpanderIcon = ({
             `}
       className={className}
     >
-      <Icon size="small" title="expand" css="position: absolute !important; top: 0.8rem;">
+      <Icon
+        size="small"
+        title="expand"
+        className={/* istanbul ignore next*/ isIE ? undefined : expanderIconClass}
+      >
         {isExpanded ? <DownIcon /> : <RightIcon />}
       </Icon>
     </Flex>
