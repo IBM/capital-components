@@ -42,7 +42,9 @@ const {
   PrimaryBarNavItem,
   PrimaryBarTitle,
   SecondaryBar,
-  SecondaryBarIcon
+  SecondaryBarIcon,
+  FooterBar,
+  FooterBarIcon
 } = NavigationBar;
 
 const stories = storiesOf("Layout|General", module).addDecorator(withExternalWindow());
@@ -401,18 +403,18 @@ stories.add("Sidebar section", () => {
               <Col size="1/3">Some sidebar content</Col>
             </Grid>
           </VerticalScrollableContent>
-          <Footer>
-            <SecondaryBarIcon onClick={action("email")}>
+          <FooterBar>
+            <FooterBarIcon onClick={action("email")}>
               <Icon size="medium" title="email">
                 <MessagesIcon />
               </Icon>
-            </SecondaryBarIcon>
-            <SecondaryBarIcon onClick={action("filter")} isSelected={true}>
+            </FooterBarIcon>
+            <FooterBarIcon onClick={action("filter")} isSelected={true}>
               <Icon size="medium" title="filter">
                 <FilterIcon />
               </Icon>
-            </SecondaryBarIcon>
-          </Footer>
+            </FooterBarIcon>
+          </FooterBar>
         </ContentWrapper>
       </MainWrapper>
     </>

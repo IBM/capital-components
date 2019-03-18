@@ -119,6 +119,9 @@ const PrimaryBarTitle = styled(PrimaryBarItem)`
   cursor: auto;
   ${props => props.theme.fonts.styles.specialtyBody};
   font-weight: ${props => props.theme.fonts.weights.bold};
+  :hover {
+    background-color: ${({ theme }) => theme.color.nav01};
+  }
 `;
 
 /* istanbul ignore next */
@@ -299,11 +302,22 @@ const SecondaryBar = styled((props: ComponentPropsWithoutRef<typeof Nav>) => {
   `)};
 `;
 
+const FooterBar = styled(PrimaryBarInternal)`
+  border-bottom: none;
+  justify-content: flex-end;
+`;
+
+const FooterBarIcon = styled(PrimaryBarIcon)`
+  border-left: 1px solid ${props => props.theme.color.text02};
+`;
+
 export default {
   PrimaryBar,
   PrimaryBarIcon,
   PrimaryBarTitle,
   SecondaryBar,
   PrimaryBarNavItem,
-  SecondaryBarIcon
+  SecondaryBarIcon,
+  FooterBar,
+  FooterBarIcon
 };
