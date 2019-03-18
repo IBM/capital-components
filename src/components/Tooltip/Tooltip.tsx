@@ -22,7 +22,7 @@ export interface IProps<R extends HTMLElement = any> {
   /** The desired placement of the tooltip. If offscreen, it will be adjusted. */
   placement: PopperJS.Placement;
   /** RenderProp to create the reference element */
-  children: (args: IRenderProps<R>) => React.ReactNode;
+  children: ((args: IRenderProps<R>) => React.ReactNode) | React.ReactNode;
   /** Content of the tooltip */
   content: React.ReactNode;
   /** Enable this if you want the tooltip to appear on click rather than hober. */
@@ -31,17 +31,30 @@ export interface IProps<R extends HTMLElement = any> {
   id?: string;
   /** Whether this popover starts open or not */
   initialOpen?: boolean;
+  /** Hover delay in ms. Defaults to 200 */
+  delayInMs?: number;
+  /** Element to render if children is not a function. Defaults to "div" */
+  as?: keyof React.ReactHTML;
 }
 
 type State = "hover" | "out" | "over" | "click";
 
-export default function Tooltip<R extends HTMLElement = any>(props: IProps<R>) {
+export default function Tooltip<R extends HTMLElement = HTMLDivElement>({
+  delayInMs = 200,
+  initialOpen,
+  id,
+  placement,
+  content,
+  clickToOpen,
+  children,
+  as = "div"
+}: IProps<R>) {
   const referenceRef = React.useRef<R>(null);
   const popperRef = React.useRef<HTMLDivElement>(null);
   const arrowRef = React.useRef<HTMLSpanElement>(null);
-  const [isOpen, setIsOpen] = React.useState(props.initialOpen);
+  const [isOpen, setIsOpen] = React.useState(initialOpen);
   const triggerId = React.useRef(
-    props.id ||
+    id ||
       `__carbon-tooltip-trigger_${Math.random()
         .toString(36)
         .substr(2)}`
@@ -53,17 +66,17 @@ export default function Tooltip<R extends HTMLElement = any>(props: IProps<R>) {
   );
   const { style, placement: pOut, outOfBoundaries, arrowStyle } = usePopper(
     {
-      placement: props.placement,
+      placement,
       referenceRef,
       popperRef,
       arrowRef,
       modifiers: { preventOverflow: { enabled: true } }
     },
-    [props.content, referenceRef.current, popperRef.current]
+    [content, referenceRef.current, popperRef.current]
   );
   useClickOutside(popperRef, () => {
     /* istanbul ignore next */
-    if (props.clickToOpen) {
+    if (clickToOpen) {
       setIsOpen(false);
     }
   });
@@ -86,7 +99,7 @@ export default function Tooltip<R extends HTMLElement = any>(props: IProps<R>) {
       }
     }
   };
-  const [debouncedHandleHover] = useDebouncedCallback(handleHover, 200, [isOpen]);
+  const [debouncedHandleHover] = useDebouncedCallback(handleHover, delayInMs, [isOpen, delayInMs]);
 
   const handleMouse = (e: React.MouseEvent<R> | React.FocusEvent<R>) => {
     const state: State = {
@@ -97,7 +110,7 @@ export default function Tooltip<R extends HTMLElement = any>(props: IProps<R>) {
       click: "click"
     }[e.type];
     /* istanbul ignore next */
-    if (props.clickToOpen) {
+    if (clickToOpen) {
       if (state === "click") {
         e.nativeEvent.stopImmediatePropagation();
         e.stopPropagation();
@@ -139,16 +152,18 @@ export default function Tooltip<R extends HTMLElement = any>(props: IProps<R>) {
 
   return (
     <>
-      {props.children({
-        getReferenceProps,
-        placement: pOut,
-        outOfBoundaries
-      })}
+      {typeof children === "function"
+        ? children({
+            getReferenceProps,
+            placement: pOut,
+            outOfBoundaries
+          })
+        : React.createElement(as, getReferenceProps(), children)}
       {isOpen &&
         ReactDOM.createPortal(
           <div {...popoverProps}>
             <span className="bx--tooltip__caret" ref={arrowRef} style={arrowStyle} />
-            {props.content}
+            {content}
           </div>,
           document.getElementsByTagName("body")[0]
         )}
