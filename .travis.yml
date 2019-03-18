@@ -12,6 +12,12 @@ cache:
     - node_modules
 notifications:
   email: false
+  slack:
+    on_success: never
+    on_failure: always
+    rooms:
+      - secure: inllTuJEx6NZnnOsHQ1auDuNdtpA3utKry/Ny0DpzM3DzRg0xpJ2n4QAFxu9wE4ud7HUZZiZE166mb//w7J5/peAhKuwOQ0F3YUzCyBIJcOV7FpTRvoimq825g7oa84t12QirB1PKxaeGmrSu4868JsK6FAqrrFYY12yNIEroqToTDSYj0AJuovKMXVnosuB/8U+3nWZY3PRjye+92C/0XFF3KB7VYFECqQiq1hPFJ7Jmw+S66sy3/A/jUYRo/+6DUJk0QwcDki0yHTwNCnJhoQvQRh3HWOW4a/WjxvoTfKWlJL4Ey2xzb9osUtqY9h+aI9m/8UA/xu9eigeWWscUhimrOejF25sSCYx+cM4A9O1brzu6saj4XOws9K0SdZmogmqdfh3eE7Jb+YGfFvGQdhwcjDaItEhORpEMukmIiejGsz34NFSAMRjG0fPXXCXJykFBQ8Yn4wH7wFrMuXo3AzOwvmqYifObKX/APo7vtQtuygfzvWiLf53kvUBK/w77GLE7UObEDJAAURmXbCkTTThWmqOJa2ehhOHxZ67pgMjkCOXj2mFag/PgrFiQltW06CXmbbVNyT2ahZ3UsCOMQrN5ThU7PXUveFwc+pW3uzCVGom1Dq7kuvfDiIxAnggRu5KO4SUrnctSCnU1geGBBpmpJ+r74FYJhKBx2H3GyI=
+
 node_js:
   - "9"
 dist: xenial
