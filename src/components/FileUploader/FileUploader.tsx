@@ -57,8 +57,22 @@ const FileUploaderFileName = styled.div<JSX.IntrinsicElements["div"]>`
   overflow: hidden;
 `;
 
-const FlexLi = Flex.withComponent("li");
-const FlexUl = Flex.withComponent("ul");
+const SelectedFileItem = styled.li`
+  width: 100%;
+  ${Flex.formatter({
+    padding: "bottom xs",
+    alignment: "horizontal space-between"
+  })};
+`;
+
+const SelectedFileList = styled.ul`
+  width: 100%;
+  ${({ theme }) => theme.fonts.styles.body};
+  ${Flex.formatter({
+    padding: "md md md md",
+    direction: "column"
+  })};
+`;
 
 const IESupportFilter = (props: DropzoneRootProps) => {
   /** istanbul ignore next */
@@ -130,45 +144,45 @@ class FileUploader<T extends { name: string }> extends React.PureComponent<IProp
     } = this.props;
 
     return (
-      <Dropzone {...otherProps} onDropAccepted={this.onDropAccepted}>
-        {({ getRootProps, getInputProps, isDragActive }) => (
-          <FileUploaderWrapper
-            isDragActive={isDragActive}
-            {...IESupportFilter(getRootProps({ refKey: "innerRef" }))}
-          >
-            <Flex padding="md md" alignment="center" css="width: 100%;">
-              <input {...getInputProps()} data-testid="wfss-file-uploader-input" />
-              <FakeLink>
-                {translate({ id: isIE ? TranslationKeys.browseTitle : TranslationKeys.dropTitle })}
-              </FakeLink>
-            </Flex>
-            {files.length > 0 && (
-              <FlexUl padding="0 md md md" direction="column" css="width: 100%;">
-                {files.map(file => {
-                  const canClick = canClickFile && onFileClick ? canClickFile(file) : false;
-                  const canRemove = canRemoveFile && onFilesRemoved ? canRemoveFile(file) : false;
-                  return (
-                    <FlexLi
-                      key={file.name}
-                      css="width: 100%;"
-                      padding="top xs"
-                      title={file.name}
-                      alignment="horizontal space-between"
-                    >
-                      <FileUploaderFileName
-                        onClick={canClick ? this.handleItemClick(file) : undefined}
-                        role={canClick ? "button" : undefined}
-                      >
-                        {file.name}
-                      </FileUploaderFileName>
-                      {canRemove && (
-                        <Icon
-                          role="button"
-                          title={translate({
-                            id: TranslationKeys.delete,
-                            values: { name: file.name }
-                          })}
-                          cssWithTheme={({ theme }) => `
+      <>
+        <Dropzone {...otherProps} onDropAccepted={this.onDropAccepted}>
+          {({ getRootProps, getInputProps, isDragActive }) => (
+            <FileUploaderWrapper
+              isDragActive={isDragActive}
+              {...IESupportFilter(getRootProps({ refKey: "innerRef" }))}
+            >
+              <Flex padding="md md" alignment="center" css="width: 100%;">
+                <input {...getInputProps()} data-testid="wfss-file-uploader-input" />
+                <FakeLink>
+                  {translate({
+                    id: isIE ? TranslationKeys.browseTitle : TranslationKeys.dropTitle
+                  })}
+                </FakeLink>
+              </Flex>
+            </FileUploaderWrapper>
+          )}
+        </Dropzone>
+        {files.length > 0 && (
+          <SelectedFileList>
+            {files.map(file => {
+              const canClick = canClickFile && onFileClick ? canClickFile(file) : false;
+              const canRemove = canRemoveFile && onFilesRemoved ? canRemoveFile(file) : false;
+              return (
+                <SelectedFileItem key={file.name} title={file.name}>
+                  <FileUploaderFileName
+                    onClick={canClick ? this.handleItemClick(file) : undefined}
+                    role={canClick ? "button" : undefined}
+                  >
+                    {file.name}
+                  </FileUploaderFileName>
+                  {canRemove && (
+                    <Icon
+                      role="button"
+                      title={translate({
+                        id: TranslationKeys.delete,
+                        values: { name: file.name }
+                      })}
+                      cssWithTheme={({ theme }) => `
                         margin-top: 2px;
                         cursor: pointer;
                         &:hover {
@@ -176,24 +190,22 @@ class FileUploader<T extends { name: string }> extends React.PureComponent<IProp
                           fill: ${theme.color.brand01};
                         }
                       `}
-                          size="small"
-                          onClick={e => {
-                            e.persist();
-                            e.stopPropagation();
-                            onFilesRemoved([file], e);
-                          }}
-                        >
-                          <Trash />
-                        </Icon>
-                      )}
-                    </FlexLi>
-                  );
-                })}
-              </FlexUl>
-            )}
-          </FileUploaderWrapper>
+                      size="small"
+                      onClick={e => {
+                        e.persist();
+                        e.stopPropagation();
+                        onFilesRemoved([file], e);
+                      }}
+                    >
+                      <Trash />
+                    </Icon>
+                  )}
+                </SelectedFileItem>
+              );
+            })}
+          </SelectedFileList>
         )}
-      </Dropzone>
+      </>
     );
   }
 }
