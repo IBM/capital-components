@@ -27,22 +27,25 @@ const defaultTranslate = (arg: { id: TranslationKeys; values?: any }) =>
   defaultTranslations[arg.id](arg.values);
 
 /* istanbul ignore next */
-const FileUploaderWrapper = styled(CenteredBlock)<ISharedElementProps & { isDragActive: boolean }>`
+const FileUploaderWrapper = styled(CenteredBlock)<
+  ISharedElementProps & { isDragActive: boolean; isDisabled: boolean }
+>`
   flex-direction: column;
   border-width: 2px;
   border-color: ${({ theme, isDragActive }) =>
     isDragActive ? theme.colors.brand02 : theme.colors.ui04};
-  background-color: ${({ theme }) => theme.colors.ui01};
+  background-color: ${({ theme, isDisabled }) =>
+    isDisabled ? theme.colors.ui03 : theme.colors.ui01};
   border-style: dashed;
   border-radius: 2px;
   flex-shrink: 0;
+  cursor: ${({ isDisabled }) => (isDisabled ? "not-allowed" : "pointer")};
   ${({ theme }) => theme.fonts.styles.body};
 `;
 
-const FakeLink = styled.span`
+const FakeLink = styled.span<{ isDisabled: boolean }>`
   text-decoration: underline;
-  color: ${({ theme }) => theme.colors.brand01};
-  cursor: pointer;
+  color: ${({ theme, isDisabled }) => (isDisabled ? "inherit" : theme.colors.brand01)};
 `;
 
 // Not sure why I need th additional type here but whatever
@@ -148,12 +151,13 @@ class FileUploader<T extends { name: string }> extends React.PureComponent<IProp
         <Dropzone {...otherProps} onDropAccepted={this.onDropAccepted}>
           {({ getRootProps, getInputProps, isDragActive }) => (
             <FileUploaderWrapper
+              isDisabled={otherProps.disabled}
               isDragActive={isDragActive}
               {...IESupportFilter(getRootProps({ refKey: "innerRef" }))}
             >
               <Flex padding="md md" alignment="center" css="width: 100%;">
                 <input {...getInputProps()} data-testid="wfss-file-uploader-input" />
-                <FakeLink>
+                <FakeLink isDisabled={otherProps.disabled}>
                   {translate({
                     id: isIE ? TranslationKeys.browseTitle : TranslationKeys.dropTitle
                   })}
