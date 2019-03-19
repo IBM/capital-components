@@ -28,6 +28,7 @@ const UnderscoreDiv = styled("div")<{
 interface ITabProps {
   role: string;
   "aria-selected": boolean | "false" | "true";
+  ref?: React.MutableRefObject<any>;
 }
 interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   isSelected?: boolean;
@@ -41,6 +42,10 @@ interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   underscoreHeight?: "4px" | "2px";
   /** Prop usually provided by TabsV2. Override at your own risk. */
   spacingBetween?: "md" | "lg";
+  /** Prop usually provided by TabsV2. Override at your own risk. */
+  innerRef?: React.MutableRefObject<any>;
+  /** The ref name to use when creating a reference for the wrapped component. Defaults to "ref" */
+  refName?: string;
 }
 
 const Tab = React.forwardRef(
@@ -53,6 +58,8 @@ const Tab = React.forwardRef(
       lastChild,
       underscoreHeight,
       spacingBetween,
+      innerRef,
+      refName = "ref",
       ...otherTabProps
     }: IProps,
     ref
@@ -60,6 +67,7 @@ const Tab = React.forwardRef(
     const tabProps: ITabProps = {
       role: "tab",
       "aria-selected": isSelected ? "true" : "false",
+      [refName]: innerRef,
       ...otherTabProps
     };
 

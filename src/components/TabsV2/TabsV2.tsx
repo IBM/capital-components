@@ -57,11 +57,42 @@ class TabsV2 extends React.PureComponent<
     // Capture refs to children so we can scroll to the appropriate element
     const newChildrenWithRefs = React.Children.map(children, (child, index) =>
       React.cloneElement(child as any, {
-        ref: node => (this.childRefs[index] = node),
+        innerRef: node => (this.childRefs[index] = node),
         firstChild: index === 0,
         lastChild: index === childrenCount - 1,
         underscoreHeight: underscoreHeight === "thin" ? "2px" : "4px",
-        spacingBetween
+        spacingBetween,
+        onKeyDown: evt => {
+          if (!React.isValidElement(child)) {
+            return;
+          }
+          const leftKey = 37;
+          const rightKey = 39;
+          let newTargetIndex = -1;
+          if (evt.which === leftKey) {
+            newTargetIndex = index - 1;
+            if (newTargetIndex < 0) {
+              newTargetIndex = childrenCount - 1;
+            }
+          } else if (evt.which === rightKey) {
+            newTargetIndex = index + 1;
+            if (newTargetIndex >= childrenCount) {
+              newTargetIndex = 0;
+            }
+          }
+          if (
+            newTargetIndex >= 0 &&
+            this.childRefs[newTargetIndex] &&
+            this.childRefs[newTargetIndex].scrollIntoView
+          ) {
+            this.childRefs[newTargetIndex].scrollIntoView();
+            this.childRefs[newTargetIndex].focus();
+          }
+
+          if ((child.props as any).onKeyDown) {
+            return (child.props as any).onKeyDown(evt);
+          }
+        }
       })
     );
 

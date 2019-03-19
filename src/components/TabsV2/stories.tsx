@@ -62,7 +62,7 @@ stories
           </TabsV2>
         </SecondaryBar>
         <button onClick={() => setSelectedTabIndex(prevState => (prevState + 1) % 50)}>
-          Focus on tab {selectedTabIndex}
+          Focus on tab {selectedTabIndex + 1}
         </button>
       </React.Fragment>
     );
@@ -82,7 +82,7 @@ stories
           </TabsV2>
         </SecondaryBar>
         <button onClick={() => setSelectedTabIndex(prevState => (prevState + 1) % 50)}>
-          Focus on tab {selectedTabIndex}
+          Focus on tab {selectedTabIndex + 1}
         </button>
         <button onClick={() => setTabs(prevState => [...prevState, {}])}>Create new tab</button>
       </React.Fragment>

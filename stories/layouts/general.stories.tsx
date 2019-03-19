@@ -105,12 +105,12 @@ const renderMobileMenuContent = ({ navSection, getWrapperProps }) => (
 const ReactRouterTab: React.FunctionComponent<{
   path: string;
   children: React.ReactNode;
-}> = React.forwardRef((props, ref) => {
+}> = props => {
   const { location } = useReactRouter();
   const result = matchPath(location.pathname, props);
 
   return (
-    <Tab {...props} isSelected={!!result} ref={ref}>
+    <Tab {...props} isSelected={!!result} refName="innerRef">
       {({ tabProps }) => (
         <Link to={props.path} {...tabProps}>
           {props.children}
@@ -118,7 +118,7 @@ const ReactRouterTab: React.FunctionComponent<{
       )}
     </Tab>
   );
-});
+};
 
 const PrimaryBarItemIconLink = PrimaryBarIcon.withComponent(Link);
 
@@ -151,11 +151,6 @@ const TableToolbarSearch = styled(CCDataTable.TableToolbarSearch)`
 const IBMTitle = styled.span`
   font-weight: ${props => props.theme.fonts.weights.regular};
   margin-right: 0.25rem;
-`;
-
-const Footer = styled(NavigationBar.SecondaryBar)`
-  direction: ltr !important;
-  justify-content: flex-end;
 `;
 
 stories.add("Basic", () => {
