@@ -133,7 +133,7 @@ const Ribbon: React.SFC<{
                   `}
                 />
               </ExpanderWrapper>
-              <Flex direction="row" css="overflow: hidden;">
+              <Flex direction="row">
                 <IEDesktopExpandWrapper
                   supertitle={otherProps.supertitle}
                   title={title}
