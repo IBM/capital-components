@@ -129,4 +129,25 @@ stories
         </Tab>
       </TabsV2>
     );
+  })
+  .add("Customizing spacing between", () => {
+    const [selectedTabIndex, setSelectedTabIndex] = useState(0);
+    return (
+      <TabsV2 alignment="flex-start" spacingBetween="md">
+        <Tab isSelected={selectedTabIndex === 0}>
+          {({ tabProps }) => (
+            <div style={{}} {...tabProps} onClick={() => setSelectedTabIndex(0)}>
+              SomeContent
+            </div>
+          )}
+        </Tab>
+        <Tab isSelected={selectedTabIndex === 1}>
+          {({ tabProps }) => (
+            <div {...tabProps} onClick={() => setSelectedTabIndex(1)}>
+              SomeContent2
+            </div>
+          )}
+        </Tab>
+      </TabsV2>
+    );
   });

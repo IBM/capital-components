@@ -11,6 +11,8 @@ class TabsV2 extends React.PureComponent<
     alignment?: "flex-start" | "flex-end";
     /** Determines the height of the underscore for each tab. Defaults to thick */
     underscoreHeight?: "thick" | "thin";
+    /** Determines the spacing between tabs. Currently determined by some context. */
+    spacingBetween?: "md" | "lg";
   } & React.ComponentPropsWithoutRef<typeof FlexUl>
 > {
   public static defaultProps = {
@@ -47,6 +49,7 @@ class TabsV2 extends React.PureComponent<
       scrollToTab,
       alignment = "flex-end",
       underscoreHeight,
+      spacingBetween,
       ...otherProps
     } = this.props;
     this.childRefs = [];
@@ -57,7 +60,8 @@ class TabsV2 extends React.PureComponent<
         ref: node => (this.childRefs[index] = node),
         firstChild: index === 0,
         lastChild: index === childrenCount - 1,
-        underscoreHeight: underscoreHeight === "thin" ? "2px" : "4px"
+        underscoreHeight: underscoreHeight === "thin" ? "2px" : "4px",
+        spacingBetween
       })
     );
 

@@ -10,16 +10,19 @@ const FlexLI = Flex.withComponent("li");
 // We also need to customize the width due to padding.
 const UnderscoreDiv = styled("div")<{
   darkMode: boolean;
-  firstChild?: boolean;
-  lastChild?: boolean;
-  underscoreHeight?: "4px" | "2px";
-}>(({ firstChild, lastChild, darkMode, theme, underscoreHeight }) => ({
+  firstChild: boolean;
+  lastChild: boolean;
+  underscoreHeight: "4px" | "2px";
+  spacingBetween: "lg" | "md";
+}>(({ firstChild, lastChild, darkMode, theme, underscoreHeight, spacingBetween }) => ({
   position: "absolute",
-  left: firstChild ? 0 : theme.spacing.spacing.sm,
+  left: firstChild ? 0 : theme.spacing.spacing[spacingBetween],
   height: underscoreHeight,
   backgroundColor: darkMode ? theme.color.text02 : theme.color.brand01,
   bottom: 0,
-  width: `calc(100% - ${firstChild || lastChild ? 1 : 2} * ${theme.spacing.spacing.sm})`
+  width: `calc(100% - ${firstChild || lastChild ? 1 : 2} * ${
+    theme.spacing.spacing[spacingBetween]
+  })`
 }));
 
 interface ITabProps {
@@ -36,6 +39,8 @@ interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   lastChild?: boolean;
   /** Prop usually provided by TabsV2. Override at your own risk. */
   underscoreHeight?: "4px" | "2px";
+  /** Prop usually provided by TabsV2. Override at your own risk. */
+  spacingBetween?: "md" | "lg";
 }
 
 const Tab = React.forwardRef(
@@ -47,6 +52,7 @@ const Tab = React.forwardRef(
       firstChild,
       lastChild,
       underscoreHeight,
+      spacingBetween,
       ...otherTabProps
     }: IProps,
     ref
@@ -56,16 +62,21 @@ const Tab = React.forwardRef(
       "aria-selected": isSelected ? "true" : "false",
       ...otherTabProps
     };
-    const padding = `left ${firstChild ? 0 : "sm"} right ${lastChild ? 0 : "sm"}`;
+
     return (
       <darkModeContext.Consumer>
-        {darkMode => (
-          <FlexLI
-            innerRef={ref}
-            role="presentation"
-            tabIndex={-1}
-            padding={padding}
-            cssWithTheme={({ theme }) => `
+        {darkMode => {
+          const spacingBetweenIntermediate = spacingBetween || darkMode ? "md" : "lg";
+          const padding = `left ${firstChild ? 0 : spacingBetweenIntermediate} right ${
+            lastChild ? 0 : spacingBetweenIntermediate
+          }`;
+          return (
+            <FlexLI
+              innerRef={ref}
+              role="presentation"
+              tabIndex={-1}
+              padding={padding}
+              cssWithTheme={({ theme }) => `
           ${theme.fonts.styles.body};
           color: ${
             darkMode ? theme.color.inverse01 : isSelected ? theme.color.brand01 : theme.color.text01
@@ -85,23 +96,25 @@ const Tab = React.forwardRef(
             color: ${darkMode ? theme.color.inverse01 : theme.color.brand01};
           }
       `}
-            className={className}
-          >
-            {typeof children === "function" ? (
-              (children as any)({ tabProps })
-            ) : (
-              <div {...tabProps}>{children}</div>
-            )}
-            {isSelected && (
-              <UnderscoreDiv
-                underscoreHeight={underscoreHeight}
-                firstChild={firstChild}
-                lastChild={lastChild}
-                darkMode={darkMode}
-              />
-            )}
-          </FlexLI>
-        )}
+              className={className}
+            >
+              {typeof children === "function" ? (
+                (children as any)({ tabProps })
+              ) : (
+                <div {...tabProps}>{children}</div>
+              )}
+              {isSelected && (
+                <UnderscoreDiv
+                  underscoreHeight={underscoreHeight}
+                  firstChild={firstChild}
+                  lastChild={lastChild}
+                  darkMode={darkMode}
+                  spacingBetween={spacingBetweenIntermediate}
+                />
+              )}
+            </FlexLI>
+          );
+        }}
       </darkModeContext.Consumer>
     );
   }
