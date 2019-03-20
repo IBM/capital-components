@@ -1,15 +1,28 @@
-import React from "react";
-import Media from "react-media";
-import { breakpoints } from "../../layout/mediaQueries";
-import Col from "../Col";
+import { cx } from "emotion";
+import React, { ComponentPropsWithoutRef } from "react";
+import { mqStrings } from "../../layout/mediaQueries";
+import { styled } from "../../support/theme";
 
 /* istanbul ignore next */
-const DropdownWrapper = props => (
-  <Media query={{ maxWidth: breakpoints.s }}>
-    {isMobile =>
-      isMobile ? <div css="max-width: 100%;" {...props} /> : <Col size={2} {...props} />
-    }
-  </Media>
+/**
+ * We have this wrapper because the carbon dropdown wants to shrink a lot.
+ * This wrapper prevents that.
+ */
+const DropdownWrapperInternal = styled.div`
+  ${mqStrings.base(`
+    max-width: 100%;
+  `)}
+  ${mqStrings.s(`
+    min-width: 240px;
+  `)}
+`;
+
+// /* istanbul ignore next */
+const DropdownWrapper = ({
+  className,
+  ...props
+}: ComponentPropsWithoutRef<typeof DropdownWrapperInternal>) => (
+  <DropdownWrapperInternal className={cx(className, "cap-padding--horizontal")} {...props} />
 );
 
 export default DropdownWrapper;

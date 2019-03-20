@@ -203,12 +203,20 @@ stories.add("Restricted title width", () => {
         title="Basic title"
         titleWidthHint="6"
         floatRightOfTitle={
-          <BannerRibbon.DropdownWrapper>
-            <DropdownV2
-              items={["Option 1", "Option 2", "Option 3"]}
-              onChange={action("onChange")}
-            />
-          </BannerRibbon.DropdownWrapper>
+          <>
+            <BannerRibbon.DropdownWrapper>
+              <DropdownV2
+                items={["Option 1", "Option 2", "Option 3"]}
+                onChange={action("onChange")}
+              />
+            </BannerRibbon.DropdownWrapper>
+            <BannerRibbon.DropdownWrapper>
+              <DropdownV2
+                items={["Option 1", "Option 2", "Option 3"]}
+                onChange={action("onChange")}
+              />
+            </BannerRibbon.DropdownWrapper>
+          </>
         }
       />
     </div>

@@ -152,6 +152,7 @@ const Ribbon: React.SFC<{
       return (
         <BannerRibbonWrapper className={className} isExpandable={isExpandable} mobile={isMobile}>
           <Grid isContainer={true} verticalPadding="xl">
+            {otherProps.supertitle && <Col size="all">{otherProps.supertitle}</Col>}
             <Flex direction="row">
               <DesktopExpandWrapper
                 {...otherProps}
@@ -270,12 +271,6 @@ const MobileExpandWrapper: React.SFC<IExpandableProps> = ({
 const BannerDesktopFloatWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
-  > .cap-grid__col--xs--2 {
-    min-width: calc((100rem - 10vw) * (2 / 12));
-  }
-  > .cap-grid__col--xs--3 {
-    min-width: calc((100rem - 10vw) * (3 / 12));
-  }
 `;
 
 /* istanbul ignore next */
@@ -311,7 +306,6 @@ const DesktopExpandWrapper: React.SFC<IExpandableProps & { titleWidthHint: strin
   onExpandClick,
   floatRightOfTitle,
   title,
-  supertitle,
   titleWidthHint,
   className
 }) => {
@@ -333,7 +327,6 @@ const DesktopExpandWrapper: React.SFC<IExpandableProps & { titleWidthHint: strin
           className
         )}
       >
-        {supertitle}
         <ExpanderWrapper
           onClick={onExpandClick}
           role={expandable ? "button" : "header"}
