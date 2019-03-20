@@ -1,5 +1,6 @@
 // Based off output from http://jsfiddle.net/frj3tb6a/11/
 
+/** @deprecated Use paletteSet18 instead. */
 export const paletteSet20 = [
   "#653fe4",
   "#0169b0",
