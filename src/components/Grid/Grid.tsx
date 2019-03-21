@@ -2,9 +2,18 @@ import { css, cx } from "emotion";
 import React from "react";
 import { buildVerticalSpacing, createGridClass as grid } from "../../layout/grid";
 import { IBreakPointDescriptor } from "../../layout/mediaQueries";
+import { detect } from "detect-browser";
+
+const browser = detect();
+/* istanbul ignore next */
+const isIE = browser && browser.name === "ie";
 
 const preventShrinkStyle = css`
   flex-shrink: 0;
+`;
+
+const allowGrowStyle = css`
+  flex-grow: 1;
 `;
 
 export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -20,6 +29,8 @@ export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   verticalMargin?: string | IBreakPointDescriptor<string>;
   /** If true, the grid will only expand and can't shrink (sets flex-shrink: 0) */
   preventShrink?: boolean;
+  /** If true, the grid try to fit available space. Note that this is not supported by IE. (sets flex-grow: 1). Defaults to false. */
+  allowGrow?: boolean;
 }
 
 export const Grid: React.SFC<IProps> = ({
@@ -30,6 +41,7 @@ export const Grid: React.SFC<IProps> = ({
   verticalPadding,
   verticalMargin,
   preventShrink = true,
+  allowGrow = false,
   ...props
 }) => (
   <div
@@ -43,7 +55,8 @@ export const Grid: React.SFC<IProps> = ({
       css(buildVerticalSpacing(verticalPadding)),
       css(buildVerticalSpacing(verticalMargin, "margin")),
       {
-        [preventShrinkStyle]: preventShrink
+        [preventShrinkStyle]: preventShrink,
+        [allowGrowStyle]: !isIE && allowGrow
       }
     )}
     {...props}

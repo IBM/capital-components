@@ -26,8 +26,11 @@ export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   flexDirection?: "column" | "row";
   /** Useful setting alignment */
   flexAlignment?: string;
-  /** If your column needs a separator from the rest of the columns. Currently we only support a right separator. */
-  separator?: "right";
+  /**
+   * If your column needs a separator from the rest of the columns. Currently we only support a right separator and a full screen version.
+   * The fullscreen version will extend
+   */
+  separator?: "right" | "fullscreen right";
 }
 
 export const Col: React.SFC<IProps> = props => {
@@ -65,7 +68,7 @@ export const Col: React.SFC<IProps> = props => {
   );
 };
 
-const VerticalSeparatedCol: React.SFC<IProps & { separator: "right" }> = ({
+const VerticalSeparatedCol: React.SFC<IProps & { separator?: "right" | "fullscreen right" }> = ({
   size,
   height,
   verticalPadding,
@@ -78,7 +81,7 @@ const VerticalSeparatedCol: React.SFC<IProps & { separator: "right" }> = ({
 }) => (
   <Flex
     direction="row"
-    alignment={separator === "right" ? "horizontal space-between" : undefined}
+    alignment={separator !== undefined ? "horizontal space-between" : undefined}
     className={cx(
       col({
         size,
@@ -90,6 +93,16 @@ const VerticalSeparatedCol: React.SFC<IProps & { separator: "right" }> = ({
   >
     <Flex direction={flexDirection} className={className} alignment={flexAlignment} {...props} />
     {separator === "right" && <VerticalSeperator padding="left 15px right 5px" />}
+    {separator === "fullscreen right" && (
+      <VerticalSeperator
+        padding="left 15px right 5px"
+        className={css`
+          > * {
+            height: 100vh;
+          }
+        `}
+      />
+    )}
   </Flex>
 );
 

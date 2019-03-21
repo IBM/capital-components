@@ -355,44 +355,17 @@ stories.add("Sidebar section", () => {
                 </ScrollRow>
               }
             />
-            <Grid isContainer>
+            <Grid isContainer allowGrow>
               <Col size="all">
                 <TabsV2 alignment="flex-start" underscoreHeight="thin">
                   <ReactRouterTab path="/el1">Element 1</ReactRouterTab>
                   <ReactRouterTab path="/el2">Element 2</ReactRouterTab>
                 </TabsV2>
               </Col>
-              <Col size="1/3" separator="right">
-                Some sidebar content
+              <Col size="1/3" separator="fullscreen right">
+                Some sidebar content that is longer than you would think. Also come on maaaaaan.
               </Col>
               <Col size="1/3">
-                <div>Some main content</div>
-                <div>Some main content</div>
-                <div>Some main content</div>
-                <div>Some main content</div>
-                <div>Some main content</div>
-                <div>Some main content</div>
-                <div>Some main content</div>
-                <div>Some main content</div>
-                <div>Some main content</div>
-                <div>Some main content</div>
-                <div>Some main content</div>
-                <div>Some main content</div>
-                <div>Some main content</div>
-                <div>Some main content</div>
-                <div>Some main content</div>
-                <div>Some main content</div>
-                <div>Some main content</div>
-                <div>Some main content</div>
-                <div>Some main content</div>
-                <div>Some main content</div>
-                <div>Some main content</div>
-                <div>Some main content</div>
-                <div>Some main content</div>
-                <div>Some main content</div>
-                <div>Some main content</div>
-                <div>Some main content</div>
-                <div>Some main content</div>
                 <div>Some main content</div>
               </Col>
               <Col size="1/3">Some sidebar content</Col>
