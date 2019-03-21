@@ -133,16 +133,15 @@ const Ribbon: React.SFC<{
                   `}
                 />
               </ExpanderWrapper>
-              <Flex direction="row">
-                <IEDesktopExpandWrapper
-                  supertitle={otherProps.supertitle}
-                  title={title}
-                  floatRightOfTitle={floatRightOfTitle}
-                  onClick={otherProps.onExpandClick}
-                  role={expandable ? "button" : "header"}
-                  aria-expanded={isExpandable ? otherProps.isExpanded : undefined}
-                />
-              </Flex>
+
+              <IEDesktopExpandWrapper
+                supertitle={otherProps.supertitle}
+                title={title}
+                floatRightOfTitle={floatRightOfTitle}
+                onClick={otherProps.onExpandClick}
+                role={expandable ? "button" : "header"}
+                aria-expanded={isExpandable ? otherProps.isExpanded : undefined}
+              />
               {children}
             </Grid>
           </BannerRibbonWrapper>
@@ -289,15 +288,17 @@ const IETextWrap = styled(TextWrap)`
 
 /* istanbul ignore next */
 const IEDesktopExpandWrapper = ({ supertitle, title, floatRightOfTitle, ...props }) => (
-  <>
-    <IETitleWrapper direction="column" {...props}>
-      {supertitle}
-      <IETextWrap>{title}</IETextWrap>
-    </IETitleWrapper>
-    {floatRightOfTitle && (
-      <BannerDesktopFloatWrapper>{floatRightOfTitle}</BannerDesktopFloatWrapper>
-    )}
-  </>
+  <Flex direction="column">
+    {supertitle}
+    <Flex direction="row">
+      <IETitleWrapper direction="column" {...props}>
+        <IETextWrap>{title}</IETextWrap>
+      </IETitleWrapper>
+      {floatRightOfTitle && (
+        <BannerDesktopFloatWrapper>{floatRightOfTitle}</BannerDesktopFloatWrapper>
+      )}
+    </Flex>
+  </Flex>
 );
 
 const DesktopExpandWrapper: React.SFC<IExpandableProps & { titleWidthHint: string }> = ({
