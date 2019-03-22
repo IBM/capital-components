@@ -121,10 +121,15 @@ const Ribbon: React.SFC<{
         const vwCalced = (90 * Number.parseInt(titleWidthHint, 10)) / 12;
         const maxWidth =
           !titleWidthHint || titleWidthHint === "all" ? undefined : `max-width: ${vwCalced}vw;`;
+        const cursor = `cursor: ${isExpandable ? "pointer" : "inherit"};`;
         return (
           <BannerRibbonWrapper className={className} isExpandable={isExpandable} mobile={isMobile}>
             <Grid isContainer={true} verticalPadding="xl">
-              <ExpanderWrapper css={maxWidth}>
+              <ExpanderWrapper
+                css={`
+                  ${cursor} ${maxWidth};
+                `}
+              >
                 <ExpanderIcon
                   expandable={isExpandable}
                   isExpanded={otherProps.isExpanded}
@@ -139,7 +144,8 @@ const Ribbon: React.SFC<{
                 title={title}
                 floatRightOfTitle={floatRightOfTitle}
                 onClick={otherProps.onExpandClick}
-                role={expandable ? "button" : "header"}
+                role={isExpandable ? "button" : "header"}
+                css={cursor}
                 aria-expanded={isExpandable ? otherProps.isExpanded : undefined}
               />
               {children}
@@ -151,7 +157,11 @@ const Ribbon: React.SFC<{
       return (
         <BannerRibbonWrapper className={className} isExpandable={isExpandable} mobile={isMobile}>
           <Grid isContainer={true} verticalPadding="xl">
-            {otherProps.supertitle && <Col size="all">{otherProps.supertitle}</Col>}
+            {otherProps.supertitle && (
+              <Col size="all" flexDirection="row">
+                {otherProps.supertitle}
+              </Col>
+            )}
             <Flex direction="row">
               <DesktopExpandWrapper
                 {...otherProps}
@@ -289,7 +299,7 @@ const IETextWrap = styled(TextWrap)`
 /* istanbul ignore next */
 const IEDesktopExpandWrapper = ({ supertitle, title, floatRightOfTitle, ...props }) => (
   <Flex direction="column">
-    {supertitle}
+    <Flex direction="row">{supertitle}</Flex>
     <Flex direction="row">
       <IETitleWrapper direction="column" {...props}>
         <IETextWrap>{title}</IETextWrap>
@@ -317,27 +327,27 @@ const DesktopExpandWrapper: React.SFC<IExpandableProps & { titleWidthHint: strin
 
   return (
     <>
-      <Flex
-        direction="column"
-        alignment="horizontal flex-start"
+      <ExpanderWrapper
+        onClick={onExpandClick}
+        role={expandable ? "button" : "header"}
+        aria-expanded={expandable ? isExpanded : undefined}
         className={cx(
           css`
+            ${maxWidth};
+            ${Flex.formatter({
+              direction: "column",
+              alignment: "horizontal flex-start"
+            })};
             flex: 1 1 auto;
+            cursor: ${expandable ? "pointer" : "inherit"};
           `,
           "cap-padding--horizontal",
           className
         )}
       >
-        <ExpanderWrapper
-          onClick={onExpandClick}
-          role={expandable ? "button" : "header"}
-          aria-expanded={expandable ? isExpanded : undefined}
-          css={maxWidth}
-        >
-          <ExpanderIcon expandable={expandable} isExpanded={isExpanded} />
-          <TextWrap>{title}</TextWrap>
-        </ExpanderWrapper>
-      </Flex>
+        <ExpanderIcon expandable={expandable} isExpanded={isExpanded} />
+        <TextWrap>{title}</TextWrap>
+      </ExpanderWrapper>
       {floatRightOfTitle && (
         <BannerDesktopFloatWrapper>{floatRightOfTitle}</BannerDesktopFloatWrapper>
       )}
