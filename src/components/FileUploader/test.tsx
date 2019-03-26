@@ -6,13 +6,6 @@ import { renderWithDefaultTheme } from "test-utils";
 
 afterEach(cleanup);
 
-test("Basic snapshot", async () => {
-  const { baseElement } = renderWithDefaultTheme(<FileUploader onFilesAdded={jest.fn()} />);
-
-  // When not expandable, it is a header element
-  expect(baseElement).toMatchSnapshot();
-});
-
 test("File added shows in list and can be removed", async () => {
   const onFilesRemoved = jest.fn();
   const initialFiles = [
