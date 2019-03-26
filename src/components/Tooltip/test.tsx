@@ -1,6 +1,7 @@
 import { cleanup, fireEvent, act } from "react-testing-library";
 import "jest-dom/extend-expect";
 import { Tooltip } from "@fss/components";
+// import Tooltip from "./Tooltip__hooks";
 import React from "react";
 import { renderWithDefaultTheme } from "test-utils";
 

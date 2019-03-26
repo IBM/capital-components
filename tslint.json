@@ -5,7 +5,8 @@
     "no-submodule-imports": false,
     "max-classes-per-file": false,
     "member-access": false,
-    "member-ordering": false
+    "member-ordering": false,
+    "ordered-imports": false
   },
   "linterOptions": {
     "exclude": [
