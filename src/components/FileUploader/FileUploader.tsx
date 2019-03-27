@@ -27,22 +27,25 @@ const defaultTranslate = (arg: { id: TranslationKeys; values?: any }) =>
   defaultTranslations[arg.id](arg.values);
 
 /* istanbul ignore next */
-const FileUploaderWrapper = styled(CenteredBlock)<ISharedElementProps & { isDragActive: boolean }>`
+const FileUploaderWrapper = styled(CenteredBlock)<
+  ISharedElementProps & { isDragActive: boolean; isDisabled: boolean }
+>`
   flex-direction: column;
   border-width: 2px;
   border-color: ${({ theme, isDragActive }) =>
     isDragActive ? theme.colors.brand02 : theme.colors.ui04};
-  background-color: ${({ theme }) => theme.colors.ui01};
+  background-color: ${({ theme, isDisabled }) =>
+    isDisabled ? theme.colors.ui03 : theme.colors.ui01};
   border-style: dashed;
   border-radius: 2px;
   flex-shrink: 0;
+  cursor: ${({ isDisabled }) => (isDisabled ? "not-allowed" : "pointer")};
   ${({ theme }) => theme.fonts.styles.body};
 `;
 
-const FakeLink = styled.span`
+const FakeLink = styled.span<{ isDisabled: boolean }>`
   text-decoration: underline;
-  color: ${({ theme }) => theme.colors.brand01};
-  cursor: pointer;
+  color: ${({ theme, isDisabled }) => (isDisabled ? "inherit" : theme.colors.brand01)};
 `;
 
 // Not sure why I need th additional type here but whatever
@@ -57,8 +60,22 @@ const FileUploaderFileName = styled.div<JSX.IntrinsicElements["div"]>`
   overflow: hidden;
 `;
 
-const FlexLi = Flex.withComponent("li");
-const FlexUl = Flex.withComponent("ul");
+const SelectedFileItem = styled.li`
+  width: 100%;
+  ${Flex.formatter({
+    padding: "bottom xs",
+    alignment: "horizontal space-between"
+  })};
+`;
+
+const SelectedFileList = styled.ul`
+  width: 100%;
+  ${({ theme }) => theme.fonts.styles.body};
+  ${Flex.formatter({
+    padding: "md md md md",
+    direction: "column"
+  })};
+`;
 
 const IESupportFilter = (props: DropzoneRootProps) => {
   /** istanbul ignore next */
@@ -130,45 +147,46 @@ class FileUploader<T extends { name: string }> extends React.PureComponent<IProp
     } = this.props;
 
     return (
-      <Dropzone {...otherProps} onDropAccepted={this.onDropAccepted}>
-        {({ getRootProps, getInputProps, isDragActive }) => (
-          <FileUploaderWrapper
-            isDragActive={isDragActive}
-            {...IESupportFilter(getRootProps({ refKey: "innerRef" }))}
-          >
-            <Flex padding="md md" alignment="center" css="width: 100%;">
-              <input {...getInputProps()} data-testid="wfss-file-uploader-input" />
-              <FakeLink>
-                {translate({ id: isIE ? TranslationKeys.browseTitle : TranslationKeys.dropTitle })}
-              </FakeLink>
-            </Flex>
-            {files.length > 0 && (
-              <FlexUl padding="0 md md md" direction="column" css="width: 100%;">
-                {files.map(file => {
-                  const canClick = canClickFile && onFileClick ? canClickFile(file) : false;
-                  const canRemove = canRemoveFile && onFilesRemoved ? canRemoveFile(file) : false;
-                  return (
-                    <FlexLi
-                      key={file.name}
-                      css="width: 100%;"
-                      padding="top xs"
-                      title={file.name}
-                      alignment="horizontal space-between"
-                    >
-                      <FileUploaderFileName
-                        onClick={canClick ? this.handleItemClick(file) : undefined}
-                        role={canClick ? "button" : undefined}
-                      >
-                        {file.name}
-                      </FileUploaderFileName>
-                      {canRemove && (
-                        <Icon
-                          role="button"
-                          title={translate({
-                            id: TranslationKeys.delete,
-                            values: { name: file.name }
-                          })}
-                          cssWithTheme={({ theme }) => `
+      <>
+        <Dropzone {...otherProps} onDropAccepted={this.onDropAccepted}>
+          {({ getRootProps, getInputProps, isDragActive }) => (
+            <FileUploaderWrapper
+              isDisabled={otherProps.disabled}
+              isDragActive={isDragActive}
+              {...IESupportFilter(getRootProps({ refKey: "innerRef" }))}
+            >
+              <Flex padding="md md" alignment="center" css="width: 100%;">
+                <input {...getInputProps()} data-testid="wfss-file-uploader-input" />
+                <FakeLink isDisabled={otherProps.disabled}>
+                  {translate({
+                    id: isIE ? TranslationKeys.browseTitle : TranslationKeys.dropTitle
+                  })}
+                </FakeLink>
+              </Flex>
+            </FileUploaderWrapper>
+          )}
+        </Dropzone>
+        {files.length > 0 && (
+          <SelectedFileList>
+            {files.map(file => {
+              const canClick = canClickFile && onFileClick ? canClickFile(file) : false;
+              const canRemove = canRemoveFile && onFilesRemoved ? canRemoveFile(file) : false;
+              return (
+                <SelectedFileItem key={file.name} title={file.name}>
+                  <FileUploaderFileName
+                    onClick={canClick ? this.handleItemClick(file) : undefined}
+                    role={canClick ? "button" : undefined}
+                  >
+                    {file.name}
+                  </FileUploaderFileName>
+                  {canRemove && (
+                    <Icon
+                      role="button"
+                      title={translate({
+                        id: TranslationKeys.delete,
+                        values: { name: file.name }
+                      })}
+                      cssWithTheme={({ theme }) => `
                         margin-top: 2px;
                         cursor: pointer;
                         &:hover {
@@ -176,24 +194,22 @@ class FileUploader<T extends { name: string }> extends React.PureComponent<IProp
                           fill: ${theme.color.brand01};
                         }
                       `}
-                          size="small"
-                          onClick={e => {
-                            e.persist();
-                            e.stopPropagation();
-                            onFilesRemoved([file], e);
-                          }}
-                        >
-                          <Trash />
-                        </Icon>
-                      )}
-                    </FlexLi>
-                  );
-                })}
-              </FlexUl>
-            )}
-          </FileUploaderWrapper>
+                      size="small"
+                      onClick={e => {
+                        e.persist();
+                        e.stopPropagation();
+                        onFilesRemoved([file], e);
+                      }}
+                    >
+                      <Trash />
+                    </Icon>
+                  )}
+                </SelectedFileItem>
+              );
+            })}
+          </SelectedFileList>
         )}
-      </Dropzone>
+      </>
     );
   }
 }

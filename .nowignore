@@ -1,0 +1,6 @@
+*
+
+# But not these files...
+!.nowignore
+!now.json
+!storybook-static

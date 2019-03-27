@@ -25,6 +25,7 @@ exports[`Basic snapshot 1`] = `
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+  cursor: pointer;
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 400;
@@ -54,7 +55,6 @@ exports[`Basic snapshot 1`] = `
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0530ad;
-  cursor: pointer;
 }
 
 <body>
