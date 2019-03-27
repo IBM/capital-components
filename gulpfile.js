@@ -35,7 +35,8 @@ const sources = [
   "!src/**/test.tsx",
   "!src/**/*.test.ts",
   "!src/**/test.ts",
-  "!src/internal/**/*"
+  "!src/internal/**/*",
+  "!src/components/**/*__hooks.tsx"
 ];
 
 const compileScripts = () => {
