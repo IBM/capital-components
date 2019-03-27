@@ -11,6 +11,8 @@ import { styled } from "../../support/theme";
 const DropdownWrapperInternal = styled.div`
   ${mqStrings.base(`
     max-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
   `)}
   ${mqStrings.s(`
     min-width: 240px;

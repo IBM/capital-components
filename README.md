@@ -156,11 +156,16 @@ import Media from "react-media";
 import { breakpoints } from "@fss/components/lib/layout/mediaQueries";
 
 const Comp = () => (
-  <Media query={{ maxWidth: breakpoints.s }}>{matches => (matches ? <Comp1 /> : <Comp2 />)}</Media>
+  <Media query={{ maxWidth: breakpoints.s - 1 }}>
+    {matches => (matches ? <Comp1 /> : <Comp2 />)}
+  </Media>
 );
 ```
 
 This component would render Comp1 if the screen size is less than the `small` breakpoint.
+
+Note: We subtract 1 from the breakpoint for consistency. These breakpoints are designed for `min-width` in mind, so max-width needs
+some minor adjustments to keep in sync with all the mediaqueries in emotion.
 
 ### With Emotion
 
@@ -178,20 +183,20 @@ import { mq } from "@fss/components/lib/layout/mediaQueries";
 const Comp = () => <div className={mq.s("background-color: red;")}>Hello World</div>;
 ```
 
-#### mqStrings
+#### mqStringsMax
 
 Another way to do it is to use some media query helpers within another `css` call. So something like the following would
 work. This is useful when combined with non-media query related css. The following will generate a div with display flex and that has the background color of `red` on screens smaller than the `s` breakpoint:
 
 ```jsx
 import { css } from "emotion";
-import { mqStrings } from "@fss/components/lib/layout/mediaQueries";
+import { mqStringsMax as mediaQuery } from "@fss/components/lib/layout/mediaQueries";
 
 const Comp = () => (
   <div
     className={css`
       display: flex;
-      ${mqStrings.s("background-color: red;")};
+      ${mediaQuery.s("background-color: red;")};
     `}
   >
     Hello World
@@ -201,13 +206,13 @@ const Comp = () => (
 
 #### buildStringForMediaQuery
 
-This helper is useful for building a map of media query sizes to a specific css combination. The following will generate a div that has the background color of `blue` when screen is smaller than `s` breakpoint and `yellow` when screen is between `s` and `xl`:
+This helper is useful for building a map of media query sizes to a specific css combination. The following will generate a div that has the background color of `blue` when screen is larger than `s` breakpoint and `yellow` when screen is larger than `s` and `xl`:
 
 ```jsx
 import { css } from "emotion";
-import { buildStringForMediaQuery } from "@fss/components/lib/layout/mediaQueries";
+import { buildStringForMediaQueries } from "@fss/components/lib/layout/mediaQueries";
 
-const mediaQueryString = buildStringForMediaQuery({
+const mediaQueryString = buildStringForMediaQueries({
   s: "background-color: blue;",
   xl: "background-color: yellow;"
 });

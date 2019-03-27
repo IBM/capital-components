@@ -31,7 +31,7 @@ export const ScrollRow: React.SFC<{
   /** An additional classname to apply when scrolling is triggered */
   scrollClassName?: string;
 }> = ({ maxWidth = "40vw", minWidth = "40vw", children, preventShrink, scrollClassName }) => (
-  <Media query={{ minWidth: breakpoints.s + 1 }}>
+  <Media query={{ minWidth: breakpoints.s }}>
     {matches => {
       if (matches) {
         return <React.Fragment>{children}</React.Fragment>;

@@ -54,7 +54,7 @@ function PrimaryBarNavItem<T extends object = {}>({
   ...props
 }: { asComp?: ComponentType<T>; className?: string } & Overwrite<PrimaryBarItemProps, T>) {
   return (
-    <Media query={{ maxWidth: breakpoints.s }}>
+    <Media query={{ maxWidth: breakpoints.s - 1 }}>
       {matches => {
         const Comp = PrimaryBarItem.withComponent(asComp || ("div" as any));
         if (matches) {
@@ -199,7 +199,7 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
   id = "",
   ...otherProps
 }) => (
-  <Media query={{ maxWidth: breakpoints.s }}>
+  <Media query={{ maxWidth: breakpoints.s - 1 }}>
     {matches => {
       const PrimaryIcon = menuIcon || MenuIcon;
       const wrapperProps = {

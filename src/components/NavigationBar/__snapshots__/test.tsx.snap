@@ -30,7 +30,7 @@ exports[`Basic Secondary Bar in phone 1`] = `
   }
 }
 
-@media (max-width:768px) {
+@media (max-width:767px) {
   .emotion-1 [role="tablist"]::after,
   .emotion-1 [role="tablist"]::before {
     content: "";

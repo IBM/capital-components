@@ -56,7 +56,7 @@ export const mqStringsMax: Omit<MqDescriptor, "base"> = Object.keys(breakpoints)
     }
     accumulator[label] = cls =>
       `
-      @media (max-width:${breakpoints[label]}px) {
+      @media (max-width:${breakpoints[label] - 1}px) {
         ${cls}${cls.endsWith(";") ? "" : ";"}
       }
     `;

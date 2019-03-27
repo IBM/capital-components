@@ -44,15 +44,6 @@ const BannerRibbonWrapper = styled("div")<{ mobile: boolean; isExpandable: boole
       : ""}
 `;
 
-/* istanbul ignore next */
-const DropdownWrapper = props => (
-  <Media query={{ maxWidth: breakpoints.s }}>
-    {isMobile =>
-      isMobile ? <div css="max-width: 100%;" {...props} /> : <Col size={2} {...props} />
-    }
-  </Media>
-);
-
 const Ribbon: React.SFC<{
   /** ClassName to the grid/inner element */
   className?: string;
@@ -86,7 +77,7 @@ const Ribbon: React.SFC<{
   titleWidthHint,
   ...otherProps
 }) => (
-  <Media query={{ maxWidth: breakpoints.s }}>
+  <Media query={{ maxWidth: breakpoints.s - 1 }}>
     {isMobile => {
       invariant(
         !expandable || otherProps.onExpandClick,
