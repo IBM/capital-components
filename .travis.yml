@@ -4,17 +4,13 @@ env:
     - NODE_ENV=development
     - GH_URL=https://github.ibm.com
     - GH_PREFIX=/api/v3
+    - secure: "f5bKeWQ/KlXW/JWKeBxB0HYbLCBeMeS96O+/CNnGXWd2XWwtupn68VzPCnENkFsvwuazeQHQwMRb2wAg0jZmqE4dH7Ewu2DM7GRc8z0fFtFkIlpXrVTe+ruw44tYRDSIG+u7gN9Jt7m52gslG3E+iIlj6htg9Vd+zdjt2zqYojxUqHECe+Lv+tfp2H53JrrhHZQSuqg4bhgOzW5WrMWbYpZM1YBDQp/hpBGHISo6cfoR9Wwb7Iy6+N+3AcQmuxV4sskXgqpxR1btqPF9qncwfqbygVvmpQNGszSKsufo6TxmlfaUdCByFr1WBuQdIHHlgpigCUf+AwKtc5inC4OZ6WBSfvDQQhu+IVvXg9N8uf8wg9qu4npHLtZOmNVHiL0tCIluucHisk9J80HjCr3izfKFTwoECNh56JN+Be/6SYtmAVi5J7vwjB13BhCqlneXFLQmPBojuo6MMYuS1L/vr2EmJz1gwLqN29qtdkU7Jz2HD0u+yhxA1IQyh/uZiZN/w2+g1xpJC8y5GEtlEw0jtTs16+2DvMFYsRtg8T3w0PmMgs4lfCVVc8cHwfb7BjxdDoovKkOOT/4ahdAtaoaBEvKjRQjC88HigS1DNpJ+vq5AhIzNznhp5Pn45ntYSaBX1wjeo0Rgi6+Ti4S2HXsoRg+wMaNn9AhbPu065oihU64=" # NOW_TOKEN
 cache:
   directories:
     - node_modules
 branches:
   only:
     - master
-
-env:
-  global:
-    # NOW_TOKEN
-    secure: "f5bKeWQ/KlXW/JWKeBxB0HYbLCBeMeS96O+/CNnGXWd2XWwtupn68VzPCnENkFsvwuazeQHQwMRb2wAg0jZmqE4dH7Ewu2DM7GRc8z0fFtFkIlpXrVTe+ruw44tYRDSIG+u7gN9Jt7m52gslG3E+iIlj6htg9Vd+zdjt2zqYojxUqHECe+Lv+tfp2H53JrrhHZQSuqg4bhgOzW5WrMWbYpZM1YBDQp/hpBGHISo6cfoR9Wwb7Iy6+N+3AcQmuxV4sskXgqpxR1btqPF9qncwfqbygVvmpQNGszSKsufo6TxmlfaUdCByFr1WBuQdIHHlgpigCUf+AwKtc5inC4OZ6WBSfvDQQhu+IVvXg9N8uf8wg9qu4npHLtZOmNVHiL0tCIluucHisk9J80HjCr3izfKFTwoECNh56JN+Be/6SYtmAVi5J7vwjB13BhCqlneXFLQmPBojuo6MMYuS1L/vr2EmJz1gwLqN29qtdkU7Jz2HD0u+yhxA1IQyh/uZiZN/w2+g1xpJC8y5GEtlEw0jtTs16+2DvMFYsRtg8T3w0PmMgs4lfCVVc8cHwfb7BjxdDoovKkOOT/4ahdAtaoaBEvKjRQjC88HigS1DNpJ+vq5AhIzNznhp5Pn45ntYSaBX1wjeo0Rgi6+Ti4S2HXsoRg+wMaNn9AhbPu065oihU64="
 
 notifications:
   email: false
