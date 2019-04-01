@@ -185,10 +185,6 @@ export const ContentWrapper = styled.div<{ forcedBottomPadding?: string | null }
   flex: 1 1 auto;
   flex-direction: column;
   overflow: auto;
-
-  > * {
-    flex-shrink: 0;
-  }
 `;
 
 export const ContentBottomPadding = styled.div`
