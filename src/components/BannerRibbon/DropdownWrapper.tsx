@@ -1,7 +1,8 @@
 import { cx } from "emotion";
-import React, { ComponentPropsWithoutRef } from "react";
+import React, { FC } from "react";
 import { mqStrings } from "../../layout/mediaQueries";
 import { styled } from "../../support/theme";
+import { Omit } from "type-zoo/types";
 
 /* istanbul ignore next */
 /**
@@ -20,10 +21,9 @@ const DropdownWrapperInternal = styled.div`
 `;
 
 // /* istanbul ignore next */
-const DropdownWrapper = ({
-  className,
-  ...props
-}: ComponentPropsWithoutRef<typeof DropdownWrapperInternal>) => (
+const DropdownWrapper: FC<
+  Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref">
+> = ({ className, ...props }) => (
   <DropdownWrapperInternal className={cx(className, "cap-padding--horizontal")} {...props} />
 );
 
