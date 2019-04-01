@@ -180,7 +180,8 @@ export const VerticalSeperator = ({
   </div>
 );
 
-export const ContentWrapper = styled.div<{ forcedBottomPadding?: string | null }>`
+export const ContentWrapper = styled.div`
+  ${({ theme }) => theme.fonts.styles.body};
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;

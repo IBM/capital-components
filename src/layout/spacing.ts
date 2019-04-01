@@ -4,31 +4,53 @@ import { buildStringForMediaQueries, IBreakPointDescriptor } from "./mediaQuerie
 // Use for margins within grid elements
 // 3xs = xs3 and similar for the sake of consistent naming
 export const spacing = {
+  /** 2px */
   "3xs": "0.125rem",
+  /** 2px */
   xs3: "0.125rem",
+  /** 4px */
   "2xs": "0.25rem",
+  /** 4px */
   xs2: "0.25rem",
+  /** 8px */
   xs: "0.5rem",
+  /** 12px */
   sm: "0.75rem",
+  /** 16px */
   md: "1rem",
+  /** 24px */
   lg: "1.5rem",
+  /** 32px */
   xl: "2rem",
+  /** 40px */
   "2xl": "2.5rem",
+  /** 40px */
   xl2: "2.5rem",
+  /** 48px */
   "3xl": "3rem",
+  /** 48px */
   xl3: "3rem"
 };
 
 // Use for vertical layout. For horizontal layout, always use grid elements
 export const layout = {
+  /** 16px */
   "2xs": "1rem",
+  /** 16px */
   xs2: "1rem",
+  /** 24px */
   xs: "1.5rem",
+  /** 32px */
   sm: "2rem",
+  /** 48px */
   md: "3rem",
+  /** 64px */
   lg: "4rem",
+  /** 96px */
   xl: "6rem",
+  /** 160px */
   "2xl": "10rem",
+  /** 160px */
   xl2: "10rem"
 };
 

@@ -1,7 +1,7 @@
 import { css, cx } from "emotion";
 import React, { ComponentPropsWithoutRef } from "react";
 import { Omit } from "type-zoo";
-import { CenteredBlock, ISharedElementProps } from "../../primitives/elements";
+import { CenteredBlock } from "../../primitives/elements";
 
 export type Props = ComponentPropsWithoutRef<typeof CenteredBlock> & {
   size: "xsmall" | "small" | "medium" | "large" | "xlarge" | "xxxlarge";
@@ -75,6 +75,7 @@ export const Icon: React.SFC<Props & { ref?: React.Ref<HTMLDivElement> }> = Reac
     size={size}
     {...props}
     ref={ref}
+    title={title}
     aria-label={/* istanbul ignore next */ glyph ? undefined : title}
   >
     {/* istanbul ignore next */ glyph && (

@@ -100,3 +100,17 @@ stories.add("Disabled", () => (
     />
   </div>
 ));
+
+stories.add("Loading", () => (
+  <div css="width: 300px;">
+    <FileUploader
+      files={fileList}
+      onFilesAdded={action("Files added")}
+      onFilesRemoved={action("Files removed")}
+      canRemoveFile={file => file.name === "File 1"}
+      onFileClick={action("file clicked")}
+      canClickFile={file => file.name === "File 2"}
+      getFileStatus={file => "uploading"}
+    />
+  </div>
+));

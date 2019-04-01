@@ -35,8 +35,9 @@ install:
 script:
   - npm run test:prod && npm run build && npm run build-storybook
 
-after_success:
-  - scripts/prDeploy.js
+# uncomment this once we can deploy prs
+# after_success:
+#   - scripts/prDeploy.js
 
 deploy:
   - provider: pages

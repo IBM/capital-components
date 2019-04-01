@@ -1,11 +1,14 @@
-import Trash from "@fss/icons/dist/svg/trash_24";
+import Remove from "@fss/icons/dist/svg/remove_24";
 import { detect } from "detect-browser";
 import React from "react";
 import Dropzone, { DropzoneProps, DropzoneRootProps } from "react-dropzone";
 import { Omit } from "type-zoo/types";
 import { CenteredBlock, Flex, ISharedElementProps } from "../../primitives/elements";
-import { styled } from "../../support/theme";
+import { styled, Theme, withTheme } from "../../support/theme";
 import Icon from "../Icon";
+
+// tslint:disable-next-line:ordered-imports
+import { cx, css } from "emotion";
 
 const browser = detect();
 /* istanbul ignore next */
@@ -28,12 +31,13 @@ const defaultTranslate = (arg: { id: TranslationKeys; values?: any }) =>
 
 /* istanbul ignore next */
 const FileUploaderWrapper = styled(CenteredBlock)<
-  ISharedElementProps & { isDragActive: boolean; isDisabled: boolean }
+  ISharedElementProps & { isDragActive: boolean; isDisabled: boolean; hasFiles: boolean }
 >`
+  margin-bottom: ${({ theme, hasFiles }) => (hasFiles ? theme.spacing.spacing.lg : 0)};
   flex-direction: column;
   border-width: 2px;
   border-color: ${({ theme, isDragActive }) =>
-    isDragActive ? theme.colors.brand02 : theme.colors.ui04};
+    isDragActive ? theme.colors.brand02 : theme.colors.ui03};
   background-color: ${({ theme, isDisabled }) =>
     isDisabled ? theme.colors.ui03 : theme.colors.ui01};
   border-style: dashed;
@@ -58,23 +62,28 @@ const FileUploaderFileName = styled.div<JSX.IntrinsicElements["div"]>`
   word-break: break-word;
   hyphens: auto;
   overflow: hidden;
+  text-decoration: ${({ onClick }) => (onClick ? "underline" : "inherit")};
 `;
 
 const SelectedFileItem = styled.li`
   width: 100%;
+  padding: 6px 13px;
   ${Flex.formatter({
-    padding: "bottom xs",
     alignment: "horizontal space-between"
   })};
+  border: 1px solid ${({ theme }) => theme.color.ui04};
 `;
 
 const SelectedFileList = styled.ul`
-  width: 100%;
   ${({ theme }) => theme.fonts.styles.body};
+  width: 100%;
   ${Flex.formatter({
-    padding: "md md md md",
     direction: "column"
   })};
+
+  li ~ li {
+    margin-top: ${({ theme }) => theme.spacing.spacing.xs};
+  }
 `;
 
 const IESupportFilter = (props: DropzoneRootProps) => {
@@ -107,6 +116,8 @@ interface IProps<T> extends Omit<DropzoneProps, "onDropAccepted"> {
   onFilesAdded: (files: File[], event: React.MouseEvent) => void;
   /** called when files are removed */
   onFilesRemoved?: (files: T[], event: React.MouseEvent) => void;
+  /** called to determine the status of a file. If not included, defaults to "complete" */
+  getFileStatus?: (file: T) => "uploading" | "complete";
   translate?: typeof defaultTranslate;
 }
 
@@ -117,7 +128,9 @@ interface IProps<T> extends Omit<DropzoneProps, "onDropAccepted"> {
  * @class FileUploader
  * @extends {React.PureComponent<IProps>}
  */
-class FileUploader<T extends { name: string }> extends React.PureComponent<IProps<T>> {
+class FileUploader<T extends { name: string }> extends React.PureComponent<
+  IProps<T> & { theme?: Theme }
+> {
   public static defaultProps = {
     files: []
   };
@@ -143,6 +156,8 @@ class FileUploader<T extends { name: string }> extends React.PureComponent<IProp
       canRemoveFile,
       onFileClick,
       onFilesRemoved,
+      theme,
+      getFileStatus,
       ...otherProps
     } = this.props;
 
@@ -153,6 +168,7 @@ class FileUploader<T extends { name: string }> extends React.PureComponent<IProp
             <FileUploaderWrapper
               isDisabled={otherProps.disabled}
               isDragActive={isDragActive}
+              hasFiles={files.length > 0}
               {...IESupportFilter(getRootProps({ refKey: "innerRef" }))}
             >
               <Flex padding="md md" alignment="center" css="width: 100%;">
@@ -171,6 +187,7 @@ class FileUploader<T extends { name: string }> extends React.PureComponent<IProp
             {files.map(file => {
               const canClick = canClickFile && onFileClick ? canClickFile(file) : false;
               const canRemove = canRemoveFile && onFilesRemoved ? canRemoveFile(file) : false;
+              const status = getFileStatus ? getFileStatus(file) : "complete";
               return (
                 <SelectedFileItem key={file.name} title={file.name}>
                   <FileUploaderFileName
@@ -179,14 +196,26 @@ class FileUploader<T extends { name: string }> extends React.PureComponent<IProp
                   >
                     {file.name}
                   </FileUploaderFileName>
-                  {canRemove && (
+                  {status === "uploading" && (
+                    <Loading
+                      color={theme.color.text01}
+                      className={css`
+                        height: 1rem;
+                        width: 1rem;
+                        flex-shrink: 0;
+                        margin-left: 4px;
+                      `}
+                    />
+                  )}
+                  {status === "complete" && canRemove && (
                     <Icon
                       role="button"
                       title={translate({
                         id: TranslationKeys.delete,
                         values: { name: file.name }
                       })}
-                      cssWithTheme={({ theme }) => `
+                      color={theme.color.text02}
+                      css={`
                         margin-top: 2px;
                         cursor: pointer;
                         &:hover {
@@ -201,7 +230,7 @@ class FileUploader<T extends { name: string }> extends React.PureComponent<IProp
                         onFilesRemoved([file], e);
                       }}
                     >
-                      <Trash />
+                      <Remove />
                     </Icon>
                   )}
                 </SelectedFileItem>
@@ -214,4 +243,22 @@ class FileUploader<T extends { name: string }> extends React.PureComponent<IProp
   }
 }
 
-export default FileUploader;
+// Based on carbon loader but without rediculous forced padding
+const Loading: React.FC<{ className?: string; color: string }> = ({ className, color }) => (
+  <div aria-live="assertive" className={cx("bx--loading", className)}>
+    <svg
+      className={cx(
+        "bx--loading__svg",
+        css`
+          stroke: ${color};
+        `
+      )}
+      viewBox="-75 -75 150 150"
+    >
+      <title>Loading</title>
+      <circle cx="0" cy="0" r="67" />
+    </svg>
+  </div>
+);
+
+export default withTheme(FileUploader);

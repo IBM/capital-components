@@ -8,8 +8,3 @@ it("media queries with basic strings", () => {
     expect.stringMatching(/@media \(min-width:1200px\) {\s+background-color: blue;\s+/)
   );
 });
-
-it("media queries with classnames", () => {
-  mq.l("background-color: blue");
-  expect(getStyles(emotion)).toMatchSnapshot();
-});
