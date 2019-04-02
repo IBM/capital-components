@@ -111,3 +111,11 @@ body {
     min-width: 31.25rem;
   }
 }
+
+// Some overrides to support datepicker in iOS
+@supports (-webkit-overflow-scrolling: touch) {
+  .bx--date-picker__input.flatpickr-input.flatpickr-mobile {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
