@@ -4,6 +4,7 @@ import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import useToggle from "../../hooks/useToggle";
 import { Button, DropdownV2 } from "carbon-components-react";
+import { cx, css } from "emotion";
 
 const stories = storiesOf("Components|BannerRibbon", module);
 
@@ -200,8 +201,41 @@ stories.add("Restricted title width", () => {
   return (
     <div css="width: 100vw;">
       <BannerRibbon.Ribbon
-        title="Basic title"
+        title="Basic title with hint 6"
         titleWidthHint="6"
+        floatRightOfTitle={
+          <Col size="all" css="border: 1px solid blue; flex: 1 1 auto;">
+            Some float content
+          </Col>
+        }
+      />
+      <BannerRibbon.Ribbon
+        title="Basic title with hint 7"
+        titleWidthHint="7"
+        floatRightOfTitle={
+          <Col size="all" css="border: 1px solid blue; flex: 1 1 auto;">
+            Some float content
+          </Col>
+        }
+      />
+      <BannerRibbon.Ribbon
+        title="Basic title with hint 9"
+        titleWidthHint="9"
+        floatRightOfTitle={
+          <Col size="all" css="border: 1px solid blue; flex: 1 1 auto;">
+            Some float content
+          </Col>
+        }
+      />
+    </div>
+  );
+});
+
+stories.add("Double dropdowns", () => {
+  return (
+    <div css="width: 100vw;">
+      <BannerRibbon.Ribbon
+        title="Basic title"
         floatRightOfTitle={
           <>
             <BannerRibbon.DropdownWrapper>

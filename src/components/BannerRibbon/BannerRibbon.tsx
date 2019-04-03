@@ -108,19 +108,11 @@ const Ribbon: React.SFC<{
 
       /* istanbul ignore next */
       if (isIE) {
-        // this is why we can't have nice things
-        const vwCalced = (90 * Number.parseInt(titleWidthHint, 10)) / 12;
-        const maxWidth =
-          !titleWidthHint || titleWidthHint === "all" ? undefined : `max-width: ${vwCalced}vw;`;
         const cursor = `cursor: ${isExpandable ? "pointer" : "inherit"};`;
         return (
           <BannerRibbonWrapper className={className} isExpandable={isExpandable} mobile={isMobile}>
             <Grid isContainer={true} verticalPadding="xl">
-              <ExpanderWrapper
-                css={`
-                  ${cursor} ${maxWidth};
-                `}
-              >
+              <ExpanderWrapper css={cursor}>
                 <ExpanderIcon
                   expandable={isExpandable}
                   isExpanded={otherProps.isExpanded}
@@ -137,6 +129,7 @@ const Ribbon: React.SFC<{
                 onClick={otherProps.onExpandClick}
                 role={isExpandable ? "button" : "header"}
                 css={cursor}
+                titleWidthHint={titleWidthHint}
                 aria-expanded={isExpandable ? otherProps.isExpanded : undefined}
               />
               {children}
@@ -183,6 +176,10 @@ interface IExpandableProps {
 const BannerMobileFloatWrapper = styled.div`
   padding-top: 12px;
   padding-bottom: ${({ theme }) => theme.spacing.spacing.lg};
+
+  .cap-dropdown-wrapper ~ .cap-dropdown-wrapper {
+    margin-top: 16px;
+  }
 `;
 
 const expanderIconClass = css`
@@ -288,19 +285,32 @@ const IETextWrap = styled(TextWrap)`
 `;
 
 /* istanbul ignore next */
-const IEDesktopExpandWrapper = ({ supertitle, title, floatRightOfTitle, ...props }) => (
-  <Flex direction="column">
-    <Flex direction="row">{supertitle}</Flex>
-    <Flex direction="row">
-      <IETitleWrapper direction="column" {...props}>
-        <IETextWrap>{title}</IETextWrap>
-      </IETitleWrapper>
-      {floatRightOfTitle && (
-        <BannerDesktopFloatWrapper>{floatRightOfTitle}</BannerDesktopFloatWrapper>
-      )}
+const IEDesktopExpandWrapper = ({
+  supertitle,
+  title,
+  floatRightOfTitle,
+  titleWidthHint,
+  ...props
+}) => {
+  const { maxWidth, remainingWidth } = getSectionHintOptions(titleWidthHint);
+  return (
+    <Flex direction="column">
+      <Flex direction="row" css={maxWidth}>
+        {supertitle}
+      </Flex>
+      <Flex direction="row">
+        <IETitleWrapper direction="column" className={css(maxWidth)} {...props}>
+          <IETextWrap>{title}</IETextWrap>
+        </IETitleWrapper>
+        {floatRightOfTitle && (
+          <BannerDesktopFloatWrapper className={css(remainingWidth)}>
+            {floatRightOfTitle}
+          </BannerDesktopFloatWrapper>
+        )}
+      </Flex>
     </Flex>
-  </Flex>
-);
+  );
+};
 
 const DesktopExpandWrapper: React.SFC<IExpandableProps & { titleWidthHint: string }> = ({
   expandable,
@@ -311,10 +321,7 @@ const DesktopExpandWrapper: React.SFC<IExpandableProps & { titleWidthHint: strin
   titleWidthHint,
   className
 }) => {
-  const vwCalced = (90 * Number.parseInt(titleWidthHint, 10)) / 12;
-  /* istanbul ignore next */
-  const maxWidth =
-    !titleWidthHint || titleWidthHint === "all" ? undefined : `max-width: ${vwCalced}vw;`;
+  const { maxWidth, remainingWidth } = getSectionHintOptions(titleWidthHint);
 
   return (
     <>
@@ -340,13 +347,27 @@ const DesktopExpandWrapper: React.SFC<IExpandableProps & { titleWidthHint: strin
         <TextWrap>{title}</TextWrap>
       </ExpanderWrapper>
       {floatRightOfTitle && (
-        <BannerDesktopFloatWrapper>{floatRightOfTitle}</BannerDesktopFloatWrapper>
+        <BannerDesktopFloatWrapper className={css(remainingWidth)}>
+          {floatRightOfTitle}
+        </BannerDesktopFloatWrapper>
       )}
     </>
   );
 };
 
 export default Ribbon;
+
+function getSectionHintOptions(titleWidthHint: string) {
+  const vwCalced = (90 * Number.parseInt(titleWidthHint, 10)) / 12;
+  const needToAdjustWidths = !titleWidthHint || titleWidthHint === "all";
+  const maxWidth = needToAdjustWidths ? undefined : `max-width: ${vwCalced}vw;`;
+  // The following will cause the float right section to adjust and fit
+  // to the available space left over.
+  const remainingWidth = needToAdjustWidths
+    ? undefined
+    : `max-width: ${90 - vwCalced}vw; flex: 1 1 auto;`;
+  return { maxWidth, remainingWidth };
+}
 
 function isActuallyExpandable(
   isMobile: boolean,

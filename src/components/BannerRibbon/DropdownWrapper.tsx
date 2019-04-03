@@ -1,6 +1,6 @@
 import { cx } from "emotion";
 import React, { FC } from "react";
-import { mqStrings } from "../../layout/mediaQueries";
+import { mqStrings, mqStringsMax } from "../../layout/mediaQueries";
 import { styled } from "../../support/theme";
 import { Omit } from "type-zoo/types";
 
@@ -10,7 +10,7 @@ import { Omit } from "type-zoo/types";
  * This wrapper prevents that.
  */
 const DropdownWrapperInternal = styled.div`
-  ${mqStrings.base(`
+  ${mqStringsMax.s(`
     max-width: 100%;
     padding-left: 0;
     padding-right: 0;
@@ -24,7 +24,10 @@ const DropdownWrapperInternal = styled.div`
 const DropdownWrapper: FC<
   Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref">
 > = ({ className, ...props }) => (
-  <DropdownWrapperInternal className={cx(className, "cap-padding--horizontal")} {...props} />
+  <DropdownWrapperInternal
+    className={cx(className, "cap-padding--horizontal", "cap-dropdown-wrapper")}
+    {...props}
+  />
 );
 
 export default DropdownWrapper;
