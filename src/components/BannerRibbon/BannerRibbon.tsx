@@ -116,6 +116,7 @@ const Ribbon: React.SFC<{
                 <ExpanderIcon
                   expandable={isExpandable}
                   isExpanded={otherProps.isExpanded}
+                  onClick={otherProps.onExpandClick}
                   className={css`
                     ${otherProps.supertitle ? "margin-top: 2.5rem" : "margin-top: 1.25rem"};
                   `}
@@ -189,11 +190,13 @@ const expanderIconClass = css`
 const ExpanderIcon = ({
   expandable,
   isExpanded,
-  className
+  className,
+  onClick
 }: {
   expandable: boolean;
   isExpanded: boolean;
   className?: string;
+  onClick?: React.EventHandler<any>;
 }) =>
   expandable ? (
     <Flex
@@ -209,6 +212,7 @@ const ExpanderIcon = ({
               top: 0;
             `}
       className={className}
+      onClick={onClick}
     >
       <Icon
         size="small"
