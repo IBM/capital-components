@@ -21,7 +21,8 @@ const BannerRibbonWrapper = styled("div")<{ mobile: boolean; isExpandable: boole
   background-color: ${({ theme }) => theme.color.nav02};
   color: ${({ theme }) => theme.color.inverse01};
   overflow: visible;
-  width: 100%;
+  flex-shrink: 0;
+
   > * {
     overflow: visible;
   }
