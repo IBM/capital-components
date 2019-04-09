@@ -35,6 +35,9 @@ import useReactRouter from "use-react-router";
 import withExternalWindow from "../../storybook-addons/external-window";
 import useToggle from "../../src/hooks/useToggle";
 import { Heading } from "@fss/components/lib/primitives/text";
+import { LoremIpsum } from "lorem-ipsum";
+
+const lorem = new LoremIpsum();
 
 const {
   PrimaryBar,
@@ -42,7 +45,6 @@ const {
   PrimaryBarNavItem,
   PrimaryBarTitle,
   SecondaryBar,
-  SecondaryBarIcon,
   FooterBar,
   FooterBarIcon
 } = NavigationBar;
@@ -331,7 +333,7 @@ stories.add("Sidebar section", () => {
           </TabsV2>
         </SecondaryBar>
         <ContentWrapper>
-          <VerticalScrollableContent allowShrink>
+          <VerticalScrollableContent>
             <BannerRibbon.Ribbon
               title="INQUIRIES_TITLE"
               floatRightOfTitle={
@@ -363,9 +365,9 @@ stories.add("Sidebar section", () => {
                 </TabsV2>
               </Col>
               <Col size="1/3" separator="fullscreen right">
-                Some sidebar content that is longer than you would think. Also come on maaaaaan.
+                {lorem.generateParagraphs(1)}
               </Col>
-              <Col size="1/3">
+              <Col size="1/3" separator="fullscreen right">
                 <div>Some main content</div>
               </Col>
               <Col size="1/3">Some sidebar content</Col>
@@ -386,5 +388,25 @@ stories.add("Sidebar section", () => {
         </ContentWrapper>
       </MainWrapper>
     </>
+  );
+});
+
+stories.add("Sidebar section with small col", () => {
+  return (
+    <MainWrapper>
+      <ContentWrapper>
+        <VerticalScrollableContent>
+          <Grid isContainer allowGrow>
+            <Col size="1/3" separator="fullscreen right">
+              {lorem.generateParagraphs(1)}
+            </Col>
+            <Col size="1/3">
+              <div>Some main content</div>
+            </Col>
+            <Col size="1/3">Some sidebar content</Col>
+          </Grid>
+        </VerticalScrollableContent>
+      </ContentWrapper>
+    </MainWrapper>
   );
 });

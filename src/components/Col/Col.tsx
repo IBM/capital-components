@@ -28,7 +28,8 @@ export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   flexAlignment?: string;
   /**
    * If your column needs a separator from the rest of the columns. Currently we only support a right separator and a full screen version.
-   * The fullscreen version will extend
+   * The fullscreen version will extend. For fullscreen right, the grid that it is contained in MUST be set to grow to the container
+   * height (allowGrow prop)
    */
   separator?: "right" | "fullscreen right";
 }
@@ -98,7 +99,8 @@ const VerticalSeparatedCol: React.SFC<IProps & { separator?: "right" | "fullscre
         padding="left 15px right 5px"
         className={css`
           > * {
-            height: 100vh;
+            min-height: 100000vh; /* unfortunately, safari currently needs this. Will need to investigate some other way of expanding this. */
+            height: 100%;
           }
         `}
       />

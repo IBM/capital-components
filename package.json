@@ -179,6 +179,7 @@
     "jsdom-global": "^3.0.2",
     "lint-staged": "8.1.1",
     "lodash.camelcase": "^4.3.0",
+    "lorem-ipsum": "^2.0.1",
     "match-media-mock": "^0.1.1",
     "merge2": "^1.2.2",
     "normalize-url": "^4.2.0",
@@ -229,6 +230,7 @@
   },
   "dependencies": {
     "@emotion/is-prop-valid": "^0.7.3",
+    "body-scroll-lock": "^2.6.1",
     "classnames": "^2.2.5",
     "csstype": "^2.6.2",
     "detect-browser": "^4.1.0",

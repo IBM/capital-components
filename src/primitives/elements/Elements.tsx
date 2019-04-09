@@ -1,11 +1,18 @@
 import isPropValid from "@emotion/is-prop-valid";
 import { FlexDirectionProperty } from "csstype";
 import { css, cx } from "emotion";
-import React, { ComponentType } from "react";
+import React, { ComponentType, ComponentPropsWithoutRef } from "react";
 import { buildAlignment } from "../../layout/alignment";
 import { IBreakPointDescriptor } from "../../layout/mediaQueries";
 import { buildSpacing } from "../../layout/spacing";
 import { styled, Theme, withTheme } from "../../support/theme";
+import { detect } from "detect-browser";
+import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
+
+const browser = detect();
+/* istanbul ignore next */
+const isIOS = browser && browser.os === "iOS";
+const isSafari = browser && browser.name === "safari";
 
 export interface ISharedElementProps {
   /* How to render the padding for this element. Use predefined xs, sm, md, etc padding variables or define a size. */
@@ -185,7 +192,7 @@ export const ContentWrapper = styled.div`
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
-  overflow: auto;
+  overflow: hidden;
 `;
 
 export const ContentBottomPadding = styled.div`
@@ -207,20 +214,65 @@ export const MainWrapper = styled.div`
  * so you can toggle the flex off if the grid is immediately within this element.
  * This is due to a very annoying bug in safari that causes general weirdness if a
  * grid is contained in an expanding flexbox.
+ *
+ * Update: Overriden this bizarre bug by preventing height of all elements within the
+ * grid from being set to height 100%.
  */
-export const VerticalScrollableContent = styled.div<{
-  containsGrid?: boolean;
-  allowShrink?: boolean;
-}>`
-  flex: 1 ${({ allowShrink }) => (allowShrink ? 1 : 0)} auto;
-  ${({ containsGrid }) => (containsGrid ? "" : "display: flex; flex-direction: column;")};
-  overflow-y: auto;
-  overflow-x: hidden;
-  > .cap-container {
+const VerticalScrollableContentInternal = styled.div`
+  flex: 1 1 auto;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+
+  .cap-container {
     overflow: hidden;
+    max-width: 100%;
   }
+
   @supports (-webkit-overflow-scrolling: touch) {
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
   }
+
+  ${isSafari ? "> .cap-grid > * { height: auto; }" : ""}
 `;
+
+export class VerticalScrollableContent extends React.PureComponent<
+  ComponentPropsWithoutRef<typeof VerticalScrollableContentInternal> & {
+    /** Optionally disable scroll locking (used only for iOS) */
+    disableScrollLock?: boolean;
+  }
+> {
+  trackingNode: HTMLElement = null;
+
+  componentDidMount() {
+    if (isIOS && !this.props.disableScrollLock) {
+      disableBodyScroll(this.trackingNode);
+    }
+  }
+
+  componentWillUnmount() {
+    if (isIOS && !this.props.disableScrollLock) {
+      enableBodyScroll(this.trackingNode);
+    }
+  }
+
+  render() {
+    const { disableScrollLock, ...otherProps } = this.props;
+    return (
+      <VerticalScrollableContentInternal
+        {...otherProps}
+        innerRef={node => {
+          this.trackingNode = node;
+          if (typeof this.props.innerRef === "function") {
+            this.props.innerRef(node);
+          } else if (this.props.innerRef) {
+            // bypassing readonly until typescript defs are updated:
+            // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/31065
+            (this.props.innerRef.current as any) = node;
+          }
+        }}
+      />
+    );
+  }
+}
