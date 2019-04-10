@@ -209,7 +209,7 @@
     "tslint": "^5.8.0",
     "tslint-config-prettier": "^1.1.0",
     "tslint-config-standard": "^7.0.0",
-    "typescript": "^3.3.3",
+    "typescript": "^3.4.3",
     "url-regex": "^4.1.1",
     "use-react-router": "^1.0.3",
     "validate-commit-msg": "^2.12.2",
