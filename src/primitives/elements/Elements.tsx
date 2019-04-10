@@ -217,6 +217,11 @@ export const MainWrapper = styled.div`
  *
  * Update: Overriden this bizarre bug by preventing height of all elements within the
  * grid from being set to height 100%.
+ *
+ * Update 2: Turns out the issue was only vaguely related to this element. An element in safari
+ * had a min-height of 200px combined with a flex: 1 1 auto. That seems to have
+ * been the cause. Changing to flex: 1 1 200px resolves the issue. I believe it's related to
+ * this: https://github.com/philipwalton/flexbugs/issues/132#issuecomment-222266165
  */
 const VerticalScrollableContentInternal = styled.div`
   flex: 1 1 auto;
@@ -226,15 +231,13 @@ const VerticalScrollableContentInternal = styled.div`
 
   .cap-container {
     overflow: hidden;
-    max-width: 100%;
+    max-width: 100vw;
   }
 
   @supports (-webkit-overflow-scrolling: touch) {
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
   }
-
-  ${isSafari ? "> .cap-grid > * { height: auto; }" : ""}
 `;
 
 export class VerticalScrollableContent extends React.PureComponent<
