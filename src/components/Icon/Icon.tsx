@@ -4,7 +4,8 @@ import { Omit } from "type-zoo";
 import { CenteredBlock } from "../../primitives/elements";
 
 export type Props = ComponentPropsWithoutRef<typeof CenteredBlock> & {
-  size: "xsmall" | "small" | "medium" | "large" | "xlarge" | "xxxlarge";
+  // The given size of a icon. Either a set size, or a number (in rem)
+  size: "xsmall" | "small" | "medium" | "large" | "xlarge" | "xxxlarge" | number;
   title?: string;
   glyph?: {
     id: string;
@@ -28,7 +29,7 @@ type ContainerProps = Omit<Props, "glyph">;
 // any => Escape typing until emotion updates to using new context api that supports typing.
 const SVGContainer = React.forwardRef<HTMLDivElement, ContainerProps>(
   ({ className, size, children, circleColor, color, ...otherProps }, ref) => {
-    const iconSize = sizeToREM[size];
+    const iconSize = sizeToREM[size] || size;
 
     const fill = css`
       height: ${iconSize}rem;

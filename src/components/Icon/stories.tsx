@@ -1,6 +1,6 @@
 import { Icon, Table } from "@fss/components";
 import NotificationBell from "@fss/icons/dist/svg/notification-bell_24";
-import { withInfo } from "@storybook/addon-info";
+import Watson from "@fss/icons/dist/svg/watson_24";
 import { storiesOf } from "@storybook/react";
 import React from "react";
 import { sizeToREM } from "./Icon";
@@ -35,23 +35,18 @@ const iconColumns = [
 stories
   .add(
     "Basic Usage",
-    withInfo({
-      text: `
-    Basic icon
-  `
-    })(() => (
+    () => (
       <Icon size="large" title="Mandatory Title (for accessibility)">
         <NotificationBell />
       </Icon>
-    ))
+    ),
+    {
+      text: `Basic icon`
+    }
   )
   .add(
     "Circle",
-    withInfo({
-      text: `
-    Sometimes you want an inverted icon. Just provide the colors.
-  `
-    })(() => (
+    () => (
       <>
         <Icon
           size="large"
@@ -70,13 +65,16 @@ stories
           9+
         </Icon>
       </>
-    ))
+    ),
+    {
+      text: `Sometimes you want an inverted icon. Just provide the colors.`
+    }
   )
-  .add(
-    "Sizes",
-    withInfo({
-      text: `
-    Basic icon sizes
-  `
-    })(() => <Table columns={iconColumns} rows={sizes} />)
-  );
+  .add("Sizes", () => <Table columns={iconColumns} rows={sizes} />, {
+    text: "Basic icon sizes"
+  })
+  .add("Manual size", () => (
+    <Icon size={3} title="Mandatory Title (for accessibility)" circleColor="red" color="white">
+      <Watson />
+    </Icon>
+  ));
