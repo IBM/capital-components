@@ -55,9 +55,14 @@ const SVGContainer = React.forwardRef<HTMLDivElement, ContainerProps>(
     );
     return (
       <CenteredBlock
-        className={cx(className, fill, "icon", {
-          [circleStyle]: circleColor
-        })}
+        className={cx(
+          fill,
+          "icon",
+          {
+            [circleStyle]: circleColor
+          },
+          className
+        )}
         innerRef={ref}
         {...otherProps}
       >
