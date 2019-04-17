@@ -248,6 +248,10 @@ export class VerticalScrollableContent extends React.PureComponent<
 > {
   trackingNode: HTMLElement = null;
 
+  static defaultProps = {
+    disableScrollLock: true
+  };
+
   componentDidMount() {
     if (isIOS && !this.props.disableScrollLock) {
       disableBodyScroll(this.trackingNode);
