@@ -112,7 +112,7 @@ const Ribbon: React.SFC<{
         const cursor = `cursor: ${isExpandable ? "pointer" : "inherit"};`;
         return (
           <BannerRibbonWrapper className={className} isExpandable={isExpandable} mobile={isMobile}>
-            <Grid isContainer={true} verticalPadding="xl">
+            <Grid isContainer={true} verticalPadding="xl" css="overflow: visible;">
               <ExpanderWrapper css={cursor}>
                 <ExpanderIcon
                   expandable={isExpandable}
@@ -142,7 +142,7 @@ const Ribbon: React.SFC<{
 
       return (
         <BannerRibbonWrapper className={className} isExpandable={isExpandable} mobile={isMobile}>
-          <Grid isContainer={true} verticalPadding="xl">
+          <Grid isContainer={true} verticalPadding="xl" css="overflow: visible;">
             {otherProps.supertitle && (
               <Col size="all" flexDirection="row">
                 {otherProps.supertitle}

@@ -16,6 +16,10 @@ const allowGrowStyle = css`
   flex-grow: 1;
 `;
 
+const preventOverflow = css`
+  overflow: hidden;
+`;
+
 export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   /** If true, add padding on the left and right ~5%. Only use for outer elements. */
   isContainer?: boolean;
@@ -46,7 +50,7 @@ export const Grid: React.SFC<IProps> = ({
 }) => (
   <div
     className={cx(
-      className,
+      preventOverflow,
       grid({
         isContainer,
         isFixedColumns,
@@ -57,7 +61,8 @@ export const Grid: React.SFC<IProps> = ({
       {
         [preventShrinkStyle]: preventShrink,
         [allowGrowStyle]: !isIE && allowGrow
-      }
+      },
+      className
     )}
     {...props}
   />

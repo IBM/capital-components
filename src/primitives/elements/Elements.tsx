@@ -225,7 +225,9 @@ export const MainWrapper = styled.div`
  */
 const VerticalScrollableContentInternal = styled.div`
   flex: 1 1 auto;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+
   display: flex;
   flex-direction: column;
 
