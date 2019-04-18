@@ -231,7 +231,6 @@ const VerticalScrollableContentInternal = styled.div`
 
   .cap-container {
     overflow: hidden;
-    max-width: 100vw;
   }
 
   @supports (-webkit-overflow-scrolling: touch) {
