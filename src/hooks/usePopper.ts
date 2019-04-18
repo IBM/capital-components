@@ -6,7 +6,7 @@ import { RefObject, useCallback, useEffect, useRef, useState } from "react";
 export interface IInputOptions extends PopperOptions {
   referenceRef: RefObject<any>;
   popperRef: RefObject<any>;
-  arrowRef: RefObject<any>;
+  arrowRef?: RefObject<any>;
 }
 
 const defaultOpts: PopperOptions = {
@@ -42,18 +42,15 @@ export default function usePopper(inputOpts: IInputOptions, inputs = []) {
     return data;
   }, []);
 
-  useEffect(
-    () => {
-      // A placement difference in state means popper determined a new placement
-      // apart from the opts value. By the time the popper element is rendered with
-      // the new position Popper has already measured it, if the place change triggers
-      // a size change it will result in a misaligned popper. So we schedule an update to be sure.
-      if (popperInstance.current) {
-        popperInstance.current.scheduleUpdate();
-      }
-    },
-    [state.placement]
-  );
+  useEffect(() => {
+    // A placement difference in state means popper determined a new placement
+    // apart from the opts value. By the time the popper element is rendered with
+    // the new position Popper has already measured it, if the place change triggers
+    // a size change it will result in a misaligned popper. So we schedule an update to be sure.
+    if (popperInstance.current) {
+      popperInstance.current.scheduleUpdate();
+    }
+  }, [state.placement]);
 
   useEffect(() => {
     if (referenceRef.current && popperRef.current) {
@@ -94,7 +91,11 @@ export default function usePopper(inputOpts: IInputOptions, inputs = []) {
           ...state.data.styles
         };
 
-  const arrowStyle = !arrowRef.current || !state.data ? initialArrowStyle : state.data.arrowStyles;
+  const arrowStyle = arrowRef
+    ? !arrowRef.current || !state.data
+      ? initialArrowStyle
+      : state.data.arrowStyles
+    : null;
 
   return {
     style: style as React.CSSProperties,

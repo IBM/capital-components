@@ -229,10 +229,6 @@ const VerticalScrollableContentInternal = styled.div`
   display: flex;
   flex-direction: column;
 
-  .cap-container {
-    overflow: hidden;
-  }
-
   @supports (-webkit-overflow-scrolling: touch) {
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
