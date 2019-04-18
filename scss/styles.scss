@@ -97,7 +97,8 @@ body {
 // safari 11+ detection.
 @media not all and (min-resolution: 0.001dpcm) {
   @supports (-webkit-appearance: none) and (stroke-color: transparent) {
-    .cap-grid > * {
+    // apparently, this was being beat for specificity despite above media queries
+    div.cap-grid > * {
       height: auto;
     }
   }
