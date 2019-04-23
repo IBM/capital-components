@@ -167,6 +167,14 @@ This component would render Comp1 if the screen size is less than the `small` br
 Note: We subtract 1 from the breakpoint for consistency. These breakpoints are designed for `min-width` in mind, so max-width needs
 some minor adjustments to keep in sync with all the mediaqueries in emotion.
 
+Alternatively, you can use the helper component:
+
+```jsx
+import { Mobile } from "@fss/components";
+
+const Comp = () => <Mobile>{isMobile => (isMobile ? <Comp1 /> : <Comp2 />)}</Mobile>;
+```
+
 ### With Emotion
 
 Emotion css also works really well with our media queries package. You can see some of the examples inside the media query

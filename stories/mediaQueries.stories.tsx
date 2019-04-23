@@ -1,8 +1,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { Flex, Block } from "@fss/components/lib/primitives/elements";
-import { Table } from "@fss/components";
-
+import { Table, Mobile } from "@fss/components";
 import { breakpoints, mqStrings, mq } from "@fss/components/lib/layout/mediaQueries";
 
 import { withInfo } from "@storybook/addon-info";
@@ -70,4 +69,7 @@ storiesOf("Layout|Media Queries", module)
         </Block>
       </>
     ))
-  );
+  )
+  .add("Mobile Elements", () => (
+    <Mobile>{isMobile => (isMobile ? "is a mobile" : "is not mobile mode")}</Mobile>
+  ));
