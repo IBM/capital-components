@@ -200,7 +200,7 @@
     "react-testing-library": "^6.0.0",
     "replace-in-file": "^3.0.0-beta.2",
     "rimraf": "^2.6.1",
-    "semantic-release": "^15.13.3",
+    "semantic-release": "^15.13.12",
     "storybook-readme": "^4.0.5",
     "svg-sprite-loader": "^3.8.0",
     "through2-map": "^3.0.0",

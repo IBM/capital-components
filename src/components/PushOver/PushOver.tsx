@@ -123,7 +123,7 @@ class PushOver extends React.PureComponent<IProps & { innerRef: React.Ref<any> }
       width: 0,
       overlayColor: "#00000000"
     };
-    const sizeInternal = sizeMapping[size] || size || sizeMapping.md;
+    const sizeInternal: number = sizeMapping[size] || size || sizeMapping.md;
     const onScreenPosition = {
       width: sizeInternal,
       overlayColor: "#00000066"
@@ -145,7 +145,7 @@ class PushOver extends React.PureComponent<IProps & { innerRef: React.Ref<any> }
           overshootClamping: true
         }}
       >
-        {({ width, overlayColor }) => (
+        {({ width, overlayColor }: any) => (
           <React.Fragment>
             {showOverlay && (
               <AnimatedOverlay

@@ -86,7 +86,7 @@ export class FlyOver extends React.PureComponent<IProps, IState> {
           overshootClamping: true
         }}
       >
-        {({ x }) => {
+        {({ x }: any) => {
           return (
             <FlyOverContainer
               position={position}
