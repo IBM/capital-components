@@ -87,7 +87,7 @@ However, we also use emotion theming to get dynamic theme colors (or other theme
 you need to wrap your app with the Theme Provider:
 
 ```js
-import { ThemeProvider, Theme } from '@fss/components/lib/support/theme';
+import { ThemeProvider } from '@fss/components/lib/support/theme';
 import theme from '@fss/components/lib/support/themes/other-products';
 
 ...
