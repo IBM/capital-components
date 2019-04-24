@@ -140,12 +140,11 @@ class PushOver extends React.PureComponent<IProps & { innerRef: React.Ref<any> }
         onRest={this.onRest}
         onStart={this.onStart}
         config={{
-          ...config,
-          restSpeedThreshold: 0.001,
-          overshootClamping: true
+          ...config.stiff,
+          clamp: true
         }}
       >
-        {({ width, overlayColor }: any) => (
+        {({ width, overlayColor }) => (
           <React.Fragment>
             {showOverlay && (
               <AnimatedOverlay

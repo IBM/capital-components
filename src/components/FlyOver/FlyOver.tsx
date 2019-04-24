@@ -81,12 +81,11 @@ export class FlyOver extends React.PureComponent<IProps, IState> {
         onRest={this.onRest}
         onStart={this.onStart}
         config={{
-          ...config,
-          restSpeedThreshold: 0.001,
-          overshootClamping: true
+          ...config.stiff,
+          clamp: true
         }}
       >
-        {({ x }: any) => {
+        {({ x }) => {
           return (
             <FlyOverContainer
               position={position}
