@@ -35,6 +35,8 @@ And then add this dependency:
 yarn add @fss/components
 ```
 
+Note: There are additional required dependencies like emotion and icons that should also be installed. Check the package.json for all required peer dependencies.
+
 ## General Styling
 
 This repo provides a small set of SASS files that can be used for styling components.

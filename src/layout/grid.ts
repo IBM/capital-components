@@ -61,10 +61,14 @@ export const createColClass = ({
   return cx(
     "cap-padding--horizontal",
     ...Object.keys(sizes).map(
-      breakpoint => `cap-grid__col--${breakpoint}--${determineSize(sizes[breakpoint])}`
+      breakpoint =>
+        `cap-grid__col--${breakpoint === "base" ? "xs" : breakpoint}--${determineSize(
+          sizes[breakpoint]
+        )}`
     ),
     ...Object.keys(heights).map(
-      breakpoint => `cap-grid__height--${breakpoint}--${heights[breakpoint]}`
+      breakpoint =>
+        `cap-grid__height--${breakpoint === "base" ? "xs" : breakpoint}--${heights[breakpoint]}`
     )
   );
 };

@@ -49,6 +49,11 @@ describe("column classnames", () => {
     const result = createColClass({ height: 1 });
     expect(result).toBe("cap-padding--horizontal cap-grid__col--xs--1 cap-grid__height--xs--1");
   });
+
+  it("base is considered to be the same as xs (height and size)", () => {
+    const result = createColClass({ height: { base: 5 }, size: { base: 2 } });
+    expect(result).toBe("cap-padding--horizontal cap-grid__col--xs--2 cap-grid__height--xs--5");
+  });
 });
 
 describe("custom vertical padding classes", () => {
