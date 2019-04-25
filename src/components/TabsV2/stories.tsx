@@ -81,9 +81,11 @@ stories
             ))}
           </TabsV2>
         </SecondaryBar>
-        <button onClick={() => setSelectedTabIndex(prevState => (prevState + 1) % 50)}>
-          Focus on tab {selectedTabIndex + 1}
-        </button>
+        {tabs.length > 0 && (
+          <button onClick={() => setSelectedTabIndex(prevState => (prevState + 1) % tabs.length)}>
+            Focus on tab {(selectedTabIndex + 1) % tabs.length}
+          </button>
+        )}
         <button onClick={() => setTabs(prevState => [...prevState, {}])}>Create new tab</button>
       </React.Fragment>
     );
@@ -149,5 +151,20 @@ stories
           )}
         </Tab>
       </TabsV2>
+    );
+  })
+  .add("Single tab", () => {
+    const [selectedTabIndex, setSelectedTabIndex] = useState(0);
+    return (
+      <React.Fragment>
+        <SecondaryBar>
+          <TabsV2 scrollToTab={selectedTabIndex}>
+            <Tab isSelected>Tab1</Tab>
+          </TabsV2>
+        </SecondaryBar>
+        <button onClick={() => setSelectedTabIndex(prevState => (prevState + 1) % 50)}>
+          Focus on tab {selectedTabIndex + 1}
+        </button>
+      </React.Fragment>
     );
   });
