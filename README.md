@@ -44,11 +44,13 @@ This repo provides a small set of SASS files that can be used for styling compon
 ```scss
 @import "~@fss/components/styles/scss/carbon-components.scss";
 @import "~@fss/components/styles/scss/styles.scss";
+@import "~@fss/components/styles/css/cap-grid-legacy.css";
 ```
 
 ```js
 import "@fss/components/styles/css/carbon-components.css";
 import "@fss/components/styles/css/styles.css";
+import "@fss/components/styles/css/cap-grid-legacy.css";
 ```
 
 We use CSS styling for a few elements (grid, font sizing, base carbon styles) for the sake of a shared reference point with
@@ -111,18 +113,6 @@ Please see the [test](https://github.ibm.com/watson-finance/wfss-components/blob
 ## Grid
 
 We provide some utility components that are built upon [css-gridish](https://github.com/IBM/css-gridish)
-
-To use the included grid, you need to import some custom CSS:
-
-```js
-import "@fss/components/styles/css/cap-grid.css";
-```
-
-or, if you need to support legacy browsers (IE11 and below):
-
-```js
-import "@fss/components/styles/css/cap-grid-legacy.css";
-```
 
 ### React Component Usage
 
