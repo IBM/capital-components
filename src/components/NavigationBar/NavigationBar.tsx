@@ -235,7 +235,7 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
                 </Icon>
               </PrimaryBarMainMenuItem>
             )}
-            {titleSection}
+            {titleSection || <PrimaryBarTitle />}
             {!matches && (
               <NavSectionWrapper hasTitleSection={!!titleSection}>{navSection}</NavSectionWrapper>
             )}
