@@ -5,12 +5,21 @@ import { Manager, Popper, Reference } from "react-popper";
 import debounce from "lodash.debounce";
 import ClickListener from "carbon-components-react/lib/internal/InnerClickListener";
 import { styled } from "../../support/theme";
+import { css, cx } from "emotion";
 
 // Adding this div to get around some madness with IE: https://github.com/philipwalton/flexbugs/issues/216
 const IEFixer = styled("div")`
   display: flex;
   flex-direction: row;
 `;
+
+const tooltipOverrides = css`
+  .bx--tooltip__caret {
+    left: unset;
+    right: unset;
+  }
+`;
+
 export interface IRenderProps<R extends HTMLElement = any> {
   getReferenceProps: () => {
     ref: React.Ref<R>;
@@ -151,18 +160,19 @@ export default class Tooltip<R extends HTMLElement = HTMLDivElement> extends Rea
             <Popper
               placement={outerPlacement}
               modifiers={{
-                preventOverflow: { enabled: true }
+                preventOverflow: { enabled: true, boundariesElement: "viewport" }
               }}
             >
-              {({ ref, style, arrowProps }) => {
+              {({ placement, ref, style, arrowProps }) => {
                 const popoverProps: any = {
-                  className: "bx--tooltip bx--tooltip--shown",
+                  className: cx("bx--tooltip bx--tooltip--shown", tooltipOverrides),
                   onMouseOver: this.handleMouse,
                   onMouseOut: this.handleMouse,
                   onFocus: this.handleMouse,
                   onBlur: this.handleMouse,
                   onContextMenu: this.handleMouse,
                   role: "tooltip",
+                  "data-floating-menu-direction": placement,
                   ref: node => {
                     this.popperRef = node;
                     ref(node);
@@ -176,6 +186,7 @@ export default class Tooltip<R extends HTMLElement = HTMLDivElement> extends Rea
                     <ClickListener onClickOutside={this.onClickOutside} refKey="innerRef">
                       <IEFixer>
                         <span className="bx--tooltip__caret" {...arrowProps} />
+
                         {content}
                       </IEFixer>
                     </ClickListener>
@@ -189,3 +200,19 @@ export default class Tooltip<R extends HTMLElement = HTMLDivElement> extends Rea
     );
   }
 }
+
+const generateContainerStyle = (placement: PopperJS.Placement) => {
+  const spacing = "10px";
+  switch (placement) {
+    case "bottom":
+      return { marginTop: spacing };
+    case "left":
+      return { marginRight: spacing };
+    case "right":
+      return { marginLeft: spacing };
+    case "top":
+      return { marginBottom: spacing };
+    default:
+      return {};
+  }
+};

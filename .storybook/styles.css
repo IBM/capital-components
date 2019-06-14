@@ -11,7 +11,3 @@ body,
 .external-preview {
   overflow: hidden;
 }
-
-.bx--tooltip {
-  position: relative;
-}
