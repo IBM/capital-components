@@ -1,3 +1,5 @@
+import { blue, teal, purple, magenta, green, cyan } from "@carbon/colors";
+
 // Based off output from http://jsfiddle.net/frj3tb6a/11/
 
 /** @deprecated Use paletteSet18 instead. */
@@ -24,33 +26,6 @@ export const paletteSet20 = [
   "#117645"
 ];
 
-const blue = {
-  30: "#97c1ff",
-  40: "#6ea6ff",
-  50: "#418cff",
-  60: "#0062ff",
-  70: "#054ada",
-  80: "#0530ad"
-};
-
-const teal = {
-  30: "#20d5d2",
-  40: "#00bab6",
-  50: "#009e9a",
-  60: "#007d79",
-  70: "#006161",
-  80: "#004548"
-};
-
-const purple = {
-  30: "#d0b0ff",
-  40: "#bb8eff",
-  50: "#a970ff",
-  60: "#8a3ffc",
-  70: "#6e32c9",
-  80: "#4f2196"
-};
-
 export const paletteSet18 = [
   blue[30],
   blue[50],
@@ -70,4 +45,81 @@ export const paletteSet18 = [
   purple[40],
   purple[60],
   purple[80]
+];
+
+export const darkPalette = [
+  purple[60],
+  teal[30],
+  magenta[60],
+  purple[40],
+  teal[50],
+  green[30],
+  green[60],
+  magenta[40],
+  purple[20],
+  teal[20],
+  green[50],
+  magenta[30],
+  teal[60],
+  green[40],
+  magenta[20],
+  purple[50],
+  teal[40],
+  green[20],
+  magenta[50],
+  purple[30]
+];
+
+export const lightPaletteHighContrast = [
+  purple[60],
+  green[80],
+  magenta[60],
+  purple[40],
+  green[50],
+  teal[80],
+  teal[60],
+  magenta[40],
+  purple[70],
+  green[70],
+  teal[50],
+  magenta[80],
+  green[60],
+  teal[40],
+  magenta[70],
+  purple[50],
+  green[40],
+  teal[70],
+  magenta[50],
+  purple[80]
+];
+
+export const lightPalette = [
+  purple[60],
+  teal[30],
+  magenta[70],
+  cyan[40],
+  purple[80],
+  teal[50],
+  magenta[90],
+  cyan[60],
+  purple[30],
+  teal[70],
+  magenta[40],
+  cyan[80],
+  purple[50],
+  teal[90],
+  magenta[60],
+  cyan[30],
+  purple[70],
+  teal[40],
+  magenta[80],
+  cyan[50],
+  purple[90],
+  teal[60],
+  magenta[30],
+  cyan[70],
+  purple[40],
+  teal[80],
+  magenta[50],
+  cyan[90]
 ];
