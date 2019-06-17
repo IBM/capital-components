@@ -11,7 +11,8 @@ import {
   Tab,
   TabsV2,
   ScrollRow,
-  Col
+  Col,
+  Mobile
 } from "@fss/components";
 import {
   ContentWrapper,
@@ -160,6 +161,40 @@ const IBMTitle = styled.span`
   margin-right: 0.25rem;
 `;
 
+const navOptions = [
+  {
+    path: "/mail1",
+    content: "Some Nav 1"
+  },
+  {
+    path: "/mail2",
+    content: "Some Nav 2"
+  }
+];
+
+const SelectedTitle = () => {
+  const { location } = useReactRouter();
+  const selectedNav = navOptions.find(item => {
+    const result = matchPath(location.pathname, { path: item.path });
+    return !!result;
+  });
+
+  return (
+    <Mobile>
+      {isMobile =>
+        isMobile && selectedNav ? (
+          selectedNav.content
+        ) : (
+          <>
+            <IBMTitle>IBM</IBMTitle>
+            <span>Project name</span>
+          </>
+        )
+      }
+    </Mobile>
+  );
+};
+
 stories.add("Basic", () => {
   const [showOptions, toggleShowOptions] = useToggle(false);
   const [showMenu, toggleShowMenu] = useToggle(false);
@@ -173,14 +208,14 @@ stories.add("Basic", () => {
         <PrimaryBar
           titleSection={
             <PrimaryBarTitle>
-              <IBMTitle>IBM</IBMTitle>
-              <span>Project name</span>
+              <SelectedTitle />
             </PrimaryBarTitle>
           }
           navSection={
             <>
-              <ReactRouterPrimaryLink path="/mail2">Some Nav 1</ReactRouterPrimaryLink>
-              <ReactRouterPrimaryLink path="/mail3">Some Nav 1</ReactRouterPrimaryLink>
+              {navOptions.map(item => (
+                <ReactRouterPrimaryLink path={item.path}>{item.content}</ReactRouterPrimaryLink>
+              ))}
             </>
           }
           rightSection={
