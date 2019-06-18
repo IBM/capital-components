@@ -31,7 +31,7 @@ const Wrapper = ({ size, position, ...otherProps }) => (
 const Overlay = styled.div`
   position: absolute;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   z-index: ${({ theme }) => theme.layers.FlyOver - 1};
 `;
 

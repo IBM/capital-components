@@ -253,6 +253,8 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
                 role="navigation"
                 aria-label={translate({ id: TranslationKeys.menuTitle })}
                 id={`wfss-navigation-bar-primary-${id}-mobile-menu`}
+                style={{ height: "100%" }}
+                fullScreenMode={false}
               >
                 {renderMobileMenuContent({ navSection, getWrapperProps: () => wrapperProps })}
               </PushOver>,
