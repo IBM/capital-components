@@ -1,6 +1,6 @@
 import { ThemeProvider } from "../src/support/theme";
 import theme from "../src/support/themes/other-products";
-import { render } from "react-testing-library";
+import { render } from "@testing-library/react";
 import React from "react";
 import MatchMediaMock from "match-media-mock";
 

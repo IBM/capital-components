@@ -31,6 +31,8 @@ export interface IProps {
   offsetTop?: number;
   /** Adjust offset from left. */
   offsetLeft?: number;
+  /** Node to use to determine boundaries. */
+  boundariesElement?: PopperJS.Boundary | HTMLElement;
 }
 
 export const Popover: React.SFC<IProps> = ({
@@ -41,7 +43,8 @@ export const Popover: React.SFC<IProps> = ({
   onClickOutside = empty.func,
   preventOverflow = true,
   offsetTop = 0,
-  offsetLeft = 0
+  offsetLeft = 0,
+  boundariesElement = "viewport"
 }) => (
   <Manager>
     <Reference>{reference}</Reference>
@@ -50,14 +53,19 @@ export const Popover: React.SFC<IProps> = ({
         <Popper
           placement={outerPlacement}
           modifiers={{
-            preventOverflow: { enabled: preventOverflow },
+            preventOverflow: { enabled: preventOverflow, boundariesElement },
             offset: {
               offset: `${offsetLeft}, ${offsetTop}`
             }
           }}
         >
           {({ ref, style, placement, outOfBoundaries }) => (
-            <div ref={ref} style={{ ...style, zIndex: 9999 }} data-placement={placement} data-out-of-boundaries={outOfBoundaries}>
+            <div
+              ref={ref}
+              style={{ ...style, zIndex: 9999 }}
+              data-placement={placement}
+              data-out-of-boundaries={outOfBoundaries}
+            >
               <ClickListener onClickOutside={onClickOutside} refKey="innerRef">
                 <IEFixer>{children}</IEFixer>
               </ClickListener>

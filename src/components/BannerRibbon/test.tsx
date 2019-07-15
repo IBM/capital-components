@@ -1,4 +1,4 @@
-import { cleanup } from "react-testing-library";
+import { cleanup } from "@testing-library/react";
 import "jest-dom/extend-expect";
 import { BannerRibbon } from "@fss/components";
 import React from "react";

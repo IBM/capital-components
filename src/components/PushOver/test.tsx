@@ -1,4 +1,4 @@
-import { cleanup, fireEvent } from "react-testing-library";
+import { cleanup, fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
 import { PushOver } from "@fss/components";
 import React from "react";

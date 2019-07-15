@@ -1,5 +1,6 @@
 import isPropValid from "@emotion/is-prop-valid";
 import MenuIcon from "@fss/icons/dist/svg/menu_24";
+import ChevronDown from "@fss/icons/dist/svg/chevron-down_16";
 import { css, cx } from "emotion";
 import React, { ComponentPropsWithoutRef, ComponentType } from "react";
 import ReactDOM from "react-dom";
@@ -12,6 +13,14 @@ import { styled, Theme, withTheme } from "../../support/theme";
 import Icon from "../Icon";
 import PushOver from "../PushOver";
 import PushOverItem from "../PushOverItem";
+import Popover from "../Popover";
+import Mobile from "../Mobile";
+import { detect } from "detect-browser";
+import useToggle from "../../hooks/useToggle";
+
+const browser = detect();
+/* istanbul ignore next */
+const isIOS = browser && browser.os === "iOS";
 
 export type NavigationBarItemProps = FlexProps & { isSelected?: boolean };
 export type PrimaryBarItemProps = NavigationBarItemProps;
@@ -51,22 +60,33 @@ const PrimaryBarItem = styled(NavigationBarItem, {
 function PrimaryBarNavItem<T extends object = {}>({
   asComp,
   className,
+  mobileWrapperClassName,
   ...props
-}: { asComp?: ComponentType<T>; className?: string } & Overwrite<PrimaryBarItemProps, T>) {
+}: {
+  asComp?: ComponentType<T> | string;
+  className?: string;
+  mobileWrapperClassName?: string;
+  children: React.ReactNode;
+  innerRef?: React.Ref<any>;
+} & Overwrite<PrimaryBarItemProps, T>) {
+  // use useMemo
+  const Comp = React.useMemo(
+    () => (asComp ? PrimaryBarItem.withComponent(asComp as any) : PrimaryBarItem),
+    [asComp]
+  );
   return (
-    <Media query={{ maxWidth: breakpoints.s - 1 }}>
+    <Mobile>
       {matches => {
-        const Comp = PrimaryBarItem.withComponent(asComp || ("div" as any));
         if (matches) {
           return (
-            <PushOverItem {...props}>
+            <PushOverItem className={mobileWrapperClassName}>
               {({ className: iC }) => <Comp className={cx(iC, className)} {...props} />}
             </PushOverItem>
           );
         }
         return <Comp className={className} {...props} />;
       }}
-    </Media>
+    </Mobile>
   );
 }
 
@@ -154,16 +174,19 @@ const PrimaryBarInternal = styled.nav`
 enum TranslationKeys {
   openMenu = "wfss-components.primarybar.menu.open",
   menuTitle = "wfss-components.primarybar.menu.title",
-  mainNavTitle = "wfss-components.primarybar.title"
+  mainNavTitle = "wfss-components.primarybar.title",
+  mainNavDropdownTitle = "wfss-components.primarybar.dropdown.title"
 }
 
-const defaultTranslation: Record<TranslationKeys, string> = {
-  [TranslationKeys.menuTitle]: "Menu",
-  [TranslationKeys.mainNavTitle]: "Main",
-  [TranslationKeys.openMenu]: "Open menu"
+const defaultTranslation: Record<TranslationKeys, (values: any) => string> = {
+  [TranslationKeys.menuTitle]: () => "Menu",
+  [TranslationKeys.mainNavTitle]: () => "Main",
+  [TranslationKeys.openMenu]: () => "Open menu",
+  [TranslationKeys.mainNavDropdownTitle]: values => `Open menu for ${values.title}`
 };
 
-const defaultTranslate = (args: { id: TranslationKeys }) => defaultTranslation[args.id];
+const defaultTranslate = (arg: { id: TranslationKeys; values?: any }) =>
+  defaultTranslation[arg.id](arg.values);
 
 const PrimaryBarWithoutTheme: React.FunctionComponent<
   {
@@ -254,7 +277,7 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
                 aria-label={translate({ id: TranslationKeys.menuTitle })}
                 id={`wfss-navigation-bar-primary-${id}-mobile-menu`}
                 style={{ height: "100%" }}
-                fullScreenMode={false}
+                fullScreenMode={!isIOS}
               >
                 {renderMobileMenuContent({ navSection, getWrapperProps: () => wrapperProps })}
               </PushOver>,
@@ -313,6 +336,119 @@ const FooterBarIcon = styled(PrimaryBarIcon)`
   border-left: 1px solid ${props => props.theme.color.text02};
 `;
 
+const DropDownContainer = styled.div`
+  background-color: ${({ theme }) => theme.color.nav01};
+  width: 300px;
+  color: ${({ theme }) => theme.color.inverse01};
+  display: flex;
+  flex-direction: column;
+`;
+
+const primaryBarDropDownDefaultState = () => {
+  const [isOpen, toggleOpen] = useToggle(false);
+  return {
+    isOpen,
+    toggleOpen
+  };
+};
+
+type PrimaryBarDropDownProps = ComponentPropsWithoutRef<typeof PrimaryBarItem> & {
+  title: string;
+  id: string;
+  translate?: typeof defaultTranslate;
+} & ReturnType<typeof primaryBarDropDownDefaultState>;
+
+const primaryBarDropDownStyles = {
+  base: css`
+    transition: all 250ms cubic-bezier(0.5, 0, 0.1, 1);
+    margin-left: 0.5rem;
+    transform: rotate(0);
+  `,
+  open: css`
+    transform: rotate(180deg);
+  `
+};
+
+const PrimaryBarDropDown = ({
+  id,
+  title,
+  children,
+  isOpen,
+  toggleOpen,
+  translate = defaultTranslate,
+  ...props
+}: PrimaryBarDropDownProps) => {
+  const popperId = `wfss-navigation-bar-${id}-dropdown`;
+
+  const navItemProps = {
+    ...props,
+    asComp: "li",
+    id,
+    role: "button",
+    onClick: toggleOpen,
+    ["aria-expanded"]: isOpen,
+    ["aria-controls"]: popperId,
+    ["aria-label"]: translate({
+      id: TranslationKeys.mainNavDropdownTitle,
+      values: { title }
+    })
+  };
+
+  const openIcon = (
+    <Icon
+      size="small"
+      className={cx(primaryBarDropDownStyles.base, {
+        [primaryBarDropDownStyles.open]: isOpen
+      })}
+    >
+      <ChevronDown />
+    </Icon>
+  );
+
+  return (
+    <Mobile>
+      {matches =>
+        matches ? (
+          <>
+            <PrimaryBarNavItem {...navItemProps} asComp={undefined}>
+              <span
+                className={css`
+                  flex: 1 1 auto;
+                `}
+              >
+                {title}
+              </span>
+              {openIcon}
+            </PrimaryBarNavItem>
+            {isOpen ? children : null}
+          </>
+        ) : (
+          <Popover
+            show={isOpen}
+            placement="bottom-start"
+            onClickOutside={toggleOpen}
+            reference={({ ref }) => {
+              return (
+                <PrimaryBarNavItem {...navItemProps} innerRef={ref} aria-haspopup={true}>
+                  {title}
+                  {openIcon}
+                </PrimaryBarNavItem>
+              );
+            }}
+          >
+            <DropDownContainer id={popperId} role="navigation" aria-labelledby={id}>
+              {children}
+            </DropDownContainer>
+          </Popover>
+        )
+      }
+    </Mobile>
+  );
+};
+PrimaryBarDropDown.useDefaultState = primaryBarDropDownDefaultState;
+
+const PrimaryBarDropDownItem = PrimaryBarNavItem;
+
 export default {
   PrimaryBar,
   PrimaryBarIcon,
@@ -321,5 +457,7 @@ export default {
   PrimaryBarNavItem,
   SecondaryBarIcon,
   FooterBar,
-  FooterBarIcon
+  FooterBarIcon,
+  PrimaryBarDropDown,
+  PrimaryBarDropDownItem
 };
