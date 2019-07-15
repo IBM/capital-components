@@ -160,7 +160,10 @@ export default class Tooltip<R extends HTMLElement = HTMLDivElement> extends Rea
             <Popper
               placement={outerPlacement}
               modifiers={{
-                preventOverflow: { enabled: true, boundariesElement: "viewport" }
+                preventOverflow: { enabled: true, boundariesElement: "viewport" },
+                offset: {
+                  offset: "0, 6"
+                }
               }}
             >
               {({ placement, ref, style, arrowProps }) => {
@@ -185,7 +188,17 @@ export default class Tooltip<R extends HTMLElement = HTMLDivElement> extends Rea
                   <div {...popoverProps}>
                     <ClickListener onClickOutside={this.onClickOutside} refKey="innerRef">
                       <IEFixer>
-                        <span className="bx--tooltip__caret" {...arrowProps} />
+                        <span
+                          className="bx--tooltip__caret"
+                          {...arrowProps}
+                          // This is safe ONLY because the top provided for style is actually
+                          // always provided in number format (px).
+                          // It's only undefined in testing environment
+                          style={{
+                            ...arrowProps.style,
+                            top: ((arrowProps.style.top as any) || 0) + 6
+                          }}
+                        />
 
                         {content}
                       </IEFixer>
@@ -200,19 +213,3 @@ export default class Tooltip<R extends HTMLElement = HTMLDivElement> extends Rea
     );
   }
 }
-
-const generateContainerStyle = (placement: PopperJS.Placement) => {
-  const spacing = "10px";
-  switch (placement) {
-    case "bottom":
-      return { marginTop: spacing };
-    case "left":
-      return { marginRight: spacing };
-    case "right":
-      return { marginLeft: spacing };
-    case "top":
-      return { marginBottom: spacing };
-    default:
-      return {};
-  }
-};

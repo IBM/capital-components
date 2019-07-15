@@ -9,7 +9,14 @@ import { withReadme } from "storybook-readme";
 
 const stories = storiesOf("Components|Navigation Bar", module).addDecorator(withReadme([Readme]));
 
-const { PrimaryBar, PrimaryBarNavItem, PrimaryBarTitle, PrimaryBarIcon } = NavigationBar;
+const {
+  PrimaryBar,
+  PrimaryBarNavItem,
+  PrimaryBarTitle,
+  PrimaryBarIcon,
+  PrimaryBarDropDown,
+  PrimaryBarDropDownItem
+} = NavigationBar;
 
 const FlexUL = Flex.withComponent("ul");
 
@@ -155,6 +162,53 @@ stories.add(
               <PrimaryBarNavItem>Else 6</PrimaryBarNavItem>
               <PrimaryBarNavItem>Something 7</PrimaryBarNavItem>
               <PrimaryBarNavItem>Else 8</PrimaryBarNavItem>
+            </>
+          }
+          rightSection={
+            <PrimaryBarIcon>
+              <Icon size="medium" title="notifications">
+                <NotificationBell />
+              </Icon>
+            </PrimaryBarIcon>
+          }
+        />
+      </Flex>
+    );
+  },
+  {
+    info: {
+      inline: true,
+      text: `
+                  Basic Primary bar with a few navigation items
+              `
+    }
+  }
+);
+
+stories.add(
+  "Navigation sub items",
+  () => {
+    const menuRef = useRef(null);
+    const [open, toggleOpen] = useToggle(false);
+    const primaryBarDropDownProps = PrimaryBarDropDown.useDefaultState();
+
+    return (
+      <Flex css="max-width: 500px;" direction="row">
+        <div ref={menuRef} />
+        <PrimaryBar
+          renderMobileMenuContent={renderMobileMenuContent}
+          showMenu={open}
+          onMenuToggle={toggleOpen}
+          mobileMenuRef={menuRef}
+          titleSection={<PrimaryBarTitle>Title</PrimaryBarTitle>}
+          navSection={
+            <>
+              <PrimaryBarNavItem>Something 1</PrimaryBarNavItem>
+              <PrimaryBarNavItem>Else 2</PrimaryBarNavItem>
+              <PrimaryBarDropDown title="Something more" id="drop1" {...primaryBarDropDownProps}>
+                <PrimaryBarDropDownItem>Another option</PrimaryBarDropDownItem>
+                <PrimaryBarDropDownItem>One more</PrimaryBarDropDownItem>
+              </PrimaryBarDropDown>
             </>
           }
           rightSection={

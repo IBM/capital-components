@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, getByRole as getByRoleGlobal } from "react-testing-library";
+import { cleanup, fireEvent, getByRole as getByRoleGlobal } from "@testing-library/react";
 import "jest-dom/extend-expect";
 import { FileUploader } from "@fss/components";
 import React from "react";

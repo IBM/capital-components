@@ -1,4 +1,9 @@
-import { cleanup, getByLabelText as getByLabelTextGlobal } from "react-testing-library";
+import {
+  cleanup,
+  getByLabelText as getByLabelTextGlobal,
+  fireEvent,
+  act
+} from "@testing-library/react";
 import "jest-dom/extend-expect";
 import { NavigationBar } from "@fss/components";
 import React from "react";
@@ -9,7 +14,8 @@ const {
   PrimaryBarIcon,
   PrimaryBarNavItem,
   PrimaryBarTitle,
-  SecondaryBar
+  PrimaryBarDropDown,
+  PrimaryBarDropDownItem
 } = NavigationBar;
 
 afterEach(cleanup);
@@ -47,4 +53,34 @@ test("Open menu, in phone", async () => {
     "wfss-navigation-bar-primary-main-mobile-menu"
   );
   expect(getByLabelTextGlobal(document.body, "Open menu")).toBeInTheDocument();
+});
+
+describe("Show sub items", async () => {
+  const screenSizes: Parameters<typeof mockScreenSize>[0][] = ["monitor", "phone"];
+  screenSizes.forEach(screen => {
+    it(`Clicking on the button shows the nested items. (${screen})`, () => {
+      mockScreenSize(screen);
+      const Comp = () => {
+        const props = PrimaryBarDropDown.useDefaultState();
+        return (
+          <PrimaryBarDropDown id="unique" title="Something" {...props}>
+            <PrimaryBarDropDownItem>Thing 1</PrimaryBarDropDownItem>
+            <PrimaryBarDropDownItem>Thing 2</PrimaryBarDropDownItem>
+          </PrimaryBarDropDown>
+        );
+      };
+      const { getByRole, queryByText, getByText } = renderWithDefaultTheme(<Comp />);
+
+      const button = getByRole("button");
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveAttribute("aria-controls", "wfss-navigation-bar-unique-dropdown");
+      expect(getByLabelTextGlobal(document.body, "Open menu for Something")).toBeInTheDocument();
+      expect(queryByText("Thing 1")).not.toBeInTheDocument();
+
+      act(() => {
+        fireEvent.click(button);
+      });
+      expect(getByText("Thing 1")).toBeInTheDocument();
+    });
+  });
 });
