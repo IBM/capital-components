@@ -1,9 +1,9 @@
-import { Icon, NavigationBar } from "@fss/components";
+import { Icon, NavigationBar } from "capital-components";
 import NotificationBell from "../../fss-icons/notification-bell_24";
 import { storiesOf } from "@storybook/react";
 import React, { useRef } from "react";
 import useToggle from "../../hooks/useToggle";
-import { Flex } from "@fss/components/lib/primitives/elements/Elements";
+import { Flex } from "capital-components/lib/primitives/elements/Elements";
 import Readme from "./README.md";
 import { withReadme } from "storybook-readme";
 

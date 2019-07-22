@@ -1,38 +1,23 @@
-# WFSS Components
+# Capital Components
 
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 Components to support the Watson Financial Services [Capital Design System](https://ibm.biz/capital-design-system).
 
-Please see our [wiki](https://github.ibm.com/watson-finance/wfss-components/wiki) for important links and information about the WFSS development organization
+This library makes the assumption that you already have carbon-components installed and behaves as an addon to that project. Currently we are using carbon v9 with plans to upgrade to v10.
 
 ## Libraries
 
 ### 🛠 Component Library
 
-- [Storybook](https://pages.github.ibm.com/watson-finance/wfss-components/)
-- [Repo](https://github.ibm.com/watson-finance/wfss-components/)
-
-### 😬 Icon Library
-
-- [Storybook](https://pages.github.ibm.com/watson-finance/wfss-icons/)
-- [Repo](https://github.ibm.com/watson-finance/wfss-icons/#/)
+- [Storybook](https://pages.github.com/ibm/capital-components/)
+- [Repo](https://github.com/ibm/capital-components/)
 
 ## Setup
 
-Configure your npmrc file be running this:
-
 ```sh
-npx git+ssh://git@github.ibm.com:watson-finance/npm-login-artifactory.git -n na.artifactory.swg-devops.com -r "@fss=>ip-wfss-npm-virtual"
-```
-
-You can copy the resulting npmrc to ~/.npmrc if you want to install @fss/\* in other projects and skip this step next time.
-
-And then add this dependency:
-
-```sh
-yarn add @fss/components
+yarn add capital-components
 ```
 
 Note: There are additional required dependencies like emotion and icons that should also be installed. Check the package.json for all required peer dependencies.
@@ -42,15 +27,15 @@ Note: There are additional required dependencies like emotion and icons that sho
 This repo provides a small set of SASS files that can be used for styling components.
 
 ```scss
-@import "~@fss/components/styles/scss/carbon-components.scss";
-@import "~@fss/components/styles/scss/styles.scss";
-@import "~@fss/components/styles/css/cap-grid-legacy.css";
+@import "~capital-components/styles/scss/carbon-components.scss";
+@import "~capital-components/styles/scss/styles.scss";
+@import "~capital-components/styles/css/cap-grid-legacy.css";
 ```
 
 ```js
-import "@fss/components/styles/css/carbon-components.css";
-import "@fss/components/styles/css/styles.css";
-import "@fss/components/styles/css/cap-grid-legacy.css";
+import "capital-components/styles/css/carbon-components.css";
+import "capital-components/styles/css/styles.css";
+import "capital-components/styles/css/cap-grid-legacy.css";
 ```
 
 We use CSS styling for a few elements (grid, font sizing, base carbon styles) for the sake of a shared reference point with
@@ -83,16 +68,16 @@ See the styles.scss files for other useful styles. Note that we did not make thi
 Our themes are based on carbon themes, so you can import your custom theme file prior to our styles file. We've provided some example theme files.
 
 ```scss
-@import "~@fss/components/styles/scss/themes/regulatory-compliance.scss";
-@import "~@fss/components/styles/scss/styles.scss";
+@import "~capital-components/styles/scss/themes/regulatory-compliance.scss";
+@import "~capital-components/styles/scss/styles.scss";
 ```
 
 However, we also use emotion theming to get dynamic theme colors (or other theme properties). To take advantage of many of our components,
 you need to wrap your app with the Theme Provider:
 
 ```js
-import { ThemeProvider } from '@fss/components/lib/support/theme';
-import theme from '@fss/components/lib/support/themes/other-products';
+import { ThemeProvider } from 'capital-components/lib/support/theme';
+import theme from 'capital-components/lib/support/themes/other-products';
 
 ...
 
@@ -103,12 +88,12 @@ import theme from '@fss/components/lib/support/themes/other-products';
 
 ## Spacing
 
-We use a standardized spacing scheme built (details in [src/layout/spacing](https://github.ibm.com/watson-finance/wfss-components/blob/master/src/layout/spacing.ts))
+We use a standardized spacing scheme built (details in [src/layout/spacing](https://github.com/ibm/capital-components/blob/master/src/layout/spacing.ts))
 
 The suggestion is to use the `buildSpacingFromString` method to determine how much padding an element should have. This method works on a string
 like "top md bottom md" which replaces the `md`s with the appropriate spacing size and applies that to the associated direction.
 
-Please see the [test](https://github.ibm.com/watson-finance/wfss-components/blob/master/src/layout/spacing.test.ts) file for more detailed use cases.
+Please see the [test](https://github.com/ibm/capital-components/blob/master/src/layout/spacing.test.ts) file for more detailed use cases.
 
 ## Grid
 
@@ -117,7 +102,7 @@ We provide some utility components that are built upon [css-gridish](https://git
 ### React Component Usage
 
 ```js
-import { Grid, Col } from "@fss/components";
+import { Grid, Col } from "capital-components";
 ```
 
 ### Vertical Spacing
@@ -125,17 +110,17 @@ import { Grid, Col } from "@fss/components";
 Grid (and Col) elements control their horizontal spacing because they are grid elements. Sometimes you do want to specify padding on the vertical axis.
 Like spacing, we provide a prop on Grid/Col elements called `verticalPadding` which takes a string and translates that to standard padding.
 
-Unlike the spacing function, this prop can only apply padding to top or bottom. Please see the [test](https://github.ibm.com/watson-finance/wfss-components/blob/master/src/layout/grid.test.ts) file for more detailed use cases.
+Unlike the spacing function, this prop can only apply padding to top or bottom. Please see the [test](https://github.com/ibm/capital-components/blob/master/src/layout/grid.test.ts) file for more detailed use cases.
 
 ## Media queries
 
 This library exposes some useful media query helpers that can be used inside javascript. They are located here:
 
 ```js
-import { breakpoints } from "@fss/components/lib/layout/mediaQueries";
+import { breakpoints } from "capital-components/lib/layout/mediaQueries";
 ```
 
-Supported breakpoint sizes can be found [here](https://pages.github.ibm.com/watson-finance/wfss-components/?selectedKind=Layout%7CMedia%20Queries&selectedStory=Scales&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Fstories%2Fstories-panel)
+Supported breakpoint sizes can be found [here](https://pages.github.com/ibm/capital-components/?selectedKind=Layout%7CMedia%20Queries&selectedStory=Scales&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Fstories%2Fstories-panel)
 
 ### With React
 
@@ -145,7 +130,7 @@ With react-media, we can build a component that changes it's rendering based on 
 
 ```jsx
 import Media from "react-media";
-import { breakpoints } from "@fss/components/lib/layout/mediaQueries";
+import { breakpoints } from "capital-components/lib/layout/mediaQueries";
 
 const Comp = () => (
   <Media query={{ maxWidth: breakpoints.s - 1 }}>
@@ -162,7 +147,7 @@ some minor adjustments to keep in sync with all the mediaqueries in emotion.
 Alternatively, you can use the helper component:
 
 ```jsx
-import { Mobile } from "@fss/components";
+import { Mobile } from "capital-components";
 
 const Comp = () => <Mobile>{isMobile => (isMobile ? <Comp1 /> : <Comp2 />)}</Mobile>;
 ```
@@ -170,7 +155,7 @@ const Comp = () => <Mobile>{isMobile => (isMobile ? <Comp1 /> : <Comp2 />)}</Mob
 ### With Emotion
 
 Emotion css also works really well with our media queries package. You can see some of the examples inside the media query
-section of [storybook](https://pages.github.ibm.com/watson-finance/wfss-components/?selectedKind=Layout%7CMedia%20Queries&selectedStory=Base%20Elements&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel)
+section of [storybook](https://pages.github.com/ibm/capital-components/?selectedKind=Layout%7CMedia%20Queries&selectedStory=Base%20Elements&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel)
 
 #### mq
 
@@ -178,7 +163,7 @@ Used instead of `css` function from emotion. The following will generate a div t
 background color of `red` on screens smaller than the `s` breakpoint:
 
 ```jsx
-import { mq } from "@fss/components/lib/layout/mediaQueries";
+import { mq } from "capital-components/lib/layout/mediaQueries";
 
 const Comp = () => <div className={mq.s("background-color: red;")}>Hello World</div>;
 ```
@@ -190,7 +175,7 @@ work. This is useful when combined with non-media query related css. The followi
 
 ```jsx
 import { css } from "emotion";
-import { mqStringsMax as mediaQuery } from "@fss/components/lib/layout/mediaQueries";
+import { mqStringsMax as mediaQuery } from "capital-components/lib/layout/mediaQueries";
 
 const Comp = () => (
   <div
@@ -210,7 +195,7 @@ This helper is useful for building a map of media query sizes to a specific css 
 
 ```jsx
 import { css } from "emotion";
-import { buildStringForMediaQueries } from "@fss/components/lib/layout/mediaQueries";
+import { buildStringForMediaQueries } from "capital-components/lib/layout/mediaQueries";
 
 const mediaQueryString = buildStringForMediaQueries({
   s: "background-color: blue;",
@@ -225,7 +210,7 @@ const Comp = () => <div className={css(mediaQueryString)}>Hello World</div>;
 Currently we include a palette of 20 colors, importable like so:
 
 ```javascript
-import { paletteSet20 } from "@fss/components/lib/support/vizColors";
+import { paletteSet20 } from "capital-components/lib/support/vizColors";
 ```
 
 It comes out as an array of 20 items, randomized, and based on b-splines: http://jsfiddle.net/frj3tb6a/11/
@@ -235,7 +220,7 @@ It comes out as an array of 20 items, randomized, and based on b-splines: http:/
 You can import the generated bundle to use the whole library:
 
 ```javascript
-import { Grid } from "@fss/components";
+import { Grid } from "capital-components";
 ```
 
 ### NPM scripts

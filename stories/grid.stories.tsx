@@ -1,6 +1,6 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { Grid, Col, FlyOver, FlyOverProvider } from "@fss/components";
+import { Grid, Col, FlyOver, FlyOverProvider } from "capital-components";
 import styled from "react-emotion";
 import * as R from "ramda";
 import withExternalWindow from "../storybook-addons/external-window";

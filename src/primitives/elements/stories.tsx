@@ -1,4 +1,4 @@
-import { Block, Flex, InlineBlock, Seperator } from "@fss/components/lib/primitives/elements";
+import { Block, Flex, InlineBlock, Seperator } from "capital-components/lib/primitives/elements";
 import { withInfo } from "@storybook/addon-info";
 import { storiesOf } from "@storybook/react";
 import React from "react";

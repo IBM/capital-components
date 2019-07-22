@@ -1,4 +1,4 @@
-import { Col, Grid } from "@fss/components";
+import { Col, Grid } from "capital-components";
 import { withInfo } from "@storybook/addon-info";
 import { storiesOf } from "@storybook/react";
 import { css } from "emotion";

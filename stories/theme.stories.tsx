@@ -1,8 +1,8 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { Block, InlineBlock } from "@fss/components/lib/primitives/elements";
-import { ThemeProvider, withTheme, themeContext } from "@fss/components/lib/support/theme";
-import otherProductsTheme from "@fss/components/lib/support/themes/other-products";
+import { Block, InlineBlock } from "capital-components/lib/primitives/elements";
+import { ThemeProvider, withTheme, themeContext } from "capital-components/lib/support/theme";
+import otherProductsTheme from "capital-components/lib/support/themes/other-products";
 
 const stories = storiesOf("Themes", module);
 

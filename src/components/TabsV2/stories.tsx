@@ -1,4 +1,4 @@
-import { Tab, TabsV2, NavigationBar } from "@fss/components";
+import { Tab, TabsV2, NavigationBar } from "capital-components";
 import { storiesOf } from "@storybook/react";
 import * as R from "ramda";
 import React, { useState } from "react";

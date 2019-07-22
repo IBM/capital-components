@@ -1,6 +1,6 @@
 import { cleanup, fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
-import { PushOver } from "@fss/components";
+import { PushOver } from "capital-components";
 import React from "react";
 import { renderWithDefaultTheme } from "test-utils";
 

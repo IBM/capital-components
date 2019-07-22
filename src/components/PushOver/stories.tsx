@@ -1,11 +1,11 @@
-import { PushOver, PushOverItem } from "@fss/components";
-import { Block, Flex } from "@fss/components/lib/primitives/elements";
+import { PushOver, PushOverItem } from "capital-components";
+import { Block, Flex } from "capital-components/lib/primitives/elements";
 import { storiesOf } from "@storybook/react";
 import { Icon } from "carbon-components-react";
 import * as R from "ramda";
 import React, { useState } from "react";
-import { Heading } from "@fss/components/lib/primitives/text";
-import { styled } from "@fss/components/lib/support/theme";
+import { Heading } from "capital-components/lib/primitives/text";
+import { styled } from "capital-components/lib/support/theme";
 import useToggle from "../../hooks/useToggle";
 import Readme from "./README.md";
 import { withReadme } from "storybook-readme";

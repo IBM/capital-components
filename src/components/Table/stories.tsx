@@ -1,4 +1,4 @@
-import { Table } from "@fss/components";
+import { Table } from "capital-components";
 import { withInfo } from "@storybook/addon-info";
 import { storiesOf } from "@storybook/react";
 import React from "react";

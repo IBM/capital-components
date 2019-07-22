@@ -17,8 +17,8 @@
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "paths": {
-      "@fss/components": ["./src/index.ts"],
-      "@fss/components/lib/*": ["./src/*"],
+      "capital-components": ["./src/index.ts"],
+      "capital-components/lib/*": ["./src/*"],
       "test-utils": ["./test-helpers/utils.tsx"]
     },
     "noImplicitAny": false,

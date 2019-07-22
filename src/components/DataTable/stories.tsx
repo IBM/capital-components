@@ -1,4 +1,4 @@
-import { DataTable } from "@fss/components";
+import { DataTable } from "capital-components";
 import { action } from "@storybook/addon-actions";
 import { storiesOf } from "@storybook/react";
 import { PaginationV2 } from "carbon-components-react";

@@ -1,6 +1,6 @@
 import { cleanup, fireEvent, getByRole as getByRoleGlobal } from "@testing-library/react";
 import "jest-dom/extend-expect";
-import { FileUploader } from "@fss/components";
+import { FileUploader } from "capital-components";
 import React from "react";
 import { renderWithDefaultTheme } from "test-utils";
 

@@ -1,6 +1,6 @@
 import { cleanup } from "@testing-library/react";
 import "jest-dom/extend-expect";
-import { BannerRibbon } from "@fss/components";
+import { BannerRibbon } from "capital-components";
 import React from "react";
 import { renderWithDefaultTheme, mockScreenSize } from "test-utils";
 

@@ -41,7 +41,6 @@ script:
 
 deploy:
   - provider: pages
-    github-url: github.ibm.com
     local-dir: storybook-static
     skip-cleanup: true
     github-token: $GH_TOKEN

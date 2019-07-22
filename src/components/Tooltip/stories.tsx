@@ -3,7 +3,7 @@ import { storiesOf } from "@storybook/react";
 import React from "react";
 import Readme from "./README.md";
 import { withReadme } from "storybook-readme";
-import { styled } from "@fss/components/lib/support/theme";
+import { styled } from "capital-components/lib/support/theme";
 
 const stories = storiesOf("Components|Tooltip", module).addDecorator(withReadme([Readme]));
 

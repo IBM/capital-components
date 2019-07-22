@@ -1,7 +1,7 @@
 import { cleanup, fireEvent } from "@testing-library/react";
 import "jest-dom/extend-expect";
 import React from "react";
-import { DataTable, IDataTableColumnDescriptor } from "@fss/components";
+import { DataTable, IDataTableColumnDescriptor } from "capital-components";
 import { renderWithDefaultTheme } from "test-utils";
 import { buildDateCompare, buildDefaultCompare } from "./utils";
 

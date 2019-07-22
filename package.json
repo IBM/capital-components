@@ -1,5 +1,5 @@
 {
-  "name": "@fss/components",
+  "name": "capital-components",
   "version": "1.20.0",
   "description": "",
   "keywords": [],
@@ -13,7 +13,7 @@
   "author": "Paul Sachs <paul.sachs@ibm.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.ibm.com/watson-finance/wfss-components.git"
+    "url": "https://github.com/IBM/capital-components.git"
   },
   "license": "Apache-2",
   "engines": {
@@ -98,7 +98,7 @@
       "<rootDir>/node_modules/regenerator-runtime/runtime"
     ],
     "moduleNameMapper": {
-      "@fss/components": "<rootDir>/src",
+      "capital-components": "<rootDir>/src",
       "\\.(css|jpg|png)$": "<rootDir>/test-setup/empty-module.js"
     }
   },
@@ -226,9 +226,6 @@
     "react": ">=16.8",
     "react-dom": ">=16.8",
     "react-emotion": "9.x"
-  },
-  "publishConfig": {
-    "registry": "https://na.artifactory.swg-devops.com:443/artifactory/api/npm/ip-wfss-npm-local"
   },
   "dependencies": {
     "@carbon/colors": "^10.2.0",

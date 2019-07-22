@@ -1,4 +1,4 @@
-import { Icon, Table } from "@fss/components";
+import { Icon, Table } from "capital-components";
 import NotificationBell from "../../fss-icons/notification-bell_24";
 import Watson from "../../fss-icons/watson_24";
 import { storiesOf } from "@storybook/react";

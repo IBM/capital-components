@@ -5,7 +5,7 @@ import {
   act
 } from "@testing-library/react";
 import "jest-dom/extend-expect";
-import { NavigationBar } from "@fss/components";
+import { NavigationBar } from "capital-components";
 import React from "react";
 import { renderWithDefaultTheme, mockScreenSize } from "test-utils";
 

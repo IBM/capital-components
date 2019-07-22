@@ -8,9 +8,9 @@ import {
   Input,
   Large,
   DataVizLabel
-} from "@fss/components/lib/primitives/text";
+} from "capital-components/lib/primitives/text";
 import { withInfo } from "@storybook/addon-info";
-import { styled } from "@fss/components/lib/support/theme";
+import { styled } from "capital-components/lib/support/theme";
 
 storiesOf("Fonts", module)
   .add(

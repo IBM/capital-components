@@ -1,4 +1,4 @@
-import { FlyOver, FlyOverProvider } from "@fss/components";
+import { FlyOver, FlyOverProvider } from "capital-components";
 import { withInfo } from "@storybook/addon-info";
 import { storiesOf } from "@storybook/react";
 import { css } from "emotion";

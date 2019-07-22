@@ -4,8 +4,8 @@ import {
   lightPalette,
   darkPalette,
   lightPaletteHighContrast
-} from "@fss/components/lib/support/vizColors";
-import { styled } from "@fss/components/lib/support/theme";
+} from "capital-components/lib/support/vizColors";
+import { styled } from "capital-components/lib/support/theme";
 import { TinyColor } from "@ctrl/tinycolor";
 
 const ColorSwatches = styled.div`

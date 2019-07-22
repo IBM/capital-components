@@ -6,8 +6,8 @@ const moduleResolverOptions = {
   extensions: [".js", ".jsx", ".ts", ".tsx"],
   alias: {
     "^carbon-components-react/es/(.+?)$": "carbon-components-react/lib/\\1",
-    "^@fss/components$": "./src/index.ts",
-    "^@fss/components/lib/(.+?)$": "./src/\\1"
+    "^capital-components$": "./src/index.ts",
+    "^capital-components/lib/(.+?)$": "./src/\\1"
   }
 };
 

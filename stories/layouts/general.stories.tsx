@@ -13,15 +13,15 @@ import {
   ScrollRow,
   Col,
   Mobile
-} from "@fss/components";
+} from "capital-components";
 import {
   ContentWrapper,
   MainWrapper,
   VerticalScrollableContent,
   Flex,
   ContentBottomPadding
-} from "@fss/components/lib/primitives/elements";
-import { styled } from "@fss/components/lib/support/theme";
+} from "capital-components/lib/primitives/elements";
+import { styled } from "capital-components/lib/support/theme";
 import MessagesIcon from "../../src/fss-icons/email_24";
 import UserIcon from "../../src/fss-icons/user_64";
 import FilterIcon from "../../src/fss-icons/filter_64";
@@ -40,7 +40,7 @@ import { Omit } from "type-zoo";
 import useReactRouter from "use-react-router";
 import withExternalWindow from "../../storybook-addons/external-window";
 import useToggle from "../../src/hooks/useToggle";
-import { Heading } from "@fss/components/lib/primitives/text";
+import { Heading } from "capital-components/lib/primitives/text";
 import { LoremIpsum } from "lorem-ipsum";
 
 const lorem = new LoremIpsum();
