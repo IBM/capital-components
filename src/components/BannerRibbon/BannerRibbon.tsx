@@ -1,5 +1,5 @@
-import DownIcon from "@fss/icons/dist/svg/triangle-down_16";
-import RightIcon from "@fss/icons/dist/svg/triangle-right_16";
+import DownIcon from "../../fss-icons/triangle-down_16";
+import RightIcon from "../../fss-icons/triangle-right_16";
 import { detect } from "detect-browser";
 import { css, cx } from "emotion";
 import invariant from "invariant";

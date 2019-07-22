@@ -1,4 +1,4 @@
-import Remove from "@fss/icons/dist/svg/remove_24";
+import Remove from "../../fss-icons/remove_24";
 import { detect } from "detect-browser";
 import React from "react";
 import Dropzone, { DropzoneProps, DropzoneRootProps } from "react-dropzone";

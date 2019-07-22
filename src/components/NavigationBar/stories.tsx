@@ -1,5 +1,5 @@
 import { Icon, NavigationBar } from "@fss/components";
-import NotificationBell from "@fss/icons/dist/svg/notification-bell_24";
+import NotificationBell from "../../fss-icons/notification-bell_24";
 import { storiesOf } from "@storybook/react";
 import React, { useRef } from "react";
 import useToggle from "../../hooks/useToggle";
