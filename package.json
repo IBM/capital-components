@@ -125,7 +125,6 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.3.3",
     "@ctrl/tinycolor": "^2.5.2",
-    "@fss/icons": "^1.3.2",
     "@storybook/addon-actions": "^4.1.11",
     "@storybook/addon-info": "^4.1.11",
     "@storybook/addon-links": "^4.1.11",
@@ -221,7 +220,6 @@
     "webpack": "^4.16.5"
   },
   "peerDependencies": {
-    "@fss/icons": ">=1.3.2",
     "carbon-components-react": "*",
     "emotion": "9.x",
     "emotion-theming": "9.x",

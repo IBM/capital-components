@@ -22,9 +22,9 @@ import {
   ContentBottomPadding
 } from "@fss/components/lib/primitives/elements";
 import { styled } from "@fss/components/lib/support/theme";
-import MessagesIcon from "@fss/icons/dist/svg/email_24";
-import UserIcon from "@fss/icons/dist/svg/user_64";
-import FilterIcon from "@fss/icons/dist/svg/filter_64";
+import MessagesIcon from "../../src/fss-icons/email_24";
+import UserIcon from "../../src/fss-icons/user_64";
+import FilterIcon from "../../src/fss-icons/filter_64";
 import { action } from "@storybook/addon-actions";
 import { storiesOf } from "@storybook/react";
 import {
@@ -133,6 +133,7 @@ const PrimaryBarItemIconLink = PrimaryBarIcon.withComponent(Link);
 const ReactRouterPrimaryLink: React.FunctionComponent<
   {
     path: string;
+    children: React.ReactNode;
   } & Omit<ComponentPropsWithoutRef<typeof Link>, "to" | "isSelected">
 > = ({ path, ...otherProps }) => {
   const { location } = useReactRouter();

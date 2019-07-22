@@ -1,5 +1,5 @@
 import { Icon, Popover } from "@fss/components";
-import NotificationBell from "@fss/icons/dist/svg/notification-bell_24";
+import NotificationBell from "../../fss-icons/notification-bell_24";
 import { action } from "@storybook/addon-actions";
 import { withInfo } from "@storybook/addon-info";
 import { storiesOf } from "@storybook/react";

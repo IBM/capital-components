@@ -1,5 +1,5 @@
 import { DropMenu, DropMenuItem, Icon, Popover } from "@fss/components";
-import UserIcon from "@fss/icons/dist/svg/user_32";
+import UserIcon from "../../fss-icons/user_32";
 import { action } from "@storybook/addon-actions";
 import { withInfo } from "@storybook/addon-info";
 import { storiesOf } from "@storybook/react";

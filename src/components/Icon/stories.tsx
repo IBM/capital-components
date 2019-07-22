@@ -1,6 +1,6 @@
 import { Icon, Table } from "@fss/components";
-import NotificationBell from "@fss/icons/dist/svg/notification-bell_24";
-import Watson from "@fss/icons/dist/svg/watson_24";
+import NotificationBell from "../../fss-icons/notification-bell_24";
+import Watson from "../../fss-icons/watson_24";
 import { storiesOf } from "@storybook/react";
 import React from "react";
 import { sizeToREM } from "./Icon";

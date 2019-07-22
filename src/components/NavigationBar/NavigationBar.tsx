@@ -1,6 +1,6 @@
 import isPropValid from "@emotion/is-prop-valid";
-import MenuIcon from "@fss/icons/dist/svg/menu_24";
-import ChevronDown from "@fss/icons/dist/svg/chevron-down_16";
+import MenuIcon from "../../fss-icons/menu_24";
+import ChevronDown from "../../fss-icons/chevron-down_16";
 import { css, cx } from "emotion";
 import React, { ComponentPropsWithoutRef, ComponentType } from "react";
 import ReactDOM from "react-dom";
