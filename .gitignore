@@ -17,3 +17,4 @@ types
 wfss-components.umd.js
 wfss-components.es5.js
 .env
+.npmrc

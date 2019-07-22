@@ -2,9 +2,9 @@ language: node_js
 env:
   global:
     - NODE_ENV=development
-    - GH_URL=https://github.ibm.com
-    - GH_PREFIX=/api/v3
-    - secure: "f5bKeWQ/KlXW/JWKeBxB0HYbLCBeMeS96O+/CNnGXWd2XWwtupn68VzPCnENkFsvwuazeQHQwMRb2wAg0jZmqE4dH7Ewu2DM7GRc8z0fFtFkIlpXrVTe+ruw44tYRDSIG+u7gN9Jt7m52gslG3E+iIlj6htg9Vd+zdjt2zqYojxUqHECe+Lv+tfp2H53JrrhHZQSuqg4bhgOzW5WrMWbYpZM1YBDQp/hpBGHISo6cfoR9Wwb7Iy6+N+3AcQmuxV4sskXgqpxR1btqPF9qncwfqbygVvmpQNGszSKsufo6TxmlfaUdCByFr1WBuQdIHHlgpigCUf+AwKtc5inC4OZ6WBSfvDQQhu+IVvXg9N8uf8wg9qu4npHLtZOmNVHiL0tCIluucHisk9J80HjCr3izfKFTwoECNh56JN+Be/6SYtmAVi5J7vwjB13BhCqlneXFLQmPBojuo6MMYuS1L/vr2EmJz1gwLqN29qtdkU7Jz2HD0u+yhxA1IQyh/uZiZN/w2+g1xpJC8y5GEtlEw0jtTs16+2DvMFYsRtg8T3w0PmMgs4lfCVVc8cHwfb7BjxdDoovKkOOT/4ahdAtaoaBEvKjRQjC88HigS1DNpJ+vq5AhIzNznhp5Pn45ntYSaBX1wjeo0Rgi6+Ti4S2HXsoRg+wMaNn9AhbPu065oihU64=" # NOW_TOKEN
+    - secure: B8ka0S6GFH8f0DRm1UNSOcioSrb+SDINXzDLjaqHy5JJNIBLn4FL/T5PU4NISZx22cRB/S3yFin4qeQzMllXIGqD1L5YK4ZHzr9XTl6NeGMi++tuHYsH1rYicBVis+tEtCmE+gk+xojkXHODvl/GcIjxv9n9UjZ4UcuzPdIZigHz2m8Bf7Tq+FbGheGnZzXE0gMhFIwY2cz0ygyRuwlnTsbCp9acmVMsfPd4Fs1dFsEOA0NCbMkCJTtGiIKsR85vZpXxd/xUFqW1gjchd77r8ImleDjxkaJoe3OoPLMohYl/nS74Wd6DSk9I3sIrHkzg/FRNSJ8bncIs16hdg8eH7hqFDK2AfZO+JliFS/pzwiMEfYruwE5eN5jLhcfH3UtGSeN+SpcDq/8UI8tDSq9IJfA7gC8y65zGwgnfRilg06oiV5Kuy69viIx8cFYRtkfiWCIAVOymRxEBLotxLc8a7LsZCoVHJgaToHHhiQT0hzMrfwPBl/5yKLtTi8ehypHftJXFfNMbXXDHfSQHT9yi/dC3a4OufTyGj27S3NfZxSRSLqLUBQx5mmfXUcbwTBkY4WMUbbkIBWyE1aCTWEUKZRzBbS+UNqTdIIXdzL/evmSEe0awv9s4Cv6kxftNqADmHgvd+VyprlkV+qtSArLhJkrHWbibov1UFuWkUmh0JP0=
+    - secure: FTry1A9PqikUcdqUyyVWq9+FzgZjfvW3nSnuxyVly8vA5uRg9FYhjRi1dYsqj2KIK+FKtwkH9eKAr2t48q7arXfpAUefq+yXckb3oa9M+b772nDzx77xQH2y36C8tEC0aX5OAIhAryhbQr3eqdjOFeq++miCaThAYNdhemtdAfgrbMJ1qpRpg7rCQFP+wKZjvvCaTyJ12RmpsyKGqSzZvrsdneuqvIxk9hLme5gVpDonI1+Z/RJuL173Bo1TkzKM9hX8l5gkX3zIRhAoqesu+3UywbmjxqAM1cCvSBE2UfGJ6+ivSIURId84NMm8b8i682F4W36tRRPEEP10jq2aRvzDEYHbInr6IdTkUKgQBQZfj9HoVT7scVQSxkWXtFglpc6qWuXoezMsHlL4KvOQRiEh2gCqC9LuIH0vRruWHVdxYg9xJQ767n8nHAHp3tKjpahBz2P2WqfWJPiNds7RaeEzFzNHmRXXT4MWLtd9tMrIft8diOXRSzixnuM9TytcjNxn2M6KJ9b9WCTIdS1y7zbUm/9II4oFlQtHk205IdGEST9Ag+Bsn+/M1qH14DzlOoLGq8oMmpVuNh2t+KH7rTm7kIjCqYf9hFWRX0bPw0G/5i5PRTJzr0bbCS+a+hNk8TNOMB7p9mLhFWTFYzeaU/MH3MkwAI3U6ocJkjn3o3E=
+
 cache:
   directories:
     - node_modules
@@ -18,15 +18,12 @@ notifications:
     on_success: never
     on_failure: always
     rooms:
-      - secure: inllTuJEx6NZnnOsHQ1auDuNdtpA3utKry/Ny0DpzM3DzRg0xpJ2n4QAFxu9wE4ud7HUZZiZE166mb//w7J5/peAhKuwOQ0F3YUzCyBIJcOV7FpTRvoimq825g7oa84t12QirB1PKxaeGmrSu4868JsK6FAqrrFYY12yNIEroqToTDSYj0AJuovKMXVnosuB/8U+3nWZY3PRjye+92C/0XFF3KB7VYFECqQiq1hPFJ7Jmw+S66sy3/A/jUYRo/+6DUJk0QwcDki0yHTwNCnJhoQvQRh3HWOW4a/WjxvoTfKWlJL4Ey2xzb9osUtqY9h+aI9m/8UA/xu9eigeWWscUhimrOejF25sSCYx+cM4A9O1brzu6saj4XOws9K0SdZmogmqdfh3eE7Jb+YGfFvGQdhwcjDaItEhORpEMukmIiejGsz34NFSAMRjG0fPXXCXJykFBQ8Yn4wH7wFrMuXo3AzOwvmqYifObKX/APo7vtQtuygfzvWiLf53kvUBK/w77GLE7UObEDJAAURmXbCkTTThWmqOJa2ehhOHxZ67pgMjkCOXj2mFag/PgrFiQltW06CXmbbVNyT2ahZ3UsCOMQrN5ThU7PXUveFwc+pW3uzCVGom1Dq7kuvfDiIxAnggRu5KO4SUrnctSCnU1geGBBpmpJ+r74FYJhKBx2H3GyI=
+      - secure: ZBZg2z83z7w1Qu8VDtN0pSqDJ5YWyg0L9pGqrER1QJ/TaeHXEUEmmF+VyrLrX4VN4I9s/xDd9DB9zHt0kXNC7sTJy4tQEasSTNM6yggRfK9DkYa1t6ZmTDpv58EzO5LkFAmCbXHlM/Mzga4go1AWf7kpJgsLRLOVD5x19wMXSpHPRts+7FHTQ4S78EN6I45KX5BASXMX3Q7S9OORxNAUm7iXqGPobgpA3jCS3012500tiuWGDV7mLplkFiphIh1tHG9xOaxmT/QXnRWTLJLhpI1af5hLAcMs9fOOZHtpGyz6jBG3kvvoqX6mJ8JOWNbSi8xh6/+2H9bfcNOJ90+BAu7ducv2oqD+Wlvg8Cj/Rx2KL3Jbxktqist9cdYX8PkPpR/0fZCx4tsZcZMTQ1i+QNTFaBpwuUZvMauwipK/qFYz9xibLl1dBt2QU4cQr7MpMZOJv45LR6PIRysKbzblVPuw608lZs9yXvnb4H1DIyXrCWsJb6WXqPNNsySM82AWLlAqJiMB2jZA/j/zgG3AMokD/0pxz7E44P+J/4Pt+bU4JvCLaLChzFL3JhWwjjMeFc+jIBPxEKwIBnm5PWaPUV60bUIksYOX8cqOitII7QrTpqinAy5t9eVSsiFjWPdkiHXRBuZLCP7u8JA8xTOk5wpf2EAgvjvm/xLoWPLjxCg=
 
 node_js:
   - "9"
-dist: xenial
 
 before_install:
-  - npx git+https://$GH_TOKEN:x-oauth-basic@github.ibm.com/watson-finance/npm-login-artifactory.git -e paul.sachs@ibm.com -p $ART_TOKEN -n na.artifactory.swg-devops.com -r "@fss=>ip-wfss-npm-virtual" -xzq
-  - npx git+https://$GH_TOKEN:x-oauth-basic@github.ibm.com/watson-finance/npm-login-artifactory.git -e paul.sachs@ibm.com -p $ART_TOKEN -n na.artifactory.swg-devops.com -r "@fss=>ip-wfss-npm-local" -xzq
   - npm install -g now
 
 install:
