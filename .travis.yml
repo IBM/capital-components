@@ -2,16 +2,14 @@ language: node_js
 env:
   global:
     - NODE_ENV=development
-    - secure: B8ka0S6GFH8f0DRm1UNSOcioSrb+SDINXzDLjaqHy5JJNIBLn4FL/T5PU4NISZx22cRB/S3yFin4qeQzMllXIGqD1L5YK4ZHzr9XTl6NeGMi++tuHYsH1rYicBVis+tEtCmE+gk+xojkXHODvl/GcIjxv9n9UjZ4UcuzPdIZigHz2m8Bf7Tq+FbGheGnZzXE0gMhFIwY2cz0ygyRuwlnTsbCp9acmVMsfPd4Fs1dFsEOA0NCbMkCJTtGiIKsR85vZpXxd/xUFqW1gjchd77r8ImleDjxkaJoe3OoPLMohYl/nS74Wd6DSk9I3sIrHkzg/FRNSJ8bncIs16hdg8eH7hqFDK2AfZO+JliFS/pzwiMEfYruwE5eN5jLhcfH3UtGSeN+SpcDq/8UI8tDSq9IJfA7gC8y65zGwgnfRilg06oiV5Kuy69viIx8cFYRtkfiWCIAVOymRxEBLotxLc8a7LsZCoVHJgaToHHhiQT0hzMrfwPBl/5yKLtTi8ehypHftJXFfNMbXXDHfSQHT9yi/dC3a4OufTyGj27S3NfZxSRSLqLUBQx5mmfXUcbwTBkY4WMUbbkIBWyE1aCTWEUKZRzBbS+UNqTdIIXdzL/evmSEe0awv9s4Cv6kxftNqADmHgvd+VyprlkV+qtSArLhJkrHWbibov1UFuWkUmh0JP0=
-    - secure: FTry1A9PqikUcdqUyyVWq9+FzgZjfvW3nSnuxyVly8vA5uRg9FYhjRi1dYsqj2KIK+FKtwkH9eKAr2t48q7arXfpAUefq+yXckb3oa9M+b772nDzx77xQH2y36C8tEC0aX5OAIhAryhbQr3eqdjOFeq++miCaThAYNdhemtdAfgrbMJ1qpRpg7rCQFP+wKZjvvCaTyJ12RmpsyKGqSzZvrsdneuqvIxk9hLme5gVpDonI1+Z/RJuL173Bo1TkzKM9hX8l5gkX3zIRhAoqesu+3UywbmjxqAM1cCvSBE2UfGJ6+ivSIURId84NMm8b8i682F4W36tRRPEEP10jq2aRvzDEYHbInr6IdTkUKgQBQZfj9HoVT7scVQSxkWXtFglpc6qWuXoezMsHlL4KvOQRiEh2gCqC9LuIH0vRruWHVdxYg9xJQ767n8nHAHp3tKjpahBz2P2WqfWJPiNds7RaeEzFzNHmRXXT4MWLtd9tMrIft8diOXRSzixnuM9TytcjNxn2M6KJ9b9WCTIdS1y7zbUm/9II4oFlQtHk205IdGEST9Ag+Bsn+/M1qH14DzlOoLGq8oMmpVuNh2t+KH7rTm7kIjCqYf9hFWRX0bPw0G/5i5PRTJzr0bbCS+a+hNk8TNOMB7p9mLhFWTFYzeaU/MH3MkwAI3U6ocJkjn3o3E=
-
+    - secure: qP8k+DxeWWHadliQkfFpN+t4UQkxNQqvcomAOemDYkctMq9yzjt20uOAdd2HetiHYjN/grrd7iniIL9b82nUwiTrQ2r2tL3PQ5qNCeodGsjB0hwEPnSHTXxbaP7C4f4EPPMi+1/2mPsfcTcSqGEvdB8gtW0bsy5p/w4qsJLNWAo2ThpwmLxpQu17wofJjORwglsx40rJJIC8/7sYhlshYXuEZ7Fs8k7h35lwXdh+jrNXm1EdU/VjzL7nG4DA+ZY6Wo9M1uBCUJVMPBNpjaHL7bCb/YC1eVvgHJwdFoRkCiYo2fmFns742p4yywj8FhUiyEQXQMZeu6wJcn7kPIf7S5X7hUp4HUOjMI3VB6YCcqRA1M8Pogko4oq79WLTdzUPwTwUM6+7S1GhpI82aIb1bLzEb//3lPwTez6LBgDuy3QCoa5+iQnaU+B6HChu6/dQBPIbd9IhrIEb78YdgdPQNsa7N2psiT+bqP19LUGKCmJv3P9IoVe+QecrTUDQ/CA5uPv9TAaJ1LSFOjGC18McdEa2XR+GhvZEEveL2tKLH1+D2CEf8SlH9/EfW7EVF4c0te027UY3fGijJ6xFAb99A0y1fO9EOsBVx43QWKwSogfHaIA7HAMC3D+C3uoyUB/qPJXlpfiY13n7jjRDBfeOka1nu0NM7AYmwCRxU79pyk8=
+    - secure: vsAATiD7flQB3Yvt4jSlV8kyrlXPJWMx+ICrnHHLj71qWKqH7TdWkFlJ6J4YVAWit8VmvOx/DiU/r+GE9vuHwvDIPI0MnNh07y8yFosZhDB2xLa2ws3F4+t+vYbydxrs+Iu+sdFGDm4D68jtZISWaOcjB6pcFLuChCFvzOQKXonZ5YRNbAtTSJ3teoupHPYkielJ8OMwtmTMDZFCD1quSwBHzoJ1JgnMTqtTfWOM3ZwKFAged/SLMlakyMZ3E9DXcOLM0m0ZvLKwHsQN2M4RLEd/jI5Q+SHxrdw3k9g1Ynq8CdpfgPevgsa705V2+GpBfiMJXxHZVZxQnNwmcsTBJ3pb5g1g12DUiP36a7hIS8A+qtOTcFXVIIb279UiXH1wWcgG/07QfaZ4NaJGydz9bvj7vh2gWjMpKtBRsCvbwo7UlCKb0O30eMNTyUcRQ7B6sQuwF+fwHMQ8oblmwwshbw2BHA/wjWnhqNWuCGZ2TfyEP9w/3ozxtzuh1uYVLSdE+RLy1xUFTrtTJBOazcmwZ3FrgyYKlEJXq2UldgxtMwCkWM/IT1CsYibX7IXto+ZuC0+kyUhY8ZfIk2vVlH07rSQo/IdNifkQfa4qJYegnDUu0BwaHyPVtM9w0pexNl2jqLCLnUih7jaD7f+P6ggL2hhMYz6ISi1mpsIBxLK4PYI=
 cache:
   directories:
     - node_modules
 branches:
   only:
     - master
-
 notifications:
   email: false
   slack:
@@ -19,28 +17,21 @@ notifications:
     on_failure: always
     rooms:
       - secure: ZBZg2z83z7w1Qu8VDtN0pSqDJ5YWyg0L9pGqrER1QJ/TaeHXEUEmmF+VyrLrX4VN4I9s/xDd9DB9zHt0kXNC7sTJy4tQEasSTNM6yggRfK9DkYa1t6ZmTDpv58EzO5LkFAmCbXHlM/Mzga4go1AWf7kpJgsLRLOVD5x19wMXSpHPRts+7FHTQ4S78EN6I45KX5BASXMX3Q7S9OORxNAUm7iXqGPobgpA3jCS3012500tiuWGDV7mLplkFiphIh1tHG9xOaxmT/QXnRWTLJLhpI1af5hLAcMs9fOOZHtpGyz6jBG3kvvoqX6mJ8JOWNbSi8xh6/+2H9bfcNOJ90+BAu7ducv2oqD+Wlvg8Cj/Rx2KL3Jbxktqist9cdYX8PkPpR/0fZCx4tsZcZMTQ1i+QNTFaBpwuUZvMauwipK/qFYz9xibLl1dBt2QU4cQr7MpMZOJv45LR6PIRysKbzblVPuw608lZs9yXvnb4H1DIyXrCWsJb6WXqPNNsySM82AWLlAqJiMB2jZA/j/zgG3AMokD/0pxz7E44P+J/4Pt+bU4JvCLaLChzFL3JhWwjjMeFc+jIBPxEKwIBnm5PWaPUV60bUIksYOX8cqOitII7QrTpqinAy5t9eVSsiFjWPdkiHXRBuZLCP7u8JA8xTOk5wpf2EAgvjvm/xLoWPLjxCg=
-
 node_js:
   - "9"
-
 before_install:
   - npm install -g now
-
 install:
   - npm install
-
 script:
-  - npm run test:prod && npm run build && npm run build-storybook
-
-# uncomment this once we can deploy prs
-# after_success:
-#   - scripts/prDeploy.js
-
+  - npm run test:prod
+  - npm run build
+  - npm run build-storybook
 deploy:
   - provider: pages
     local-dir: storybook-static
     skip-cleanup: true
-    github-token: $GH_TOKEN
+    github-token: "$GH_TOKEN"
     keep-history: false
     on:
       branch: master
