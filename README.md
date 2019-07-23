@@ -11,7 +11,7 @@ This library makes the assumption that you already have carbon-components instal
 
 ### 🛠 Component Library
 
-- [Storybook](https://pages.github.com/ibm/capital-components/)
+- [Storybook](https://ibm.github.io/capital-components/)
 - [Repo](https://github.com/ibm/capital-components/)
 
 ## Setup
@@ -120,7 +120,7 @@ This library exposes some useful media query helpers that can be used inside jav
 import { breakpoints } from "capital-components/lib/layout/mediaQueries";
 ```
 
-Supported breakpoint sizes can be found [here](https://pages.github.com/ibm/capital-components/?selectedKind=Layout%7CMedia%20Queries&selectedStory=Scales&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Fstories%2Fstories-panel)
+Supported breakpoint sizes can be found [here](https://ibm.github.io/capital-components/?selectedKind=Layout%7CMedia%20Queries&selectedStory=Scales&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Fstories%2Fstories-panel)
 
 ### With React
 
@@ -155,7 +155,7 @@ const Comp = () => <Mobile>{isMobile => (isMobile ? <Comp1 /> : <Comp2 />)}</Mob
 ### With Emotion
 
 Emotion css also works really well with our media queries package. You can see some of the examples inside the media query
-section of [storybook](https://pages.github.com/ibm/capital-components/?selectedKind=Layout%7CMedia%20Queries&selectedStory=Base%20Elements&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel)
+section of [storybook](https://ibm.github.io/capital-components/?selectedKind=Layout%7CMedia%20Queries&selectedStory=Base%20Elements&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel)
 
 #### mq
 
