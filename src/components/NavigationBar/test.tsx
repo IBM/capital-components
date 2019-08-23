@@ -26,6 +26,7 @@ test("Open menu, in phone", async () => {
     <PrimaryBar
       id="main"
       mobileMenuRef={{ current: document.body }}
+      onMenuToggle={() => console.log("anything")}
       showMenu={true}
       titleSection={<PrimaryBarTitle>Title</PrimaryBarTitle>}
       navSection={
