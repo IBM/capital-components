@@ -1,5 +1,6 @@
 import { css } from "emotion";
 import { Omit } from "type-zoo";
+import { useMedia } from "react-use";
 
 export interface IBreakPointDescriptor<A> {
   base?: A;
@@ -109,3 +110,10 @@ export const mqMax: MqDescriptor = Object.keys(mqStrings).reduce(
   },
   {} as any
 );
+/**
+ * A hook useful to detect if page is viewed on a mobile size screen (small)
+ */
+export function useIsMobile(max: keyof typeof breakpoints = "s") {
+  const isMobileQuery = `(max-width: ${breakpoints[max] - 1}px)`;
+  return useMedia(isMobileQuery, false);
+}

@@ -231,3 +231,24 @@ stories.add(
     }
   }
 );
+
+stories.add("Navigation menu without items", () => {
+  const [open, toggleOpen] = useToggle(false);
+  return (
+    <Flex css="max-width: 500px;" direction="row">
+      <PrimaryBar
+        renderMobileMenuContent={renderMobileMenuContent}
+        showMenu={open}
+        onMenuToggle={toggleOpen}
+        titleSection={<PrimaryBarTitle>Title</PrimaryBarTitle>}
+        rightSection={
+          <PrimaryBarIcon>
+            <Icon size="medium" title="notifications">
+              <NotificationBell />
+            </Icon>
+          </PrimaryBarIcon>
+        }
+      />
+    </Flex>
+  );
+});

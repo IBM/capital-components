@@ -161,13 +161,13 @@ const RightSectionWrapper = styled.div`
 
 const PrimaryBarMainMenuItem = PrimaryBarItem.withComponent("div");
 
-const PrimaryBarInternal = styled.nav`
+const PrimaryBarInternal = styled.nav<{ addLeftPadding?: boolean }>`
   display: flex;
   border-bottom: 1px solid ${props => props.theme.color.brand03};
   background-color: ${props => props.theme.color.nav01};
   flex-shrink: 0;
   height: 48px;
-  ${mqStrings.s("padding-left: 40px;")};
+  padding-left: ${({ addLeftPadding }) => (addLeftPadding ? "40px" : "0")};
   overflow: hidden;
 `;
 
@@ -237,14 +237,16 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
         tabIndex: -1
       };
       const mobileMenuRefCurrent = mobileMenuRef && mobileMenuRef.current;
+      const showMobileNavButton = matches && !!onMenuToggle && !!mobileMenuRef;
       return (
         <>
           <PrimaryBarInternal
             aria-label={translate({ id: TranslationKeys.mainNavTitle })}
             id={`wfss-navigation-bar-primary-${id}`}
+            addLeftPadding={!matches || !showMobileNavButton}
             {...otherProps}
           >
-            {matches && (
+            {matches && !!onMenuToggle && !!mobileMenuRef && (
               <PrimaryBarMainMenuItem
                 onClick={onMenuToggle}
                 role="button"
