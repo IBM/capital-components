@@ -10,11 +10,11 @@ export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const DropMenuItem: React.SFC<IProps> = withTheme<IProps>(
   ({ seperator, theme, className, ...other }) => {
-    const seperatorStyles = css(`border-${seperator}: 2px solid ${theme.color.nav02};`);
+    const seperatorStyles = css(`border-${seperator}: 2px solid ${theme.color.ui05};`);
     const onClickStyles = css`
       cursor: pointer;
       &:hover {
-        background-color: ${theme.color.nav02};
+        background-color: ${theme.color.inverse02};
       }
     `;
     return (

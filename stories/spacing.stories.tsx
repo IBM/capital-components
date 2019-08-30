@@ -5,14 +5,13 @@ import {
   TableHead,
   TableRow,
   TableHeader,
-  TableData,
-  TableBody
+  TableBody,
+  TableCell
 } from "carbon-components-react";
-import { InlineBlock } from "../src/primitives/elements";
-import { withInfo } from "@storybook/addon-info";
+import { InlineBlock } from "capital-components/lib/primitives/elements";
 import * as R from "ramda";
 import { css } from "emotion";
-import { spacing } from "../src/layout/spacing";
+import { spacing } from "capital-components/lib/layout/spacing";
 
 const spacingList = R.toPairs(spacing);
 const remToPixel = remStr => parseFloat(remStr.replace(/rem$/, "")) * 16 + "px";
@@ -22,18 +21,9 @@ const example = css`
   background-color: #a6fafc;
 `;
 
-storiesOf("Layout|Spacing", module)
-  .addDecorator((storyFn, context) =>
-    withInfo({
-      propTablesExclude: [Table, TableBody, TableData, TableHead, TableHeader, TableRow],
-      text: `
-        These spacing values can be applied as padding around elements (or anywhere else really).
-        The primitive elements provided by this library accept a padding argument that applies
-        padding of the appropriate size.
-      `
-    })(storyFn)(context)
-  )
-  .add("Scale", () => (
+storiesOf("Layout|Spacing", module).add(
+  "Scale",
+  () => (
     <Table>
       <TableHead>
         <TableRow header>
@@ -45,15 +35,26 @@ storiesOf("Layout|Spacing", module)
       <TableBody>
         {spacingList.map(([name, remStr]) => (
           <TableRow>
-            <TableData>
+            <TableCell>
               <InlineBlock padding={name} className={example}>
                 {name}
               </InlineBlock>
-            </TableData>
-            <TableData>{remStr}</TableData>
-            <TableData>{remToPixel(remStr)}</TableData>
+            </TableCell>
+            <TableCell>{remStr}</TableCell>
+            <TableCell>{remToPixel(remStr)}</TableCell>
           </TableRow>
         ))}
       </TableBody>
     </Table>
-  ));
+  ),
+  {
+    info: {
+      propTablesExclude: [Table, TableBody, TableHead, TableHeader, TableRow, TableCell],
+      text: `
+          These spacing values can be applied as padding around elements (or anywhere else really).
+          The primitive elements provided by this library accept a padding argument that applies
+          padding of the appropriate size.
+        `
+    }
+  }
+);

@@ -53,7 +53,7 @@ storiesOf("Layout|Grids", module)
     () => (
       <Wrapper>
         <Grid isContainer>
-          {R.range(0, 12).map(index => (
+          {R.range(0, 16).map(index => (
             <Col size={1} key={index}>
               <ColumnContent>{index + 1}</ColumnContent>
             </Col>

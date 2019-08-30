@@ -5,71 +5,72 @@
   @return #{$remSize}rem;
 }
 
+/* Deprecated */
 .cap--type-alpha {
   // Heading 1
   font-size: calculateRem(32px);
   line-height: calculateRem(40px);
   font-weight: 600;
 }
-
+/* Deprecated */
 .cap--type-beta {
   // Heading 2
   font-size: calculateRem(24px);
   line-height: calculateRem(32px);
   font-weight: 600;
 }
-
+/* Deprecated */
 .cap--type-gamma {
   // Heading 3
   font-size: calculateRem(20px);
   line-height: calculateRem(24px);
   font-weight: 600;
 }
-
+/* Deprecated */
 .cap--type-delta {
   // Heading 4
   font-size: calculateRem(16px);
   line-height: calculateRem(20px);
   font-weight: 600;
 }
-
+/* Deprecated */
 .cap--type-epsilon {
   // Heading 5
   font-size: calculateRem(14px);
   line-height: calculateRem(20px);
   font-weight: 600;
 }
-
+/* Deprecated */
 .cap--type-body {
   font-size: calculateRem(14px);
   line-height: calculateRem(20px);
   font-weight: 400;
 }
-
+/* Deprecated */
 .cap--type-specialty-body {
   font-size: calculateRem(16px);
   line-height: calculateRem(20px);
   font-weight: 400;
 }
-
+/* Deprecated */
 .cap--type-label {
   font-size: calculateRem(12px);
   line-height: calculateRem(16px);
   font-weight: 600;
 }
-
+/* Deprecated */
 .cap--type-input {
   font-size: calculateRem(14px);
   line-height: calculateRem(16px);
   font-weight: 400;
 }
-
+/* Deprecated */
 .cap--type-large {
   font-size: calculateRem(54px);
   line-height: calculateRem(68px);
   font-weight: 400;
 }
-
+/* Deprecated */
 .cap--type-data-viz--label {
   font-size: calculateRem(12px);
   line-height: calculateRem(14px);

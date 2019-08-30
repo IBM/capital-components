@@ -32,20 +32,20 @@ const defaultTranslate = (arg: { id: TranslationKeys; values?: any }) =>
 /* istanbul ignore next */
 const FileUploaderWrapper = styled(CenteredBlock)<
   ISharedElementProps & { isDragActive: boolean; isDisabled: boolean; hasFiles: boolean }
->`
-  margin-bottom: ${({ theme, hasFiles }) => (hasFiles ? theme.spacing.spacing.lg : 0)};
+>(
+  ({ theme }) => theme.fonts.styles.bodyShort01,
+  ({ theme, hasFiles, isDragActive, isDisabled }) => `
+  margin-bottom: ${hasFiles ? theme.spacing.spacing.lg : 0};
   flex-direction: column;
   border-width: 2px;
-  border-color: ${({ theme, isDragActive }) =>
-    isDragActive ? theme.colors.brand02 : theme.colors.ui03};
-  background-color: ${({ theme, isDisabled }) =>
-    isDisabled ? theme.colors.ui03 : theme.colors.ui01};
+  border-color: ${isDragActive ? theme.colors.brand02 : theme.colors.ui03};
+  background-color: ${isDisabled ? theme.colors.ui03 : theme.colors.ui01};
   border-style: dashed;
   border-radius: 2px;
   flex-shrink: 0;
-  cursor: ${({ isDisabled }) => (isDisabled ? "not-allowed" : "pointer")};
-  ${({ theme }) => theme.fonts.styles.body};
-`;
+  cursor: ${isDisabled ? "not-allowed" : "pointer"};
+`
+);
 
 const FakeLink = styled.span<{ isDisabled: boolean }>`
   text-decoration: underline;
@@ -74,8 +74,9 @@ const SelectedFileItem = styled.li`
   border: 1px solid ${({ theme }) => theme.color.ui04};
 `;
 
-const SelectedFileList = styled.ul`
-  ${({ theme }) => theme.fonts.styles.body};
+const SelectedFileList = styled.ul(
+  ({ theme }) => theme.fonts.styles.bodyShort01,
+  `
   width: 100%;
   ${Flex.formatter({
     direction: "column"
@@ -84,7 +85,8 @@ const SelectedFileList = styled.ul`
   li ~ li {
     margin-top: ${({ theme }) => theme.spacing.spacing.xs};
   }
-`;
+`
+);
 
 const IESupportFilter = (props: DropzoneRootProps) => {
   /** istanbul ignore next */

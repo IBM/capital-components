@@ -4,7 +4,14 @@ import React from "react";
 import Readme from "./README.md";
 import { withReadme } from "storybook-readme";
 import { styled } from "capital-components/lib/support/theme";
-
+const El = styled.div(
+  `
+  background-color: red;
+`
+);
+const OtherEl = styled(El)(({ theme }) => ({
+  backgroundColor: theme.color.brand01
+}));
 const stories = storiesOf("Components|Tooltip", module).addDecorator(withReadme([Readme]));
 
 stories.add("Timing based tooltip", () => {
@@ -23,6 +30,8 @@ stories.add("Click to pin", () => {
       <Tooltip placement="bottom" content="Tooltip" clickToOpen>
         {({ getReferenceProps }) => <div {...getReferenceProps()}>Hey buddy</div>}
       </Tooltip>
+      <El>Heeeey</El>
+      <OtherEl>Damn</OtherEl>
     </div>
   );
 });

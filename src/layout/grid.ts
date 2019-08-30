@@ -18,14 +18,20 @@ export const createGridClass = (args?: {
 };
 
 const fractionToWhole = {
+  "1/8": 2,
+  /* Deprecated fraction.*/
   "1/6": 2,
-  "1/4": 3,
-  "1/3": 4,
-  "1/2": 6,
-  "2/3": 8,
-  "3/4": 9,
-  "5/6": 10,
-  all: 12
+  "1/4": 4,
+  /* Deprecated fraction.*/
+  "1/3": 6,
+  "1/2": 8,
+  /* Deprecated fraction.*/
+  "2/3": 10,
+  "3/4": 12,
+  /* Deprecated fraction.*/
+  "5/6": 14,
+  "7/8": 14,
+  all: 16
 };
 
 export type SupportedSizesAsFractions = keyof typeof fractionToWhole;

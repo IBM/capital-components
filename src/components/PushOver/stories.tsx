@@ -4,7 +4,7 @@ import { storiesOf } from "@storybook/react";
 import { Icon } from "carbon-components-react";
 import * as R from "ramda";
 import React, { useState } from "react";
-import { Heading } from "capital-components/lib/primitives/text";
+import { ExpressiveHeading03 } from "capital-components/lib/primitives/text";
 import { styled } from "capital-components/lib/support/theme";
 import useToggle from "../../hooks/useToggle";
 import Readme from "./README.md";
@@ -29,12 +29,14 @@ const UserProfileOptions = () => (
   </React.Fragment>
 );
 
-const MobileWrapper = styled.div`
+const MobileWrapper = styled.div(
+  ({ theme }) => theme.fonts.styles.bodyShort02,
+  ({ theme }) => `
   flex: 1 1 auto;
   overflow: auto;
-  background-color: ${({ theme }) => theme.color.nav02};
-  ${({ theme }) => theme.fonts.styles.specialtyBody};
-`;
+  background-color: ${theme.color.inverse02};
+`
+);
 
 stories
   .add(
@@ -177,7 +179,7 @@ stories
                   alignment="center space-between"
                   padding="md lg"
                   cssWithTheme={({ theme }) => `
-                  background-color: ${theme.color.nav01};
+                  background-color: ${theme.color.ui05};
                   border-top: 1px solid ${theme.color.brand03};
                   color: ${theme.color.inverse01};
                   fill: ${theme.color.inverse01};
@@ -261,7 +263,7 @@ stories
               flex: 1 1 auto;
             `}
             >
-              <Heading level="3">Inquiry</Heading>
+              <ExpressiveHeading03>Inquiry</ExpressiveHeading03>
               This is freestyle mode
             </Flex>
           </PushOver>
@@ -328,7 +330,7 @@ stories
               flex: 1 1 auto;
             `}
               >
-                <Heading level="3">Inquiry</Heading>
+                <ExpressiveHeading03>Inquiry</ExpressiveHeading03>
                 This is freestyle mode
               </Flex>
             </PushOver>

@@ -1,36 +1,11 @@
 {
   "prefix": "cap",
   "breakpoints": {
-    "xs": {
-      "breakpoint": 36,
-      "columns": 12,
-      "gutter": "10px",
-      "margin": "11px"
-    },
-    "s": {
-      "breakpoint": 48,
-      "columns": 12,
-      "gutter": "20px",
-      "margin": "5vw"
-    },
-    "m": {
-      "breakpoint": 62,
-      "columns": 12,
-      "gutter": "20px",
-      "margin": "5vw"
-    },
-    "l": {
-      "breakpoint": 75,
-      "columns": 12,
-      "gutter": "20px",
-      "margin": "5vw"
-    },
-    "xl": {
-      "breakpoint": 100,
-      "columns": 12,
-      "gutter": "20px",
-      "margin": "5vw"
-    }
+    "sm": { "breakpoint": "20", "columns": 4, "gutter": 0, "margin": "0" },
+    "md": { "breakpoint": "42", "columns": 8, "gutter": 0, "margin": "1rem" },
+    "lg": { "breakpoint": "66", "columns": 16, "gutter": 0, "margin": "1rem" },
+    "xlg": { "breakpoint": "82", "columns": 16, "gutter": 0, "margin": "1rem" },
+    "max": { "breakpoint": "99", "columns": 16, "gutter": 0, "margin": "1rem" }
   },
   "extraArtboards": {},
   "rem": 16,

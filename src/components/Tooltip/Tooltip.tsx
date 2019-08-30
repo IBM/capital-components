@@ -1,17 +1,10 @@
 import PopperJS from "popper.js";
 import React from "react";
 import ReactDOM from "react-dom";
-import { Manager, Popper, Reference } from "react-popper";
-import debounce from "lodash.debounce";
-import ClickListener from "carbon-components-react/lib/internal/InnerClickListener";
-import { styled } from "../../support/theme";
+import useClickOutside from "../../hooks/useClickOutside";
+import usePopper from "../../hooks/usePopper";
+import { useDebounce } from "react-use";
 import { css, cx } from "emotion";
-
-// Adding this div to get around some madness with IE: https://github.com/philipwalton/flexbugs/issues/216
-const IEFixer = styled("div")`
-  display: flex;
-  flex-direction: row;
-`;
 
 const tooltipOverrides = css`
   .bx--tooltip__caret {
@@ -54,52 +47,80 @@ export interface IProps<R extends HTMLElement = any> {
 
 type State = "hover" | "out" | "over" | "click";
 
-export default class Tooltip<R extends HTMLElement = HTMLDivElement> extends React.PureComponent<
-  IProps<R>,
-  {
-    isOpen: boolean;
-  }
-> {
-  static defaultProps = {
-    delayInMs: 200
-  };
-
-  referenceRef = null;
-  popperRef = null;
-  triggerId =
-    this.props.id ||
-    `__carbon-tooltip-trigger_${Math.random()
+export default function Tooltip<R extends HTMLElement = HTMLDivElement>({
+  delayInMs = 200,
+  initialOpen,
+  id,
+  placement,
+  content,
+  clickToOpen,
+  children,
+  as = "div"
+}: IProps<R>) {
+  const referenceRef = React.useRef<R>(null);
+  const [popper, setPopper] = React.useState<HTMLElement>(null);
+  const arrowRef = React.useRef<HTMLSpanElement>(null);
+  const [isOpen, setIsOpen] = React.useState(initialOpen);
+  const [hoverInfo, setHoverInfo] = React.useState<{ state: State; relatedTarget: EventTarget }>({
+    state: "out",
+    relatedTarget: null
+  });
+  const triggerId = React.useRef(
+    id ||
+      `__carbon-tooltip-trigger_${Math.random()
+        .toString(36)
+        .substr(2)}`
+  );
+  const tooltipId = React.useRef(
+    `__carbon-tooltip_${Math.random()
       .toString(36)
-      .substr(2)}`;
-  tooltipId = `__carbon-tooltip_${Math.random()
-    .toString(36)
-    .substr(2)}`;
-
-  state = {
-    isOpen: this.props.initialOpen
-  };
-
-  handleHover = (state: State, relatedTarget: HTMLElement) => {
-    if (state === "over") {
-      this.setState({ isOpen: true });
-    } else {
-      // Note: SVGElement in IE11 does not have `.contains()`
-      /* istanbul ignore next */
-      const shouldPreventClose =
-        relatedTarget &&
-        ((this.referenceRef &&
-          this.referenceRef.contains &&
-          this.referenceRef.contains(relatedTarget)) ||
-          (this.popperRef && this.popperRef.contains(relatedTarget)));
-      /* istanbul ignore next */
-      if (!shouldPreventClose) {
-        this.setState({ isOpen: false });
+      .substr(2)}`
+  );
+  const { style, placement: pOut, outOfBoundaries, arrowStyle } = usePopper(
+    {
+      placement,
+      referenceRef,
+      popperRef: { current: popper },
+      arrowRef,
+      modifiers: {
+        preventOverflow: { enabled: true, boundariesElement: "viewport" },
+        offset: {
+          offset: "0, 6"
+        }
       }
+    },
+    [content]
+  );
+  useClickOutside({ current: popper }, () => {
+    /* istanbul ignore next */
+    if (clickToOpen) {
+      setIsOpen(false);
     }
-  };
-  debouncedHandleHover = debounce(this.handleHover, this.props.delayInMs);
+  });
+  useDebounce(
+    () => {
+      if (hoverInfo.state === "over") {
+        setIsOpen(true);
+      } else {
+        // Note: SVGElement in IE11 does not have `.contains()`
+        /* istanbul ignore next */
+        const shouldPreventClose =
+          hoverInfo.relatedTarget &&
+          ((referenceRef.current &&
+            referenceRef.current.contains &&
+            referenceRef.current.contains(hoverInfo.relatedTarget as Node)) ||
+            (popper && popper.contains(hoverInfo.relatedTarget as Node)));
+        /* istanbul ignore next */
+        if (!shouldPreventClose) {
+          setIsOpen(false);
+        }
+      }
+    },
+    delayInMs,
+    [hoverInfo]
+  );
 
-  handleMouse = (e: React.MouseEvent<R> | React.FocusEvent<R>) => {
+  const handleMouse = (e: React.MouseEvent<R> | React.FocusEvent<R>) => {
     const state: State = {
       mouseover: "over",
       mouseout: "out",
@@ -107,109 +128,72 @@ export default class Tooltip<R extends HTMLElement = HTMLDivElement> extends Rea
       blur: "out",
       click: "click"
     }[e.type];
-    const { clickToOpen } = this.props;
     /* istanbul ignore next */
     if (clickToOpen) {
       if (state === "click") {
         e.nativeEvent.stopImmediatePropagation();
         e.stopPropagation();
-        this.setState(prevState => ({ isOpen: !prevState.isOpen }));
+        setIsOpen(prevState => !prevState);
       }
     } else if (state) {
-      this.debouncedHandleHover(state, e.relatedTarget);
+      setHoverInfo({ state, relatedTarget: e.relatedTarget });
     }
   };
 
-  onClickOutside = () => {
-    this.setState({ isOpen: false });
+  const getReferenceProps = () => ({
+    ref: referenceRef,
+    onClick: handleMouse,
+    onMouseOver: handleMouse,
+    onMouseOut: handleMouse,
+    onFocus: handleMouse,
+    onBlur: handleMouse,
+    "data-placement": pOut,
+    // insert aria props here
+    "aria-owns": isOpen ? tooltipId.current : undefined,
+    "aria-haspopup": true,
+    "aria-expanded": isOpen,
+    id: triggerId.current
+  });
+
+  const popoverProps: any = {
+    className: cx("bx--tooltip bx--tooltip--shown", tooltipOverrides),
+    onMouseOver: handleMouse,
+    onMouseOut: handleMouse,
+    onFocus: handleMouse,
+    onBlur: handleMouse,
+    onContextMenu: handleMouse,
+    role: "tooltip",
+    ref: node => setPopper(node),
+    style,
+    id: tooltipId.current,
+    "aria-labelledby": triggerId.current,
+    "data-floating-menu-direction": pOut
   };
 
-  render() {
-    const { children, placement: outerPlacement, content, as = "div" } = this.props;
-    const { isOpen } = this.state;
-
-    return (
-      <Manager>
-        <Reference>
-          {({ ref }) => {
-            const getReferenceProps = () => ({
-              ref: node => {
-                this.referenceRef = node;
-                ref(node);
-              },
-              onClick: this.handleMouse,
-              onMouseOver: this.handleMouse,
-              onMouseOut: this.handleMouse,
-              onFocus: this.handleMouse,
-              onBlur: this.handleMouse,
-              // insert aria props here
-              "aria-owns": isOpen ? this.tooltipId : undefined,
-              "aria-haspopup": true,
-              "aria-expanded": isOpen,
-              id: this.triggerId
-            });
-            return typeof children === "function"
-              ? (children as any)({
-                  getReferenceProps
-                })
-              : React.createElement(as, getReferenceProps(), children);
-          }}
-        </Reference>
-        {isOpen &&
-          ReactDOM.createPortal(
-            <Popper
-              placement={outerPlacement}
-              modifiers={{
-                preventOverflow: { enabled: true, boundariesElement: "viewport" },
-                offset: {
-                  offset: "0, 6"
-                }
+  return (
+    <>
+      {typeof children === "function"
+        ? children({
+            getReferenceProps,
+            placement: pOut,
+            outOfBoundaries
+          })
+        : React.createElement(as, getReferenceProps(), children)}
+      {isOpen &&
+        ReactDOM.createPortal(
+          <div {...popoverProps}>
+            <span
+              className="bx--tooltip__caret"
+              ref={arrowRef}
+              style={{
+                ...arrowStyle,
+                top: undefined
               }}
-            >
-              {({ placement, ref, style, arrowProps }) => {
-                const popoverProps: any = {
-                  className: cx("bx--tooltip bx--tooltip--shown", tooltipOverrides),
-                  onMouseOver: this.handleMouse,
-                  onMouseOut: this.handleMouse,
-                  onFocus: this.handleMouse,
-                  onBlur: this.handleMouse,
-                  onContextMenu: this.handleMouse,
-                  role: "tooltip",
-                  "data-floating-menu-direction": placement,
-                  ref: node => {
-                    this.popperRef = node;
-                    ref(node);
-                  },
-                  style,
-                  id: this.tooltipId,
-                  "aria-labelledby": this.triggerId
-                };
-                return (
-                  <div {...popoverProps}>
-                    <ClickListener onClickOutside={this.onClickOutside} refKey="innerRef">
-                      <IEFixer>
-                        <span
-                          className="bx--tooltip__caret"
-                          {...arrowProps}
-                          // This is safe ONLY because the top provided for style is actually
-                          // always provided in number format (px).
-                          // It's only undefined in testing environment
-                          style={{
-                            ...arrowProps.style,
-                            top: ((arrowProps.style.top as any) || 0) + 6
-                          }}
-                        />
-
-                        {content}
-                      </IEFixer>
-                    </ClickListener>
-                  </div>
-                );
-              }}
-            </Popper>,
-            document.getElementsByTagName("body")[0]
-          )}
-      </Manager>
-    );
-  }
+            />
+            {content}
+          </div>,
+          document.getElementsByTagName("body")[0]
+        )}
+    </>
+  );
 }

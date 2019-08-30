@@ -57,19 +57,6 @@ function defaultGetRowIdentifier(row: any, rowIndex: number) {
   return row.id;
 }
 
-interface ITableProps
-  extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableElement>, HTMLTableElement> {
-  zebra?: boolean;
-}
-
-// Not using carbon table because zebra is not optional there.
-const Table = ({ zebra, className, ...rest }: ITableProps) => (
-  <table
-    {...rest}
-    className={cx(className, "bx--data-table-v2", { "bx--data-table-v2--zebra": zebra })}
-  />
-);
-
 class DataTable<T> extends React.PureComponent<{
   /** Title of the table */
   title?: React.ReactNode;
@@ -147,7 +134,7 @@ class DataTable<T> extends React.PureComponent<{
         {renderToolbar && (
           <CarbonDataTable.TableToolbar>{renderToolbar}</CarbonDataTable.TableToolbar>
         )}
-        <Table zebra={zebra}>
+        <CarbonDataTable.Table useZebraStyles={zebra}>
           <CarbonDataTable.TableHead>
             <CarbonDataTable.TableRow>
             {getSelectAllProps && <CarbonDataTable.TableSelectAll {...getSelectAllProps()} />}
@@ -187,7 +174,7 @@ class DataTable<T> extends React.PureComponent<{
               );
             })}
           </CarbonDataTable.TableBody>
-        </Table>
+        </CarbonDataTable.Table>
       </CarbonDataTable.TableContainer>
     );
   }

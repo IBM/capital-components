@@ -7,9 +7,10 @@ import "../styles/css/cap-grid-legacy.css";
 import "./styles.css";
 import React from "react";
 import { ThemeProvider } from "../src/support/theme";
-import DefaultTheme from "../src/support/themes/other-products";
+import { themes } from "@carbon/themes";
 import excludedPropTypes from "./excludedPropTypes";
 import StoryRouter from "../storybook-addons/router";
+import createTheme from "../src/support/createTheme";
 
 setOptions({
   name: "Capital Components",
@@ -19,12 +20,14 @@ setOptions({
   sortStoriesByKind: true
 });
 
+const theme = createTheme(themes.g10);
+
 const enableHooks = Story => <Story />;
 
 // Note that this prevents addon-info from analyzing used components. I think it's worth it
 // to use hooks.
 addDecorator(enableHooks);
-addDecorator(story => <ThemeProvider theme={DefaultTheme}>{story()}</ThemeProvider>);
+addDecorator(story => <ThemeProvider theme={theme}>{story()}</ThemeProvider>);
 addDecorator(StoryRouter());
 
 // automatically import all files ending in *.stories.js

@@ -1,16 +1,12 @@
 import ClickListener from "carbon-components-react/lib/internal/InnerClickListener";
 import empty from "empty";
 import PopperJS from "popper.js";
-import React, { Ref } from "react";
+import React, { memo, Ref, useRef } from "react";
 import ReactDOM from "react-dom";
 import styled from "react-emotion";
-import { Manager, Popper, Reference } from "react-popper";
+import usePopper from "../../hooks/usePopper";
 
 // Adding this div to get around some madness with IE: https://github.com/philipwalton/flexbugs/issues/216
-const IEFixer = styled("div")`
-  display: flex;
-  flex-direction: row;
-`;
 
 export interface IProps {
   /** The reference element. Make sure to pass the ref into the appropriate element. This ref will be used to measure and place the popover */
@@ -35,46 +31,62 @@ export interface IProps {
   boundariesElement?: PopperJS.Boundary | HTMLElement;
 }
 
-export const Popover: React.SFC<IProps> = ({
+const IEFixer = styled("div")`
+  display: flex;
+  flex-direction: row;
+`;
+
+export const Popover: React.FunctionComponent<IProps> = ({
   reference,
   children,
   show,
-  placement: outerPlacement,
+  placement,
   onClickOutside = empty.func,
   preventOverflow = true,
   offsetTop = 0,
   offsetLeft = 0,
   boundariesElement = "viewport"
-}) => (
-  <Manager>
-    <Reference>{reference}</Reference>
-    {show &&
-      ReactDOM.createPortal(
-        <Popper
-          placement={outerPlacement}
-          modifiers={{
-            preventOverflow: { enabled: preventOverflow, boundariesElement },
-            offset: {
-              offset: `${offsetLeft}, ${offsetTop}`
-            }
-          }}
-        >
-          {({ ref, style, placement, outOfBoundaries }) => (
-            <div
-              ref={ref}
-              style={{ ...style, zIndex: 9999 }}
-              data-placement={placement}
-              data-out-of-boundaries={outOfBoundaries}
-            >
-              <ClickListener onClickOutside={onClickOutside} refKey="innerRef">
-                <IEFixer>{children}</IEFixer>
-              </ClickListener>
-            </div>
-          )}
-        </Popper>,
-        document.querySelector("body")
-      )}
-  </Manager>
-);
+}) => {
+  const referenceRef = useRef(null);
+  const popperRef = useRef(null);
+  const arrowRef = useRef(null);
 
-export default Popover;
+  const { style, placement: pOut, outOfBoundaries } = usePopper(
+    {
+      placement,
+      referenceRef,
+      popperRef,
+      arrowRef,
+      modifiers: {
+        preventOverflow: { enabled: preventOverflow, boundariesElement },
+        offset: {
+          offset: `${offsetLeft}, ${offsetTop}`
+        }
+      }
+    },
+    [children]
+  );
+  return (
+    <>
+      {reference({ ref: referenceRef })}
+      {show &&
+        ReactDOM.createPortal(
+          <ClickListener onClickOutside={onClickOutside} refKey="innerRef">
+            <IEFixer>
+              <div
+                ref={popperRef}
+                style={{ ...style, zIndex: 9999 }}
+                data-placement={pOut}
+                data-out-of-boundaries={outOfBoundaries}
+              >
+                {children}
+              </div>
+            </IEFixer>
+          </ClickListener>,
+          document.querySelector("body")
+        )}
+    </>
+  );
+};
+
+export default memo(Popover);

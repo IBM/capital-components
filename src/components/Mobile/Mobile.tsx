@@ -14,7 +14,7 @@ type Props = Overwrite<
   }
 >;
 
-export const Mobile = ({ max = "s", ...props }: Props) => (
+export const Mobile = ({ max = "sm", ...props }: Props) => (
   <Media query={{ maxWidth: breakpoints[max] - 1 }} {...props} />
 );
 

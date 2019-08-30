@@ -3,8 +3,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import useToggle from "../../hooks/useToggle";
-import { Button, DropdownV2 } from "carbon-components-react";
-import { cx, css } from "emotion";
+import { Button, Dropdown } from "carbon-components-react";
 
 const stories = storiesOf("Components|BannerRibbon", module);
 
@@ -22,7 +21,7 @@ stories.add(
           expandable
           floatRightOfTitle={
             <BannerRibbon.DropdownWrapper>
-              <DropdownV2
+              <Dropdown
                 items={["Option 1", "Option 2", "Option 3"]}
                 onChange={action("onChange")}
               />
@@ -94,7 +93,7 @@ stories.add(
           isExpanded={open}
           floatRightOfTitle={
             <BannerRibbon.DropdownWrapper>
-              <DropdownV2
+              <Dropdown
                 items={["Option 1", "Option 2", "Option 3"]}
                 onChange={action("onChange")}
               />
@@ -159,10 +158,7 @@ stories.add("Variety of title lengths", () => {
         title="Basic title"
         floatRightOfTitle={
           <BannerRibbon.DropdownWrapper>
-            <DropdownV2
-              items={["Option 1", "Option 2", "Option 3"]}
-              onChange={action("onChange")}
-            />
+            <Dropdown items={["Option 1", "Option 2", "Option 3"]} onChange={action("onChange")} />
           </BannerRibbon.DropdownWrapper>
         }
       />
@@ -172,10 +168,7 @@ stories.add("Variety of title lengths", () => {
           `}
         floatRightOfTitle={
           <BannerRibbon.DropdownWrapper>
-            <DropdownV2
-              items={["Option 1", "Option 2", "Option 3"]}
-              onChange={action("onChange")}
-            />
+            <Dropdown items={["Option 1", "Option 2", "Option 3"]} onChange={action("onChange")} />
           </BannerRibbon.DropdownWrapper>
         }
       />
@@ -186,10 +179,7 @@ stories.add("Variety of title lengths", () => {
           `}
         floatRightOfTitle={
           <BannerRibbon.DropdownWrapper>
-            <DropdownV2
-              items={["Option 1", "Option 2", "Option 3"]}
-              onChange={action("onChange")}
-            />
+            <Dropdown items={["Option 1", "Option 2", "Option 3"]} onChange={action("onChange")} />
           </BannerRibbon.DropdownWrapper>
         }
       />
@@ -239,13 +229,13 @@ stories.add("Double dropdowns", () => {
         floatRightOfTitle={
           <>
             <BannerRibbon.DropdownWrapper>
-              <DropdownV2
+              <Dropdown
                 items={["Option 1", "Option 2", "Option 3"]}
                 onChange={action("onChange")}
               />
             </BannerRibbon.DropdownWrapper>
             <BannerRibbon.DropdownWrapper>
-              <DropdownV2
+              <Dropdown
                 items={["Option 1", "Option 2", "Option 3"]}
                 onChange={action("onChange")}
               />

@@ -81,7 +81,7 @@ export default function usePopper(inputOpts: IInputOptions, inputs = []) {
         popperInstance.current = null;
       }
     };
-  }, inputs);
+  }, [...inputs, referenceRef.current, popperRef.current]);
 
   const style =
     !popperRef.current || !state.data

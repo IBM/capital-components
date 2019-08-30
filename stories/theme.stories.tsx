@@ -2,8 +2,10 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { Block, InlineBlock } from "capital-components/lib/primitives/elements";
 import { ThemeProvider, withTheme, themeContext } from "capital-components/lib/support/theme";
-import otherProductsTheme from "capital-components/lib/support/themes/other-products";
+import { themes } from "@carbon/themes";
+import createTheme from "capital-components/lib/support/createTheme";
 
+const createdTheme = createTheme(themes.g10);
 const stories = storiesOf("Themes", module);
 
 stories.add("All Colors", () => {
@@ -27,14 +29,14 @@ stories.add("All Colors", () => {
   ));
 
   return (
-    <ThemeProvider theme={otherProductsTheme}>
+    <ThemeProvider theme={createdTheme}>
       <Comp />
     </ThemeProvider>
   );
 });
 
 stories.add("Primitives", () => (
-  <ThemeProvider theme={otherProductsTheme}>
+  <ThemeProvider theme={createdTheme}>
     <React.Fragment>
       <Block cssWithTheme={({ theme }) => `background-color: ${theme.color.brand01};`}>
         Brand01
@@ -63,7 +65,7 @@ stories.add("WithTheme enhancer", () => {
   ));
 
   return (
-    <ThemeProvider theme={otherProductsTheme}>
+    <ThemeProvider theme={createdTheme}>
       <Comp />
     </ThemeProvider>
   );

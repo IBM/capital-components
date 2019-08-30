@@ -1,5 +1,6 @@
 import DownIcon from "../../fss-icons/triangle-down_16";
 import RightIcon from "../../fss-icons/triangle-right_16";
+import { ChevronDown16, ChevronRight16 } from "@carbon/icons-react";
 import { detect } from "detect-browser";
 import { css, cx } from "emotion";
 import invariant from "invariant";
@@ -18,7 +19,7 @@ const browser = detect();
 const isIE = browser && browser.name === "ie";
 
 const BannerRibbonWrapper = styled("div")<{ mobile: boolean; isExpandable: boolean }>`
-  background-color: ${({ theme }) => theme.color.nav02};
+  background-color: ${({ theme }) => theme.color.inverse02};
   color: ${({ theme }) => theme.color.inverse01};
   overflow: visible;
   flex-shrink: 0;
@@ -78,7 +79,7 @@ const Ribbon: React.SFC<{
   titleWidthHint,
   ...otherProps
 }) => (
-  <Media query={{ maxWidth: breakpoints.s - 1 }}>
+  <Media query={{ maxWidth: breakpoints.sm - 1 }}>
     {isMobile => {
       invariant(
         !expandable || otherProps.onExpandClick,
@@ -184,10 +185,6 @@ const BannerMobileFloatWrapper = styled.div`
   }
 `;
 
-const expanderIconClass = css`
-  ${mediaQuery.s("position: absolute !important; top: 0.8rem;")}
-`;
-
 const ExpanderIcon = ({
   expandable,
   isExpanded,
@@ -204,35 +201,28 @@ const ExpanderIcon = ({
       alignment="center"
       padding="right xs"
       cssWithTheme={({ theme }) => `
-              position: absolute;
-              transform: translateX(-100%);
               fill: ${theme.color.ui01};
-              height: 100%;
-              width: 32px;
               justify-content: flex-end;
-              top: 0;
             `}
       className={className}
       onClick={onClick}
     >
-      <Icon
-        size="small"
-        title="expand"
-        className={/* istanbul ignore next*/ isIE ? undefined : expanderIconClass}
-      >
-        {isExpanded ? <DownIcon /> : <RightIcon />}
+      <Icon size="small" title="expand">
+        {isExpanded ? <ChevronDown16 /> : <ChevronRight16 />}
       </Icon>
     </Flex>
   ) : null;
 
-const ExpanderWrapper = styled(Flex)`
-  ${({ theme }) => mediaQuery.base(theme.fonts.styles.specialtyBody)};
-  ${({ theme }) => mediaQuery.s(theme.fonts.styles.alpha)};
-
+const ExpanderWrapper = styled(Flex)(
+  ({ theme }) => mediaQuery.base(theme.fonts.styles.bodyShort02),
+  ({ theme }) => mediaQuery.sm(theme.fonts.styles.productiveHeading05),
+  `
   color: currentColor;
   flex: 1 1 auto;
   position: relative;
-`;
+  flex-direction: row;
+`
+);
 
 const TextWrap = styled(Flex)`
   overflow-wrap: break-word;
@@ -276,18 +266,22 @@ const BannerDesktopFloatWrapper = styled.div`
 `;
 
 /* istanbul ignore next */
-const IETitleWrapper = styled(Flex)`
-  ${({ theme }) => mediaQuery.base(theme.fonts.styles.specialtyBody)};
-  overflow: hidden;
-  flex: 1 1 auto;
-`;
+const IETitleWrapper = styled(Flex)(
+  ({ theme }) => mediaQuery.base(theme.fonts.styles.bodyShort02),
+  `,
+      overflow: hidden;
+      flex: 1 1 auto;
+`
+);
 
 /* istanbul ignore next */
-const IETextWrap = styled(TextWrap)`
-  ${({ theme }) => mediaQuery.s(theme.fonts.styles.alpha)};
+const IETextWrap = styled(TextWrap)(
+  ({ theme }) => mediaQuery.sm(theme.fonts.styles.productiveHeading05),
+  `
   overflow: hidden;
   flex: 1 1 auto;
-`;
+`
+);
 
 /* istanbul ignore next */
 const IEDesktopExpandWrapper = ({
@@ -337,10 +331,6 @@ const DesktopExpandWrapper: React.SFC<IExpandableProps & { titleWidthHint: strin
         className={cx(
           css`
             ${maxWidth};
-            ${Flex.formatter({
-              direction: "column",
-              alignment: "horizontal flex-start"
-            })};
             flex: 1 1 auto;
             cursor: ${expandable ? "pointer" : "inherit"};
           `,

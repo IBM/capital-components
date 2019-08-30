@@ -27,12 +27,7 @@ import UserIcon from "../../src/fss-icons/user_64";
 import FilterIcon from "../../src/fss-icons/filter_64";
 import { action } from "@storybook/addon-actions";
 import { storiesOf } from "@storybook/react";
-import {
-  DataTable as CCDataTable,
-  PaginationV2,
-  Button,
-  DropdownV2
-} from "carbon-components-react";
+import { DataTable as CCDataTable, Pagination, Button, Dropdown } from "carbon-components-react";
 import React, { ComponentPropsWithoutRef, useRef } from "react";
 import { matchPath } from "react-router";
 import { Link } from "react-router-dom";
@@ -40,7 +35,7 @@ import { Omit } from "type-zoo";
 import useReactRouter from "use-react-router";
 import withExternalWindow from "../../storybook-addons/external-window";
 import useToggle from "../../src/hooks/useToggle";
-import { Heading } from "capital-components/lib/primitives/text";
+import { ProductiveHeading02 } from "capital-components/lib/primitives/text";
 import { LoremIpsum } from "lorem-ipsum";
 
 const lorem = new LoremIpsum();
@@ -277,20 +272,22 @@ stories.add("Basic", () => {
             />
             <Flex direction="row">
               <Grid isContainer verticalPadding="top lg" preventShrink={false}>
-                <DataTable
-                  columns={columns}
-                  rows={rows}
-                  getRowIdentifier={row => row.name}
-                  renderToolbar={<TableToolbarSearch onChange={action("Searching")} />}
-                />
-                <PaginationV2
-                  page={1}
-                  totalItems={50}
-                  pageSize={10}
-                  pageSizes={[10, 50, 100]}
-                  onChange={action("pagination change")}
-                />
-                <ContentBottomPadding />
+                <Col size="all">
+                  <DataTable
+                    columns={columns}
+                    rows={rows}
+                    getRowIdentifier={row => row.name}
+                    renderToolbar={<TableToolbarSearch onChange={action("Searching")} />}
+                  />
+                  <Pagination
+                    page={1}
+                    totalItems={50}
+                    pageSize={10}
+                    pageSizes={[10, 50, 100]}
+                    onChange={action("pagination change")}
+                  />
+                  <ContentBottomPadding />
+                </Col>
               </Grid>
               <PushOver
                 isOpen={showPushOver}
@@ -380,19 +377,19 @@ stories.add("Sidebar section", () => {
               floatRightOfTitle={
                 <ScrollRow>
                   <Col size={2}>
-                    <Heading level="2">Header 1</Heading>
+                    <ProductiveHeading02>Header 1</ProductiveHeading02>
                     <Flex alignment="vertical center">Some other content</Flex>
                   </Col>
                   <Col size={2}>
-                    <Heading level="2">Header 2</Heading>
+                    <ProductiveHeading02>Header 2</ProductiveHeading02>
                     <Flex alignment="vertical center">Some other content</Flex>
                   </Col>
                   <Col size={2}>
-                    <Heading level="2">Header 3</Heading>
+                    <ProductiveHeading02>Header 3</ProductiveHeading02>
                     <Flex alignment="vertical center">Some other content</Flex>
                   </Col>
                   <Col size={2}>
-                    <Heading level="2">Header 4</Heading>
+                    <ProductiveHeading02>Header 4</ProductiveHeading02>
                     <Flex alignment="vertical center">Some other content</Flex>
                   </Col>
                 </ScrollRow>
@@ -459,7 +456,7 @@ stories.add("BannerRibbon with Vertical scroll", () => {
           title="INQUIRIES_TITLE"
           floatRightOfTitle={
             <BannerRibbon.DropdownWrapper>
-              <DropdownV2
+              <Dropdown
                 items={["Option 1", "Option 2", "Option 3"]}
                 onChange={action("onChange")}
               />

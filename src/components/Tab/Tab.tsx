@@ -1,14 +1,41 @@
-import React from "react";
+import React, { useContext } from "react";
 import { darkModeContext } from "../../contexts";
-import { Flex } from "../../primitives/elements";
+import { Flex, FlexProps } from "../../primitives/elements";
 import { styled } from "../../support/theme";
 
-const FlexLI = Flex.withComponent("li");
+const InternalTab = styled.li<
+  FlexProps & {
+    isSelected: boolean;
+    darkMode: boolean;
+  }
+>(
+  ({ theme }) => theme.fonts.styles.bodyShort02,
+  Flex.formatter,
+  ({ theme, darkMode, isSelected }) => `
+  position: relative;
+  color: ${
+    darkMode ? theme.color.inverse01 : isSelected ? theme.color.brand01 : theme.color.text01
+  };
+  line-height: ${theme.spacing.spacing.xl3};
+  font-weight: ${isSelected ? theme.fonts.weights.bold : theme.fonts.weights.regular};
+  cursor: pointer;
+  flex-shrink: 0;
+  font-size: 0.875rem;
+  outline: none;
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  :hover {
+    color: ${darkMode ? theme.color.inverse01 : theme.color.brand01};
+  }
+`
+);
 
 // Here we use an absolute div to render the underline
 // this allows us to finely control positioning/animation.
 // We also need to customize the width due to padding.
-const UnderscoreDiv = styled("div")<{
+const UnderscoreDiv = styled.div<{
   darkMode: boolean;
   firstChild: boolean;
   lastChild: boolean;
@@ -70,60 +97,36 @@ const Tab = React.forwardRef(
       [refName]: innerRef,
       ...otherTabProps
     };
-
+    const darkMode = useContext(darkModeContext);
+    const spacingBetweenIntermediate = spacingBetween || darkMode ? "md" : "lg";
+    const padding = `left ${firstChild ? 0 : spacingBetweenIntermediate} right ${
+      lastChild ? 0 : spacingBetweenIntermediate
+    }`;
     return (
-      <darkModeContext.Consumer>
-        {darkMode => {
-          const spacingBetweenIntermediate = spacingBetween || darkMode ? "md" : "lg";
-          const padding = `left ${firstChild ? 0 : spacingBetweenIntermediate} right ${
-            lastChild ? 0 : spacingBetweenIntermediate
-          }`;
-          return (
-            <FlexLI
-              innerRef={ref}
-              role="presentation"
-              tabIndex={-1}
-              padding={padding}
-              cssWithTheme={({ theme }) => `
-          ${theme.fonts.styles.body};
-          color: ${
-            darkMode ? theme.color.inverse01 : isSelected ? theme.color.brand01 : theme.color.text01
-          };
-          line-height: ${theme.spacing.spacing.xl3};
-          position: relative;
-          font-weight: ${isSelected ? theme.fonts.weights.bold : theme.fonts.weights.regular};
-          cursor: pointer;
-          flex-shrink: 0;
-          font-size: 0.875rem;
-          outline: none;
-          a {
-            color: inherit;
-            text-decoration: none;
-          }
-          :hover {
-            color: ${darkMode ? theme.color.inverse01 : theme.color.brand01};
-          }
-      `}
-              className={className}
-            >
-              {typeof children === "function" ? (
-                (children as any)({ tabProps })
-              ) : (
-                <div {...tabProps}>{children}</div>
-              )}
-              {isSelected && (
-                <UnderscoreDiv
-                  underscoreHeight={underscoreHeight}
-                  firstChild={firstChild}
-                  lastChild={lastChild}
-                  darkMode={darkMode}
-                  spacingBetween={spacingBetweenIntermediate}
-                />
-              )}
-            </FlexLI>
-          );
-        }}
-      </darkModeContext.Consumer>
+      <InternalTab
+        innerRef={ref}
+        role="presentation"
+        tabIndex={-1}
+        padding={padding}
+        className={className}
+        isSelected={isSelected}
+        darkMode={darkMode}
+      >
+        {typeof children === "function" ? (
+          (children as any)({ tabProps })
+        ) : (
+          <div {...tabProps}>{children}</div>
+        )}
+        {isSelected && (
+          <UnderscoreDiv
+            underscoreHeight={underscoreHeight}
+            firstChild={firstChild}
+            lastChild={lastChild}
+            darkMode={darkMode}
+            spacingBetween={spacingBetweenIntermediate}
+          />
+        )}
+      </InternalTab>
     );
   }
 );

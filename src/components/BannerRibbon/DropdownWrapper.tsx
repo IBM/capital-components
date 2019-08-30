@@ -17,12 +17,12 @@ const Internal = React.forwardRef<HTMLDivElement, JSX.IntrinsicElements["div"]>(
 const DropdownWrapper = styled<
   JSX.IntrinsicElements["div"] & { innerRef?: React.Ref<HTMLDivElement> }
 >(Internal)(`
-  ${mqStringsMax.s(`
+  ${mqStringsMax.sm(`
     max-width: 100%;
     padding-left: 0;
     padding-right: 0;
   `)}
-  ${mqStrings.s(`
+  ${mqStrings.sm(`
     min-width: 240px;
   `)}
 `);

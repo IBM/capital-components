@@ -1,47 +1,56 @@
 import { css } from "emotion";
 import { Omit } from "type-zoo";
 import { useMedia } from "react-use";
+import { breakpoints as carbonBreakpoints, baseFontSize } from "@carbon/elements";
+import { CSSObject } from "create-emotion";
 
 export interface IBreakPointDescriptor<A> {
   base?: A;
-  xs?: A;
-  s?: A;
-  m?: A;
-  l?: A;
-  xl?: A;
+  sm?: A;
+  md?: A;
+  lg?: A;
+  xlg?: A;
+  max?: A;
 }
 
 // breakpoints as defined in css-gridish.json file.
 // We aren't importing it because we don't want to make assumptions
 // about what the client can parse. Keep it to js output.
 export const breakpoints: Required<IBreakPointDescriptor<number>> = {
-  base: 0,
-  // Numerical values will result in a min-width query
-  xs: 576,
-  s: 768,
-  m: 992,
-  l: 1200,
-  xl: 1600
-};
+  ...Object.keys(carbonBreakpoints).reduce((acc, key) => {
+    acc[key] = parseInt(carbonBreakpoints[key].width.replace("rem", ""), 10) * baseFontSize;
+    return acc;
+  }, {}),
+  base: 0
+} as any;
 
-export type MqDescriptor = Required<IBreakPointDescriptor<(arg: string) => string>>;
+export type MqDescriptor = Required<
+  IBreakPointDescriptor<(arg: string | CSSObject) => string | CSSObject>
+>;
 
 /**
  * MQ object supports quick media query aware emotion syntax: https://emotion.sh/docs/media-queries
  * It generates the CSS string to be used within other other emotion css strings. Note
  * that the size (m, s, l, etc) indicates the min-width that the css will apply.
  */
-export const mqStrings: MqDescriptor = Object.keys(breakpoints).reduce(
+export const mqStrings = Object.keys(breakpoints).reduce(
   (accumulator, label) => {
-    accumulator[label] = cls =>
-      `
-      @media (min-width:${breakpoints[label]}px) {
-        ${cls}${cls.endsWith(";") ? "" : ";"}
+    accumulator[label] = (cls: string | CSSObject) => {
+      if (typeof cls === "string") {
+        return `
+          @media (min-width:${breakpoints[label]}px) {
+            ${cls}${cls.endsWith(";") ? "" : ";"}
+          }
+        `;
+      } else {
+        return {
+          [`@media (min-width:${breakpoints[label]}px)`]: cls
+        };
       }
-    `;
+    };
     return accumulator;
   },
-  {} as any
+  {} as MqDescriptor
 );
 
 /**
@@ -49,21 +58,28 @@ export const mqStrings: MqDescriptor = Object.keys(breakpoints).reduce(
  * It generates the CSS string to be used within other other emotion css strings. Note
  * that the size (m, s, l, etc) indicates the max-width that the css will apply.
  */
-export const mqStringsMax: Omit<MqDescriptor, "base"> = Object.keys(breakpoints).reduce(
+export const mqStringsMax = Object.keys(breakpoints).reduce(
   (accumulator, label) => {
-    // base doesn't make sense for max-widths
+    // base doesn't make sense for max-widths, since base is 0
     if (label === "base") {
       return accumulator;
     }
-    accumulator[label] = cls =>
-      `
-      @media (max-width:${breakpoints[label] - 1}px) {
-        ${cls}${cls.endsWith(";") ? "" : ";"}
+    accumulator[label] = (cls: string | CSSObject) => {
+      if (typeof cls === "string") {
+        return `
+          @media (max-width:${breakpoints[label] - 1}px) {
+            ${cls}${cls.endsWith(";") ? "" : ";"}
+          }
+        `;
+      } else {
+        return {
+          [`@media (max-width:${breakpoints[label] - 1}px)`]: cls
+        };
       }
-    `;
+    };
     return accumulator;
   },
-  {} as any
+  {} as Omit<MqDescriptor, "base">
 );
 
 /**
@@ -90,12 +106,12 @@ export const buildStringForMediaQueries = (
  * It generates actual classnames, as opposed to mqStrings which generates the CSS string. Note
  * that the size (m, s, l, etc) indicates the min-width that the css will apply.
  */
-export const mq: MqDescriptor = Object.keys(mqStrings).reduce(
+export const mq = Object.keys(mqStrings).reduce(
   (accumulator, label) => {
     accumulator[label] = cls => css(mqStrings[label](cls));
     return accumulator;
   },
-  {} as any
+  {} as MqDescriptor
 );
 
 /**
@@ -103,17 +119,17 @@ export const mq: MqDescriptor = Object.keys(mqStrings).reduce(
  * It generates actual classnames, as opposed to mqStrings which generates the CSS string. Note
  * that the size (m, s, l, etc) indicates the max-width that the css will apply.
  */
-export const mqMax: MqDescriptor = Object.keys(mqStrings).reduce(
+export const mqMax = Object.keys(mqStrings).reduce(
   (accumulator, label) => {
     accumulator[label] = cls => css(mqStringsMax[label](cls));
     return accumulator;
   },
-  {} as any
+  {} as MqDescriptor
 );
 /**
  * A hook useful to detect if page is viewed on a mobile size screen (small)
  */
-export function useIsMobile(max: keyof typeof breakpoints = "s") {
+export function useIsMobile(max: keyof typeof breakpoints = "sm") {
   const isMobileQuery = `(max-width: ${breakpoints[max] - 1}px)`;
   return useMedia(isMobileQuery, false);
 }

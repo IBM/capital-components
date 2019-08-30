@@ -130,7 +130,7 @@ stories.add(
   ),
   {
     text: `
-        You will often want a paginator. Use PaginationV2 to support any kind of
+        You will often want a paginator. Use Pagination to support any kind of
         external paging system.
       `
   }

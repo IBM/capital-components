@@ -187,13 +187,15 @@ export const VerticalSeperator = ({
   </div>
 );
 
-export const ContentWrapper = styled.div`
-  ${({ theme }) => theme.fonts.styles.body};
+export const ContentWrapper = styled.div(
+  ({ theme }) => theme.fonts.styles.bodyShort02,
+  `
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
   overflow: hidden;
-`;
+`
+);
 
 export const ContentBottomPadding = styled.div`
   min-height: 6rem;

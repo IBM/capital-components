@@ -37,7 +37,7 @@ const NavigationBarItem = styled("div", {
   });
   return `
           ${fromFlex};
-          ${props.theme.fonts.styles.body};
+
           ${props.isSelected ? `font-weight: ${props.theme.fonts.weights.bold};` : ""}
           color: ${props.theme.color.inverse01};
           fill: ${props.theme.color.inverse01};
@@ -53,7 +53,7 @@ const PrimaryBarItem = styled(NavigationBarItem, {
   shouldForwardProp
 })<PrimaryBarItemProps>`
   :hover {
-    background-color: ${({ theme }) => theme.color.nav02};
+    background-color: ${({ theme }) => theme.color.inverse02};
   }
 `;
 
@@ -107,15 +107,15 @@ const generateIconClasses = (props: { isSelected?: boolean; theme: Theme }) => `
 const PrimaryBarIcon = styled(PrimaryBarItem, {
   shouldForwardProp
 })<PrimaryBarItemProps>(props => {
-  const color = props.isSelected ? props.theme.color.nav01 : props.theme.color.inverse01;
+  const color = props.isSelected ? props.theme.color.inverse01 : props.theme.color.inverse01;
   return `
           ${generateIconClasses(props)}
           color: ${color};
           fill: ${color};
           :hover {
             > .icon-circle {
-              color: ${props.theme.color.nav02};
-              fill: ${props.theme.color.nav02};
+              color: ${props.theme.color.inverse02};
+              fill: ${props.theme.color.inverse02};
             }
           }
         `;
@@ -124,7 +124,7 @@ const PrimaryBarIcon = styled(PrimaryBarItem, {
 const SecondaryBarIcon = styled(NavigationBarItem, {
   shouldForwardProp
 })<NavigationBarItemProps>(props => {
-  const color = props.isSelected ? props.theme.color.nav02 : props.theme.color.inverse01;
+  const color = props.isSelected ? props.theme.color.inverse02 : props.theme.color.inverse01;
   return `
           ${generateIconClasses(props)}
           border-left: 1px solid ${props.theme.color.text02};
@@ -137,10 +137,9 @@ const PrimaryBarTitle = styled(PrimaryBarItem)`
   padding-left: 0;
   flex: 1 1 auto;
   cursor: auto;
-  ${props => props.theme.fonts.styles.specialtyBody};
   font-weight: ${props => props.theme.fonts.weights.bold};
   :hover {
-    background-color: ${({ theme }) => theme.color.nav01};
+    background-color: ${({ theme }) => theme.color.ui05};
   }
 `;
 
@@ -164,7 +163,7 @@ const PrimaryBarMainMenuItem = PrimaryBarItem.withComponent("div");
 const PrimaryBarInternal = styled.nav<{ addLeftPadding?: boolean }>`
   display: flex;
   border-bottom: 1px solid ${props => props.theme.color.brand03};
-  background-color: ${props => props.theme.color.nav01};
+  background-color: ${props => props.theme.color.ui05};
   flex-shrink: 0;
   height: 48px;
   padding-left: ${({ addLeftPadding }) => (addLeftPadding ? "40px" : "0")};
@@ -224,18 +223,20 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
   mobileWrapperClassName,
   ...otherProps
 }) => (
-  <Media query={{ maxWidth: breakpoints.s - 1 }}>
+  <Media query={{ maxWidth: breakpoints.sm - 1 }}>
     {matches => {
       const PrimaryIcon = menuIcon || MenuIcon;
       const wrapperProps = {
-        className: css`
-          display: flex;
-          flex: 1 1 auto;
-          overflow: auto;
-          background-color: ${theme.color.nav02};
-          flex-direction: column;
-          ${theme.fonts.styles.specialtyBody};
-        `,
+        className: cx(
+          css(theme.fonts.styles.bodyShort02),
+          css`
+            display: flex;
+            flex: 1 1 auto;
+            overflow: auto;
+            background-color: ${theme.color.inverse02};
+            flex-direction: column;
+          `
+        ),
         tabIndex: -1
       };
       const mobileMenuRefCurrent = mobileMenuRef && mobileMenuRef.current;
@@ -300,7 +301,7 @@ const Nav = styled("nav")`
   font-weight: ${props => props.theme.fonts.weights.regular};
   overflow: auto;
   display: flex;
-  ${mqStrings.s("direction: rtl;")}
+  ${mqStrings.sm("direction: rtl;")}
   flex-shrink: 0;
 `;
 
@@ -313,15 +314,15 @@ const SecondaryBar = styled((props: ComponentPropsWithoutRef<typeof Nav>) => {
   );
 })`
   border-bottom: ${props => props.theme.color.text02} 1px solid;
-  background-color: ${props => props.theme.color.nav02};
-  ${mqStrings.s(`
+  background-color: ${props => props.theme.color.inverse02};
+  ${mqStrings.sm(`
   [role="tablist"]::after, [role="tablist"]::before {
     content: "";
     padding-left: 28px;
   }
   `)};
   ${({ theme }) =>
-    mqStringsMax.s(`
+    mqStringsMax.sm(`
     [role="tablist"]::after, [role="tablist"]::before {
       content: "";
       padding-left: ${theme.spacing.spacing.sm};
@@ -342,7 +343,7 @@ const FooterBarIcon = styled(PrimaryBarIcon)`
 `;
 
 const DropDownContainer = styled.div`
-  background-color: ${({ theme }) => theme.color.nav01};
+  background-color: ${({ theme }) => theme.color.interactive01};
   width: 300px;
   color: ${({ theme }) => theme.color.inverse01};
   display: flex;

@@ -6,9 +6,9 @@ import {
 } from "emotion-theming";
 import React, { ComponentType } from "react";
 import emotion, { CreateStyled } from "react-emotion";
-import sharedTheme from "./themes/shared";
+import createTheme from "./createTheme";
 
-export type Theme = typeof sharedTheme;
+export type Theme = ReturnType<typeof createTheme>;
 
 export type ThemeModule = IEmotionThemingModule<Theme>;
 

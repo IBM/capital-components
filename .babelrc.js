@@ -5,7 +5,6 @@ const NODE_ENV = process.env.NODE_ENV;
 const moduleResolverOptions = {
   extensions: [".js", ".jsx", ".ts", ".tsx"],
   alias: {
-    "^carbon-components-react/es/(.+?)$": "carbon-components-react/lib/\\1",
     "^capital-components$": "./src/index.ts",
     "^capital-components/lib/(.+?)$": "./src/\\1"
   }
@@ -29,7 +28,6 @@ const config = {
     "@babel/proposal-class-properties",
     ["emotion", { hoist: true, autoLabel: true }],
     "babel-plugin-add-react-displayname",
-    "transform-carbon-imports",
     ["module-resolver", moduleResolverOptions]
   ]
 };

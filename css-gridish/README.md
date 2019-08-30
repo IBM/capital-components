@@ -32,11 +32,11 @@ layout at any custom breakpoint between those:
 
 | Breakpoint | Number of Columns | Width    | Value  |
 | ---------- | ----------------- | ------- | ------ |
-| `xs`       | 12                 | `36rem`     | `576px`      |
-| `s`       | 12                 | `48rem`     | `768px`      |
-| `m`       | 12                 | `62rem`     | `992px`      |
-| `l`       | 12                 | `75rem`     | `1200px`      |
-| `xl`       | 12                 | `100rem`     | `1600px`      |
+| `sm`       | 4                 | `20rem`     | `320px`      |
+| `md`       | 8                 | `42rem`     | `672px`      |
+| `lg`       | 16                 | `66rem`     | `1056px`      |
+| `xlg`       | 16                 | `82rem`     | `1312px`      |
+| `max`       | 16                 | `99rem`     | `1584px`      |
 
 ### Custom Breakpoints
 
@@ -64,24 +64,24 @@ If you are new to CSS Grid, please try [learning the basics](https://www.google.
 | ----------------------------------------- | ------------------------------------------------------------------------------------------ |
 | `.cap-container`                          | Container element of whole page for proper margin and max-width (can be used on body tag ) |
 | `.cap-container--[left, right]`            | Align the container element to the left or right side                                      |
-| `.cap-container__bleed--[xs, s, m, l]`                         | Extend the background color of a container child into the container margin on both sides starting at a specific breakpoint (CSS Grid browsers only)        |
-| `.cap-container__bleed--[xs, s, m, l]--[left, right]`           | Extend the background color of a grid into the container margin on one side at a specific breakpoint (CSS Grid browsers only)           |
-| `.cap-container__break--[xs, s, m, l]`                         | Child of container element should ignore grid’s margin at a specific breakpoint (CSS Grid browsers only)       |
-| `.cap-container__break--[xs, s, m, l]--[left, right]`           | Child of container element should ignore grid’s margin on one side at a specific breakpoint (CSS Grid browsers only)                             |
+| `.cap-container__bleed--[sm, md, lg, xlg]`                         | Extend the background color of a container child into the container margin on both sides starting at a specific breakpoint (CSS Grid browsers only)        |
+| `.cap-container__bleed--[sm, md, lg, xlg]--[left, right]`           | Extend the background color of a grid into the container margin on one side at a specific breakpoint (CSS Grid browsers only)           |
+| `.cap-container__break--[sm, md, lg, xlg]`                         | Child of container element should ignore grid’s margin at a specific breakpoint (CSS Grid browsers only)       |
+| `.cap-container__break--[sm, md, lg, xlg]--[left, right]`           | Child of container element should ignore grid’s margin on one side at a specific breakpoint (CSS Grid browsers only)                             |
 | `.cap-grid`                               | Use anytime you want to apply CSS Grid Layout, including as embedded subgrids              |
 | `.cap-grid--fixed-columns`                         | Switch grid’s column widths to fixed instead of fluid                                       |
 | `.cap-grid--fluid-rows`                         | Switch grid’s row height to match the width of a column                                        |
 | `.cap-padding`                            | Add one unit of padding to element on all sides                                            |
 | `.cap-padding--[bottom, left, right, top]` | Add one unit of padding to element on one side                                             |
 | `.cap-padding--[horizontal, vertical]`     | Add one unit of padding to element on two sides                                            |
-| `.cap-grid__col--xs--[1-12]`                          | Set the width out of 12 columns for an item in the grid starting at the xs breakpoint |
-| `.cap-grid__col--s--[1-12]`                          | Set the width out of 12 columns for an item in the grid starting at the s breakpoint |
-| `.cap-grid__col--m--[1-12]`                          | Set the width out of 12 columns for an item in the grid starting at the m breakpoint |
-| `.cap-grid__col--l--[1-12]`                          | Set the width out of 12 columns for an item in the grid starting at the l breakpoint |
-| `.cap-grid__col--[xs, s, m, l]--0`                          | Do not display item at a specific breakpoint, but display at the next breakpoint with columns specified |
-| `.cap-grid__col--[xs, s, m, l]--0--only`                          | Do not display item only at specific breakpoint |
-| `.cap-grid__height--[xs, s, m, l]--[1-60]`                          | Set the min-height based on an interval of 8px for an item starting at the breakpoint specified |
-| `.cap-grid__height--[xs, s, m, l]--0`                          | Reset the min-height for an item starting at the specified breakpoint |
+| `.cap-grid__col--sm--[1-4]`                          | Set the width out of 4 columns for an item in the grid starting at the sm breakpoint |
+| `.cap-grid__col--md--[1-8]`                          | Set the width out of 8 columns for an item in the grid starting at the md breakpoint |
+| `.cap-grid__col--lg--[1-16]`                          | Set the width out of 16 columns for an item in the grid starting at the lg breakpoint |
+| `.cap-grid__col--xlg--[1-16]`                          | Set the width out of 16 columns for an item in the grid starting at the xlg breakpoint |
+| `.cap-grid__col--[sm, md, lg, xlg]--0`                          | Do not display item at a specific breakpoint, but display at the next breakpoint with columns specified |
+| `.cap-grid__col--[sm, md, lg, xlg]--0--only`                          | Do not display item only at specific breakpoint |
+| `.cap-grid__height--[sm, md, lg, xlg]--[1-60]`                          | Set the min-height based on an interval of 8px for an item starting at the breakpoint specified |
+| `.cap-grid__height--[sm, md, lg, xlg]--0`                          | Reset the min-height for an item starting at the specified breakpoint |
 
 By default, the grid code uses fluid columns and fixed rows. You can switch both aspects with `.cap-grid--fixed-columns` and `.cap-grid--fluid-rows`. When switching to fluid rows, the rows will scale across breakpoints just like `col` classes and only supports quantities up to the amount of columns in that breakpoint.
 
@@ -207,4 +207,4 @@ Thanks to flexbox’s wrapping functionality, nodes that specify rows are not ne
 
 ### What happens in the legacy implementation if I specify the column width for one breakpoint, but not the next larger breakpoint?
 
-To maintain a mobile-first opinion, column widths will scale to the next breakpoint if not specified. This means that a `.cap-grid__col--xs--1` be the size of `.cap-grid__col--s--2` if no `s` class was declared.
+To maintain a mobile-first opinion, column widths will scale to the next breakpoint if not specified. This means that a `.cap-grid__col--sm--1` be the size of `.cap-grid__col--md--2` if no `md` class was declared.

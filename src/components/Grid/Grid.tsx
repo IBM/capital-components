@@ -62,6 +62,9 @@ export const Grid: React.SFC<IProps> = ({
         [preventShrinkStyle]: preventShrink,
         [allowGrowStyle]: !isIE && allowGrow
       },
+      css`
+        width: 100%;
+      `,
       className
     )}
     {...props}

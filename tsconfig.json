@@ -31,5 +31,6 @@
     "./types.d.ts",
     "./test-helpers/**/*"
   ],
+  "files": ["typings/@carbon/themes.d.ts"],
   "exclude": ["node_modules", "build", "scripts"]
 }

@@ -8,11 +8,11 @@ const innerBleedingRowClass = css`
   max-width: 1600;
   flex-grow: 1;
   width: 100%;
-  ${mq.xs(`
+  ${mq.sm(`
     padding-left: calc(11px + 10px);
     padding-right: calc(11px + 10px);
   `)};
-  ${mq.s(`
+  ${mq.md(`
     padding-left: calc(5vw + 10px);
     padding-right: calc(5vw + 10px);
   `)};

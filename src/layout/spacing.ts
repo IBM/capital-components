@@ -1,57 +1,41 @@
 // based on http://carbondesignsystem.com/style/spacing
 import { buildStringForMediaQueries, IBreakPointDescriptor } from "./mediaQueries";
+import { spacing as elementSpacing } from "@carbon/elements";
 
 // Use for margins within grid elements
-// 3xs = xs3 and similar for the sake of consistent naming
 export const spacing = {
+  /** 2px - Deprecated */
+  "3xs": elementSpacing[0],
   /** 2px */
-  "3xs": "0.125rem",
-  /** 2px */
-  xs3: "0.125rem",
+  xs3: elementSpacing[0],
+  /** 4px - Deprecated */
+  "2xs": elementSpacing[1],
   /** 4px */
-  "2xs": "0.25rem",
-  /** 4px */
-  xs2: "0.25rem",
+  xs2: elementSpacing[1],
   /** 8px */
-  xs: "0.5rem",
+  xs: elementSpacing[2],
   /** 12px */
-  sm: "0.75rem",
+  sm: elementSpacing[3],
   /** 16px */
-  md: "1rem",
+  md: elementSpacing[4],
   /** 24px */
-  lg: "1.5rem",
+  lg: elementSpacing[5],
   /** 32px */
-  xl: "2rem",
+  xl: elementSpacing[6],
+  /** 40px - Deprecated */
+  "2xl": elementSpacing[7],
   /** 40px */
-  "2xl": "2.5rem",
-  /** 40px */
-  xl2: "2.5rem",
+  xl2: elementSpacing[7],
+  /** 48px - Deprecated */
+  "3xl": elementSpacing[8],
   /** 48px */
-  "3xl": "3rem",
-  /** 48px */
-  xl3: "3rem"
-};
-
-// Use for vertical layout. For horizontal layout, always use grid elements
-export const layout = {
-  /** 16px */
-  "2xs": "1rem",
-  /** 16px */
-  xs2: "1rem",
-  /** 24px */
-  xs: "1.5rem",
-  /** 32px */
-  sm: "2rem",
-  /** 48px */
-  md: "3rem",
+  xl3: elementSpacing[8],
   /** 64px */
-  lg: "4rem",
+  xl4: elementSpacing[9],
+  /** 80px */
+  xl5: elementSpacing[10],
   /** 96px */
-  xl: "6rem",
-  /** 160px */
-  "2xl": "10rem",
-  /** 160px */
-  xl2: "10rem"
+  xl6: elementSpacing[11]
 };
 
 export const getSpacingOrDefault = value => spacing[value] || value;
