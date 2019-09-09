@@ -9,6 +9,7 @@ import { styled } from "capital-components/lib/support/theme";
 import useToggle from "../../hooks/useToggle";
 import Readme from "./README.md";
 import { withReadme } from "storybook-readme";
+import { iconChevronUp, iconChevronDown } from "carbon-icons";
 
 const stories = storiesOf("Components|PushOver", module).addDecorator(withReadme([Readme]));
 
@@ -189,7 +190,7 @@ stories
                     toggleProfileOpen();
                   }}
                 >
-                  User Profile <Icon name={`icon--caret--${profileOpen ? "down" : "up"}`} />
+                  User Profile <Icon icon={profileOpen ? iconChevronDown : iconChevronUp} />
                 </Flex>
                 {profileOpen && <UserProfileOptions />}
               </Flex>

@@ -4,6 +4,7 @@ import React from "react";
 import { animated, config, interpolate, Spring } from "react-spring";
 import { Flex } from "../../primitives/elements";
 import { styled } from "../../support/theme";
+import { iconClose } from "carbon-icons";
 
 const sizeMapping = {
   xl: 560,
@@ -175,13 +176,13 @@ class PushOver extends React.PureComponent<IProps & { innerRef: React.Ref<any> }
                   <Icon
                     role="button"
                     description={translate({ id: TranslationKeys.close })}
-                    name="icon--close"
                     className={css`
                       top: 1rem;
                       ${closePosition}: 1rem;
                       position: absolute;
                       cursor: pointer;
                     `}
+                    icon={iconClose}
                     height="12"
                     width="12"
                     onClick={onCloseClick}

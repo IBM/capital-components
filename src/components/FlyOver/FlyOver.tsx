@@ -1,10 +1,10 @@
-import Icon from "carbon-components-react/lib/components/Icon";
+import Icon from "../Icon";
 import { css, cx } from "emotion";
 import React from "react";
 import { animated, config, interpolate, Spring } from "react-spring";
 import { buildSpacing } from "../../layout/spacing";
 import { context } from "../FlyOverProvider/FlyOverProvider";
-
+import { Close24 } from "@carbon/icons-react";
 import ReactDOM from "react-dom";
 import { Omit } from "type-zoo/types";
 
@@ -95,17 +95,17 @@ export class FlyOver extends React.PureComponent<IProps, IState> {
             >
               {closable && (
                 <Icon
-                  name="icon--close"
                   className={css`
                     top: 1rem;
                     ${position}: 1rem;
                     position: absolute;
                     cursor: pointer;
                   `}
-                  height="12"
-                  width="12"
                   onClick={onCloseClick}
-                />
+                  size="medium"
+                >
+                  <Close24 />
+                </Icon>
               )}
               {children}
             </FlyOverContainer>
