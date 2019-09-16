@@ -6,7 +6,6 @@ import {
 import cx from "classnames";
 import React, { ReactElement } from "react";
 import { SortDirection, StringCellContent } from "./utils";
-import R from 'ramda';
 
 export type ColumnContentRenderer<T> = React.ComponentType<{
   row: T;
