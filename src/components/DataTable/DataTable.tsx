@@ -93,6 +93,28 @@ class DataTable<T> extends React.PureComponent<{
   zebra?: boolean;
   /** How to render the toolbar */
   renderToolbar?: React.ReactNode;
+  /**Optional props for select functionality */
+  getSelectAllProps?: () => { 
+    ariaLabel: string,
+    checked: boolean,
+    id: string,
+    indeterminate?: boolean,
+    name: string,
+    onSelect: (row) => void,
+    disabled?: boolean,
+    className?: string
+  };
+   /**Optional props for select functionality */
+  getSelectRowProps?: (row) => { 
+    ariaLabel: string,
+    checked: boolean,
+    id: string,
+    name: string,
+    onSelect: (row) => void,
+    disabled?: boolean,
+    radio?: boolean,
+    className?: string
+  };
 }> {
   public onHeaderClick = (colKey: keyof T) => {
     return (
@@ -115,7 +137,9 @@ class DataTable<T> extends React.PureComponent<{
       getRowIdentifier = defaultGetRowIdentifier,
       getAdditionalRowProps,
       zebra,
-      renderToolbar
+      renderToolbar,
+      getSelectAllProps,
+      getSelectRowProps
     } = this.props;
 
     return (
@@ -126,6 +150,7 @@ class DataTable<T> extends React.PureComponent<{
         <Table zebra={zebra}>
           <CarbonDataTable.TableHead>
             <CarbonDataTable.TableRow>
+            {getSelectAllProps && <CarbonDataTable.TableSelectAll {...getSelectAllProps()} />}
               {columns.map(col => (
                 <HeaderComp
                   sortDirection={col.key === sortKey ? sortDirection : sortStates.NONE}
@@ -144,6 +169,7 @@ class DataTable<T> extends React.PureComponent<{
                 : {};
               return (
                 <CarbonDataTable.TableRow key={rowId} {...additionalProps}>
+                  {getSelectRowProps && <CarbonDataTable.TableSelectRow {...getSelectRowProps(row)} />}
                   {columns.map(col => {
                     const Renderer: React.ComponentType<{
                       row: T;
