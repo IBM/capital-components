@@ -80,9 +80,18 @@ const compileStylesCSS = () => gulp.src("css-gridish/css/**/*.css").pipe(gulp.de
 
 const copyStylesSass = () => gulp.src("./scss/**/*").pipe(gulp.dest("styles/scss"));
 
+const copyIcons = () => gulp.src("./src/fss-icons/**/*").pipe(gulp.dest("lib/fss-icons"));
+
 gulp.task(
   "build",
-  gulp.series([clean, compileScripts, compileStylesSass, compileStylesCSS, copyStylesSass])
+  gulp.series([
+    clean,
+    compileScripts,
+    compileStylesSass,
+    compileStylesCSS,
+    copyStylesSass,
+    copyIcons
+  ])
 );
 
 gulp.task("watch:scripts", () => gulp.watch(sources, compileScripts));
