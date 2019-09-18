@@ -100,7 +100,7 @@ class DataTable<T> extends React.PureComponent<{
     id: string,
     indeterminate?: boolean,
     name: string,
-    onSelect: (row) => void,
+    onSelect: () => void,
     disabled?: boolean,
     className?: string
   };
@@ -110,7 +110,7 @@ class DataTable<T> extends React.PureComponent<{
     checked: boolean,
     id: string,
     name: string,
-    onSelect: (row) => void,
+    onSelect: () => void,
     disabled?: boolean,
     radio?: boolean,
     className?: string
