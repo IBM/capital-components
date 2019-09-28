@@ -1,8 +1,8 @@
 import { DataTable } from "capital-components";
 import { action } from "@storybook/addon-actions";
 import { storiesOf } from "@storybook/react";
-import { PaginationV2 } from "carbon-components-react";
-import React from "react";
+import { PaginationV2, DataTable as CarbonDataTable } from "carbon-components-react";
+import React, { useState } from "react";
 import Readme from "./README.md";
 import { withReadme } from "storybook-readme";
 
@@ -100,7 +100,7 @@ stories.add(
   ),
   {
     text: `
-        Sometimes you want to add some additional properties to a speific row. Note that 
+        Sometimes you want to add some additional properties to a speific row. Note that
         these are just props assigned to row element
       `
   }
@@ -150,6 +150,79 @@ stories.add(
       zebra={true}
     />
   ),
+  {
+    text: `
+        Sometimes you just want to show your stripes
+      `
+  }
+);
+
+stories.add(
+  "Bulk actions and selection",
+  () => {
+    const [selected, setSelected] = useState<string[]>([]);
+    const handleSelect = (row: typeof rows[0]) => {
+      setSelected(prevState => {
+        if (prevState.includes(row.name)) {
+          return prevState.filter(name => name !== row.name);
+        } else {
+          return [...prevState, row.name];
+        }
+      });
+    };
+    const handleSelectAll = () => {
+      setSelected(prevState => {
+        if (prevState.length === rows.length) {
+          return [];
+        } else {
+          return rows.map(row => row.name);
+        }
+      });
+    };
+    return (
+      <DataTable
+        columns={columns}
+        rows={rows}
+        sortKey="date"
+        sortDirection="DESC"
+        onSort={action("sort")}
+        getRowIdentifier={row => row.name}
+        zebra={true}
+        getSelectAllProps={() => ({
+          ariaLabel: "Select all rows",
+          checked: selected.length === rows.length,
+          id: "select-all",
+          name: "select-all",
+          onSelect: handleSelectAll,
+          indeterminate: selected.length !== rows.length && selected.length > 0
+        })}
+        getSelectRowProps={row => ({
+          onSelect: () => handleSelect(row),
+          id: row.name,
+          checked: selected.includes(row.name),
+          ariaLabel: `Select the row for ${row.name}`,
+          name: `select-row-${row.name}`
+        })}
+        renderToolbar={
+          <>
+            <CarbonDataTable.TableToolbarSearch onChange={() => action("Search")} />
+            <CarbonDataTable.TableBatchActions
+              shouldShowBatchActions={selected.length > 0}
+              totalSelected={selected.length}
+              onCancel={() => setSelected([])}
+            >
+              <CarbonDataTable.TableBatchAction onClick={() => action("Bulk1")}>
+                Ghost
+              </CarbonDataTable.TableBatchAction>
+              <CarbonDataTable.TableBatchAction onClick={() => action("Bulk2")}>
+                Ghost
+              </CarbonDataTable.TableBatchAction>
+            </CarbonDataTable.TableBatchActions>
+          </>
+        }
+      />
+    );
+  },
   {
     text: `
         Sometimes you just want to show your stripes
