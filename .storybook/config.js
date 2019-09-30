@@ -13,7 +13,7 @@ import StoryRouter from "../storybook-addons/router";
 
 setOptions({
   name: "Capital Components",
-  url: "https://github.ibm.com/watson-finance/wfss-components",
+  url: "https://github.com/IBM/capital-components",
   hierarchySeparator: /\/|\./,
   hierarchyRootSeparator: /\|/,
   sortStoriesByKind: true

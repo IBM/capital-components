@@ -14,7 +14,7 @@ storybook-static
 styles
 lib
 types
-wfss-components.umd.js
-wfss-components.es5.js
+captial-components.umd.js
+captial-components.es5.js
 .env
 .npmrc
