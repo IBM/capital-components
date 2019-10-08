@@ -2,6 +2,7 @@ import { css } from "emotion";
 import { Omit } from "type-zoo";
 import { useMedia } from "react-use";
 import { breakpoints as carbonBreakpoints, baseFontSize } from "@carbon/elements";
+
 import { CSSObject } from "create-emotion";
 
 export interface IBreakPointDescriptor<A> {
@@ -12,6 +13,8 @@ export interface IBreakPointDescriptor<A> {
   xlg?: A;
   max?: A;
 }
+
+export const smallestBreakpoint = "sm" as const;
 
 // breakpoints as defined in css-gridish.json file.
 // We aren't importing it because we don't want to make assumptions

@@ -3,4 +3,5 @@
 # But not these files...
 !.nowignore
 !now.json
-!public/**/*
+!storybook-static
+!storybook-static/**/*

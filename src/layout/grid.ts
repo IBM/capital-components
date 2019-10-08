@@ -1,7 +1,13 @@
 // Based on grid breakpoints http://carbondesignsystem.com/style/grid/design
 import cx from "classnames";
-import { buildStringForMediaQueries, IBreakPointDescriptor } from "./mediaQueries";
+import {
+  buildStringForMediaQueries,
+  IBreakPointDescriptor,
+  smallestBreakpoint,
+  breakpoints
+} from "./mediaQueries";
 import { getSpacingOrDefault } from "./spacing";
+import { breakpoints as carbonBreakpoints } from "@carbon/elements";
 
 // For now, always assume 12 columns but this could change with media queries.
 
@@ -17,24 +23,35 @@ export const createGridClass = (args?: {
   });
 };
 
-const fractionToWhole = {
-  "1/8": 2,
-  /* Deprecated fraction.*/
-  "1/6": 2,
-  "1/4": 4,
-  /* Deprecated fraction.*/
-  "1/3": 6,
-  "1/2": 8,
-  /* Deprecated fraction.*/
-  "2/3": 10,
-  "3/4": 12,
-  /* Deprecated fraction.*/
-  "5/6": 14,
-  "7/8": 14,
-  all: 16
+const fractionToWhole = (breakpoint: keyof IBreakPointDescriptor<number>) => {
+  const columnCount = carbonBreakpoints[breakpoint].columns;
+  return {
+    "1/8": Math.floor(columnCount / 8),
+    /* Deprecated fraction.*/
+    "1/6": Math.floor(columnCount / 6),
+    "1/4": Math.floor(columnCount / 4),
+    /* Deprecated fraction.*/
+    "1/3": Math.floor(columnCount / 3),
+    "1/2": Math.floor(columnCount / 2),
+    /* Deprecated fraction.*/
+    "2/3": Math.floor((columnCount / 3) * 2),
+    "3/4": Math.floor((columnCount / 4) * 3),
+    /* Deprecated fraction.*/
+    "5/6": Math.floor((columnCount / 6) * 5),
+    "7/8": Math.floor((columnCount / 8) * 7),
+    all: columnCount
+  };
 };
 
-export type SupportedSizesAsFractions = keyof typeof fractionToWhole;
+const fractionsPerBreakpoint = Object.keys(carbonBreakpoints).reduce(
+  (acc, item: any) => {
+    acc[item] = fractionToWhole(item);
+    return acc;
+  },
+  {} as Partial<IBreakPointDescriptor<ReturnType<typeof fractionToWhole>>>
+);
+
+export type SupportedSizesAsFractions = keyof ReturnType<typeof fractionToWhole>;
 
 export type SupportedSizes =
   | number
@@ -43,11 +60,11 @@ export type SupportedSizes =
 
 export type SupportedHeights = number | IBreakPointDescriptor<number>;
 
-const determineSize = (size: number | SupportedSizesAsFractions) => {
+const determineSize = (size: number | SupportedSizesAsFractions, breakpoint: any) => {
   if (typeof size === "number") {
     return size;
   }
-  return fractionToWhole[size] || size;
+  return (fractionsPerBreakpoint[breakpoint] && fractionsPerBreakpoint[breakpoint][size]) || size;
 };
 
 /**
@@ -61,20 +78,25 @@ export const createColClass = ({
   height?: SupportedHeights;
 }) => {
   const sizes =
-    typeof size === "string" || typeof size === "number" ? { xs: size } : size || { xs: 1 };
-  const heights = typeof height === "number" ? { xs: height } : height || {};
+    typeof size === "string" || typeof size === "number"
+      ? { [smallestBreakpoint]: size }
+      : size || { [smallestBreakpoint]: 1 };
+  const heights = typeof height === "number" ? { [smallestBreakpoint]: height } : height || {};
 
   return cx(
     "cap-padding--horizontal",
     ...Object.keys(sizes).map(
       breakpoint =>
-        `cap-grid__col--${breakpoint === "base" ? "xs" : breakpoint}--${determineSize(
-          sizes[breakpoint]
+        `cap-grid__col--${breakpoint === "base" ? smallestBreakpoint : breakpoint}--${determineSize(
+          sizes[breakpoint],
+          breakpoint === "base" ? smallestBreakpoint : breakpoint
         )}`
     ),
     ...Object.keys(heights).map(
       breakpoint =>
-        `cap-grid__height--${breakpoint === "base" ? "xs" : breakpoint}--${heights[breakpoint]}`
+        `cap-grid__height--${breakpoint === "base" ? smallestBreakpoint : breakpoint}--${
+          heights[breakpoint]
+        }`
     )
   );
 };

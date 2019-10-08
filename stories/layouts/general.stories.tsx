@@ -470,13 +470,14 @@ stories.add("BannerRibbon with Vertical scroll", () => {
               <ReactRouterTab path="/el2">Element 2</ReactRouterTab>
             </TabsV2>
           </Col>
-          <Col size="1/3" separator="fullscreen right">
+          <Col size="1/4" separator="fullscreen right">
             {lorem.generateParagraphs(1)}
           </Col>
-          <Col size="1/3" separator="fullscreen right">
+          <Col size="1/4" separator="fullscreen right">
             <div>Some main content</div>
           </Col>
-          <Col size="1/3">Some sidebar content</Col>
+          <Col size="1/4">Some sidebar content</Col>
+          <Col size="1/4">Just another column (as columns should come in powers of 2)</Col>
         </Grid>
       </VerticalScrollableContent>
     </ContentWrapper>

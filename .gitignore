@@ -17,4 +17,4 @@ captial-components.umd.js
 captial-components.es5.js
 .env
 .npmrc
-public
+storybook-static

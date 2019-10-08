@@ -28,9 +28,9 @@
     "test:prod": "npm run lint && npm run test -- --coverage --no-cache",
     "commit": "git-cz",
     "precommit": "lint-staged",
-    "build-storybook": "build-storybook public",
+    "build-storybook": "build-storybook",
     "semantic-release": "semantic-release",
-    "deploy-docs": "build-storybook && gh-pages -d public"
+    "deploy-docs": "build-storybook && gh-pages -d storybook-static"
   },
   "lint-staged": {
     "{src,test}/**/*.ts": [
