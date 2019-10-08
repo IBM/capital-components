@@ -27,7 +27,7 @@ script:
   - npm run build-storybook
 deploy:
   - provider: pages
-    local-dir: storybook-static
+    local-dir: public
     skip-cleanup: true
     github-token: "$GH_TOKEN"
     keep-history: false

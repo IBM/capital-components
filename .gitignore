@@ -10,7 +10,6 @@ compiled
 .awcache
 .rpt2_cache
 docs
-storybook-static
 styles
 lib
 types
@@ -18,3 +17,4 @@ captial-components.umd.js
 captial-components.es5.js
 .env
 .npmrc
+public
