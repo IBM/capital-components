@@ -2,13 +2,12 @@ import { css, cx } from "emotion";
 import React from "react";
 import {
   buildVerticalSpacing,
-  createColClass as col,
+  createColClass,
   SupportedHeights,
   SupportedSizes
 } from "../../layout/grid";
 import { IBreakPointDescriptor } from "../../layout/mediaQueries";
 import { Flex, VerticalSeperator } from "../../primitives/elements";
-import { styled } from "../../support/theme";
 
 export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -57,7 +56,7 @@ export const Col: React.SFC<IProps> = props => {
       alignment={flexAlignment}
       className={cx(
         className,
-        col({
+        createColClass({
           size,
           height
         }),
@@ -84,7 +83,7 @@ const VerticalSeparatedCol: React.SFC<IProps & { separator?: "right" | "fullscre
     direction="row"
     alignment={separator !== undefined ? "horizontal space-between" : undefined}
     className={cx(
-      col({
+      createColClass({
         size,
         height
       }),

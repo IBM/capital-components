@@ -23,49 +23,44 @@ export const createGridClass = (args?: {
   });
 };
 
-const fractionToWhole = (breakpoint: keyof IBreakPointDescriptor<number>) => {
-  const columnCount = carbonBreakpoints[breakpoint].columns;
-  return {
-    "1/8": Math.floor(columnCount / 8),
-    /* Deprecated fraction.*/
-    "1/6": Math.floor(columnCount / 6),
-    "1/4": Math.floor(columnCount / 4),
-    /* Deprecated fraction.*/
-    "1/3": Math.floor(columnCount / 3),
-    "1/2": Math.floor(columnCount / 2),
-    /* Deprecated fraction.*/
-    "2/3": Math.floor((columnCount / 3) * 2),
-    "3/4": Math.floor((columnCount / 4) * 3),
-    /* Deprecated fraction.*/
-    "5/6": Math.floor((columnCount / 6) * 5),
-    "7/8": Math.floor((columnCount / 8) * 7),
-    all: columnCount
-  };
-};
+// const fractionToWhole = (breakpoint: keyof IBreakPointDescriptor<number>) => {
+//   const columnCount = carbonBreakpoints[breakpoint].columns;
+//   return {
+//     "1/8": Math.floor(columnCount / 8),
+//     /* Deprecated fraction.*/
+//     "1/6": Math.floor(columnCount / 6),
+//     "1/4": Math.floor(columnCount / 4),
+//     /* Deprecated fraction.*/
+//     "1/3": Math.floor(columnCount / 3),
+//     "1/2": Math.floor(columnCount / 2),
+//     /* Deprecated fraction.*/
+//     "2/3": Math.floor((columnCount / 3) * 2),
+//     "3/4": Math.floor((columnCount / 4) * 3),
+//     /* Deprecated fraction.*/
+//     "5/6": Math.floor((columnCount / 6) * 5),
+//     "7/8": Math.floor((columnCount / 8) * 7),
+//     all: columnCount
+//   };
+// };
 
-const fractionsPerBreakpoint = Object.keys(carbonBreakpoints).reduce(
-  (acc, item: any) => {
-    acc[item] = fractionToWhole(item);
-    return acc;
-  },
-  {} as Partial<IBreakPointDescriptor<ReturnType<typeof fractionToWhole>>>
-);
+// const fractionsPerBreakpoint = Object.keys(carbonBreakpoints).reduce(
+//   (acc, item: any) => {
+//     acc[item] = fractionToWhole(item);
+//     return acc;
+//   },
+//   {} as Partial<IBreakPointDescriptor<ReturnType<typeof fractionToWhole>>>
+// );
 
-export type SupportedSizesAsFractions = keyof ReturnType<typeof fractionToWhole>;
-
-export type SupportedSizes =
-  | number
-  | SupportedSizesAsFractions
-  | IBreakPointDescriptor<number | SupportedSizesAsFractions>;
+export type SupportedSizes = number | IBreakPointDescriptor<number>;
 
 export type SupportedHeights = number | IBreakPointDescriptor<number>;
 
-const determineSize = (size: number | SupportedSizesAsFractions, breakpoint: any) => {
-  if (typeof size === "number") {
-    return size;
-  }
-  return (fractionsPerBreakpoint[breakpoint] && fractionsPerBreakpoint[breakpoint][size]) || size;
-};
+// const determineSize = (size: number | SupportedSizesAsFractions, breakpoint: any) => {
+//   if (typeof size === "number") {
+//     return size;
+//   }
+//   return (fractionsPerBreakpoint[breakpoint] && fractionsPerBreakpoint[breakpoint][size]) || size;
+// };
 
 /**
  * Creates classname for a grid column, specified from a given column span (1-12)

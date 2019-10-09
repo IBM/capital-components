@@ -4,4 +4,4 @@
 !.nowignore
 !now.json
 !storybook-static
-!storybook-static/**/*
+!storybook-static/**
