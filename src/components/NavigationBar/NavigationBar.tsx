@@ -207,6 +207,7 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
     theme?: Theme;
     translate?: typeof defaultTranslate;
     id?: string;
+    mobileWrapperClassName?: string;
   }
 > = ({
   titleSection,
@@ -220,6 +221,7 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
   theme,
   translate = defaultTranslate,
   id = "",
+  mobileWrapperClassName,
   ...otherProps
 }) => (
   <Media query={{ maxWidth: breakpoints.s - 1 }}>
@@ -280,6 +282,7 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
                 id={`wfss-navigation-bar-primary-${id}-mobile-menu`}
                 style={{ height: "100%" }}
                 fullScreenMode={!isIOS}
+                outerClassName={mobileWrapperClassName}
               >
                 {renderMobileMenuContent({ navSection, getWrapperProps: () => wrapperProps })}
               </PushOver>,

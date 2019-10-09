@@ -6,6 +6,7 @@ import useToggle from "../../hooks/useToggle";
 import { Flex } from "capital-components/lib/primitives/elements/Elements";
 import Readme from "./README.md";
 import { withReadme } from "storybook-readme";
+import { styled } from "capital-components/lib/support/theme";
 
 const stories = storiesOf("Components|Navigation Bar", module).addDecorator(withReadme([Readme]));
 
@@ -19,6 +20,14 @@ const {
 } = NavigationBar;
 
 const FlexUL = Flex.withComponent("ul");
+
+export const MainWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  width: 100%;
+  flex: 1 1 auto;
+`;
 
 const renderMobileMenuContent = ({ navSection, getWrapperProps }) => (
   <div {...getWrapperProps()}>
@@ -144,8 +153,8 @@ stories.add(
     const menuRef = useRef(null);
     const [open, toggleOpen] = useToggle(false);
     return (
-      <Flex css="max-width: 500px;" direction="row">
-        <div ref={menuRef} />
+      <MainWrapper>
+        <Flex innerRef={menuRef} />
         <PrimaryBar
           renderMobileMenuContent={renderMobileMenuContent}
           showMenu={open}
@@ -172,7 +181,7 @@ stories.add(
             </PrimaryBarIcon>
           }
         />
-      </Flex>
+      </MainWrapper>
     );
   },
   {

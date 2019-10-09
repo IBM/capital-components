@@ -158,7 +158,7 @@ class PushOver extends React.PureComponent<IProps & { innerRef: React.Ref<any> }
               className={cx(
                 css`
                   position: relative;
-                  ${fullScreenMode ? "height: 100vh;" : ""};
+                  ${fullScreenMode ? "height: 100%;" : ""};
                 `,
                 outerClassName
               )}
