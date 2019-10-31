@@ -20,6 +20,8 @@ const preventOverflow = css`
   overflow: hidden;
 `;
 
+type GridClassProps = Parameters<typeof grid>[0];
+
 export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   /** If true, add padding on the left and right ~5%. Only use for outer elements. */
   isContainer?: boolean;
@@ -27,6 +29,8 @@ export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   isFixedColumns?: boolean;
   /** If true, row heights will be in chunks similar to columns. */
   isFluidRows?: boolean;
+  /** use condensed grid. */
+  isCondensed?: boolean;
   /** Additional vertical padding. Format string to match spacing format. See README for details */
   verticalPadding?: string | IBreakPointDescriptor<string>;
   /** Additional vertical margin. Format string to match spacing format. See README for details */

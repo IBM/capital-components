@@ -30,16 +30,32 @@ stories.add(
         >
           {open && (
             <ScrollRow preventShrink>
-              <Col size={2} verticalPadding="sm" css="justify-content: space-between;">
+              <Col
+                size={{ sm: 1, md: 2 }}
+                verticalPadding="sm"
+                css="justify-content: space-between;"
+              >
                 Some content is not
               </Col>
-              <Col size={2} verticalPadding="sm" css="justify-content: space-between;">
+              <Col
+                size={{ sm: 1, md: 2 }}
+                verticalPadding="sm"
+                css="justify-content: space-between;"
+              >
                 This is just a scrolling view, if items are too large
               </Col>
-              <Col size={2} verticalPadding="sm" css="justify-content: space-between;">
+              <Col
+                size={{ sm: 1, md: 2 }}
+                verticalPadding="sm"
+                css="justify-content: space-between;"
+              >
                 or there are too many
               </Col>
-              <Col size={2} verticalPadding="sm" css="justify-content: space-between;">
+              <Col
+                size={{ sm: 1, md: 2 }}
+                verticalPadding="sm"
+                css="justify-content: space-between;"
+              >
                 or something
               </Col>
             </ScrollRow>
@@ -194,27 +210,21 @@ stories.add("Restricted title width", () => {
         title="Basic title with hint 6"
         titleWidthHint="6"
         floatRightOfTitle={
-          <Col size="all" css="border: 1px solid blue; flex: 1 1 auto;">
-            Some float content
-          </Col>
+          <Col css="border: 1px solid blue; flex: 1 1 auto;">Some float content</Col>
         }
       />
       <BannerRibbon.Ribbon
         title="Basic title with hint 7"
         titleWidthHint="7"
         floatRightOfTitle={
-          <Col size="all" css="border: 1px solid blue; flex: 1 1 auto;">
-            Some float content
-          </Col>
+          <Col css="border: 1px solid blue; flex: 1 1 auto;">Some float content</Col>
         }
       />
       <BannerRibbon.Ribbon
         title="Basic title with hint 9"
         titleWidthHint="9"
         floatRightOfTitle={
-          <Col size="all" css="border: 1px solid blue; flex: 1 1 auto;">
-            Some float content
-          </Col>
+          <Col css="border: 1px solid blue; flex: 1 1 auto;">Some float content</Col>
         }
       />
     </div>

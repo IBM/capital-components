@@ -20,3 +20,4 @@ export { default as FileUploader } from "./FileUploader";
 export { default as ScrollRow } from "./ScrollRow";
 export { default as Tooltip } from "./Tooltip";
 export { default as Mobile } from "./Mobile";
+export { default as Row } from "./Row";

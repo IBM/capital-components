@@ -3,24 +3,18 @@ import cx from "classnames";
 import {
   buildStringForMediaQueries,
   IBreakPointDescriptor,
-  smallestBreakpoint,
-  breakpoints
+  smallestBreakpoint
 } from "./mediaQueries";
 import { getSpacingOrDefault } from "./spacing";
-import { breakpoints as carbonBreakpoints } from "@carbon/elements";
-
-// For now, always assume 12 columns but this could change with media queries.
+import { Omit } from "type-zoo/types";
 
 export const createGridClass = (args?: {
+  isCondensed?: boolean;
   isContainer?: boolean;
   isFixedColumns?: boolean;
   isFluidRows?: boolean;
 }) => {
-  return cx("cap-grid", {
-    "cap-container": args && args.isContainer,
-    "cap-grid--fixed-columns": args && args.isFixedColumns,
-    "cap-grid--fluid-rows": args && args.isFluidRows
-  });
+  return cx("bx--grid", { "bx--grid--condensed": args.isCondensed });
 };
 
 // const fractionToWhole = (breakpoint: keyof IBreakPointDescriptor<number>) => {
@@ -55,6 +49,8 @@ export type SupportedSizes = number | IBreakPointDescriptor<number>;
 
 export type SupportedHeights = number | IBreakPointDescriptor<number>;
 
+export type SupportedOffsets = number | Omit<IBreakPointDescriptor<number>, "base">;
+
 // const determineSize = (size: number | SupportedSizesAsFractions, breakpoint: any) => {
 //   if (typeof size === "number") {
 //     return size;
@@ -67,32 +63,39 @@ export type SupportedHeights = number | IBreakPointDescriptor<number>;
  */
 export const createColClass = ({
   size,
-  height
+  height,
+  offset
 }: {
   size?: SupportedSizes;
   height?: SupportedHeights;
+  offset?: SupportedOffsets;
 }) => {
   const sizes =
     typeof size === "string" || typeof size === "number"
       ? { [smallestBreakpoint]: size }
-      : size || { [smallestBreakpoint]: 1 };
-  const heights = typeof height === "number" ? { [smallestBreakpoint]: height } : height || {};
+      : size || {};
+  const offsets =
+    typeof size === "string" || typeof size === "number"
+      ? { [smallestBreakpoint]: size }
+      : size || {};
 
   return cx(
-    "cap-padding--horizontal",
+    {
+      "bx--col": size === undefined
+    },
     ...Object.keys(sizes).map(
       breakpoint =>
-        `cap-grid__col--${breakpoint === "base" ? smallestBreakpoint : breakpoint}--${determineSize(
-          sizes[breakpoint],
-          breakpoint === "base" ? smallestBreakpoint : breakpoint
-        )}`
-    ),
-    ...Object.keys(heights).map(
-      breakpoint =>
-        `cap-grid__height--${breakpoint === "base" ? smallestBreakpoint : breakpoint}--${
-          heights[breakpoint]
+        `bx--col-${breakpoint === "base" ? smallestBreakpoint : breakpoint}-${
+          sizes[breakpoint === "base" ? smallestBreakpoint : breakpoint]
         }`
-    )
+    ),
+    ...Object.keys(offsets).map(breakpoint => `bx--offset-${breakpoint}-${offsets[breakpoint]}`)
+    // ...Object.keys(heights).map(
+    //   breakpoint =>
+    //     `cap-grid__height--${breakpoint === "base" ? smallestBreakpoint : breakpoint}--${
+    //       heights[breakpoint]
+    //     }`
+    // )
   );
 };
 

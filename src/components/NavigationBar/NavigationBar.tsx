@@ -4,10 +4,9 @@ import ChevronDown from "../../fss-icons/chevron-down_16";
 import { css, cx } from "emotion";
 import React, { ComponentPropsWithoutRef, ComponentType } from "react";
 import ReactDOM from "react-dom";
-import Media from "react-media";
 import { Overwrite } from "type-zoo";
 import { darkModeContext } from "../../contexts";
-import { breakpoints, mqStrings, mqStringsMax } from "../../layout/mediaQueries";
+import { mqStrings, mqStringsMax } from "../../layout/mediaQueries";
 import { Flex, FlexProps } from "../../primitives/elements";
 import { styled, Theme, withTheme } from "../../support/theme";
 import Icon from "../Icon";
@@ -223,7 +222,7 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
   mobileWrapperClassName,
   ...otherProps
 }) => (
-  <Media query={{ maxWidth: breakpoints.sm - 1 }}>
+  <Mobile>
     {matches => {
       const PrimaryIcon = menuIcon || MenuIcon;
       const wrapperProps = {
@@ -292,7 +291,7 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
         </>
       );
     }}
-  </Media>
+  </Mobile>
 );
 
 const PrimaryBar = withTheme(PrimaryBarWithoutTheme);
@@ -301,7 +300,7 @@ const Nav = styled("nav")`
   font-weight: ${props => props.theme.fonts.weights.regular};
   overflow: auto;
   display: flex;
-  ${mqStrings.sm("direction: rtl;")}
+  ${mqStrings.md("direction: rtl;")}
   flex-shrink: 0;
 `;
 
@@ -315,14 +314,14 @@ const SecondaryBar = styled((props: ComponentPropsWithoutRef<typeof Nav>) => {
 })`
   border-bottom: ${props => props.theme.color.text02} 1px solid;
   background-color: ${props => props.theme.color.inverse02};
-  ${mqStrings.sm(`
+  ${mqStrings.md(`
   [role="tablist"]::after, [role="tablist"]::before {
     content: "";
     padding-left: 28px;
   }
   `)};
   ${({ theme }) =>
-    mqStringsMax.sm(`
+    mqStringsMax.md(`
     [role="tablist"]::after, [role="tablist"]::before {
       content: "";
       padding-left: ${theme.spacing.spacing.sm};

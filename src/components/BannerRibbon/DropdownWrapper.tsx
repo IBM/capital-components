@@ -5,11 +5,7 @@ import { styled } from "../../support/theme";
 
 const Internal = React.forwardRef<HTMLDivElement, JSX.IntrinsicElements["div"]>(
   ({ className, ...props }, ref) => (
-    <div
-      className={cx(className, "cap-padding--horizontal", "cap-dropdown-wrapper")}
-      {...props}
-      ref={ref}
-    />
+    <div className={cx("bx--col", "cap-dropdown-wrapper", className)} {...props} ref={ref} />
   )
 );
 
@@ -17,12 +13,12 @@ const Internal = React.forwardRef<HTMLDivElement, JSX.IntrinsicElements["div"]>(
 const DropdownWrapper = styled<
   JSX.IntrinsicElements["div"] & { innerRef?: React.Ref<HTMLDivElement> }
 >(Internal)(`
-  ${mqStringsMax.sm(`
+  ${mqStringsMax.md(`
     max-width: 100%;
     padding-left: 0;
     padding-right: 0;
   `)}
-  ${mqStrings.sm(`
+  ${mqStrings.md(`
     min-width: 240px;
   `)}
 `);

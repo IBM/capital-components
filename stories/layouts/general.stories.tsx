@@ -12,7 +12,8 @@ import {
   TabsV2,
   ScrollRow,
   Col,
-  Mobile
+  Mobile,
+  Row
 } from "capital-components";
 import {
   ContentWrapper,
@@ -272,22 +273,24 @@ stories.add("Basic", () => {
             />
             <Flex direction="row">
               <Grid isContainer verticalPadding="top lg" preventShrink={false}>
-                <Col size="all">
-                  <DataTable
-                    columns={columns}
-                    rows={rows}
-                    getRowIdentifier={row => row.name}
-                    renderToolbar={<TableToolbarSearch onChange={action("Searching")} />}
-                  />
-                  <Pagination
-                    page={1}
-                    totalItems={50}
-                    pageSize={10}
-                    pageSizes={[10, 50, 100]}
-                    onChange={action("pagination change")}
-                  />
-                  <ContentBottomPadding />
-                </Col>
+                <Row>
+                  <Col>
+                    <DataTable
+                      columns={columns}
+                      rows={rows}
+                      getRowIdentifier={row => row.name}
+                      renderToolbar={<TableToolbarSearch onChange={action("Searching")} />}
+                    />
+                    <Pagination
+                      page={1}
+                      totalItems={50}
+                      pageSize={10}
+                      pageSizes={[10, 50, 100]}
+                      onChange={action("pagination change")}
+                    />
+                    <ContentBottomPadding />
+                  </Col>
+                </Row>
               </Grid>
               <PushOver
                 isOpen={showPushOver}
@@ -396,19 +399,21 @@ stories.add("Sidebar section", () => {
               }
             />
             <Grid isContainer allowGrow preventShrink>
-              <Col size="all">
-                <TabsV2 alignment="flex-start" underscoreHeight="thin">
-                  <ReactRouterTab path="/el1">Element 1</ReactRouterTab>
-                  <ReactRouterTab path="/el2">Element 2</ReactRouterTab>
-                </TabsV2>
-              </Col>
-              <Col size="1/3" separator="fullscreen right">
-                {lorem.generateParagraphs(1)}
-              </Col>
-              <Col size="1/3" separator="fullscreen right">
-                <div>Some main content</div>
-              </Col>
-              <Col size="1/3">Some sidebar content</Col>
+              <Row>
+                <Col>
+                  <TabsV2 alignment="flex-start" underscoreHeight="thin">
+                    <ReactRouterTab path="/el1">Element 1</ReactRouterTab>
+                    <ReactRouterTab path="/el2">Element 2</ReactRouterTab>
+                  </TabsV2>
+                </Col>
+              </Row>
+              <Row>
+                <Col separator="fullscreen right">{lorem.generateParagraphs(1)}</Col>
+                <Col separator="fullscreen right">
+                  <div>Some main content</div>
+                </Col>
+                <Col>Some sidebar content</Col>
+              </Row>
             </Grid>
           </VerticalScrollableContent>
           <FooterBar>
@@ -435,12 +440,14 @@ stories.add("Sidebar section with small col", () => {
       <ContentWrapper>
         <VerticalScrollableContent>
           <Grid isContainer allowGrow>
-            <Col size={3} separator="fullscreen right">
-              {lorem.generateParagraphs(7)}
-            </Col>
-            <Col size={9} css="background-color: red;">
-              <div>Some main content</div>
-            </Col>
+            <Row>
+              <Col size={3} separator="fullscreen right">
+                {lorem.generateParagraphs(7)}
+              </Col>
+              <Col size={9} css="background-color: red;">
+                <div>Some main content</div>
+              </Col>
+            </Row>
           </Grid>
         </VerticalScrollableContent>
       </ContentWrapper>

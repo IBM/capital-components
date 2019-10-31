@@ -1,15 +1,13 @@
-import DownIcon from "../../fss-icons/triangle-down_16";
-import RightIcon from "../../fss-icons/triangle-right_16";
 import { ChevronDown16, ChevronRight16 } from "@carbon/icons-react";
 import { detect } from "detect-browser";
 import { css, cx } from "emotion";
 import invariant from "invariant";
 import React from "react";
-import Media from "react-media";
-import { breakpoints, mqStrings as mediaQuery } from "../../layout/mediaQueries";
+import { mqStrings as mediaQuery, useIsMobile } from "../../layout/mediaQueries";
 import { Flex } from "../../primitives/elements";
 import { styled } from "../../support/theme";
 import Col from "../Col";
+import Row from "../Row";
 import Grid from "../Grid";
 import Icon from "../Icon";
 import { scrollRowContainerClass } from "../ScrollRow/ScrollRow";
@@ -67,8 +65,8 @@ const Ribbon: React.SFC<{
   floatRightOfTitle?: React.ReactNode;
   /** Node to be displayed just above title. */
   supertitle?: React.ReactNode;
-  /** Set the number of columns you want the title to take up. Note that this is a general hint and the actual width may differ depending on the floatRightOfTitle. Supported values: 6-11|all */
-  titleWidthHint?: "6" | "7" | "8" | "9" | "10" | "11" | "all";
+  /** Set the number of columns you want the title to take up. Note that this is a general hint and the actual width may differ depending on the floatRightOfTitle. Supported values: 6-15|all */
+  titleWidthHint?: "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "all";
 }> = ({
   className,
   wrapperClassName,
@@ -78,93 +76,91 @@ const Ribbon: React.SFC<{
   children,
   titleWidthHint,
   ...otherProps
-}) => (
-  <Media query={{ maxWidth: breakpoints.sm - 1 }}>
-    {isMobile => {
-      invariant(
-        !expandable || otherProps.onExpandClick,
-        "BannerRibbon: if expandable is specified, onExpandClick must be provided as well."
-      );
+}) => {
+  const isMobile = useIsMobile();
 
-      const isExpandable = isActuallyExpandable(
-        isMobile,
-        expandable,
-        floatRightOfTitle,
-        children,
-        otherProps
-      );
+  invariant(
+    !expandable || otherProps.onExpandClick,
+    "BannerRibbon: if expandable is specified, onExpandClick must be provided as well."
+  );
 
-      if (isMobile) {
-        return (
-          <BannerRibbonWrapper className={className} isExpandable={isExpandable} mobile={isMobile}>
-            <MobileExpandWrapper
-              {...otherProps}
-              title={title}
+  const isExpandable = isActuallyExpandable(
+    isMobile,
+    expandable,
+    floatRightOfTitle,
+    children,
+    otherProps
+  );
+
+  if (isMobile) {
+    return (
+      <BannerRibbonWrapper className={className} isExpandable={isExpandable} mobile={isMobile}>
+        <MobileExpandWrapper
+          {...otherProps}
+          title={title}
+          expandable={isExpandable}
+          floatRightOfTitle={floatRightOfTitle}
+        />
+        {children}
+      </BannerRibbonWrapper>
+    );
+  }
+
+  /* istanbul ignore next */
+  if (isIE) {
+    const cursor = `cursor: ${isExpandable ? "pointer" : "inherit"};`;
+    return (
+      <BannerRibbonWrapper className={className} isExpandable={isExpandable} mobile={isMobile}>
+        <Grid isContainer={true} verticalPadding="xl" css="overflow: visible;">
+          <ExpanderWrapper css={cursor}>
+            <ExpanderIcon
               expandable={isExpandable}
-              floatRightOfTitle={floatRightOfTitle}
+              isExpanded={otherProps.isExpanded}
+              onClick={otherProps.onExpandClick}
+              className={css`
+                ${otherProps.supertitle ? "margin-top: 2.5rem" : "margin-top: 1.25rem"};
+              `}
             />
-            {children}
-          </BannerRibbonWrapper>
-        );
-      }
+          </ExpanderWrapper>
 
-      /* istanbul ignore next */
-      if (isIE) {
-        const cursor = `cursor: ${isExpandable ? "pointer" : "inherit"};`;
-        return (
-          <BannerRibbonWrapper className={className} isExpandable={isExpandable} mobile={isMobile}>
-            <Grid isContainer={true} verticalPadding="xl" css="overflow: visible;">
-              <ExpanderWrapper css={cursor}>
-                <ExpanderIcon
-                  expandable={isExpandable}
-                  isExpanded={otherProps.isExpanded}
-                  onClick={otherProps.onExpandClick}
-                  className={css`
-                    ${otherProps.supertitle ? "margin-top: 2.5rem" : "margin-top: 1.25rem"};
-                  `}
-                />
-              </ExpanderWrapper>
+          <IEDesktopExpandWrapper
+            supertitle={otherProps.supertitle}
+            title={title}
+            floatRightOfTitle={floatRightOfTitle}
+            onClick={otherProps.onExpandClick}
+            role={isExpandable ? "button" : "header"}
+            css={cursor}
+            titleWidthHint={titleWidthHint}
+            aria-expanded={isExpandable ? otherProps.isExpanded : undefined}
+          />
+          {children}
+        </Grid>
+      </BannerRibbonWrapper>
+    );
+  }
 
-              <IEDesktopExpandWrapper
-                supertitle={otherProps.supertitle}
-                title={title}
-                floatRightOfTitle={floatRightOfTitle}
-                onClick={otherProps.onExpandClick}
-                role={isExpandable ? "button" : "header"}
-                css={cursor}
-                titleWidthHint={titleWidthHint}
-                aria-expanded={isExpandable ? otherProps.isExpanded : undefined}
-              />
-              {children}
-            </Grid>
-          </BannerRibbonWrapper>
-        );
-      }
-
-      return (
-        <BannerRibbonWrapper className={className} isExpandable={isExpandable} mobile={isMobile}>
-          <Grid isContainer={true} verticalPadding="xl" css="overflow: visible;">
-            {otherProps.supertitle && (
-              <Col size="all" flexDirection="row">
-                {otherProps.supertitle}
-              </Col>
-            )}
-            <Flex direction="row">
-              <DesktopExpandWrapper
-                {...otherProps}
-                expandable={isExpandable}
-                titleWidthHint={titleWidthHint}
-                title={title}
-                floatRightOfTitle={floatRightOfTitle}
-              />
-            </Flex>
-            {children}
-          </Grid>
-        </BannerRibbonWrapper>
-      );
-    }}
-  </Media>
-);
+  return (
+    <BannerRibbonWrapper className={className} isExpandable={isExpandable} mobile={isMobile}>
+      <Grid isContainer={true} verticalPadding="xl" css="overflow: visible;">
+        {otherProps.supertitle && (
+          <Row flexDirection="row">
+            <Col>{otherProps.supertitle}</Col>
+          </Row>
+        )}
+        <Row flexDirection="row">
+          <DesktopExpandWrapper
+            {...otherProps}
+            expandable={isExpandable}
+            titleWidthHint={titleWidthHint}
+            title={title}
+            floatRightOfTitle={floatRightOfTitle}
+          />
+        </Row>
+        {children}
+      </Grid>
+    </BannerRibbonWrapper>
+  );
+};
 
 interface IExpandableProps {
   className?: string;
@@ -201,8 +197,13 @@ const ExpanderIcon = ({
       alignment="center"
       padding="right xs"
       cssWithTheme={({ theme }) => `
+              position: absolute;
+              transform: translateX(-100%);
               fill: ${theme.color.ui01};
+              height: 100%;
+              width: 32px;
               justify-content: flex-end;
+              top: 0;
             `}
       className={className}
       onClick={onClick}
@@ -293,7 +294,7 @@ const IEDesktopExpandWrapper = ({
 }) => {
   const { maxWidth, remainingWidth } = getSectionHintOptions(titleWidthHint);
   return (
-    <Flex direction="column">
+    <Row flexDirection="column">
       <Flex direction="row" css={maxWidth}>
         {supertitle}
       </Flex>
@@ -307,7 +308,7 @@ const IEDesktopExpandWrapper = ({
           </BannerDesktopFloatWrapper>
         )}
       </Flex>
-    </Flex>
+    </Row>
   );
 };
 
@@ -323,7 +324,7 @@ const DesktopExpandWrapper: React.SFC<IExpandableProps & { titleWidthHint: strin
   const { maxWidth, remainingWidth } = getSectionHintOptions(titleWidthHint);
 
   return (
-    <>
+    <Col flexDirection="row">
       <ExpanderWrapper
         onClick={onExpandClick}
         role={expandable ? "button" : "header"}
@@ -334,7 +335,6 @@ const DesktopExpandWrapper: React.SFC<IExpandableProps & { titleWidthHint: strin
             flex: 1 1 auto;
             cursor: ${expandable ? "pointer" : "inherit"};
           `,
-          "cap-padding--horizontal",
           className
         )}
       >
@@ -346,7 +346,7 @@ const DesktopExpandWrapper: React.SFC<IExpandableProps & { titleWidthHint: strin
           {floatRightOfTitle}
         </BannerDesktopFloatWrapper>
       )}
-    </>
+    </Col>
   );
 };
 

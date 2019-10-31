@@ -3,18 +3,22 @@ import React from "react";
 import Media from "react-media";
 import { breakpoints, mqStringsMax } from "../../layout/mediaQueries";
 import { Flex } from "../../primitives/elements";
+import Row from "../Row/Row";
 
 export const scrollRowContainerClass = css`
   overflow-x: auto;
   overflow-y: hidden;
   padding-bottom: 0.75rem;
-  > * {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-  }
+
   > *:first-child {
-    ${mqStringsMax.sm(`
-      padding-left: 0
+    ${mqStringsMax.md(`
+      padding-left: 2rem;
+    `)};
+  }
+
+  > *:last-child {
+    ${mqStringsMax.md(`
+      padding-right: 2rem;
     `)};
   }
 `;
@@ -34,7 +38,7 @@ export const ScrollRow: React.SFC<{
   <Media query={{ minWidth: breakpoints.sm }}>
     {matches => {
       if (matches) {
-        return <React.Fragment>{children}</React.Fragment>;
+        return <Row>{children}</Row>;
       }
       const minMaxWidth = css`
         > * {
@@ -49,14 +53,16 @@ export const ScrollRow: React.SFC<{
         }
       `;
       return (
-        <Flex
-          direction="row"
-          className={cx(scrollRowContainerClass, scrollClassName, minMaxWidth, {
-            [preventShrinkClass]: preventShrink
-          })}
-        >
-          {children}
-        </Flex>
+        <Row css="padding-left: 0; padding-right: 0; margin-right: 0; margin-left: 0;">
+          <Flex
+            direction="row"
+            className={cx(scrollRowContainerClass, scrollClassName, minMaxWidth, {
+              [preventShrinkClass]: preventShrink
+            })}
+          >
+            {children}
+          </Flex>
+        </Row>
       );
     }}
   </Media>
