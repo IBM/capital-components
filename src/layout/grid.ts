@@ -3,60 +3,30 @@ import cx from "classnames";
 import {
   buildStringForMediaQueries,
   IBreakPointDescriptor,
-  smallestBreakpoint
+  breakpoints,
+  breakpointToColumnCount
 } from "./mediaQueries";
 import { getSpacingOrDefault } from "./spacing";
 import { Omit } from "type-zoo/types";
 
-export const createGridClass = (args?: {
-  isCondensed?: boolean;
-  isContainer?: boolean;
-  isFixedColumns?: boolean;
-  isFluidRows?: boolean;
-}) => {
+export const createGridClass = (
+  args: {
+    isCondensed?: boolean;
+  } = {}
+) => {
   return cx("bx--grid", { "bx--grid--condensed": args.isCondensed });
 };
 
-// const fractionToWhole = (breakpoint: keyof IBreakPointDescriptor<number>) => {
-//   const columnCount = carbonBreakpoints[breakpoint].columns;
-//   return {
-//     "1/8": Math.floor(columnCount / 8),
-//     /* Deprecated fraction.*/
-//     "1/6": Math.floor(columnCount / 6),
-//     "1/4": Math.floor(columnCount / 4),
-//     /* Deprecated fraction.*/
-//     "1/3": Math.floor(columnCount / 3),
-//     "1/2": Math.floor(columnCount / 2),
-//     /* Deprecated fraction.*/
-//     "2/3": Math.floor((columnCount / 3) * 2),
-//     "3/4": Math.floor((columnCount / 4) * 3),
-//     /* Deprecated fraction.*/
-//     "5/6": Math.floor((columnCount / 6) * 5),
-//     "7/8": Math.floor((columnCount / 8) * 7),
-//     all: columnCount
-//   };
-// };
+export type SupportedSizes =
+  | number
+  | "auto"
+  | Omit<IBreakPointDescriptor<number | "auto" | "all">, "base">;
 
-// const fractionsPerBreakpoint = Object.keys(carbonBreakpoints).reduce(
-//   (acc, item: any) => {
-//     acc[item] = fractionToWhole(item);
-//     return acc;
-//   },
-//   {} as Partial<IBreakPointDescriptor<ReturnType<typeof fractionToWhole>>>
-// );
-
-export type SupportedSizes = number | IBreakPointDescriptor<number>;
-
-export type SupportedHeights = number | IBreakPointDescriptor<number>;
+export type SupportedHeights = number | Omit<IBreakPointDescriptor<number>, "base">;
 
 export type SupportedOffsets = number | Omit<IBreakPointDescriptor<number>, "base">;
 
-// const determineSize = (size: number | SupportedSizesAsFractions, breakpoint: any) => {
-//   if (typeof size === "number") {
-//     return size;
-//   }
-//   return (fractionsPerBreakpoint[breakpoint] && fractionsPerBreakpoint[breakpoint][size]) || size;
-// };
+const breakpointKeys = Object.keys(breakpoints).filter(i => i !== "base");
 
 /**
  * Creates classname for a grid column, specified from a given column span (1-12)
@@ -64,38 +34,41 @@ export type SupportedOffsets = number | Omit<IBreakPointDescriptor<number>, "bas
 export const createColClass = ({
   size,
   height,
-  offset
+  offset = {}
 }: {
   size?: SupportedSizes;
   height?: SupportedHeights;
   offset?: SupportedOffsets;
 }) => {
-  const sizes =
-    typeof size === "string" || typeof size === "number"
-      ? { [smallestBreakpoint]: size }
-      : size || {};
-  const offsets =
-    typeof size === "string" || typeof size === "number"
-      ? { [smallestBreakpoint]: size }
-      : size || {};
+  const baseSizes = breakpointKeys.reduce(
+    (acc, key) => ({
+      ...acc,
+      [key]: typeof size !== "object" ? (size === "auto" ? "-auto" : size) : undefined
+    }),
+    {}
+  );
+  const baseOffsets = breakpointKeys.reduce(
+    (acc, key) => ({ ...acc, [key]: typeof offset === "number" ? size : undefined }),
+    {}
+  );
+  const sizes = typeof size !== "object" ? baseSizes : size ? { ...baseSizes, ...size } : {};
+  const offsets = typeof offset === "number" ? baseOffsets : { ...baseOffsets, ...offset };
 
   return cx(
     {
       "bx--col": size === undefined
     },
-    ...Object.keys(sizes).map(
-      breakpoint =>
-        `bx--col-${breakpoint === "base" ? smallestBreakpoint : breakpoint}-${
-          sizes[breakpoint === "base" ? smallestBreakpoint : breakpoint]
-        }`
-    ),
-    ...Object.keys(offsets).map(breakpoint => `bx--offset-${breakpoint}-${offsets[breakpoint]}`)
-    // ...Object.keys(heights).map(
-    //   breakpoint =>
-    //     `cap-grid__height--${breakpoint === "base" ? smallestBreakpoint : breakpoint}--${
-    //       heights[breakpoint]
-    //     }`
-    // )
+    ...Object.keys(sizes)
+      .filter(breakpoint => sizes[breakpoint])
+      .map(
+        breakpoint =>
+          `bx--col-${breakpoint}-${
+            sizes[breakpoint] === "all" ? breakpointToColumnCount[breakpoint] : sizes[breakpoint]
+          }`
+      ),
+    ...Object.keys(offsets)
+      .filter(breakpoint => offsets[breakpoint])
+      .map(breakpoint => `bx--offset-${breakpoint}-${offsets[breakpoint]}`)
   );
 };
 

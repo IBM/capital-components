@@ -16,16 +16,25 @@ export interface IBreakPointDescriptor<A> {
 
 export const smallestBreakpoint = "sm" as const;
 
-// breakpoints as defined in css-gridish.json file.
-// We aren't importing it because we don't want to make assumptions
-// about what the client can parse. Keep it to js output.
-export const breakpoints: Required<IBreakPointDescriptor<number>> = {
-  ...Object.keys(carbonBreakpoints).reduce((acc, key) => {
-    acc[key] = parseInt(carbonBreakpoints[key].width.replace("rem", ""), 10) * baseFontSize;
-    return acc;
-  }, {}),
-  base: 0
-} as any;
+export const breakpointToColumnCount = {
+  ...Object.keys(carbonBreakpoints).reduce(
+    (acc, key) => ({
+      ...acc,
+      [key]: carbonBreakpoints[key].columns
+    }),
+    { base: 0 } as Required<IBreakPointDescriptor<number>>
+  )
+};
+
+export const breakpoints = {
+  ...Object.keys(carbonBreakpoints).reduce(
+    (acc, key) => ({
+      ...acc,
+      [key]: parseInt(carbonBreakpoints[key].width.replace("rem", ""), 10) * baseFontSize
+    }),
+    { base: 0 } as Required<IBreakPointDescriptor<number>>
+  )
+};
 
 export type MqDescriptor = Required<
   IBreakPointDescriptor<(arg: string | CSSObject) => string | CSSObject>

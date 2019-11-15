@@ -8,6 +8,7 @@ import { buildSpacing } from "../../layout/spacing";
 import { styled, Theme, withTheme } from "../../support/theme";
 import { detect } from "detect-browser";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
+import Col from "../../components/Col";
 
 const browser = detect();
 /* istanbul ignore next */
@@ -152,15 +153,22 @@ export const Seperator = ({
   className?: string;
   hideBar?: boolean;
   withinGrid?: boolean;
-}) => (
-  <SeperatorWrapper
-    className={cx(className, css(buildSpacing(padding)), {
-      "cap-padding--horizontal": withinGrid
-    })}
-  >
-    {!hideBar && <SeperatorInternal inverse={inverse} fullWidth={fullWidth} />}
-  </SeperatorWrapper>
-);
+}) => {
+  const Wrapper = withinGrid ? Col : React.Fragment;
+  return (
+    <SeperatorWrapper
+      className={cx(className, css(buildSpacing(padding)), {
+        "bx--row": withinGrid
+      })}
+    >
+      {!hideBar && (
+        <Wrapper>
+          <SeperatorInternal inverse={inverse} fullWidth={fullWidth} />
+        </Wrapper>
+      )}
+    </SeperatorWrapper>
+  );
+};
 
 const VerticalSeperatorInternal = styled("div")<{ inverse?: boolean }>`
   background-color: ${({ inverse, theme }) => (inverse ? theme.color.ui01 : theme.color.ui04)};

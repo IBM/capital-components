@@ -3,56 +3,29 @@ import { buildVerticalSpacing, createColClass, createGridClass } from "./grid";
 describe("grid classnames", () => {
   it("base grid definition", () => {
     const result = createGridClass();
-    expect(result).toBe("cap-grid");
+    expect(result).toBe("bx--grid");
   });
 
   it("all the options for grid", () => {
-    const result = createGridClass({ isContainer: true, isFixedColumns: true, isFluidRows: true });
-    expect(result).toBe("cap-grid cap-container cap-grid--fixed-columns cap-grid--fluid-rows");
+    const result = createGridClass({ isCondensed: true });
+    expect(result).toBe("bx--grid bx--grid--condensed");
   });
 });
 
 describe("column classnames", () => {
-  it("size defaults to 1", () => {
+  it("basic col takes any room it needs", () => {
     const result = createColClass({});
-    expect(result).toBe("cap-padding--horizontal cap-grid__col--xs--1");
+    expect(result).toBe("bx--col");
   });
 
-  it("basic size applies to xs and above (all breakpoints)", () => {
+  it("basic size applies to sm and above (all breakpoints)", () => {
     const result = createColClass({ size: 1 });
-    expect(result).toBe("cap-padding--horizontal cap-grid__col--xs--1");
+    expect(result).toBe("bx--col-sm-1 bx--col-md-1 bx--col-lg-1 bx--col-xlg-1 bx--col-max-1");
   });
 
   it("object sizes applies classes for keyed sizes", () => {
     const result = createColClass({ size: { sm: 1, md: 2 } });
-    expect(result).toBe("cap-padding--horizontal cap-grid__col--sm--1 cap-grid__col--md--2");
-  });
-
-  it("support for fraction syntax", () => {
-    const result = createColClass({ size: "1/2" });
-    expect(result).toBe("cap-padding--horizontal cap-grid__col--sm--6");
-  });
-
-  it("support for fraction syntax in object notation", () => {
-    const result = createColClass({ size: { lg: "1/2", sm: "1/6" } });
-    expect(result).toBe("cap-padding--horizontal cap-grid__col--lg--6 cap-grid__col--sm--2");
-  });
-
-  it("height object set classes for fixed height accross breakpoints", () => {
-    const result = createColClass({ height: { sm: 1, md: 3 } });
-    expect(result).toBe(
-      "cap-padding--horizontal cap-grid__col--sm--1 cap-grid__height--sm--1 cap-grid__height--md--3"
-    );
-  });
-
-  it("heights set classes for fixed height for all breakpoints", () => {
-    const result = createColClass({ height: 1 });
-    expect(result).toBe("cap-padding--horizontal cap-grid__col--sm--1 cap-grid__height--sm--1");
-  });
-
-  it("base is considered to be the same as sm (height and size)", () => {
-    const result = createColClass({ height: { base: 5 }, size: { base: 2 } });
-    expect(result).toBe("cap-padding--horizontal cap-grid__col--sm--2 cap-grid__height--sm--5");
+    expect(result).toBe("bx--col-sm-1 bx--col-md-2");
   });
 });
 

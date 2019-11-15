@@ -1,4 +1,5 @@
-import { Col, Grid } from "capital-components";
+import { Col, Grid, Row } from "capital-components";
+import { Seperator } from "capital-components/lib/primitives/elements";
 import { withInfo } from "@storybook/addon-info";
 import { storiesOf } from "@storybook/react";
 import { css } from "emotion";
@@ -18,90 +19,33 @@ stories.add(
     text: `
     #### Grids
     Grids allow you to be able to horizontally align your contents. Note
-    that you cannot have a grid within a grid and expect it to follow the 
+    that you cannot have a grid within a grid and expect it to follow the
     exact same lanes (due to a lack of support for subgrids).
 
     #### Cols
-    Cols are not quite table columns but are items within the grid. They 
-    must take up at least size 1 (default). You can specify size as any 
-    fraction of 12 (reduced) or an integer (<= 12).
+    Cols are not quite table columns but are items within the grid. They
+    must take up at least size 1 (default). You can specify size as an integer (<= 16).
   `
   })(() => (
-    <Grid isContainer={true}>
-      <Col size="all" className={redBackground}>
-        This is one column crossing all
-      </Col>
-      <Col size="1/6" className={blueBackground}>
-        With a smaller column
-      </Col>
-      <Col size="5/6" className={yellowBackground}>
-        Another column filling up the rest
-      </Col>
-    </Grid>
-  ))
-);
-
-stories.add(
-  "Fluid Rows",
-  withInfo({
-    text: `
-      Fluid rows means that row height will be determined similar to column
-      width (in chunks). This means that 12 rows make up 100vh.
-    `
-  })(() => (
-    <Grid isContainer={true} isFluidRows={true}>
-      <Col size="all" className={redBackground}>
-        This is one column crossing all
-      </Col>
-      <Col size="1/6" className={blueBackground}>
-        With a smaller column
-      </Col>
-      <Col size="5/6" className={yellowBackground}>
-        Another column filling up the rest
-      </Col>
-    </Grid>
-  ))
-);
-
-stories.add(
-  "Fixed Columns",
-  withInfo({
-    text: `
-        Fixed columns means that the width of the column never changes. It
-        is always 1/12 of our optimal screen width.
-      `
-  })(() => (
-    <Grid isContainer={true} isFixedColumns={true}>
-      <Col size="all" className={redBackground}>
-        This is one column crossing all
-      </Col>
-      <Col size="1/6" className={blueBackground}>
-        With a smaller column
-      </Col>
-      <Col size="5/6" className={yellowBackground}>
-        Another column filling up the rest
-      </Col>
-    </Grid>
-  ))
-);
-
-stories.add(
-  "Vertical Padding",
-  withInfo({
-    text: `
-          Padding can be added for vertical alignment
-        `
-  })(() => (
-    <Grid isContainer={true} verticalPadding="top xl">
-      <Col size="all" className={redBackground}>
-        This is one column crossing all
-      </Col>
-      <Col size="1/6" className={blueBackground} verticalPadding="xl">
-        With a smaller column
-      </Col>
-      <Col size="5/6" className={yellowBackground}>
-        Another column filling up the rest
-      </Col>
+    <Grid>
+      <Row>
+        <Col className={redBackground}>This is one column crossing all</Col>
+      </Row>
+      <Row>
+        <Col size={3} className={blueBackground}>
+          With a smaller column
+        </Col>
+        <Col className={yellowBackground}>Another column filling up the rest</Col>
+      </Row>
+      <Row>
+        <Col size={{ sm: 2, lg: 8 }} className={blueBackground}>
+          A large column that takes up 2 spans in small, and 8 at large
+        </Col>
+      </Row>
+      <Seperator padding="bottom sm" />
+      <Row>
+        <Col>Some content after seperator</Col>
+      </Row>
     </Grid>
   ))
 );
@@ -114,16 +58,18 @@ stories.add(
             depending on the screen size.
           `
   })(() => (
-    <Grid isContainer={true}>
-      <Col size={{ xs: "all", m: "1/2" }} className={redBackground}>
-        When the screen gets small, I take up all the room.
-      </Col>
-      <Col size="1/6" className={blueBackground} verticalPadding="xl">
-        With a smaller column
-      </Col>
-      <Col size="5/6" className={yellowBackground}>
-        Another column filling up the rest
-      </Col>
+    <Grid>
+      <Row>
+        <Col size={4} className={redBackground}>
+          When the screen gets small, I take up all the room.
+        </Col>
+        <Col size={{ sm: 1, lg: 2 }} className={blueBackground} verticalPadding="xl">
+          With a smaller column
+        </Col>
+        <Col size={{ sm: 3, lg: 14 }} className={yellowBackground}>
+          Another column filling up the rest
+        </Col>
+      </Row>
     </Grid>
   ))
 );
@@ -135,16 +81,14 @@ stories.add(
             Sometimes you need your spacing to also depend on the screen size
           `
   })(() => (
-    <Grid isContainer={true} verticalMargin={{ base: "sm", m: "xl" }}>
-      <Col size={{ base: "all", m: "1/2" }} className={redBackground}>
-        When the screen gets small, I take up all the room.
-      </Col>
-      <Col size="1/6" className={blueBackground} verticalPadding="xl">
-        With a smaller column
-      </Col>
-      <Col size="5/6" className={yellowBackground}>
-        Another column filling up the rest
-      </Col>
+    <Grid verticalMargin={{ base: "sm", md: "xl" }}>
+      <Row>
+        <Col className={redBackground}>When the screen gets small, I take up all the room.</Col>
+        <Col className={blueBackground} verticalPadding="xl">
+          With a smaller column
+        </Col>
+        <Col className={yellowBackground}>Another column filling up the rest</Col>
+      </Row>
     </Grid>
   ))
 );

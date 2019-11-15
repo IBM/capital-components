@@ -65,8 +65,24 @@ const Ribbon: React.SFC<{
   floatRightOfTitle?: React.ReactNode;
   /** Node to be displayed just above title. */
   supertitle?: React.ReactNode;
-  /** Set the number of columns you want the title to take up. Note that this is a general hint and the actual width may differ depending on the floatRightOfTitle. Supported values: 6-15|all */
-  titleWidthHint?: "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "all";
+  /** Set the number of columns you want the title to take up. Note that this is a general hint and the actual width may differ depending on the floatRightOfTitle. Supported values: 1-15|all */
+  titleWidthHint?:
+    | "1"
+    | "2"
+    | "3"
+    | "4"
+    | "5"
+    | "6"
+    | "7"
+    | "8"
+    | "9"
+    | "10"
+    | "11"
+    | "12"
+    | "13"
+    | "14"
+    | "15"
+    | "all";
 }> = ({
   className,
   wrapperClassName,
@@ -111,7 +127,7 @@ const Ribbon: React.SFC<{
     const cursor = `cursor: ${isExpandable ? "pointer" : "inherit"};`;
     return (
       <BannerRibbonWrapper className={className} isExpandable={isExpandable} mobile={isMobile}>
-        <Grid isContainer={true} verticalPadding="xl" css="overflow: visible;">
+        <Grid verticalPadding="xl" css="overflow: visible;">
           <ExpanderWrapper css={cursor}>
             <ExpanderIcon
               expandable={isExpandable}
@@ -141,7 +157,7 @@ const Ribbon: React.SFC<{
 
   return (
     <BannerRibbonWrapper className={className} isExpandable={isExpandable} mobile={isMobile}>
-      <Grid isContainer={true} verticalPadding="xl" css="overflow: visible;">
+      <Grid verticalPadding="xl" css="overflow: visible;">
         {otherProps.supertitle && (
           <Row flexDirection="row">
             <Col>{otherProps.supertitle}</Col>
@@ -216,7 +232,7 @@ const ExpanderIcon = ({
 
 const ExpanderWrapper = styled(Flex)(
   ({ theme }) => mediaQuery.base(theme.fonts.styles.bodyShort02),
-  ({ theme }) => mediaQuery.sm(theme.fonts.styles.productiveHeading05),
+  ({ theme }) => mediaQuery.md(theme.fonts.styles.productiveHeading05),
   `
   color: currentColor;
   flex: 1 1 auto;
@@ -263,7 +279,10 @@ const MobileExpandWrapper: React.SFC<IExpandableProps> = ({
 
 const BannerDesktopFloatWrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
+  > .bx--row {
+    flex: 1 1 auto;
+    justify-content: flex-end;
+  }
 `;
 
 /* istanbul ignore next */
@@ -277,7 +296,7 @@ const IETitleWrapper = styled(Flex)(
 
 /* istanbul ignore next */
 const IETextWrap = styled(TextWrap)(
-  ({ theme }) => mediaQuery.sm(theme.fonts.styles.productiveHeading05),
+  ({ theme }) => mediaQuery.md(theme.fonts.styles.productiveHeading05),
   `
   overflow: hidden;
   flex: 1 1 auto;
@@ -292,14 +311,12 @@ const IEDesktopExpandWrapper = ({
   titleWidthHint,
   ...props
 }) => {
-  const { maxWidth, remainingWidth } = getSectionHintOptions(titleWidthHint);
+  const { headerWidth, remainingWidth } = getSectionHintOptions(titleWidthHint);
   return (
     <Row flexDirection="column">
-      <Flex direction="row" css={maxWidth}>
-        {supertitle}
-      </Flex>
+      <Flex direction="row">{supertitle}</Flex>
       <Flex direction="row">
-        <IETitleWrapper direction="column" className={css(maxWidth)} {...props}>
+        <IETitleWrapper direction="column" className={css(headerWidth)} {...props}>
           <IETextWrap>{title}</IETextWrap>
         </IETitleWrapper>
         {floatRightOfTitle && (
@@ -321,7 +338,7 @@ const DesktopExpandWrapper: React.SFC<IExpandableProps & { titleWidthHint: strin
   titleWidthHint,
   className
 }) => {
-  const { maxWidth, remainingWidth } = getSectionHintOptions(titleWidthHint);
+  const { headerWidth, remainingWidth } = getSectionHintOptions(titleWidthHint);
 
   return (
     <Col flexDirection="row">
@@ -331,8 +348,7 @@ const DesktopExpandWrapper: React.SFC<IExpandableProps & { titleWidthHint: strin
         aria-expanded={expandable ? isExpanded : undefined}
         className={cx(
           css`
-            ${maxWidth};
-            flex: 1 1 auto;
+            ${headerWidth};
             cursor: ${expandable ? "pointer" : "inherit"};
           `,
           className
@@ -353,15 +369,17 @@ const DesktopExpandWrapper: React.SFC<IExpandableProps & { titleWidthHint: strin
 export default Ribbon;
 
 function getSectionHintOptions(titleWidthHint: string) {
-  const vwCalced = (90 * Number.parseInt(titleWidthHint, 10)) / 12;
-  const needToAdjustWidths = !titleWidthHint || titleWidthHint === "all";
-  const maxWidth = needToAdjustWidths ? undefined : `max-width: ${vwCalced}vw;`;
-  // The following will cause the float right section to adjust and fit
-  // to the available space left over.
-  const remainingWidth = needToAdjustWidths
-    ? undefined
-    : `max-width: ${90 - vwCalced}vw; flex: 1 1 auto;`;
-  return { maxWidth, remainingWidth };
+  if (titleWidthHint === "all" || !titleWidthHint) {
+    return {
+      headerWidth: "flex: 1 1 auto"
+    };
+  }
+  const titleWidthFraction = Number.parseInt(titleWidthHint, 10) / 16;
+  const remaining = 1 - titleWidthFraction;
+  return {
+    headerWidth: `flex: 1 1 ${titleWidthFraction * 100}%`,
+    remainingWidth: `flex: 1 1 ${remaining * 100}%`
+  };
 }
 
 function isActuallyExpandable(

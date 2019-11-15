@@ -439,12 +439,12 @@ stories.add("Sidebar section with small col", () => {
     <MainWrapper>
       <ContentWrapper>
         <VerticalScrollableContent>
-          <Grid isContainer allowGrow>
+          <Grid>
             <Row>
-              <Col size={3} separator="fullscreen right">
+              <Col size={4} separator="fullscreen right">
                 {lorem.generateParagraphs(7)}
               </Col>
-              <Col size={9} css="background-color: red;">
+              <Col size={12} css="background-color: red;">
                 <div>Some main content</div>
               </Col>
             </Row>

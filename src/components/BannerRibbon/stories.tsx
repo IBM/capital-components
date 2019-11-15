@@ -256,3 +256,20 @@ stories.add("Double dropdowns", () => {
     </div>
   );
 });
+
+stories.add("With a scrollable element", () => {
+  return (
+    <div css="width: 100vw;">
+      <BannerRibbon.Ribbon
+        title="Basic title"
+        floatRightOfTitle={
+          <ScrollRow>
+            <Col size={2}>Item 1</Col>
+            <Col size={2}>Item 2</Col>
+            <Col size={2}>Item 3</Col>
+          </ScrollRow>
+        }
+      />
+    </div>
+  );
+});

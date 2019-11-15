@@ -1,7 +1,7 @@
 import { DataTable } from "capital-components";
 import { action } from "@storybook/addon-actions";
 import { storiesOf } from "@storybook/react";
-import { PaginationV2, DataTable as CarbonDataTable } from "carbon-components-react";
+import { Pagination, DataTable as CarbonDataTable } from "carbon-components-react";
 import React, { useState } from "react";
 import Readme from "./README.md";
 import { withReadme } from "storybook-readme";
@@ -119,7 +119,7 @@ stories.add(
         getRowIdentifier={row => row.name}
         getAdditionalRowProps={() => ({ onClick: action("row click") })}
       />
-      <PaginationV2
+      <Pagination
         page={1}
         totalItems={50}
         pageSize={10}
