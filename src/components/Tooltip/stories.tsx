@@ -4,6 +4,8 @@ import React from "react";
 import Readme from "./README.md";
 import { withReadme } from "storybook-readme";
 import { styled } from "capital-components/lib/support/theme";
+import { HeaderPanel } from "carbon-components-react/lib/components/UIShell";
+
 const El = styled.div(
   `
   background-color: red;
@@ -103,6 +105,20 @@ stories.add("Within scroll parent", () => {
           </Tooltip>
         ))}
       </ScrollParent>
+    </>
+  );
+});
+
+stories.add("Fixed poisition elements", () => {
+  return (
+    <>
+      <HeaderPanel expanded>
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
+          <Tooltip placement="left" content="Item1 content" key={num}>
+            Item {num}
+          </Tooltip>
+        ))}
+      </HeaderPanel>
     </>
   );
 });

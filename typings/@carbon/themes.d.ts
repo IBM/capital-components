@@ -13,6 +13,7 @@ declare module "@carbon/themes" {
   export const text02: string;
   export const text03: string;
   export const text04: string;
+  export const text05: string;
   export const icon01: string;
   export const icon02: string;
   export const icon03: string;

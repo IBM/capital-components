@@ -5,7 +5,7 @@ import { CenteredBlock } from "../../primitives/elements";
 
 export type Props = ComponentPropsWithoutRef<typeof CenteredBlock> & {
   // The given size of a icon. Either a set size, or a number (in rem)
-  size: "xsmall" | "small" | "medium" | "large" | "xlarge" | "xxxlarge" | number;
+  size: "xsmall" | "small" | "medium" | "large" | "xlarge" | "xxxlarge" | number | "auto";
   title?: string;
   glyph?: {
     id: string;
@@ -31,11 +31,14 @@ const SVGContainer = React.forwardRef<HTMLDivElement, ContainerProps>(
   ({ className, size, children, circleColor, color, ...otherProps }, ref) => {
     const iconSize = sizeToREM[size] || size;
 
-    const fill = css`
+    const sizing = css`
       height: ${iconSize}rem;
       min-height: ${iconSize}rem;
       width: ${iconSize}rem;
       min-width: ${iconSize}rem;
+    `;
+
+    const fill = css`
       position: relative;
       fill: ${color};
       color: ${color};
@@ -59,7 +62,8 @@ const SVGContainer = React.forwardRef<HTMLDivElement, ContainerProps>(
           fill,
           "icon",
           {
-            [circleStyle]: circleColor
+            [circleStyle]: circleColor,
+            [sizing]: size !== "auto"
           },
           className
         )}

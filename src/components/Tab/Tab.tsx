@@ -45,7 +45,7 @@ const UnderscoreDiv = styled.div<{
   position: "absolute",
   left: firstChild ? 0 : theme.spacing.spacing[spacingBetween],
   height: underscoreHeight,
-  backgroundColor: darkMode ? theme.color.text02 : theme.color.brand01,
+  backgroundColor: darkMode ? theme.color.active01 : theme.color.brand01,
   bottom: 0,
   width: `calc(100% - ${firstChild && lastChild ? 0 : firstChild || lastChild ? 1 : 2} * ${
     theme.spacing.spacing[spacingBetween]

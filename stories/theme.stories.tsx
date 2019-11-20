@@ -1,16 +1,13 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { Block, InlineBlock } from "capital-components/lib/primitives/elements";
-import { ThemeProvider, withTheme, themeContext } from "capital-components/lib/support/theme";
-import { themes } from "@carbon/themes";
-import createTheme from "capital-components/lib/support/createTheme";
+import { withTheme, themeContext } from "capital-components/lib/support/theme";
 
-const createdTheme = createTheme(themes.g10);
 const stories = storiesOf("Themes", module);
 
 stories.add("All Colors", () => {
   const Comp = withTheme(({ theme }) => (
-    <div>
+    <div css="overflow: auto">
       {Object.keys(theme.color).map(key => (
         <Block>
           {key}:{" "}
@@ -28,24 +25,14 @@ stories.add("All Colors", () => {
     </div>
   ));
 
-  return (
-    <ThemeProvider theme={createdTheme}>
-      <Comp />
-    </ThemeProvider>
-  );
+  return <Comp />;
 });
 
 stories.add("Primitives", () => (
-  <ThemeProvider theme={createdTheme}>
-    <React.Fragment>
-      <Block cssWithTheme={({ theme }) => `background-color: ${theme.color.brand01};`}>
-        Brand01
-      </Block>
-      <Block cssWithTheme={({ theme }) => `background-color: ${theme.color.brand02};`}>
-        Brand02
-      </Block>
-    </React.Fragment>
-  </ThemeProvider>
+  <React.Fragment>
+    <Block cssWithTheme={({ theme }) => `background-color: ${theme.color.brand01};`}>Brand01</Block>
+    <Block cssWithTheme={({ theme }) => `background-color: ${theme.color.brand02};`}>Brand02</Block>
+  </React.Fragment>
 ));
 
 stories.add("WithTheme enhancer", () => {
@@ -64,11 +51,7 @@ stories.add("WithTheme enhancer", () => {
     </Block>
   ));
 
-  return (
-    <ThemeProvider theme={createdTheme}>
-      <Comp />
-    </ThemeProvider>
-  );
+  return <Comp />;
 });
 
 stories.add("With useContext", () => {

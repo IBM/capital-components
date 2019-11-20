@@ -272,7 +272,7 @@ stories.add("Basic", () => {
               }
             />
             <Flex direction="row">
-              <Grid isContainer verticalPadding="top lg" preventShrink={false}>
+              <Grid verticalPadding="top lg" preventShrink={false}>
                 <Row>
                   <Col>
                     <DataTable
@@ -398,7 +398,7 @@ stories.add("Sidebar section", () => {
                 </ScrollRow>
               }
             />
-            <Grid isContainer allowGrow preventShrink>
+            <Grid allowGrow preventShrink>
               <Row>
                 <Col>
                   <TabsV2 alignment="flex-start" underscoreHeight="thin">
@@ -470,21 +470,23 @@ stories.add("BannerRibbon with Vertical scroll", () => {
             </BannerRibbon.DropdownWrapper>
           }
         />
-        <Grid isContainer allowGrow preventShrink>
-          <Col size="all">
-            <TabsV2 alignment="flex-start" underscoreHeight="thin">
-              <ReactRouterTab path="/el1">Element 1</ReactRouterTab>
-              <ReactRouterTab path="/el2">Element 2</ReactRouterTab>
-            </TabsV2>
-          </Col>
-          <Col size="1/4" separator="fullscreen right">
-            {lorem.generateParagraphs(1)}
-          </Col>
-          <Col size="1/4" separator="fullscreen right">
-            <div>Some main content</div>
-          </Col>
-          <Col size="1/4">Some sidebar content</Col>
-          <Col size="1/4">Just another column (as columns should come in powers of 2)</Col>
+        <Grid allowGrow preventShrink>
+          <Row>
+            <Col>
+              <TabsV2 alignment="flex-start" underscoreHeight="thin">
+                <ReactRouterTab path="/el1">Element 1</ReactRouterTab>
+                <ReactRouterTab path="/el2">Element 2</ReactRouterTab>
+              </TabsV2>
+            </Col>
+          </Row>
+          <Row>
+            <Col separator="fullscreen right">{lorem.generateParagraphs(1)}</Col>
+            <Col separator="fullscreen right">
+              <div>Some main content</div>
+            </Col>
+            <Col>Some sidebar content</Col>
+            <Col>Just another column (as columns should come in powers of 2)</Col>
+          </Row>
         </Grid>
       </VerticalScrollableContent>
     </ContentWrapper>

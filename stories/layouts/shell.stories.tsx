@@ -1,6 +1,5 @@
 import { Grid, Row, NavigationBar } from "capital-components";
 import { action } from "@storybook/addon-actions";
-import { HeaderContainer } from "carbon-components-react";
 import React from "react";
 import { Link } from "react-router-dom";
 import withExternalWindow from "../../storybook-addons/external-window";
