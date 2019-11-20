@@ -29,5 +29,5 @@ export default function(
     return () => {
       document.removeEventListener("click", handleDocumentClick);
     };
-  }, [!handler]);
+  }, [!handler, ref]);
 }
