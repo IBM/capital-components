@@ -22,6 +22,8 @@ const tsProject = ts.createProject("tsconfig.json", {
   declaration: true
 });
 
+sass.compiler = require("node-sass");
+
 const parser = docGen.withCustomConfig("./tsconfig.json");
 
 const clean = () => del(pkg.files);
