@@ -16,7 +16,7 @@ notifications:
     rooms:
       - secure: mPtdA6/mnnmRKOg/Hd4JFPjJsmuImQFCAjW6BVAGMjTjiUYF1OR98aj9V8LNOfSNGGXzhGgK2pztSHIPonAKivED9N0gdcMvoPz+qjSoDtt25bsIkywZsP+eKczWy1h2K2Dorv6bZRgQz4JrWpTLOcgl6ALg+wa+6qMsEkEf1L+IxshgmeK639n2sgMVYrU/mGCM7MdoQoE8Y0Uz8VyUHYXMQkL9S5xNOWrkU+NNGyfFxOf0E8RREgXL87N4Xffnir8+ARj10/iiep1rSsJbZqY91Vp4GvD85VSHOmbhkXBqD76CuylUcV74cy3ubgY2Le4haagrq7+CnW18X/6xv+S0X0Exoe/QwuWjeHTdwf+1fhbPjbTtKQrfENAm7z2jGrpO2J989HjqN1jbjJPpJ0JoeXQUuKDIiVdUIos3Any8mOSI+Rq+mzXI/UyIC1hWi/9+sxauPFz+XwrGoN5CQnLtJ2f9iQJle/xc5efXhYYfpE1jgMyVgD6GGC2t2YDVPIEzvJ4I6rQ7oU3iN5/ZwQQhU/Q6CgCtST4MUbQOPdGn3UhpKW2ShLLf29ME0xq96ckrKWkcXaxtWZt1efwOpAUV4hu49QyxQQE3GlGXvu0eCHvUIDCZzxeSuWjk/NOmotn/qx2yjjtoPByDUHW352hBJ4bl7OW8thkcQsI8860=
 node_js:
-  - "9"
+  - "12.16.1"
 before_install:
   - npm install -g now
 install:
