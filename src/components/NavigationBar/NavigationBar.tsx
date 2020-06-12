@@ -208,6 +208,7 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
     translate?: typeof defaultTranslate;
     id?: string;
     mobileWrapperClassName?: string;
+    mobileMenuSize?: number;
   }
 > = ({
   titleSection,
@@ -222,6 +223,7 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
   translate = defaultTranslate,
   id = "",
   mobileWrapperClassName,
+  mobileMenuSize,
   ...otherProps
 }) => (
   <Media query={{ maxWidth: breakpoints.s - 1 }}>
@@ -273,7 +275,7 @@ const PrimaryBarWithoutTheme: React.FunctionComponent<
             renderMobileMenuContent &&
             ReactDOM.createPortal(
               <PushOver
-                size={300}
+                size={mobileMenuSize === undefined ? 300 : mobileMenuSize}
                 isOpen={showMenu}
                 showOverlay={true}
                 onOverlayClick={onMenuToggle}
